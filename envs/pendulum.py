@@ -10,8 +10,9 @@ env = gym.make('Pendulum-v0')
 env._max_episode_steps = N_MAX_STEPS
 
 """
-uncomment action discretization in monitor.py
-comment out `state, reward, done, _ = env.step(action)`
+NOTE:
+uncomment action discretization in monitor.py env_step()
+comment out line just above it
 """
 
 agent = Agent(state_size=3, action_size=9, fc1_units=32, fc2_units=32, seed=0)

@@ -8,7 +8,7 @@ env = gym.make('FrozenLake-v0')
 #env.seed(0)
 
 """
-uncomment two instances of one-hot encoding in monitor.py
+NOTE: uncomment two instances of one-hot encoding in monitor.py
 """
 
 agent = Agent(state_size=16, action_size=4, fc1_units=32, fc2_units=32, seed=0)

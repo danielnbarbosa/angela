@@ -11,7 +11,10 @@ SEED = random.randint(0, 2 ** 30)
 env = UnityEnvironment(file_name="Banana.app", seed=SEED)
 brain_name = env.brain_names[0]
 
-""" download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/ """
+"""
+NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
+"""
+
 agent = Agent(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0, double_dqn=False, model='classic')
 #train(env, agent, env_type='unity', brain_name=brain_name, n_episodes=1000, eps_start=1.0, eps_end=0.001, eps_decay=0.97, solve_score=13.0, graph_results=False)
 
