@@ -26,22 +26,9 @@ The code is based on [this code](https://github.com/udacity/deep-reinforcement-l
 #### Dependencies
 Create an anaconda environment that contains all the required dependencies to run the project.
 
-Mac:
 ```
 conda create -y -n angela python=3.6 anaconda
 source activate full
-conda install -y pytorch torchvision -c pytorch
-conda install -y -n full pympler opencv openmpi
-conda install -y -n full -c conda-forge keras tensorflow pydot jupyter_contrib_nbextensions
-pip install msgpack gym tensorforce Box2D box2d-py simpleaudio torchsummary unityagents
-cd ~/src/ml/openai/gym
-pip install -e '.[atari]'
-```
-
-Windows:
-```
-conda create -y -n angela python=3.6 anaconda
-activate full
 conda install -y pytorch torchvision -c pytorch
 conda install -y -n full pympler opencv openmpi
 conda install -y -n full -c conda-forge keras tensorflow pydot jupyter_contrib_nbextensions

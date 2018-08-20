@@ -71,7 +71,7 @@ def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=10
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
     # play sound to signal training is finished
-    #play_sound('../libs/fanfare.wav')
+    play_sound('../libs/fanfare.wav')
     if graph_results:
         plot(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
@@ -92,8 +92,8 @@ def env_step(env, action, env_type, brain_name=None):
     """ Given an action, return the state, reward, done. """
 
     if env_type == 'gym':
-        #state, reward, done, _ = env.step(action)
-        state, reward, done, _ = env.step([(action/2) - 2]) # action discretization for Pendulum
+        state, reward, done, _ = env.step(action)
+        #state, reward, done, _ = env.step([(action/2) - 2]) # action discretization for Pendulum
         #state = np.eye(64)[state] # one-hot encode for FrozenLake
     elif env_type == 'unity':
         env_info = env.step(action)[brain_name]        # send the action to the environment
