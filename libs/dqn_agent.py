@@ -50,9 +50,9 @@ class Agent():
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.005)
 
         # Visualize network
-        #print('Double DQN: {}'.format(self.double_dqn))
-        #print(self.qnetwork_local)
-        #summary(self.qnetwork_local, (state_size,))
+        print('Double DQN: {}'.format(self.double_dqn))
+        print(self.qnetwork_local)
+        summary(self.qnetwork_local, (state_size,))
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
