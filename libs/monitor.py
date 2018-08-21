@@ -59,10 +59,10 @@ def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=10
             best_avg_score = avg_score
 
         # print stats
-        print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len), end="")
+        print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}\t⍺: {:.4f}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len, agent.alpha), end="")
         if i_episode % 100 == 0:
             n_secs = int(time.time() - time_start)
-            print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}\tSteps: {:7}\tSecs: {:4}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len, total_steps, n_secs))
+            print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}\t⍺: {:.4f}\tSteps: {:7}\tSecs: {:4}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len, agent.alpha, total_steps, n_secs))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/episode.' + str(i_episode) + '.pth')
             time_start = time.time()
             total_steps = 0
