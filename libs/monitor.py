@@ -7,7 +7,7 @@ import simpleaudio as sa
 
 
 
-def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995, render_every=1000000, solve_score=10000.0, graph_results=False):
+def train(environment, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995, render_every=1000000, solve_score=10000.0, graph_results=False):
     """ Run training loop.
 
     Params
@@ -28,17 +28,18 @@ def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=10
     total_steps = 0                     # track steps taken over 100 episodes
 
     for i_episode in range(1, n_episodes+1):
-        state = initialize_env(env, env_type, brain_name)
+        # reset environment
+        state = environment.reset()
         score = 0
         # loop over steps
         for t in range(max_t):
             # render during training
-            if i_episode % render_every == 0 and env_type == 'gym':
-                env.render()
+            if i_episode % render_every == 0:
+                environment.render()
             # select an action
             action = agent.act(state, eps)
             # take action in environment
-            next_state, reward, done = env_step(env, action, env_type, brain_name)
+            next_state, reward, done = environment.step(action)
             # update agent with returned information
             agent.step(state, action, reward, next_state, done)
             state = next_state
@@ -76,33 +77,6 @@ def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=10
         plot(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
 
-def initialize_env(env, env_type, brain_name=None):
-    """ Initialize environment and return its initial state. """
-
-    if env_type == 'gym':
-        state = env.reset()
-        #state = np.eye(64)[state] # one-hot encode for FrozenLake
-    elif env_type == 'unity':
-        env_info = env.reset(train_mode=True)[brain_name]
-        state = env_info.vector_observations[0]
-    return state
-
-
-def env_step(env, action, env_type, brain_name=None):
-    """ Given an action, return the state, reward, done. """
-
-    if env_type == 'gym':
-        state, reward, done, _ = env.step(action)
-        #state, reward, done, _ = env.step([(action/2) - 2]) # action discretization for Pendulum
-        #state = np.eye(64)[state] # one-hot encode for FrozenLake
-    elif env_type == 'unity':
-        env_info = env.step(action)[brain_name]        # send the action to the environment
-        state = env_info.vector_observations[0]   # get the next state
-        reward = env_info.rewards[0]                   # get the reward
-        done = env_info.local_done[0]
-    return state, reward, done
-
-
 def play_sound(file):
     """ Play a sound. """
 
@@ -138,23 +112,22 @@ def plot(scores, avg_scores, loss_list, entropy_list):
     plt.show()
 
 
-def watch(env, agent, checkpoints, frame_sleep=0.05, env_type='gym', brain_name=None):
+def watch(environment, agent, checkpoints, frame_sleep=0.05):
     """ Visualize agent using saved checkpoints. """
 
     for checkpoint in checkpoints:
         # load saved weights from file
         print('Watching: {}'.format(checkpoint))
         agent.qnetwork_local.load_state_dict(torch.load('../checkpoints/' + checkpoint + '.pth'))
-        # initialize environment
-        state = initialize_env(env, env_type, brain_name)
+        # reset environment
+        state = environment.reset()
         # interact with environment
         for _ in range(600):
             # slect an action
             action = agent.act(state)
             time.sleep(frame_sleep)
             # take action in environment
-            state, _, done = env_step(env, action, env_type, brain_name)
-            if env_type == 'gym':
-                env.render()
+            state, _, done = environment.step(action)
+            environment.render()
             if done:
                 break
