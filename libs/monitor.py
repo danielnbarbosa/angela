@@ -7,7 +7,9 @@ import simpleaudio as sa
 
 
 
-def train(environment, agent, n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995, render_every=1000000, solve_score=10000.0, graph_results=False):
+def train(environment, agent, n_episodes=2000, max_t=1000,
+          eps_start=1.0, eps_end=0.01, eps_decay=0.995,
+          render_every=1000000, solve_score=10000.0, graph_results=False):
     """ Run training loop.
 
     Params
@@ -63,16 +65,26 @@ def train(environment, agent, n_episodes=2000, max_t=1000, eps_start=1.0, eps_en
         if avg_score > best_avg_score:    # update best average score
             best_avg_score = avg_score
 
-        # print stats
-        print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'.format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
+        # print stats every episode
+        print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}'
+              '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'
+              .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
+        # every 100 episodes
         if i_episode % 100 == 0:
+            # calculate wall time
             n_secs = int(time.time() - time_start)
-            print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'.format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
-            torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/episode.' + str(i_episode) + '.pth')
+            # print extented stats
+            print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}'
+                  '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
+                  .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
+            save_name = '../checkpoints/episode.{}.pth'.format(i_episode)
+            torch.save(agent.qnetwork_local.state_dict(), save_name)
+            # reset counters
             time_start = time.time()
             total_steps = 0
         if avg_score >= solve_score:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(i_episode-100, avg_score))
+            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
+                  .format(i_episode-100, avg_score))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
     # play sound to signal training is finished
@@ -98,8 +110,8 @@ def sub_plot(coords, data, y_label='', x_label=''):
 
 def plot(scores, avg_scores, loss_list, entropy_list):
     """ Plot all data from training run. """
-    window_size = len(loss_list) // 100 # window size is 1% of total steps
 
+    window_size = len(loss_list) // 100 # window size is 1% of total steps
     plt.figure(1)
     # plot score
     sub_plot(231, scores, y_label='Score')
