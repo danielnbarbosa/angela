@@ -2,13 +2,15 @@ import random
 import numpy as np
 from unityagents import UnityEnvironment
 import gym
+from discretize import create_uniform_grid
 
 class Environment():
     """ Define an environment, currently either OpenAI Gym or UnityML. """
 
-    def __init__(self, name, type, one_hot=None, max_steps=None):
+    def __init__(self, name, type, max_steps=None, one_hot=None, action_bins=None):
         self.type = type
         self.one_hot = one_hot
+        self.action_bins = action_bins
 
         if self.type == 'gym':
             self.env = gym.make(name)
@@ -38,8 +40,12 @@ class Environment():
         """Take a step in the environment.  Given an action, return the next state."""
 
         if self.type == 'gym':
-            state, reward, done, _ = self.env.step(action)
-            #state, reward, done, _ = env.step([(action/2) - 2]) # action discretization for Pendulum
+            # convert discrete output from neural network to continuous action space
+            if self.action_bins:
+                action_grid = create_uniform_grid(self.env.action_space.low, self.env.action_space.high, bins=self.action_bins)
+                state, reward, done, _ = self.env.step([action_grid[0][action]])
+            else:
+                state, reward, done, _ = self.env.step(action)
             # one-hot encode state space (needed in environments where each state is numbered)
             if self.one_hot:
                 state = np.eye(self.one_hot)[state]
@@ -52,7 +58,7 @@ class Environment():
 
     def render(self):
         """ Render the environment to visualize the agent interacting."""
-        
+
         if self.type == 'gym':
             self.env.render()
         elif self.type == 'unity':

@@ -7,19 +7,21 @@ Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://g
 The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
 
 
-## Algorithms supported
+### Algorithms supported
 - DQN
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
 
-## Features
-- can work with both discrete and continuous state spaces
+### Features
+- supports discrete state spaces using one-hot encoding
+- supports continuous action spaces using discretization
 - graph metrics related to reward, loss and entropy
 - visualize neural network layout
-- realtime output of average score, best score, epsilon, alpha, experience buffer length, steps taken, wall time
-- save and visualize agent training progress over time
-- play a sound to indicate when training is finished :)
+- realtime output of training stats
+- save and load model weights
+- visualize agent training
+- aural indication when training is finished :)
 
 
 ## Installation
@@ -65,5 +67,4 @@ You can also visualize a trained agent using the `watch()` function.
 
 ## Coming soon
 - Support for [Unity ML environments](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector).
-- tile coding for better discretization of continuous action spaces
 - convolutional neural networks for learning from pixels
