@@ -4,15 +4,20 @@ ANGELA: Artificial Neural Game Environment Learning Agent
 
 Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) environments.
 
-The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree, a course that I am enrolled in.
+The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
 
+
+## Algorithms supported
+- DQN
+- Double DQN
+- Dueling Networks
+- Prioritized Experience Replay (without importance sampling)
 
 ## Features
-- implements the DQN algorithm and DQN enhancements: Double DQN and Dueling Networks
 - can work with both discrete and continuous state spaces
 - graph metrics related to reward, loss and entropy
 - visualize neural network layout
-- realtime output of average score, best score, epsilon, experience buffer length, steps taken, wall time
+- realtime output of average score, best score, epsilon, alpha, experience buffer length, steps taken, wall time
 - save and visualize agent training progress over time
 - play a sound to indicate when training is finished :)
 
@@ -46,7 +51,7 @@ pip install -e '.[atari]'
 
 
 ## Usage
-Each environment has its own configuration file that will run the agent in that environment with the hyperparameters specified.
+Each environment has its own file that will run the agent in that environment.  The agent has reasonable defaults for hyperparameters but there is often a benefit to tweaking them for the specific environment.
 
 To train the agent just run the desired environment file, for example to train on CartPole-v1:
 
@@ -55,6 +60,7 @@ cd envs
 python cartpole.py
 ```
 
+You can also visualize a trained agent using the `watch()` function.
 
 
 ## Coming soon

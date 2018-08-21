@@ -54,15 +54,15 @@ def train(env, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=10
         scores.append(score)              # save most recent score
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
-        buffer_len = len(agent.memory)
+        buffer_len = len(agent.memory)    # number of items in replay buffer
         if avg_score > best_avg_score:    # update best average score
             best_avg_score = avg_score
 
         # print stats
-        print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}\t⍺: {:.4f}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len, agent.alpha), end="")
+        print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'.format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
         if i_episode % 100 == 0:
             n_secs = int(time.time() - time_start)
-            print('\rEpisode {:6}\tAvg: {:.2f}\tBest: {:.2f}\tEps: {:.4f}\tBufferLen: {:6}\t⍺: {:.4f}\tSteps: {:7}\tSecs: {:4}'.format(i_episode, avg_score, best_avg_score, eps, buffer_len, agent.alpha, total_steps, n_secs))
+            print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'.format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/episode.' + str(i_episode) + '.pth')
             time_start = time.time()
             total_steps = 0
