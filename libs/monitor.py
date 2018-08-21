@@ -7,17 +7,21 @@ import simpleaudio as sa
 
 
 
-def train(environment, agent, env_type='gym', brain_name=None, n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995, render_every=1000000, solve_score=10000.0, graph_results=False):
+def train(environment, agent, n_episodes=2000, max_t=1000, eps_start=1.0, eps_end=0.01, eps_decay=0.995, render_every=1000000, solve_score=10000.0, graph_results=False):
     """ Run training loop.
 
     Params
     ======
+        environment: environment object
+        agent: agent object
         n_episodes (int): maximum number of training episodes
         max_t (int): maximum number of timesteps per episode
         eps_start (float): starting value of epsilon, for epsilon-greedy action selection
         eps_end (float): minimum value of epsilon
         eps_decay (float): multiplicative factor (per episode) for decreasing epsilon
+        render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
+        graph_results (bool): whether to show matplotlib graphs of the training run
     """
     scores = []                         # list containing scores from each episode
     avg_scores = []                     # list containing average scores after each episode

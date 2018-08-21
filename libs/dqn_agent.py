@@ -117,7 +117,7 @@ class Agent():
         # Select double DQN or regular DQN
         if self.double_dqn:
             # get greedy actions (for next states) from local model
-            q_local_argmax = self.qnetwork_local(next_states).detach().argmax(dim = 1).unsqueeze(1)
+            q_local_argmax = self.qnetwork_local(next_states).detach().argmax(dim=1).unsqueeze(1)
             # get predicted q values (for next states) from target model indexed by q_local_argmax
             q_targets_next = self.qnetwork_target(next_states).gather(1, q_local_argmax).detach()
         else:

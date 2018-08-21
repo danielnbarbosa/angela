@@ -11,4 +11,4 @@ train(environment, agent, n_episodes=4000, max_t=2000, solve_score=200.0)
 
 # visualize agent training
 #checkpoints = ['lunarlander']
-#watch(env, agent, checkpoints, frame_sleep=0.0)
+#watch(environment, agent, checkpoints, frame_sleep=0.0)
