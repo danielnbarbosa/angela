@@ -62,7 +62,7 @@ class Agent():
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
         self.alpha = 0.5
-        self.alpha_decay = 0.9992   # 0.999
+        self.alpha_decay = 0.9992
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory

@@ -83,8 +83,8 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             time_start = time.time()
             total_steps = 0
         if avg_score >= solve_score:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'
-                  .format(i_episode-100, avg_score))
+            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}\tStdDev: {:.2f}'
+                  .format(i_episode-100, avg_score, np.std(scores_window)))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
     # play sound to signal training is finished
