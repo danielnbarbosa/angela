@@ -1,19 +1,27 @@
-## Introduction
+█████╗ ███╗   ██╗ ██████╗ ███████╗██╗      █████╗
+██╔══██╗████╗  ██║██╔════╝ ██╔════╝██║     ██╔══██╗
+███████║██╔██╗ ██║██║  ███╗█████╗  ██║     ███████║
+██╔══██║██║╚██╗██║██║   ██║██╔══╝  ██║     ██╔══██║
+██║  ██║██║ ╚████║╚██████╔╝███████╗███████╗██║  ██║
+╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 
 ANGELA: Artificial Neural Game Environment Learning Agent
+
+
+## Introduction
 
 Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) environments.
 
 The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
 
 
-### Algorithms supported
+#### Algorithms supported
 - DQN
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
 
-### Features
+#### Features
 - supports discrete state spaces using one-hot encoding
 - supports continuous action spaces using discretization
 - graph metrics related to reward, loss and entropy
@@ -53,7 +61,7 @@ pip install -e '.[atari]'
 
 
 ## Usage
-Each environment has its own file that will run the agent in that environment.  The agent has reasonable defaults for hyperparameters but there is often a benefit to tweaking them for the specific environment.
+Each environment has its own file that will run the agent in that environment.  The file also acts as a config file for setting all the various hyperparameters that you may care to tweak.
 
 To train the agent just run the desired environment file, for example to train on CartPole-v1:
 
@@ -62,7 +70,7 @@ cd envs
 python cartpole.py
 ```
 
-You can also visualize a trained agent using the `watch()` function.
+You can also visualize a trained agent by uncommenting the `watch()` function.
 
 
 ## Coming soon
