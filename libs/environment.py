@@ -68,39 +68,40 @@ class GymEnvironment():
 class UnityMLEnvironment():
     """Define a UnityML environment."""
 
-    def __init__(self, name):
+    def __init__(self, name, observations):
         """ Initialize environment
         Params
         ======
             name (str): Environment name
+            observations (str): Observation type: vector, visual
         """
 
         # need to manually set seed to ensure a random environment is initialized
         seed = random.randint(0, 2 ** 30)
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
+        self.observations = observations
 
+    def _get_state(self, info):
+        if self.observations == 'vector':
+            state = info.vector_observations[0]
+        elif self.observations == 'visual':
+            state = info.visual_observations[0]
+            state = rgb2gray(state)
+        return state
 
     def reset(self):
         """Reset the environment."""
 
         info = self.env.reset(train_mode=True)[self.brain_name]
-        if len(info.vector_observations) > 0:
-            state = info.vector_observations[0]
-        elif len(info.visual_observations) > 0:
-            state = info.visual_observations[0]
-            state = rgb2gray(state)
+        state = self._get_state(info)
         return state
 
     def step(self, action):
         """Take a step in the environment.  Given an action, return the next state."""
 
         info = self.env.step(action)[self.brain_name]   # send the action to the environment
-        if len(info.vector_observations) > 0:                    # get next state
-            state = info.vector_observations[0]
-        elif len(info.visual_observations) > 0:
-            state = info.visual_observations[0]
-            state = rgb2gray(state)
+        state = self._get_state(info)
         reward = info.rewards[0]                        # get the reward
         done = info.local_done[0]
         return state, reward, done

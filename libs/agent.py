@@ -124,12 +124,10 @@ class Agent():
             # get predicted q values (for next states) from target model indexed by q_local_argmax
             q_targets_next = self.qnetwork_target(next_states).gather(1, q_local_argmax).detach()
         else:
-            #next_states = next_states.unsqueeze(1)  # TODO: fix this, only needed for visualbanana
             # get max predicted q values (for next states) from target model
             q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
         # get q values from local model
-        #states = states.unsqueeze(1) # TODO: fix this, only needed for visualbanana
         q_local = self.qnetwork_local(states)
         # get q values for chosen action
         predictions = q_local.gather(1, actions)

@@ -1,3 +1,5 @@
+## Gym Environments
+
 #### Acrobot-v1
 ```
 Episode   3300	Avg: -79.57	Best: -76.81	Eps: 0.0100	BufferLen: 100000	Steps:    7957	Secs:   13
@@ -47,4 +49,16 @@ Episode   2300	Avg: -229.44	Best: -207.60	Eps: 0.0100	BufferLen: 100000	Steps:  
 Episode   3900	Avg: -281.86	Best: -279.19	Eps: 0.0100	BufferLen: 100000	Steps:   99900	Secs:   80
 Episode   1200	Avg: -251.95	Best: -184.86	Eps: 0.0100	BufferLen: 100000	Steps:   99900	Secs:   81
 Avg: -223.9
+```
+
+## UnittyML Environments
+
+#### Banana
+```
+Best: 193
+```
+
+#### VisualBanana
+```
+Episode   668	Avg: 0.06	Best: 0.23	ε: 0.0010  ⍺: 0.5000  Buffer: 100000
 ```

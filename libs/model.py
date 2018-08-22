@@ -71,10 +71,11 @@ class ConvNet(nn.Module):
     Currently assumes input shape is (1, 84, 84).
     """
 
-    def __init__(self, action_size, seed):
+    def __init__(self, state_size, action_size, seed):
         """Initialize parameters and build model.
         Params
         ======
+            state_size (tuple): Shape of state input
             action_size (int): Dimension of each action
             seed (int): Random seed
         """
@@ -82,18 +83,20 @@ class ConvNet(nn.Module):
         torch.manual_seed(seed)
         # formula for calculcating conv net output dims: (W-F)/S + 1
         # image is converted to luminescence (grayscale) before arriving here
-        # input shape: (1, 84, 84)
-        # pytorch auto convets to (1, 1, 84, 84)?
+        # input shape: (m, 1, 84, 84)
         self.conv1 = nn.Conv2d(1, 32, 8, stride=4)
-        # new shape: (1, 32, 20, 20)
+        # new shape: (m, 32, 20, 20)
         self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
-        # new shape: (1, 64, 9, 9)
+        # new shape: (m, 64, 9, 9)
         self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
-        # new shape: (1, 64, 7, 7)
+        # new shape: (m, 64, 7, 7)
         self.fc = nn.Linear(64*7*7, 512)
         self.output = nn.Linear(512, action_size)
 
     def forward(self, x):
+        # on learning tensors come in with 3 dimensions so need to be reshaped
+        if x.dim() == 3:
+            x = x.unsqueeze(1)
         # convolutions
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
@@ -126,9 +129,9 @@ class DuelingQNet():
         summary(self.local, (state_size,))
 
 class ConvQNet():
-    def __init__(self, action_size, seed):
+    def __init__(self, state_size, action_size, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = ConvNet(action_size, seed)
-        self.target = ConvNet(action_size, seed)
+        self.local = ConvNet(state_size, action_size, seed)
+        self.target = ConvNet(state_size, action_size, seed)
         print(self.local)
-        summary(self.local, (1, 84, 84))
+        summary(self.local, (state_size))
