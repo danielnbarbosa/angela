@@ -8,8 +8,13 @@ import simpleaudio as sa
 
 
 def train(environment, agent, n_episodes=2000, max_t=1000,
-          eps_start=1.0, eps_end=0.01, eps_decay=0.995,
-          render_every=1000000, solve_score=10000.0, graph_results=False):
+          eps_start = 1.0,
+          eps_end = 0.01,
+          eps_decay = 0.995,
+          render_every = 100000,
+          solve_score = 100000.0,
+          sound_when_done = False,
+          graph_when_done = False):
     """ Run training loop.
 
     Params
@@ -23,7 +28,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         eps_decay (float): multiplicative factor (per episode) for decreasing epsilon
         render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
-        graph_results (bool): whether to show matplotlib graphs of the training run
+        graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
     scores = []                         # list containing scores from each episode
     avg_scores = []                     # list containing average scores after each episode
@@ -88,8 +93,9 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
     # play sound to signal training is finished
-    play_sound('../libs/fanfare.wav')
-    if graph_results:
+    if sound_when_done:
+        play_sound('../libs/fanfare.wav')
+    if graph_when_done:
         plot(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
 
