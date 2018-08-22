@@ -8,10 +8,10 @@ Avg: -83.1
 
 #### CartPole-v1
 ```
-Environment solved in 455 episodes!	Average Score: 195.27
-Environment solved in 423 episodes!	Average Score: 196.24
-Environment solved in 375 episodes!	Average Score: 196.54
-Avg: 417.6
+Environment solved in 343 episodes!	Average Score: 195.07
+Environment solved in 309 episodes!	Average Score: 197.30
+Environment solved in 339 episodes!	Average Score: 196.16
+Avg: 333.3
 ```
 
 #### FrozenLake-v0

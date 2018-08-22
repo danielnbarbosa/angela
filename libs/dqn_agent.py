@@ -62,7 +62,7 @@ class Agent():
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
         self.alpha = 0.5
-        self.alpha_decay = 0.999
+        self.alpha_decay = 0.9992   # 0.999
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
@@ -226,7 +226,7 @@ class ReplayBuffer:
         """ Sort memory based on priority (TD error) """
 
         # sort memory based on priority (sixth item in experience tuple)
-        self.memory = sorted(self.memory, key=lambda x: x[5])
+        self.memory = sorted(self.memory, key=lambda x: x[5], reverse=True)
 
     def sample_with_priority(self, alpha):
         """ Sample a batch of experiences from memory using Prioritized Experience. """
