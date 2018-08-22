@@ -1,13 +1,13 @@
-import sys
-sys.path.insert(0, '../libs')
-from monitor import train, watch
-from dqn_agent import Agent
-from environment import Environment
+from imports import *
 
 
 environment = Environment('CartPole-v1', 'gym')
-agent = Agent(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=0, per=True)
-train(environment, agent, n_episodes=1000, solve_score=195.0)
+
+agent = Agent(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=0,
+              use_double_dqn=True,
+              use_prioritized_experience_replay=True)
+
+train(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0)
 
 
 # visualize agent training

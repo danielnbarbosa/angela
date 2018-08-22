@@ -34,9 +34,9 @@ class Environment():
                 state = np.eye(self.one_hot)[state]
         elif self.type == 'unity':
             info = self.env.reset(train_mode=True)[self.brain_name]
-            if info.vector_observations:
+            if len(info.vector_observations) > 0:
                 state = info.vector_observations[0]
-            elif info.visual_observations:
+            elif len(info.visual_observations) > 0:
                 state = info.visual_observations[0]
                 state = rgb2gray(state)
         return state
@@ -56,9 +56,9 @@ class Environment():
                 state = np.eye(self.one_hot)[state]
         elif self.type == 'unity':
             info = self.env.step(action)[self.brain_name]   # send the action to the environment
-            if info.vector_observations:                    # get next state
+            if len(info.vector_observations) > 0:                    # get next state
                 state = info.vector_observations[0]
-            elif info.visual_observations:
+            elif len(info.visual_observations) > 0:
                 state = info.visual_observations[0]
                 state = rgb2gray(state)
             reward = info.rewards[0]                        # get the reward

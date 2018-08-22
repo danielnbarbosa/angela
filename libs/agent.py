@@ -20,7 +20,10 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed, double_dqn=True, model='dueling', per=False):
+    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed,
+                 use_double_dqn=True,
+                 model='dueling',
+                 use_prioritized_experience_replay=False):
         """Initialize an Agent object.
 
         Params
@@ -33,9 +36,9 @@ class Agent():
         self.action_size = action_size
         self.seed = random.seed(seed)
 
-        self.double_dqn = double_dqn    # use double DQN?
-        self.model = model              # neural network model
-        self.per = per                  # use prioritized experience replay?
+        self.use_double_dqn = use_double_dqn
+        self.model = model
+        self.use_prioritized_experience_replay = use_prioritized_experience_replay
 
         self.loss_list = []       # track loss across steps
         self.entropy_list = []    # track entropy across steps
@@ -55,11 +58,11 @@ class Agent():
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.005)
 
         # Visualize network
-        print('Prioritized Experience Replay: {}'.format(self.per))
-        print('Double DQN: {}'.format(self.double_dqn))
+        print('Prioritized Experience Replay: {}'.format(self.use_prioritized_experience_replay))
+        print('Double DQN: {}'.format(self.use_double_dqn))
         print(self.qnetwork_local)
-        #summary(self.qnetwork_local, (state_size,))
-        summary(self.qnetwork_local, (1,84,84))   # TODO: fix this, only needed for visualbanana
+        summary(self.qnetwork_local, (state_size,))
+        #summary(self.qnetwork_local, (1,84,84))   # TODO: fix this, only needed for visualbanana
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
@@ -80,7 +83,7 @@ class Agent():
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > BATCH_SIZE:
                 # if prioritized experience replay is enabled
-                if self.per:
+                if self.use_prioritized_experience_replay:
                     self.memory.sort()
                     indexes, experiences = self.memory.sample_with_priority(self.alpha)
                     self.learn(indexes, experiences, GAMMA)
@@ -120,18 +123,18 @@ class Agent():
         states, actions, rewards, next_states, dones, priorities = experiences
 
         # Select double DQN or regular DQN
-        if self.double_dqn:
+        if self.use_double_dqn:
             # get greedy actions (for next states) from local model
             q_local_argmax = self.qnetwork_local(next_states).detach().argmax(dim=1).unsqueeze(1)
             # get predicted q values (for next states) from target model indexed by q_local_argmax
             q_targets_next = self.qnetwork_target(next_states).gather(1, q_local_argmax).detach()
         else:
-            next_states = next_states.unsqueeze(1)  # TODO: fix this, only needed for visualbanana
+            #next_states = next_states.unsqueeze(1)  # TODO: fix this, only needed for visualbanana
             # get max predicted q values (for next states) from target model
             q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
         # get q values from local model
-        states = states.unsqueeze(1) # TODO: fix this, only needed for visualbanana
+        #states = states.unsqueeze(1) # TODO: fix this, only needed for visualbanana
         q_local = self.qnetwork_local(states)
         # get q values for chosen action
         predictions = q_local.gather(1, actions)
@@ -139,7 +142,7 @@ class Agent():
         targets = rewards + (gamma * q_targets_next * (1 - dones))
 
         # calculate new priorities
-        if self.per:
+        if self.use_prioritized_experience_replay:
             with torch.no_grad():
                 new_priorities = torch.abs(targets - predictions)
                 self.memory.batch_update(indexes, (states, actions, rewards, next_states, dones, new_priorities))
