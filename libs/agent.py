@@ -4,9 +4,6 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from torchsummary import summary
-from model import ClassicQNetwork, DuelingQNetwork, ConvNet
-
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 64         # minibatch size
@@ -20,9 +17,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed,
+    def __init__(self, model, action_size,
                  use_double_dqn=True,
-                 model='dueling',
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
                  alpha_decay=0.9992):
@@ -30,44 +26,36 @@ class Agent():
 
         Params
         ======
-            state_size (int): dimension of each state
             action_size (int): dimension of each action
-            seed (int): random seed
+            use_double_dqn (bool): wheter to use double DQN algorithm
+            use_prioritized_experience_replay (bool): wheter to use PER algorithm
+            alpha_start (float): initial value for alpha, used in PER
+            alpha_decay (float): decay rate for alpha, used in PER
         """
-        self.state_size = state_size
         self.action_size = action_size
-        self.seed = random.seed(seed)
 
         self.use_double_dqn = use_double_dqn
-        self.model = model
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
 
         self.loss_list = []       # track loss across steps
         self.entropy_list = []    # track entropy across steps
 
         # Q-Network
-        if self.model == 'classic':
-            self.qnetwork_local = ClassicQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-            self.qnetwork_target = ClassicQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-        elif self.model == 'dueling':
-            self.qnetwork_local = DuelingQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-            self.qnetwork_target = DuelingQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-        elif self.model == 'cnn':
-            self.qnetwork_local = ConvNet(action_size, seed).to(device)
-            self.qnetwork_target = ConvNet(action_size, seed).to(device)
+        self.qnetwork_local = model.local.to(device)
+        self.qnetwork_target = model.target.to(device)
+        # debug weight initialization
+        #print(self.qnetwork_local.fc_s.weight.data[0])
+        #print(self.qnetwork_target.fc_s.weight.data[0])
+        #self.qnetwork_local.fc_s.weight.data[0] = torch.tensor([0.0, 0.0, 0.0, 0.0])
+        #print(self.qnetwork_local.fc_s.weight.data[0])
+        #print(self.qnetwork_target.fc_s.weight.data[0])
+        #input('->')
 
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.005)
 
-        # Visualize network
-        print('Prioritized Experience Replay: {}'.format(self.use_prioritized_experience_replay))
-        print('Double DQN: {}'.format(self.use_double_dqn))
-        print(self.qnetwork_local)
-        summary(self.qnetwork_local, (state_size,))
-        #summary(self.qnetwork_local, (1,84,84))   # TODO: fix this, only needed for visualbanana
-
         # Replay memory
-        self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
+        self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE)
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
@@ -187,7 +175,7 @@ class Agent():
 class ReplayBuffer:
     """Fixed-size buffer to store experience tuples."""
 
-    def __init__(self, action_size, buffer_size, batch_size, seed):
+    def __init__(self, action_size, buffer_size, batch_size):
         """Initialize a ReplayBuffer object.
 
         Params
@@ -195,13 +183,11 @@ class ReplayBuffer:
             action_size (int): dimension of each action
             buffer_size (int): maximum size of buffer
             batch_size (int): size of each training batch
-            seed (int): random seed
         """
         self.action_size = action_size
         self.memory = deque(maxlen=buffer_size)
         self.batch_size = batch_size
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "priority"])
-        self.seed = random.seed(seed)
 
     def add(self, state, action, reward, next_state, done, priority):
         """Add a new experience to memory."""

@@ -7,10 +7,11 @@ NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.
 
 environment = UnityMLEnvironment('Banana.app')
 
-agent = Agent(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0,
+model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0)
+
+agent = Agent(model, action_size=4,
               use_double_dqn=False,
-              use_prioritized_experience_replay=False,
-              model='classic')
+              use_prioritized_experience_replay=False)
 
 train(environment, agent, n_episodes=1000, solve_score=13.0,
       eps_start=1.0,

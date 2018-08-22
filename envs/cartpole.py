@@ -1,9 +1,10 @@
 from imports import *
 
-
 environment = GymEnvironment('CartPole-v1')
 
-agent = Agent(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=0,
+model = DuelingQNet(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=0)
+
+agent = Agent(model, action_size=2,
               use_double_dqn=True,
               use_prioritized_experience_replay=True,
               alpha_start=0.5,

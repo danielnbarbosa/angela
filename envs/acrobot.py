@@ -2,7 +2,9 @@ from imports import *
 
 environment = GymEnvironment('Acrobot-v1')
 
-agent = Agent(state_size=6, action_size=3, fc1_units=64, fc2_units=64, seed=0,
+model = DuelingQNet(state_size=6, action_size=3, fc1_units=64, fc2_units=64, seed=0)
+
+agent = Agent(model, action_size=3,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

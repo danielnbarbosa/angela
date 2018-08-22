@@ -6,10 +6,11 @@ NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.
 
 environment = UnityMLEnvironment('VisualBanana.app')
 
-agent = Agent(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0,
+model = ConvQNet(action_size=4, seed=0)
+
+agent = Agent(model, action_size=4,
               use_double_dqn=True,
-              use_prioritized_experience_replay=False,
-              model='cnn')
+              use_prioritized_experience_replay=False)
 
 train(environment, agent, n_episodes=1000, solve_score=13.0,
       eps_start=1.0,
