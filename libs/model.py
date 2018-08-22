@@ -1,9 +1,13 @@
+"""
+Classes to model agent's neural networks.
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
 
-""" Define various neural network architectures."""
+##### Define various neural network architectures. #####
 
 class TwoHiddenLayerNet(nn.Module):
     """ Classic DQN. """
@@ -101,13 +105,13 @@ class ConvNet(nn.Module):
         x = self.output(x)
         return x
 
-"""
-Define QNets with two copies of the above architectures.
-Initialize local and target network with identical initial weights.
-"""
+
+##### Define QNets with two copies of the above architectures. #####
+
 
 class TwoHiddenLayerQNet():
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+        """Initialize local and target network with identical initial weights."""
         self.local = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed)
         self.target = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed)
         print(self.local)
@@ -115,6 +119,7 @@ class TwoHiddenLayerQNet():
 
 class DuelingQNet():
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+        """Initialize local and target network with identical initial weights."""
         self.local = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed)
         self.target = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed)
         print(self.local)
@@ -122,7 +127,8 @@ class DuelingQNet():
 
 class ConvQNet():
     def __init__(self, action_size, seed):
+        """Initialize local and target network with identical initial weights."""
         self.local = ConvNet(action_size, seed)
         self.target = ConvNet(action_size, seed)
         print(self.local)
-        summary(self.local, (1,84,84))
+        summary(self.local, (1, 84, 84))

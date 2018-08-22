@@ -1,3 +1,7 @@
+"""
+Classes to model various RL environments.
+"""
+
 import random
 import numpy as np
 from unityagents import UnityEnvironment

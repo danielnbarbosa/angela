@@ -1,3 +1,7 @@
+"""
+Utility functions for discretizing continuous spaces.
+"""
+
 import numpy as np
 
 def create_uniform_grid(low, high, bins=(10,)):

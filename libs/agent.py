@@ -1,3 +1,7 @@
+"""
+Classes to model an RL agent.
+"""
+
 import random
 from collections import namedtuple, deque
 import numpy as np

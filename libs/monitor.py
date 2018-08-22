@@ -1,3 +1,7 @@
+"""
+Functions to execute training and visualize agent.
+"""
+
 import time
 from collections import deque
 import numpy as np
