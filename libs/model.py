@@ -7,6 +7,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 ##### Define various neural network architectures. #####
 
 class TwoHiddenLayerNet(nn.Module):
@@ -115,23 +117,23 @@ class ConvNet(nn.Module):
 class TwoHiddenLayerQNet():
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed)
-        self.target = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed)
+        self.local = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        self.target = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 
 class DuelingQNet():
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed)
-        self.target = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed)
+        self.local = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        self.target = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 
 class ConvQNet():
     def __init__(self, state_size, action_size, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = ConvNet(state_size, action_size, seed)
-        self.target = ConvNet(state_size, action_size, seed)
+        self.local = ConvNet(state_size, action_size, seed).to(device)
+        self.target = ConvNet(state_size, action_size, seed).to(device)
         print(self.local)
         summary(self.local, (state_size))

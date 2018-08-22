@@ -5,6 +5,7 @@ NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amaz
 """
 
 environment = UnityMLEnvironment('VisualBanana.app', 'visual')
+environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual')
 
 model = ConvQNet(state_size=(1, 84, 84), action_size=4, seed=0)
 

@@ -7,7 +7,7 @@ from collections import deque
 import numpy as np
 import torch
 import matplotlib.pyplot as plt
-import simpleaudio as sa
+#import simpleaudio as sa
 
 
 
@@ -107,9 +107,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 def play_sound(file):
     """ Play a sound. """
 
-    wave_obj = sa.WaveObject.from_wave_file(file)
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
+    pass
+    #wave_obj = sa.WaveObject.from_wave_file(file)
+    #play_obj = wave_obj.play()
+    #play_obj.wait_done()
 
 def sub_plot(coords, data, y_label='', x_label=''):
     """ Plot a single graph (subplot). """
