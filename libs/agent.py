@@ -220,7 +220,7 @@ class ReplayBuffer:
 
         states, actions, rewards, next_states, dones, new_priorities = experiences
         for i in range(self.batch_size):
-            e = self.experience(states[i].numpy(), int(actions[i]), float(rewards[i]), next_states[i].numpy(), bool(dones[i]), float(new_priorities[i]))
+            e = self.experience(states[i], int(actions[i]), float(rewards[i]), next_states[i], bool(dones[i]), float(new_priorities[i]))
             self.memory[indexes[i]] = e
 
     def sort(self):

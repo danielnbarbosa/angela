@@ -46,12 +46,12 @@ Clone this repo using `git clone https://github.com/danielnbarbosa/angela.git`.
 Create an anaconda environment that contains all the required dependencies to run the project.
 
 ```
+brew install swig
 conda create -n angela python=3.6 anaconda
 source activate angela
 conda install pytorch torchvision -c pytorch
-conda install -n angela pympler opencv openmpi
-conda install -n angela -c conda-forge keras tensorflow pydot jupyter_contrib_nbextensions
-pip install msgpack gym tensorforce Box2D box2d-py simpleaudio torchsummary unityagents
+conda install -n angela opencv
+pip install gym Box2D box2d-py simpleaudio torchsummary unityagents
 ```
 
 #### Step 3: Install OpenAI Gym
