@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 from torchsummary import summary
-from model import ClassicQNetwork, DuelingQNetwork
+from model import ClassicQNetwork, DuelingQNetwork, ConvNet
 
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
@@ -47,6 +47,10 @@ class Agent():
         elif self.model == 'dueling':
             self.qnetwork_local = DuelingQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
             self.qnetwork_target = DuelingQNetwork(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        elif self.model == 'cnn':
+            self.qnetwork_local = ConvNet(action_size, seed).to(device)
+            self.qnetwork_target = ConvNet(action_size, seed).to(device)
+
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.005)
 
@@ -54,7 +58,8 @@ class Agent():
         print('Prioritized Experience Replay: {}'.format(self.per))
         print('Double DQN: {}'.format(self.double_dqn))
         print(self.qnetwork_local)
-        summary(self.qnetwork_local, (state_size,))
+        #summary(self.qnetwork_local, (state_size,))
+        summary(self.qnetwork_local, (1,84,84))   # TODO: fix this, only needed for visualbanana
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
@@ -121,10 +126,12 @@ class Agent():
             # get predicted q values (for next states) from target model indexed by q_local_argmax
             q_targets_next = self.qnetwork_target(next_states).gather(1, q_local_argmax).detach()
         else:
+            next_states = next_states.unsqueeze(1)  # TODO: fix this, only needed for visualbanana
             # get max predicted q values (for next states) from target model
             q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
 
         # get q values from local model
+        states = states.unsqueeze(1) # TODO: fix this, only needed for visualbanana
         q_local = self.qnetwork_local(states)
         # get q values for chosen action
         predictions = q_local.gather(1, actions)

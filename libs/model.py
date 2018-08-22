@@ -55,3 +55,37 @@ class DuelingQNetwork(nn.Module):
         a = self.out_a(F.relu(self.fc_a(s)))    # advantage
         q = v + (a - a.mean())
         return q
+
+
+
+class ConvNet(nn.Module):
+    """Convolutional Neural Network for learning from pixels."""
+
+    def __init__(self, action_size, seed):
+        super(ConvNet, self).__init__()
+        self.seed = torch.manual_seed(seed)
+
+        # formula for calculcating conv net output dims: (W-F)/S + 1
+
+        # image is converted to luminescence (grayscale) before arriving here
+        # input shape: (1, 1, 84, 84)
+        self.conv1 = nn.Conv2d(1, 32, 8, stride=4)
+        # new shape: (1, 32, 20, 20)
+        self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
+        # new shape: (1, 64, 9, 9)
+        self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
+        # new shape: (1, 64, 7, 7)
+        self.fc = nn.Linear(64*7*7, 512)
+        self.output = nn.Linear(512, action_size)
+
+    def forward(self, x):
+        # convolutions
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv3(x))
+        # flatten
+        x = x.view(x.size(0), -1)
+        # fully connected layer
+        x = F.relu(self.fc(x))
+        x = self.output(x)
+        return x

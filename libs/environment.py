@@ -3,6 +3,7 @@ import numpy as np
 from unityagents import UnityEnvironment
 import gym
 from discretize import create_uniform_grid
+from skimage.color import rgb2gray
 
 class Environment():
     """ Define an environment, currently either OpenAI Gym or UnityML. """
@@ -33,7 +34,11 @@ class Environment():
                 state = np.eye(self.one_hot)[state]
         elif self.type == 'unity':
             info = self.env.reset(train_mode=True)[self.brain_name]
-            state = info.vector_observations[0]
+            if info.vector_observations:
+                state = info.vector_observations[0]
+            elif info.visual_observations:
+                state = info.visual_observations[0]
+                state = rgb2gray(state)
         return state
 
     def step(self, action):
@@ -51,7 +56,11 @@ class Environment():
                 state = np.eye(self.one_hot)[state]
         elif self.type == 'unity':
             info = self.env.step(action)[self.brain_name]   # send the action to the environment
-            state = info.vector_observations[0]             # get the next state
+            if info.vector_observations:                    # get next state
+                state = info.vector_observations[0]
+            elif info.visual_observations:
+                state = info.visual_observations[0]
+                state = rgb2gray(state)
             reward = info.rewards[0]                        # get the reward
             done = info.local_done[0]
         return state, reward, done
