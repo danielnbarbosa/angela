@@ -21,9 +21,11 @@ class Agent():
     """Interacts with and learns from the environment."""
 
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed,
-                 use_double_dqn=True,
-                 model='dueling',
-                 use_prioritized_experience_replay=False):
+                 use_double_dqn = True,
+                 model = 'dueling',
+                 use_prioritized_experience_replay = False,
+                 alpha_start = 0.5,
+                 alpha_decay = 0.9992):
         """Initialize an Agent object.
 
         Params
@@ -69,8 +71,9 @@ class Agent():
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
-        self.alpha = 0.5
-        self.alpha_decay = 0.9992
+        self.alpha_start = alpha_start
+        self.alpha_decay = alpha_decay
+        self.alpha = self.alpha_start
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
