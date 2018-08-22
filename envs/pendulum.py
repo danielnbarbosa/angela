@@ -1,6 +1,6 @@
 from imports import *
 
-environment = Environment('Pendulum-v0', 'gym', max_steps=1000, action_bins=(10,))
+environment = GymEnvironment('Pendulum-v0', max_steps=1000, action_bins=(10,))
 
 agent = Agent(state_size=3, action_size=9, fc1_units=32, fc2_units=32, seed=0,
               use_double_dqn=True,

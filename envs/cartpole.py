@@ -1,7 +1,7 @@
 from imports import *
 
 
-environment = Environment('CartPole-v1', 'gym')
+environment = GymEnvironment('CartPole-v1')
 
 agent = Agent(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=0,
               use_double_dqn=True,

@@ -4,7 +4,7 @@ from imports import *
 NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
-environment = Environment('VisualBanana.app', 'unity')
+environment = UnityMLEnvironment('VisualBanana.app')
 
 agent = Agent(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0,
               use_double_dqn=True,

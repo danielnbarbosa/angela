@@ -1,6 +1,6 @@
 from imports import *
 
-environment = Environment('LunarLander-v2', 'gym')
+environment = GymEnvironment('LunarLander-v2')
 
 agent = Agent(state_size=8, action_size=4, fc1_units=64, fc2_units=64, seed=0,
               use_double_dqn=True,
