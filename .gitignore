@@ -3,3 +3,4 @@ Banana.app
 VisualBanana.app
 unity-environment.log
 checkpoints/*
+!checkpoints/cartpole.pth
