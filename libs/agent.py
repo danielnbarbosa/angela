@@ -1,6 +1,6 @@
-import numpy as np
 import random
 from collections import namedtuple, deque
+import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
@@ -21,11 +21,11 @@ class Agent():
     """Interacts with and learns from the environment."""
 
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed,
-                 use_double_dqn = True,
-                 model = 'dueling',
-                 use_prioritized_experience_replay = False,
-                 alpha_start = 0.5,
-                 alpha_decay = 0.9992):
+                 use_double_dqn=True,
+                 model='dueling',
+                 use_prioritized_experience_replay=False,
+                 alpha_start=0.5,
+                 alpha_decay=0.9992):
         """Initialize an Agent object.
 
         Params

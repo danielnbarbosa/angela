@@ -8,13 +8,13 @@ import simpleaudio as sa
 
 
 def train(environment, agent, n_episodes=2000, max_t=1000,
-          eps_start = 1.0,
-          eps_end = 0.01,
-          eps_decay = 0.995,
-          render_every = 100000,
-          solve_score = 100000.0,
-          sound_when_done = False,
-          graph_when_done = False):
+          eps_start=1.0,
+          eps_end=0.01,
+          eps_decay=0.995,
+          render_every=100000,
+          solve_score=100000.0,
+          sound_when_done=False,
+          graph_when_done=False):
     """ Run training loop.
 
     Params

@@ -1,9 +1,10 @@
 import random
 import numpy as np
 from unityagents import UnityEnvironment
+from skimage.color import rgb2gray
 import gym
 from discretize import create_uniform_grid
-from skimage.color import rgb2gray
+
 
 
 class GymEnvironment():
@@ -41,7 +42,9 @@ class GymEnvironment():
 
         # convert discrete output from neural network to continuous action space
         if self.action_bins:
-            action_grid = create_uniform_grid(self.env.action_space.low, self.env.action_space.high, bins=self.action_bins)
+            action_grid = create_uniform_grid(self.env.action_space.low,
+                                              self.env.action_space.high,
+                                              bins=self.action_bins)
             state, reward, done, _ = self.env.step([action_grid[0][action]])
         else:
             state, reward, done, _ = self.env.step(action)
