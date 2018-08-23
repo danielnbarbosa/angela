@@ -90,16 +90,25 @@ class ConvNet(nn.Module):
         if self.dim == 84:
             # input shape: (m, input_channels, 84, 84)  nodes: 7056
             self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)
+            # new shape: (m, 32, 20, 20)
+            self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
+            # new shape: (m, 64, 9, 9)
+            self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
+            # new shape: (m, 64, 7, 7)
+            self.fc = nn.Linear(64*7*7, 512)
+            self.output = nn.Linear(512, action_size)
+
         elif self.dim == 42:
             # input shape: (m, input_channels, 42, 42)  nodes: 1764
             self.conv1 = nn.Conv2d(self.input_channels, 32, 4, stride=2)
-        # new shape: (m, 32, 20, 20)
-        self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
-        # new shape: (m, 64, 9, 9)
-        self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
-        # new shape: (m, 64, 7, 7)
-        self.fc = nn.Linear(64*7*7, 512)
-        self.output = nn.Linear(512, action_size)
+            # new shape: (m, 32, 20, 20)
+            self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
+            # new shape: (m, 64, 9, 9)
+            self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
+            # new shape: (m, 64, 7, 7)
+            self.fc = nn.Linear(64*7*7, 512)
+            self.output = nn.Linear(512, action_size)
+
 
     def forward(self, x):
         print(x.shape)
