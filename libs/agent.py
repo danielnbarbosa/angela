@@ -45,8 +45,8 @@ class Agent():
         self.entropy_list = []    # track entropy across steps
 
         # Q-Network
-        self.qnetwork_local = model.local.to(device)
-        self.qnetwork_target = model.target.to(device)
+        self.qnetwork_local = model.local
+        self.qnetwork_target = model.target
         # debug weight initialization
         #print(self.qnetwork_local.fc_s.weight.data[0])
         #print(self.qnetwork_target.fc_s.weight.data[0])
@@ -137,7 +137,7 @@ class Agent():
         # calculate new priorities
         if self.use_prioritized_experience_replay:
             with torch.no_grad():
-                new_priorities = torch.abs(targets - predictions)
+                new_priorities = torch.abs(targets - predictions).to(device)
                 self.memory.batch_update(indexes, (states, actions, rewards, next_states, dones, new_priorities))
 
         # calculate loss using mean squared error: (targets - predictions).pow(2).mean()
