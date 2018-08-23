@@ -88,28 +88,20 @@ class ConvNet(nn.Module):
         self.dim = state_size[1]             # length of one side of square image
 
         if self.dim == 84:
-            # input shape: (m, input_channels, 84, 84)
-            self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)
-            # new shape: (m, 32, 20, 20)
-            self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
-            # new shape: (m, 64, 9, 9)
-            self.conv3 = nn.Conv2d(64, 64, 3, stride=1)
-            # new shape: (m, 64, 7, 7)
-            self.fc = nn.Linear(64*7*7, 512)
-            # nodes: 1,605,632
-            self.output = nn.Linear(512, action_size)
+            # input shape: (m, input_channels, 84, 84)                      shape after
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)    # (m, 32, 20, 20)
+            self.conv2 = nn.Conv2d(32, 64, 4, stride=2)                     # (m, 64, 9, 9)
+            self.conv3 = nn.Conv2d(64, 64, 3, stride=1)                     # (m, 64, 7, 7)
+            self.fc = nn.Linear(64*7*7, 512)                                # (m, 3136, 512)
+            self.output = nn.Linear(512, action_size)                       # (m, 512, n_a)
 
         elif self.dim == 42:
-            # input shape: (m, input_channels, 42, 42)
-            self.conv1 = nn.Conv2d(self.input_channels, 32, 6, stride=4)
-            # new shape: (m, 32, 10, 10)
-            self.conv2 = nn.Conv2d(32, 64, 2, stride=2)
-            # new shape: (m, 64, 5, 5)
-            self.conv3 = nn.Conv2d(64, 64, 2, stride=1)
-            # new shape: (m, 64, 4, 4)
-            self.fc = nn.Linear(64*4*4, 512)
-            # nodes: 524,288
-            self.output = nn.Linear(512, action_size)
+            # input shape: (m, input_channels, 42, 42)                      shape after
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 6, stride=4)    # (m, 32, 10, 10)
+            self.conv2 = nn.Conv2d(32, 64, 2, stride=2)                     # (m, 64, 5, 5)
+            self.conv3 = nn.Conv2d(64, 64, 2, stride=1)                     # (m, 64, 4, 4)
+            self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
+            self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
 
 
     def forward(self, x):

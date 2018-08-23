@@ -39,7 +39,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
     avg_scores = []                     # list containing average scores after each episode
     scores_window = deque(maxlen=100)   # last 100 scores
     eps = eps_start                     # initialize epsilon
-    best_avg_score = -100000            # best score for a single episode
+    best_avg_score = -10000             # best score for a single episode
     time_start = time.time()            # track wall time over 100 episodes
     total_steps = 0                     # track steps taken over 100 episodes
 
@@ -64,27 +64,30 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
                 total_steps += t
                 break
 
-        eps = max(eps_end, eps_decay*eps) # decrease epsilon
+        # decrease epsilon
+        eps = max(eps_end, eps_decay*eps)
 
         # update stats
-        scores_window.append(score)       # save most recent score
-        scores.append(score)              # save most recent score
+        scores_window.append(score)
+        scores.append(score)
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
-        buffer_len = len(agent.memory)    # number of items in replay buffer
-        if avg_score > best_avg_score:    # update best average score
+        buffer_len = len(agent.memory)
+        # update best average score, let a few episodes pass in case you get lucky early
+        if avg_score > best_avg_score and i_episode > 10:
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}'
+        print('\rEpisode {:5}\tAvg: {:5.2f}\tBest: {:5.2f}'
               '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'
               .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
+
         # every 100 episodes
         if i_episode % 100 == 0:
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:4.2f}\tBest: {:4.2f}'
+            print('\rEpisode {:5}\tAvg: {:5.2f}\tBest: {:5.2f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
                   .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
             save_name = '../checkpoints/episode.{}.pth'.format(i_episode)
@@ -92,11 +95,14 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             # reset counters
             time_start = time.time()
             total_steps = 0
+
+        # if solved
         if avg_score >= solve_score:
             print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}\tStdDev: {:.2f}'
                   .format(i_episode-100, avg_score, np.std(scores_window)))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
+
     # play sound to signal training is finished
     if sound_when_done:
         play_sound('../libs/fanfare.wav')
