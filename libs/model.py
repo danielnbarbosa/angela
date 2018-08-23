@@ -70,7 +70,7 @@ class DuelingNet(nn.Module):
 class ConvNet(nn.Module):
     """
     Convolutional Neural Network for learning from pixels.
-    Currently assumes input shape is (1, 84, 84).
+    Works with a variety of input channels: 1: greyscale, 3: RGB
     """
 
     def __init__(self, state_size, action_size, seed):
@@ -84,9 +84,15 @@ class ConvNet(nn.Module):
         super(ConvNet, self).__init__()
         torch.manual_seed(seed)
         # formula for calculcating conv net output dims: (W-F)/S + 1
-        # image is converted to luminescence (grayscale) before arriving here
-        # input shape: (m, 1, 84, 84)
-        self.conv1 = nn.Conv2d(1, 32, 8, stride=4)
+        self.input_channels = state_size[0]  # number of color channels
+        self.dim = state_size[1]            # length of one side of square image
+
+        if self.dim == 84:
+            # input shape: (m, input_channels, 84, 84)  nodes: 7056
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)
+        elif self.dim == 42:
+            # input shape: (m, input_channels, 42, 42)  nodes: 1764
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 4, stride=2)
         # new shape: (m, 32, 20, 20)
         self.conv2 = nn.Conv2d(32, 64, 4, stride=2)
         # new shape: (m, 64, 9, 9)
@@ -96,10 +102,14 @@ class ConvNet(nn.Module):
         self.output = nn.Linear(512, action_size)
 
     def forward(self, x):
-        # on learning tensors come in with 3 dimensions so need to be reshaped
-        if x.dim() == 3:
-            x = x.unsqueeze(1)
+        print(x.shape)
+
+        # RGB inputs need to be reshaped to fit conv2d input: (m, h, w, c) -> (m, c, h, w)
+        if x.shape[3] == 3:
+            x = x.reshape(-1, 3, self.dim, self.dim)
+
         # convolutions
+        print(x.shape)
         x = F.relu(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = F.relu(self.conv3(x))
@@ -109,6 +119,7 @@ class ConvNet(nn.Module):
         x = F.relu(self.fc(x))
         x = self.output(x)
         return x
+
 
 
 ##### Define QNets with two copies of the above architectures. #####

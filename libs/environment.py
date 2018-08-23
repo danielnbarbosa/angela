@@ -8,7 +8,7 @@ from unityagents import UnityEnvironment
 from skimage.color import rgb2gray
 import gym
 from discretize import create_uniform_grid
-
+import cv2
 
 
 class GymEnvironment():
@@ -82,12 +82,25 @@ class UnityMLEnvironment():
         self.brain_name = self.env.brain_names[0]
         self.observations = observations
 
+    def _preprocess(self, state):
+        # greyscale
+        #state = rgb2gray(state)
+        #state = np.expand_dims(state, axis=0)
+
+        # downsize
+        state = state.squeeze(0)
+        state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)
+        state = np.expand_dims(state, axis=0)
+
+        return state
+
     def _get_state(self, info):
         if self.observations == 'vector':
             state = info.vector_observations[0]
         elif self.observations == 'visual':
             state = info.visual_observations[0]
-            state = rgb2gray(state)
+            state = self._preprocess(state)
+
         return state
 
     def reset(self):

@@ -151,7 +151,7 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
         state = environment.reset()
         # interact with environment
         for _ in range(600):
-            # slect an action
+            # select an action
             action = agent.act(state)
             time.sleep(frame_sleep)
             # take action in environment
