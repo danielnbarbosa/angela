@@ -74,7 +74,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         avg_scores.append(avg_score)
         buffer_len = len(agent.memory)
         # update best average score, let a few episodes pass in case you get lucky early
-        if avg_score > best_avg_score and i_episode > 10:
+        if avg_score > best_avg_score and i_episode > 30:
             best_avg_score = avg_score
 
         # print stats every episode

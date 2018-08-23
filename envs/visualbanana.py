@@ -4,8 +4,8 @@ from imports import *
 NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
-#environment = UnityMLEnvironment('VisualBanana.app', 'visual')
-environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual')
+environment = UnityMLEnvironment('VisualBanana.app', 'visual')
+#environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual')
 
 model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=0)
 
