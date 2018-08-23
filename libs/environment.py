@@ -6,6 +6,7 @@ import random
 import numpy as np
 from unityagents import UnityEnvironment
 from skimage.color import rgb2gray
+from skimage.filters import gaussian
 import gym
 from discretize import create_uniform_grid
 import cv2
@@ -83,16 +84,30 @@ class UnityMLEnvironment():
         self.observations = observations
 
     def _preprocess(self, state):
-        # greyscale
-        #state = rgb2gray(state)
-        #state = np.expand_dims(state, axis=0)
+        """
+        Input dimensions from Unity visual environment are: (1, 84, 84, 3)
+        Preprocessing always reshapes dimensions back to: (m, h, w, c)
+        The model then transforms them to be processed by conv2d
+        """
 
-        # downsize
-        #state = state.squeeze(0)
-        #state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)
-        #state = np.expand_dims(state, axis=0)
+        # greyscale:                            shape after
+        #state = state.squeeze(0)               # (84, 84, 3)
+        #state = rgb2gray(state)                # (84, 84)
+        #state = np.expand_dims(state, axis=0)  # (1, 84, 84)
+        #state = np.expand_dims(state, axis=3)  # (1, 84, 84, 1)
+
+        # downsize:                                                           shape after
+        #state = state.squeeze(0)                                             # (84, 84, 3)
+        #state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)  # (42, 42, 3)
+        #state = np.expand_dims(state, axis=0)                                # (1, 42, 42, 3)
+
+        # gaussian blur:                                        shape after
+        state = state.squeeze(0)                                # (84, 84, 3)
+        state = gaussian(state, sigma=0.75, multichannel=True)  # (84, 84, 3)
+        state = np.expand_dims(state, axis=0)                   # (1, 84, 84, 3)
 
         return state
+
 
     def _get_state(self, info):
         if self.observations == 'vector':
@@ -100,7 +115,6 @@ class UnityMLEnvironment():
         elif self.observations == 'visual':
             state = info.visual_observations[0]
             state = self._preprocess(state)
-
         return state
 
     def reset(self):

@@ -85,7 +85,7 @@ class ConvNet(nn.Module):
         torch.manual_seed(seed)
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels
-        self.dim = state_size[1]            # length of one side of square image
+        self.dim = state_size[1]             # length of one side of square image
 
         if self.dim == 84:
             # input shape: (m, input_channels, 84, 84)
@@ -115,9 +115,9 @@ class ConvNet(nn.Module):
     def forward(self, x):
         #print(x.shape)
 
-        # RGB inputs need to be reshaped to fit conv2d input: (m, h, w, c) -> (m, c, h, w)
-        if x.shape[3] == 3:
-            x = x.reshape(-1, 3, self.dim, self.dim)
+        # state output from UnityML environment needs to be reshaped to fit torch conv2d format
+        # (m, h, w, c) -> (m, c, h, w)
+        x = x.reshape(-1, self.input_channels, self.dim, self.dim)
 
         # convolutions
         #print(x.shape)
