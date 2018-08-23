@@ -88,9 +88,9 @@ class UnityMLEnvironment():
         #state = np.expand_dims(state, axis=0)
 
         # downsize
-        state = state.squeeze(0)
-        state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)
-        state = np.expand_dims(state, axis=0)
+        #state = state.squeeze(0)
+        #state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)
+        #state = np.expand_dims(state, axis=0)
 
         return state
 

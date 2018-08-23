@@ -55,8 +55,8 @@ class Agent():
         #print(self.qnetwork_target.fc_s.weight.data[0])
         #input('->')
 
-        self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
-        #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.005)
+        #self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
+        self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.00025, momentum=0.95)
 
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE)
