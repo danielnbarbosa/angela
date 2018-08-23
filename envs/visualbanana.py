@@ -10,13 +10,13 @@ environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual')
 model = ConvQNet(state_size=(1, 84, 84), action_size=4, seed=0)
 
 agent = Agent(model, action_size=4,
-              use_double_dqn=False,
+              use_double_dqn=True,
               use_prioritized_experience_replay=False)
 
-train(environment, agent, n_episodes=1000, solve_score=13.0,
+train(environment, agent, n_episodes=10000, solve_score=13.0,
       eps_start=1.0,
       eps_end=0.001,
-      eps_decay=0.97)
+      eps_decay=0.995)
 
 
 # visualize agent training
