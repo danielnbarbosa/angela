@@ -5,8 +5,8 @@ from imports import *
 NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
-#environment = UnityMLEnvironment('Banana.app', 'vector')
-environment = UnityMLEnvironment('Banana_Linux/Banana.x86_64', 'vector')
+environment = UnityMLEnvironment('Banana.app', 'vector')
+#environment = UnityMLEnvironment('Banana_Linux/Banana.x86_64', 'vector')
 
 model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0)
 
