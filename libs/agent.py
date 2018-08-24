@@ -11,9 +11,9 @@ import torch.optim as optim
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 64         # minibatch size
-GAMMA = 0.99            # discount factor
+GAMMA = 0.95            # discount factor
 TAU = 1e-3              # for soft update of target parameters
-LR = 5e-4               # learning rate
+LR = 2e-4               # learning rate
 UPDATE_EVERY = 4        # how often to update the network
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -95,8 +95,13 @@ class Agent():
             state (array_like): current state
             eps (float): epsilon, for epsilon-greedy action selection
         """
-        #state = torch.from_numpy(state).float().unsqueeze(0).to(device)
-        state = torch.from_numpy(state).float().to(device)   # TODO: understand why this still works
+        # reshape 1-D states into 2-D
+        # not strictly necessary but more asthetically pleasing
+        if len(state.shape) == 1:
+            state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        else:
+            state = torch.from_numpy(state).float().to(device)
+        # calculate action values
         self.qnetwork_local.eval()
         with torch.no_grad():
             action_values = self.qnetwork_local(state)

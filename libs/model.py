@@ -28,12 +28,13 @@ class TwoHiddenLayerNet(nn.Module):
         self.fc2 = nn.Linear(fc1_units, fc2_units)
         self.output = nn.Linear(fc2_units, action_size)
 
-    def forward(self, state):
+    def forward(self, x):
         """Build a network that maps state -> action values."""
-
-        x = F.relu(self.fc1(state))
+        #print('in:  {}'.format(x.shape))
+        x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.output(x)
+        #print('out: {}'.x(q.shape))
         return x
 
 
@@ -57,12 +58,14 @@ class DuelingNet(nn.Module):
         self.fc_a = nn.Linear(fc1_units, fc2_units)      # advantage fc layer
         self.out_a = nn.Linear(fc2_units, action_size)   # advantage output
 
-    def forward(self, state):
+    def forward(self, x):
         """Build a network that maps state -> action values."""
-        s = F.relu(self.fc_s(state))            # shared
+        #print('in:  {}'.format(x.shape))
+        s = F.relu(self.fc_s(x))                # shared
         v = self.out_v(F.relu(self.fc_v(s)))    # state
         a = self.out_a(F.relu(self.fc_a(s)))    # advantage
         q = v + (a - a.mean())
+        #print('out: {}'.format(q.shape))
         return q
 
 
@@ -91,8 +94,8 @@ class ConvNet(nn.Module):
             # input shape: (m, input_channels, 84, 84)                      shape after
             self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)    # (m, 32, 20, 20)
             self.conv2 = nn.Conv2d(32, 64, 4, stride=2)                     # (m, 64, 9, 9)
-            self.conv3 = nn.Conv2d(64, 64, 3, stride=1)                     # (m, 64, 7, 7)
-            self.fc = nn.Linear(64*7*7, 512)                                # (m, 3136, 512)
+            self.conv3 = nn.Conv2d(64, 128, 3, stride=2)                     # (m, 128, 4, 4)
+            self.fc = nn.Linear(128*4*4, 512)                                # (m, 2048, 512)
             self.output = nn.Linear(512, action_size)                       # (m, 512, n_a)
 
         elif self.dim == 42:
@@ -105,22 +108,20 @@ class ConvNet(nn.Module):
 
 
     def forward(self, x):
-        #print(x.shape)
-
-        # state output from UnityML environment needs to be reshaped to fit torch conv2d format
-        # (m, h, w, c) -> (m, c, h, w)
+        #print('in:  {}'.format(x.shape))
+        # reshape state output from environment to fit torch conv2d format (m, h, w, c) -> (m, c, h, w)
         x = x.reshape(-1, self.input_channels, self.dim, self.dim)
-
+        #print('tx:  {}'.format(x.shape))
         # convolutions
-        #print(x.shape)
-        x = F.relu(self.conv1(x))
-        x = F.relu(self.conv2(x))
-        x = F.relu(self.conv3(x))
+        x = F.elu(self.conv1(x))
+        x = F.elu(self.conv2(x))
+        x = F.elu(self.conv3(x))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer
-        x = F.relu(self.fc(x))
+        x = F.elu(self.fc(x))
         x = self.output(x)
+        #print('out: {}'.format(x.shape))
         return x
 
 
