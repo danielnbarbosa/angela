@@ -9,8 +9,3 @@ agent = Agent(model, action_size=3,
               use_prioritized_experience_replay=False)
 
 train(environment, agent, n_episodes=4000, max_t=1000)
-
-
-# visualize agent training
-#checkpoints = ['episode.100', 'episode.200', 'episode.300']
-#watch(environment, agent, checkpoints, frame_sleep=0.0)

@@ -10,9 +10,5 @@ agent = Agent(model, action_size=2,
               alpha_start=0.5,
               alpha_decay=0.9992)
 
+#load(model, 'cartpole.pth')
 train(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0)
-
-
-# visualize agent training
-#checkpoints = ['cartpole']
-#watch(environment, agent, checkpoints, frame_sleep=0.0)

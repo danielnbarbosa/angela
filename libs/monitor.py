@@ -165,3 +165,9 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
             environment.render()
             if done:
                 break
+
+def load(model, file_name):
+    """ Load saved model weights from a checkpoint file """
+
+    model.local.load_state_dict(torch.load('../checkpoints/' + file_name))
+    model.target.load_state_dict(torch.load('../checkpoints/' + file_name))

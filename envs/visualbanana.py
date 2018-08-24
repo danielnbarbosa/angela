@@ -13,12 +13,8 @@ agent = Agent(model, action_size=4,
               use_double_dqn=False,
               use_prioritized_experience_replay=False)
 
+#load(model, 'visualbanana.pth')
 train(environment, agent, n_episodes=10000, solve_score=13.0,
       eps_start=1.0,
       eps_end=0.01,
       eps_decay=0.999)
-
-
-# visualize agent training
-#checkpoints = ['bananas']
-#watch(environment, agent, checkpoints, frame_sleep=0.07)

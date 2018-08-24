@@ -8,8 +8,5 @@ agent = Agent(model, action_size=4,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 
+#load(model, 'lunarlander.pth')
 train(environment, agent, n_episodes=4000, max_t=2000, solve_score=200.0)
-
-# visualize agent training
-#checkpoints = ['lunarlander']
-#watch(environment, agent, checkpoints, frame_sleep=0.0)

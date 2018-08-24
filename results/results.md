@@ -60,5 +60,5 @@ Best: 193
 
 #### VisualBanana
 ```
-Episode   668	Avg: 0.06	Best: 0.23	ε: 0.0010  ⍺: 0.5000  Buffer: 100000
+Episode  2500	Avg:  2.18	Best:  2.46	ε: 0.0100  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  234
 ```
