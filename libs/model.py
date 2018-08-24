@@ -93,16 +93,22 @@ class ConvNet(nn.Module):
         if self.dim == 84:
             # input shape: (m, input_channels, 84, 84)                      shape after
             self.conv1 = nn.Conv2d(self.input_channels, 32, 8, stride=4)    # (m, 32, 20, 20)
+            self.bn1 = nn.BatchNorm2d(32)
             self.conv2 = nn.Conv2d(32, 64, 4, stride=2)                     # (m, 64, 9, 9)
+            self.bn2 = nn.BatchNorm2d(64)
             self.conv3 = nn.Conv2d(64, 128, 3, stride=2)                     # (m, 128, 4, 4)
+            self.bn3 = nn.BatchNorm2d(128)
             self.fc = nn.Linear(128*4*4, 512)                                # (m, 2048, 512)
             self.output = nn.Linear(512, action_size)                       # (m, 512, n_a)
 
         elif self.dim == 42:
             # input shape: (m, input_channels, 42, 42)                      shape after
             self.conv1 = nn.Conv2d(self.input_channels, 32, 6, stride=4)    # (m, 32, 10, 10)
+            self.bn1 = nn.BatchNorm2d(32)
             self.conv2 = nn.Conv2d(32, 64, 2, stride=2)                     # (m, 64, 5, 5)
+            self.bn2 = nn.BatchNorm2d(64)
             self.conv3 = nn.Conv2d(64, 64, 2, stride=1)                     # (m, 64, 4, 4)
+            self.bn3 = nn.BatchNorm2d(64)
             self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
             self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
 
@@ -113,9 +119,9 @@ class ConvNet(nn.Module):
         x = x.reshape(-1, self.input_channels, self.dim, self.dim)
         #print('tx:  {}'.format(x.shape))
         # convolutions
-        x = F.elu(self.conv1(x))
-        x = F.elu(self.conv2(x))
-        x = F.elu(self.conv3(x))
+        x = F.elu(self.bn1(self.conv1(x)))
+        x = F.elu(self.bn2(self.conv2(x)))
+        x = F.elu(self.bn3(self.conv3(x)))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer
