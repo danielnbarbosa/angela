@@ -82,6 +82,7 @@ class UnityMLEnvironment():
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
         self.observations = observations
+        self.full_state = np.zeros((1, 1))
 
     def _preprocess(self, state):
         """
@@ -99,12 +100,12 @@ class UnityMLEnvironment():
         # downsize:                                                           shape after
         state = state.squeeze(0)                                             # (84, 84, 3)
         state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)  # (42, 42, 3)
-        #state = np.expand_dims(state, axis=0)                                # (1, 42, 42, 3)
+        state = np.expand_dims(state, axis=0)                                # (1, 42, 42, 3)
 
         # gaussian blur:                                        shape after
         #state = state.squeeze(0)                                # (84, 84, 3)
-        state = gaussian(state, sigma=0.75, multichannel=True)  # (84, 84, 3)
-        state = np.expand_dims(state, axis=0)                   # (1, 84, 84, 3)
+        #state = gaussian(state, sigma=0.75, multichannel=True)  # (84, 84, 3)
+        #state = np.expand_dims(state, axis=0)                   # (1, 84, 84, 3)
 
         return state
 
@@ -117,18 +118,34 @@ class UnityMLEnvironment():
             state = self._preprocess(state)
         return state
 
+    def _add_frame(self, frame):
+        """ Add a frame to a state.  Used for processing multiple states over time."""
+
+        self.full_state[:, 0, :, :, : :] = self.full_state[:, 1, :, :, : :]
+        self.full_state[:, 1, :, :, : :] = self.full_state[:, 2, :, :, : :]
+        self.full_state[:, 2, :, :, : :] = self.full_state[:, 3, :, :, : :]
+        self.full_state[:, 3, :, :, : :] = frame
+        return self.full_state
+
     def reset(self):
         """Reset the environment."""
 
         info = self.env.reset(train_mode=True)[self.brain_name]
-        state = self._get_state(info)
-        return state
+        #state = self._get_state(info)   # TODO: allow for n frame states (breaks banana)
+        frame = self._get_state(info)
+        self.full_state = np.stack((frame, frame, frame, frame), axis=1)
+        #return state                    # TODO: allow for n frame states (breaks banana)
+        return self.full_state
 
     def step(self, action):
         """Take a step in the environment.  Given an action, return the next state."""
 
         info = self.env.step(action)[self.brain_name]   # send the action to the environment
-        state = self._get_state(info)
+
+        # state = self._get_state(info)   # TODO: allow for n frame states (breaks banana)
+        frame = self._get_state(info)
+        state = self._add_frame(frame)
+
         reward = info.rewards[0]                        # get the reward
         done = info.local_done[0]
         return state, reward, done
