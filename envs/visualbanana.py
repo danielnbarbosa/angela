@@ -13,6 +13,7 @@ agent = Agent(model, action_size=4,
               use_double_dqn=False,
               use_prioritized_experience_replay=False)
 
+# don't forget to reset epsilon when continuing training
 #load(model, 'visualbanana.pth')
 train(environment, agent, n_episodes=10000, solve_score=13.0,
       eps_start=1.0,
