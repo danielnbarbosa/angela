@@ -224,26 +224,26 @@ class ThreeDConvNet(nn.Module):
         self.frames = 4
 
         if self.dim == 84:
-            # input shape: (m, c, f, 84, 84)                                        shape after
-            self.conv1 = nn.Conv3d(self.input_channels, 32, (1, 8, 8), stride=4)    # (m, 32, f, 20, 20)
+            # input shape: (m, c, 4, 84, 84)                                                shape after
+            self.conv1 = nn.Conv3d(self.input_channels, 32, (2, 8, 8), stride=(1, 4, 4))    # (m, 32, 3, 20, 20)
             self.bn1 = nn.BatchNorm3d(32)
-            self.conv2 = nn.Conv3d(32, 64, (1, 4, 4), stride=2)                     # (m, 64, f, 10, 10)
+            self.conv2 = nn.Conv3d(32, 64, (2, 4, 4), stride=(1, 2, 2))                     # (m, 64, 2, 10, 10)
             self.bn2 = nn.BatchNorm3d(64)
-            self.conv3 = nn.Conv3d(64, 128, (1, 3, 3), stride=2)                    # (m, 128, f, 5, 5)
+            self.conv3 = nn.Conv3d(64, 128, (2, 3, 3), stride=(1, 2, 2))                    # (m, 128, 1, 5, 5)
             self.bn3 = nn.BatchNorm3d(128)
-            self.fc = nn.Linear(128*4*4*1, 512)                                     # (m, 2048, 512)
-            self.output = nn.Linear(512, action_size)                               # (m, 512, n_a)
+            self.fc = nn.Linear(128*4*4*1, 512)                                             # (m, 2048, 512)
+            self.output = nn.Linear(512, action_size)                                       # (m, 512, n_a)
 
         elif self.dim == 42:
-            # input shape: (m, c, f, 42, 42)                                        shape after
-            self.conv1 = nn.Conv3d(self.input_channels, 32, (1, 6, 6), stride=4)    # (m, 32, f, 10, 10)
+            # input shape: (m, c, 4, 42, 42)                                                shape after
+            self.conv1 = nn.Conv3d(self.input_channels, 32, (2, 6, 6), stride=(1, 4, 4))    # (m, 32, 3, 10, 10)
             self.bn1 = nn.BatchNorm3d(32)
-            self.conv2 = nn.Conv3d(32, 64, (1, 2, 2), stride=2)                     # (m, 64, f, 5, 5)
+            self.conv2 = nn.Conv3d(32, 64, (2, 2, 2), stride=(1, 2, 2))                     # (m, 64, 2, 5, 5)
             self.bn2 = nn.BatchNorm3d(64)
-            self.conv3 = nn.Conv3d(64, 64, (1, 2, 2), stride=1)                     # (m, 64, f, 4, 4)
+            self.conv3 = nn.Conv3d(64, 64, (2, 2, 2), stride=(1, 1, 1))                     # (m, 64, 1, 4, 4)
             self.bn3 = nn.BatchNorm3d(64)
-            self.fc = nn.Linear(64*4*4*1, 256)                                      # (m, 1024, 256)
-            self.output = nn.Linear(256, action_size)                               # (m, 256, n_a)
+            self.fc = nn.Linear(64*4*4*1, 256)                                              # (m, 1024, 256)
+            self.output = nn.Linear(256, action_size)                                       # (m, 256, n_a)
 
 
     def forward(self, x):

@@ -18,5 +18,5 @@ agent = Agent(model, action_size=4,
 #load(model, 'visualbanana.pth')
 train(environment, agent, n_episodes=10000, solve_score=13.0,
       eps_start=1.0,
-      eps_end=0.01,
+      eps_end=0.05,
       eps_decay=0.997)

@@ -52,6 +52,16 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             # render during training
             if i_episode % render_every == 0:
                 environment.render()
+
+            # visualize each frame
+            #print(state.shape)
+            #plt.figure(1)
+            #sub_plot_img(221, state.squeeze(0)[0], x_label='0')
+            #sub_plot_img(222, state.squeeze(0)[1], x_label='1')
+            #sub_plot_img(223, state.squeeze(0)[2], x_label='2')
+            #sub_plot_img(224, state.squeeze(0)[3], x_label='3')
+            #plt.show()
+
             # select an action
             action = agent.act(state, eps)
             # take action in environment
@@ -117,6 +127,14 @@ def play_sound(file):
     #wave_obj = sa.WaveObject.from_wave_file(file)
     #play_obj = wave_obj.play()
     #play_obj.wait_done()
+
+def sub_plot_img(coords, img, y_label='', x_label=''):
+    """ Plot a single image (subplot). """
+
+    plt.subplot(coords)
+    plt.imshow(img)
+    plt.ylabel(y_label)
+    plt.xlabel(x_label)
 
 def sub_plot(coords, data, y_label='', x_label=''):
     """ Plot a single graph (subplot). """
