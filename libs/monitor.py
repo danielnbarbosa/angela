@@ -55,7 +55,9 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 
             # visualize each frame
             #print(state.shape)
+            #state = state.squeeze(0)
             #plt.figure(1)
+            #sub_plot_img(221, state.squeeze(0), x_label='0')
             #sub_plot_img(221, state.squeeze(0)[0], x_label='0')
             #sub_plot_img(222, state.squeeze(0)[1], x_label='1')
             #sub_plot_img(223, state.squeeze(0)[2], x_label='2')
@@ -187,5 +189,6 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
 def load(model, file_name):
     """ Load saved model weights from a checkpoint file """
 
+    print('Loaded: {}'.format(file_name))
     model.local.load_state_dict(torch.load('../checkpoints/' + file_name))
     model.target.load_state_dict(torch.load('../checkpoints/' + file_name))

@@ -9,5 +9,5 @@ agent = Agent(model, action_size=3,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 
-#load(model, 'mountaincar.pth')
+#load(model, 'mountaincar-run4.pth')
 train(environment, agent, n_episodes=4000, max_t=1000, solve_score=-110.0)

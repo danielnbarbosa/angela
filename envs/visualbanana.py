@@ -7,7 +7,8 @@ NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amaz
 environment = UnityMLEnvironment('VisualBanana.app', 'visual')
 #environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual')
 
-model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=0)
+#model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=0)
+model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=0)
 
 
 agent = Agent(model, action_size=4,
