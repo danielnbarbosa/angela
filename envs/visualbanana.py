@@ -4,7 +4,7 @@ from imports import *
 NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
-SEED=0
+SEED=42
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
