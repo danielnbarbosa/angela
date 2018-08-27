@@ -1,10 +1,14 @@
 from imports import *
 
-environment = GymEnvironment('Pendulum-v0', max_steps=1000, action_bins=(10,))
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-model = DuelingQNet(state_size=3, action_size=9, fc1_units=32, fc2_units=32, seed=0)
+environment = GymEnvironment('Pendulum-v0', seed=SEED, max_steps=1000, action_bins=(10,))
 
-agent = Agent(model, action_size=9,
+model = DuelingQNet(state_size=3, action_size=9, fc1_units=32, fc2_units=32, seed=SEED)
+
+agent = Agent(model, action_size=9, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

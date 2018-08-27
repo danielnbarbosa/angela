@@ -1,10 +1,14 @@
 from imports import *
 
-environment = GymEnvironment('FrozenLake8x8-v0', one_hot=64)
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-model = DuelingQNet(state_size=64, action_size=4, fc1_units=64, fc2_units=64, seed=0)
+environment = GymEnvironment('FrozenLake8x8-v0', seed=SEED, one_hot=64)
 
-agent = Agent(model, action_size=4,
+model = DuelingQNet(state_size=64, action_size=4, fc1_units=64, fc2_units=64, seed=SEED)
+
+agent = Agent(model, action_size=4, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

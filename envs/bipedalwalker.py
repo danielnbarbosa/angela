@@ -4,11 +4,15 @@ from imports import *
 NOTE: need to make some modifications to support multiple simultaneous actions
 """
 
-environment = GymEnvironment('BipedalWalker-v2', action_bins=(5,5,5,5))
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-model = DuelingQNet(state_size=24, action_size=256, fc1_units=64, fc2_units=64, seed=0)
+environment = GymEnvironment('BipedalWalker-v2', seed=SEED, action_bins=(5,5,5,5))
 
-agent = Agent(model, state_size=24, action_size=256,
+model = DuelingQNet(state_size=24, action_size=256, fc1_units=64, fc2_units=64, seed=SEED)
+
+agent = Agent(model, state_size=24, action_size=256, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

@@ -1,11 +1,14 @@
 from imports import *
 
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-environment = GymEnvironment('MountainCar-v0', max_steps=1000)
+environment = GymEnvironment('MountainCar-v0', seed=SEED, max_steps=1000)
 
-model = DuelingQNet(state_size=2, action_size=3, fc1_units=64, fc2_units=64, seed=0)
+model = DuelingQNet(state_size=2, action_size=3, fc1_units=64, fc2_units=64, seed=SEED)
 
-agent = Agent(model, action_size=3,
+agent = Agent(model, action_size=3, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

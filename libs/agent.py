@@ -21,7 +21,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, model, action_size,
+    def __init__(self, model, action_size, seed,
                  use_double_dqn=True,
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
@@ -31,6 +31,7 @@ class Agent():
         Params
         ======
             action_size (int): dimension of each action
+            seed (int): Random seed
             use_double_dqn (bool): wheter to use double DQN algorithm
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
@@ -40,6 +41,7 @@ class Agent():
 
         self.use_double_dqn = use_double_dqn
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
+        random.seed(seed)
 
         self.loss_list = []       # track loss across steps
         self.entropy_list = []    # track entropy across steps
@@ -59,7 +61,7 @@ class Agent():
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.00025, momentum=0.95)
 
         # Replay memory
-        self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE)
+        self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, seed)
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
@@ -183,7 +185,7 @@ class Agent():
 class ReplayBuffer:
     """Fixed-size buffer to store experience tuples."""
 
-    def __init__(self, action_size, buffer_size, batch_size):
+    def __init__(self, action_size, buffer_size, batch_size, seed):
         """Initialize a ReplayBuffer object.
 
         Params
@@ -191,11 +193,13 @@ class ReplayBuffer:
             action_size (int): dimension of each action
             buffer_size (int): maximum size of buffer
             batch_size (int): size of each training batch
+            seed (int): Random seed
         """
         self.action_size = action_size
         self.memory = deque(maxlen=buffer_size)
         self.batch_size = batch_size
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "priority"])
+        random.seed(seed)
 
     def add(self, state, action, reward, next_state, done, priority):
         """Add a new experience to memory."""

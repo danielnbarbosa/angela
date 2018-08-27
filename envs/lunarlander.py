@@ -1,10 +1,15 @@
 from imports import *
 
-environment = GymEnvironment('LunarLander-v2')
 
-model = DuelingQNet(state_size=8, action_size=4, fc1_units=64, fc2_units=64, seed=0)
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-agent = Agent(model, action_size=4,
+environment = GymEnvironment('LunarLander-v2', seed=SEED)
+
+model = DuelingQNet(state_size=8, action_size=4, fc1_units=64, fc2_units=64, seed=SEED)
+
+agent = Agent(model, action_size=4, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

@@ -1,3 +1,4 @@
+import random
 import sys
 sys.path.insert(0, '../libs')
 from monitor import train, watch, load

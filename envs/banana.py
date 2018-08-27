@@ -5,12 +5,16 @@ from imports import *
 NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
-environment = UnityMLEnvironment('Banana.app', 'vector')
+SEED=0
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
+
+environment = UnityMLEnvironment('Banana.app', 'vector', seed=SEED)
 #environment = UnityMLEnvironment('Banana_Linux/Banana.x86_64', 'vector')
 
-model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=0)
+model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=SEED)
 
-agent = Agent(model, action_size=4,
+agent = Agent(model, action_size=4, seed=SEED,
               use_double_dqn=False,
               use_prioritized_experience_replay=False)
 

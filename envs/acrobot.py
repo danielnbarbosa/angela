@@ -1,10 +1,14 @@
 from imports import *
 
-environment = GymEnvironment('Acrobot-v1')
+SEED = 42
+#SEED = random.randint(0, 2 ** 30)
+#print('SEED: {}'.format(SEED))
 
-model = DuelingQNet(state_size=6, action_size=3, fc1_units=64, fc2_units=64, seed=0)
+environment = GymEnvironment('Acrobot-v1', seed=SEED)
 
-agent = Agent(model, action_size=3,
+model = DuelingQNet(state_size=6, action_size=3, fc1_units=64, fc2_units=64, seed=SEED)
+
+agent = Agent(model, action_size=3, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 

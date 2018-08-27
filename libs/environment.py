@@ -15,18 +15,21 @@ import cv2
 class GymEnvironment():
     """Define an OpenAI Gym environment."""
 
-    def __init__(self, name, max_steps=None, one_hot=None, action_bins=None):
+    def __init__(self, name, seed, max_steps=None, one_hot=None, action_bins=None):
         """ Initialize environment
         Params
         ======
             name (str): Environment name
+            seed (int): Random seed
             max_steps (int): Maximum number of steps to run before returning done
             one_hot (int): Size of 1-D one-hot vector
             action_bins (tuple): Number of splits to divide each dimension of continuous space
         """
         self.one_hot = one_hot
         self.action_bins = action_bins
+
         self.env = gym.make(name)
+        self.env.seed(seed)
         # override environment default for max steps in an episode
         if max_steps:
             self.env._max_episode_steps = max_steps
@@ -69,7 +72,7 @@ class GymEnvironment():
 class UnityMLEnvironment():
     """Define a UnityML environment."""
 
-    def __init__(self, name, observations):
+    def __init__(self, name, observations, seed):
         """ Initialize environment
         Params
         ======
@@ -77,8 +80,6 @@ class UnityMLEnvironment():
             observations (str): Observation type: vector, visual
         """
 
-        # need to manually set seed to ensure a random environment is initialized
-        seed = random.randint(0, 2 ** 30)
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
         self.observations = observations

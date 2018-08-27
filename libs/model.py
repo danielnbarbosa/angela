@@ -24,6 +24,7 @@ class TwoHiddenLayerNet(nn.Module):
         """
         super(TwoHiddenLayerNet, self).__init__()
         torch.manual_seed(seed)
+
         self.fc1 = nn.Linear(state_size, fc1_units)
         self.fc2 = nn.Linear(fc1_units, fc2_units)
         self.output = nn.Linear(fc2_units, action_size)
@@ -52,6 +53,7 @@ class DuelingNet(nn.Module):
         """
         super(DuelingNet, self).__init__()
         torch.manual_seed(seed)
+
         self.fc_s = nn.Linear(state_size, fc1_units)     # shared fc layer
         self.fc_v = nn.Linear(fc1_units, fc2_units)      # state fc layer
         self.out_v = nn.Linear(fc2_units, 1)             # state output
@@ -86,6 +88,7 @@ class ConvNet(nn.Module):
         """
         super(ConvNet, self).__init__()
         torch.manual_seed(seed)
+
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels
         self.dim = state_size[1]             # length of one side of square image
@@ -147,6 +150,7 @@ class DuelingConvNet(nn.Module):
         """
         super(DuelingConvNet, self).__init__()
         torch.manual_seed(seed)
+
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels
         self.dim = state_size[1]             # length of one side of square image
@@ -218,6 +222,7 @@ class ThreeDConvNet(nn.Module):
         """
         super(ThreeDConvNet, self).__init__()
         torch.manual_seed(seed)
+
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels
         self.dim = state_size[2]             # length of one side of square image
