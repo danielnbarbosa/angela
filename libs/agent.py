@@ -13,7 +13,7 @@ BUFFER_SIZE = int(1e5)  # replay buffer size
 BATCH_SIZE = 64         # minibatch size
 GAMMA = 0.95            # discount factor
 TAU = 1e-3              # for soft update of target parameters
-LR = 5e-4               # learning rate
+LR = 9e-4               # learning rate
 UPDATE_EVERY = 4        # how often to update the network
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -150,6 +150,7 @@ class Agent():
 
         # calculate loss using mean squared error: (targets - predictions).pow(2).mean()
         loss = F.mse_loss(predictions, targets)
+        #loss = F.smooth_l1_loss(predictions, targets)
         # minimize loss
         self.optimizer.zero_grad()
         loss.backward()

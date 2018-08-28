@@ -108,19 +108,19 @@ class ConvNet(nn.Module):
             self.bn2 = nn.BatchNorm2d(64)
             self.conv3 = nn.Conv2d(64, 64, 3, stride=2)                     # (m, 64, 4, 4)
             self.bn3 = nn.BatchNorm2d(64)
-            self.fc = nn.Linear(64*4*4, 512)                                # (m, 1024, 256)
-            self.output = nn.Linear(512, action_size)                       # (m, 512, n_a)
+            self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
+            self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
 
         elif self.dim == 42:
             # input shape: (m, input_channels, 42, 42)                      shape after
-            self.conv1 = nn.Conv2d(self.input_channels, 32, 4, stride=2)    # (m, 32, 15, 15)
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 6, stride=4)    # (m, 32, 10, 10)
             self.bn1 = nn.BatchNorm2d(32)
-            self.conv2 = nn.Conv2d(32, 64, 3, stride=2)                     # (m, 64, 7, 7)
+            self.conv2 = nn.Conv2d(32, 64, 2, stride=2)                     # (m, 64, 5, 5)
             self.bn2 = nn.BatchNorm2d(64)
-            self.conv3 = nn.Conv2d(64, 64, 2, stride=2)                     # (m, 64, 4, 4)
+            self.conv3 = nn.Conv2d(64, 64, 2, stride=1)                     # (m, 64, 4, 4)
             self.bn3 = nn.BatchNorm2d(64)
-            self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
-            self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
+            self.fc = nn.Linear(64*4*4, 128)                                # (m, 1024, 128)
+            self.output = nn.Linear(128, action_size)                       # (m, 128, n_a)
 
 
     def forward(self, x):
