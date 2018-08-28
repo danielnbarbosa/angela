@@ -110,11 +110,22 @@ class UnityMLEnvironment():
         #state = np.expand_dims(state, axis=0)                   # (1, 84, 84, 3)
 
         # crop and drop to single color channel
+        #state = state.squeeze(0)                                 # (84, 84, 3)
+        #state = state[42:85,  21:63, 0]                          # (42, 42)
+        #state = np.expand_dims(state, axis=0)                    # (1, 42, 42)
+        #state = np.expand_dims(state, axis=3)                    # (1, 42, 42, 1)
+
+        # drop and highlight
         state = state.squeeze(0)                                 # (84, 84, 3)
-        state = state[42:85,  21:63, 0]                          # (42, 42)
-        state = np.expand_dims(state, axis=0)                    # (1, 42, 42)
-        state = np.expand_dims(state, axis=3)                    # (1, 42, 42, 1)
+        state = state[:, :, 0]                                   # (84, 84)
+        state[state >= 0.95] = 1.0                               # (84, 84)
+        state[state < 0.25] = 0.0                                # (84, 84)
+        state = np.expand_dims(state, axis=0)                    # (1, 84, 84)
+        state = np.expand_dims(state, axis=3)                    # (1, 84, 84, 1)
+
         return state
+
+
 
 
     def _get_state(self, info):

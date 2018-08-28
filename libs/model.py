@@ -11,6 +11,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 ##### Define various neural network architectures. #####
 
+
 class TwoHiddenLayerNet(nn.Module):
     """ Classic DQN. """
 
@@ -278,8 +279,36 @@ class ThreeDConvNet(nn.Module):
         return x
 
 
-##### Define QNets with two copies of the above architectures. #####
+class OneHiddenLayerWithFlattenNet(nn.Module):
+    """First does flatten then runs through one FC layer."""
 
+    def __init__(self, state_size, action_size, fc1_units, seed):
+        """Initialize parameters and build model.
+        Params
+        ======
+            state_size (int): Dimension of each state
+            action_size (int): Dimension of each action
+            seed (int): Random seed
+        """
+        super(OneHiddenLayerWithFlattenNet, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+
+        self.fc1 = nn.Linear(state_size, fc1_units)
+        self.output = nn.Linear(fc1_units, action_size)
+
+    def forward(self, x):
+        """Build a network that maps state -> action values."""
+        #print('in:  {}'.format(x.shape))
+        # flatten
+        x = x.view(x.size(0), -1)
+        x = F.relu(self.fc1(x))
+        x = self.output(x)
+        #print('out: {}'.x(q.shape))
+        return x
+
+
+##### Define QNets with two copies of the above architectures. #####
 
 class TwoHiddenLayerQNet():
     def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
@@ -320,3 +349,11 @@ class ThreeDConvQNet():
         self.target = ThreeDConvNet(state_size, action_size, seed).to(device)
         print(self.local)
         summary(self.local, (state_size))
+
+class OneHiddenLayerWithFlattenQNet():
+    def __init__(self, state_size, action_size, fc1_units, seed):
+        """Initialize local and target network with identical initial weights."""
+        self.local = OneHiddenLayerWithFlattenNet(state_size, action_size, fc1_units, seed).to(device)
+        self.target = OneHiddenLayerWithFlattenNet(state_size, action_size, fc1_units, seed).to(device)
+        print(self.local)
+        summary(self.local, (state_size,))
