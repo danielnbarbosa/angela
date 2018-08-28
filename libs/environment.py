@@ -100,12 +100,12 @@ class UnityMLEnvironment():
         #state = np.expand_dims(state, axis=3)  # (1, 84, 84, 1)
 
         # downsize:                                                           shape after
-        state = state.squeeze(0)                                             # (84, 84, 3)
-        state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)  # (42, 42, 3)
+        #state = state.squeeze(0)                                             # (84, 84, 3)
+        #state = cv2.resize(state, (42, 42), interpolation = cv2.INTER_AREA)  # (42, 42, 3)
         #state = np.expand_dims(state, axis=0)                                # (1, 42, 42, 3)
 
         # gaussian blur:                                        shape after
-        #state = state.squeeze(0)                                # (84, 84, 3)
+        state = state.squeeze(0)                                # (84, 84, 3)
         state = gaussian(state, sigma=0.75, multichannel=True)  # (84, 84, 3)
         state = np.expand_dims(state, axis=0)                   # (1, 84, 84, 3)
 

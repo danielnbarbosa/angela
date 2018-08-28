@@ -12,7 +12,7 @@ environment = UnityMLEnvironment('VisualBanana.app', 'visual', seed=SEED)
 #environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual', seed=SEED)
 
 #model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=SEED)
-model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=SEED)
+model = ConvQNet(state_size=(3, 84, 84), action_size=4, seed=SEED)
 
 
 agent = Agent(model, action_size=4, seed=SEED,
