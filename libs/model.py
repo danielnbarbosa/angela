@@ -119,8 +119,8 @@ class ConvNet(nn.Module):
             self.bn2 = nn.BatchNorm2d(64)
             self.conv3 = nn.Conv2d(64, 64, 2, stride=1)                     # (m, 64, 4, 4)
             self.bn3 = nn.BatchNorm2d(64)
-            self.fc = nn.Linear(64*4*4, 128)                                # (m, 1024, 128)
-            self.output = nn.Linear(128, action_size)                       # (m, 128, n_a)
+            self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
+            self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
 
 
     def forward(self, x):

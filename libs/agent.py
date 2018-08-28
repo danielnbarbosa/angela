@@ -149,8 +149,8 @@ class Agent():
                 self.memory.batch_update(indexes, (states, actions, rewards, next_states, dones, new_priorities))
 
         # calculate loss using mean squared error: (targets - predictions).pow(2).mean()
-        loss = F.mse_loss(predictions, targets)
-        #loss = F.smooth_l1_loss(predictions, targets)
+        #loss = F.mse_loss(predictions, targets)
+        loss = F.smooth_l1_loss(predictions, targets)
         # minimize loss
         self.optimizer.zero_grad()
         loss.backward()
