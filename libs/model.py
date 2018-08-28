@@ -24,6 +24,7 @@ class TwoHiddenLayerNet(nn.Module):
         """
         super(TwoHiddenLayerNet, self).__init__()
         torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
 
         self.fc1 = nn.Linear(state_size, fc1_units)
         self.fc2 = nn.Linear(fc1_units, fc2_units)
@@ -53,6 +54,7 @@ class DuelingNet(nn.Module):
         """
         super(DuelingNet, self).__init__()
         torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
 
         self.fc_s = nn.Linear(state_size, fc1_units)     # shared fc layer
         self.fc_v = nn.Linear(fc1_units, fc2_units)      # state fc layer
@@ -88,8 +90,13 @@ class ConvNet(nn.Module):
         """
         super(ConvNet, self).__init__()
         torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
 
         # formula for calculcating conv net output dims: (W-F)/S + 1
+        # DQN Paper:
+        # 32, 8x8, 4
+        # 64, 4x4, 2
+        # 64, 3x3, 1
         self.input_channels = state_size[0]  # number of color channels
         self.dim = state_size[1]             # length of one side of square image
 
@@ -99,18 +106,18 @@ class ConvNet(nn.Module):
             self.bn1 = nn.BatchNorm2d(32)
             self.conv2 = nn.Conv2d(32, 64, 4, stride=2)                     # (m, 64, 9, 9)
             self.bn2 = nn.BatchNorm2d(64)
-            self.conv3 = nn.Conv2d(64, 128, 3, stride=2)                     # (m, 128, 4, 4)
-            self.bn3 = nn.BatchNorm2d(128)
-            self.fc = nn.Linear(128*4*4, 512)                                # (m, 2048, 512)
+            self.conv3 = nn.Conv2d(64, 64, 3, stride=2)                     # (m, 64, 4, 4)
+            self.bn3 = nn.BatchNorm2d(64)
+            self.fc = nn.Linear(64*4*4, 512)                                # (m, 1024, 256)
             self.output = nn.Linear(512, action_size)                       # (m, 512, n_a)
 
         elif self.dim == 42:
             # input shape: (m, input_channels, 42, 42)                      shape after
-            self.conv1 = nn.Conv2d(self.input_channels, 32, 6, stride=4)    # (m, 32, 10, 10)
+            self.conv1 = nn.Conv2d(self.input_channels, 32, 4, stride=2)    # (m, 32, 15, 15)
             self.bn1 = nn.BatchNorm2d(32)
-            self.conv2 = nn.Conv2d(32, 64, 2, stride=2)                     # (m, 64, 5, 5)
+            self.conv2 = nn.Conv2d(32, 64, 3, stride=2)                     # (m, 64, 7, 7)
             self.bn2 = nn.BatchNorm2d(64)
-            self.conv3 = nn.Conv2d(64, 64, 2, stride=1)                     # (m, 64, 4, 4)
+            self.conv3 = nn.Conv2d(64, 64, 2, stride=2)                     # (m, 64, 4, 4)
             self.bn3 = nn.BatchNorm2d(64)
             self.fc = nn.Linear(64*4*4, 256)                                # (m, 1024, 256)
             self.output = nn.Linear(256, action_size)                       # (m, 256, n_a)
@@ -150,6 +157,7 @@ class DuelingConvNet(nn.Module):
         """
         super(DuelingConvNet, self).__init__()
         torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
 
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels
@@ -222,6 +230,7 @@ class ThreeDConvNet(nn.Module):
         """
         super(ThreeDConvNet, self).__init__()
         torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
 
         # formula for calculcating conv net output dims: (W-F)/S + 1
         self.input_channels = state_size[0]  # number of color channels

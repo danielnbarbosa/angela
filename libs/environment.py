@@ -29,6 +29,7 @@ class GymEnvironment():
         self.action_bins = action_bins
 
         self.env = gym.make(name)
+        #self.env = gym.wrappers.Monitor(self.env, "recording")
         self.env.seed(seed)
         # override environment default for max steps in an episode
         if max_steps:
