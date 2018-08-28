@@ -12,7 +12,7 @@ environment = UnityMLEnvironment('VisualBanana.app', 'visual', seed=SEED)
 #environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual', seed=SEED)
 
 #model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=SEED)
-model = ConvQNet(state_size=(1, 84, 84), action_size=4, seed=SEED)
+model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=SEED)
 #model = OneHiddenLayerWithFlattenQNet(state_size=1764, fc1_units=256, action_size=4, seed=SEED)
 
 
@@ -25,4 +25,4 @@ agent = Agent(model, action_size=4, seed=SEED,
 train(environment, agent, n_episodes=10000, solve_score=13.0,
       eps_start=1.0,
       eps_end=0.05,
-      eps_decay=0.998)
+      eps_decay=0.997)
