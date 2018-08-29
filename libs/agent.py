@@ -61,6 +61,7 @@ class Agent():
         # Q-Network
         self.qnetwork_local = model.local
         self.qnetwork_target = model.target
+
         # debug weight initialization
         #print(self.qnetwork_local.fc_s.weight.data[0])
         #print(self.qnetwork_target.fc_s.weight.data[0])
