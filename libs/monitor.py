@@ -2,6 +2,8 @@
 Functions to execute training and visualize agent.
 """
 
+import glob
+import os
 import time
 from collections import deque
 import numpy as np
@@ -42,6 +44,11 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
     best_avg_score = -np.Inf            # best score for a single episode
     time_start = time.time()            # track wall time over 100 episodes
     total_steps = 0                     # track steps taken over 100 episodes
+
+    # remove checkpoints from prior run
+    last_checkpoints=glob.glob('../../checkpoints/last_run/episode*.pth')
+    for checkpoint in last_checkpoints:
+        os.remove(checkpoint)
 
     for i_episode in range(1, n_episodes+1):
         # reset environment
@@ -94,7 +101,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
                   .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
-            save_name = '../../checkpoints/episode.{}.pth'.format(i_episode)
+            save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
             # reset counters
             time_start = time.time()
@@ -104,7 +111,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         if avg_score >= solve_score:
             print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
-            torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/solved.pth')
+            torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/last_run/solved.pth')
             break
 
     # play sound to signal training is finished

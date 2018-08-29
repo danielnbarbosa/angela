@@ -12,7 +12,8 @@ agent = Agent(model, action_size=2, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=True,
               alpha_start=0.5,
-              alpha_decay=0.9992)
+              alpha_decay=0.9992,
+              buffer_size=10000)
 
 #load(model, 'cartpole.pth')
 train(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0)
