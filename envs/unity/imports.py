@@ -6,4 +6,4 @@ from agent import Agent
 from environments import UnityMLVectorEnvironment
 #from environments_experimental import UnityMLVisualEnvironment
 from models import TwoHiddenLayerQNet, DuelingQNet
-#from models_experimental import ConvQNet, DuelingConvQNet, ThreeDConvQNet, OneHiddenLayerWithFlattenQNet
+from models_experimental import ConvQNet #, DuelingConvQNet, ThreeDConvQNet, OneHiddenLayerWithFlattenQNet

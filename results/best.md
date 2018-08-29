@@ -53,11 +53,11 @@ Episode   1200	Avg: -251.95	Best: -184.86	Eps: 0.0100	BufferLen: 100000	Steps:  
 Avg: -223.9
 ```
 
-## UnittyML Environments
+## Unity ML Environments
 
 #### Banana
 ```
-Best: 193
+Environment solved in 236 episodes!	AvgScore: 13.000	StdDev: 5.282	Seed: 0
 ```
 
 #### VisualBanana
@@ -67,5 +67,5 @@ Episode  1300	Avg:  4.64	Best:  4.67	ε: 0.0500  ⍺: 0.5000  Buffer: 100000  St
 
 #### Basic
 ```
-Environment solved in 150 episodes!	AvgScore: 0.930	StdDev: 0.000	EnvSeed: 0
+Environment solved in 150 episodes!	AvgScore: 0.930	StdDev: 0.000	Seed: 0
 ```

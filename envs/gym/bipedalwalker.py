@@ -1,7 +1,7 @@
 from imports import *
 
 """
-NOTE: need to make some modifications to support multiple simultaneous actions
+NOTE: Need to make some modifications to support multiple simultaneous actions.
 """
 
 SEED = 42
