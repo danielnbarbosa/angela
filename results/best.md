@@ -34,7 +34,7 @@ Environment solved in 640 episodes!	Average Score: 200.16
 Environment solved in 605 episodes!	Average Score: 200.11
 Avg: 726
 
-Environment solved in 745 episodes!	Average Score: 200.02	StdDev: 49.85  Seed: 0
+Environment solved in 674 episodes!	AvgScore: 201.88	StdDev: 51.40	EnvSeed: 42  [128, 128]
 ```
 
 #### MountainCar-v0
@@ -62,5 +62,10 @@ Best: 193
 
 #### VisualBanana
 ```
-Episode  2500	Avg:  2.18	Best:  2.46	ε: 0.0100  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  234
+Episode  1300	Avg:  4.64	Best:  4.67	ε: 0.0500  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  205
+```
+
+#### Basic
+```
+Environment solved in 150 episodes!	AvgScore: 0.930	StdDev: 0.000	EnvSeed: 0
 ```

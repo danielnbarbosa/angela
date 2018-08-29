@@ -82,7 +82,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:5.2f}\tBest: {:5.2f}'
+        print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}'
               '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'
               .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
 
@@ -91,10 +91,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:5.2f}\tBest: {:5.2f}'
+            print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
                   .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
-            save_name = '../checkpoints/episode.{}.pth'.format(i_episode)
+            save_name = '../../checkpoints/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
             # reset counters
             time_start = time.time()
@@ -102,14 +102,14 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 
         # if solved
         if avg_score >= solve_score:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.2f}\tStdDev: {:.2f}\tEnvSeed: {:d}'
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tEnvSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
-            torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
+            torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/solved.pth')
             break
 
     # play sound to signal training is finished
     if sound_when_done:
-        play_sound('../libs/fanfare.wav')
+        play_sound('../../libs/fanfare.wav')
     if graph_when_done:
         plot(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
@@ -120,7 +120,7 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
     for checkpoint in checkpoints:
         # load saved weights from file
         print('Watching: {}'.format(checkpoint))
-        agent.qnetwork_local.load_state_dict(torch.load('../checkpoints/' + checkpoint + '.pth'))
+        agent.qnetwork_local.load_state_dict(torch.load('../../checkpoints/' + checkpoint + '.pth'))
         # reset environment
         state = environment.reset()
         # interact with environment
@@ -138,5 +138,5 @@ def load(model, file_name):
     """ Load saved model weights from a checkpoint file """
 
     print('Loaded: {}'.format(file_name))
-    model.local.load_state_dict(torch.load('../checkpoints/' + file_name))
-    model.target.load_state_dict(torch.load('../checkpoints/' + file_name))
+    model.local.load_state_dict(torch.load('../../checkpoints/' + file_name))
+    model.target.load_state_dict(torch.load('../../checkpoints/' + file_name))

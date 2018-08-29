@@ -1,6 +1,5 @@
 __pycache__
-Banana.app
-VisualBanana.app
+*.app
 unity-environment.log
 checkpoints/*
 !checkpoints/cartpole.pth

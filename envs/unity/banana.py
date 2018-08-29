@@ -9,7 +9,7 @@ SEED=0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = UnityMLVectorEnvironment('Banana.app', seed=SEED)
+environment = UnityMLVectorEnvironment('compiled_unity_environments/Banana.app', seed=SEED)
 #environment = UnityMLEnvironment('Banana_Linux/Banana.x86_64', 'vector')
 
 model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=SEED)

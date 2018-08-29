@@ -8,7 +8,7 @@ SEED=42
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = UnityMLVisualEnvironment('VisualBanana.app', seed=SEED)
+environment = UnityMLVisualEnvironment('compiled_unity_environments/VisualBanana.app', seed=SEED)
 #environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual', seed=SEED)
 
 model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=SEED)
