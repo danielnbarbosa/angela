@@ -102,8 +102,8 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 
         # if solved
         if avg_score >= solve_score:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}\tStdDev: {:.2f}'
-                  .format(i_episode-100, avg_score, np.std(scores_window)))
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.2f}\tStdDev: {:.2f}\tEnvSeed: {:d}'
+                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             torch.save(agent.qnetwork_local.state_dict(), '../checkpoints/solved.pth')
             break
 

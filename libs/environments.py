@@ -25,9 +25,9 @@ class GymEnvironment():
             one_hot (int): Size of 1-D one-hot vector
             action_bins (tuple): Number of splits to divide each dimension of continuous space
         """
+        self.seed = seed
         self.one_hot = one_hot
         self.action_bins = action_bins
-
         self.env = gym.make(name)
         #self.env = gym.wrappers.Monitor(self.env, "recording")
         self.env.seed(seed)
@@ -78,7 +78,7 @@ class UnityMLVectorEnvironment():
             name (str): Environment name
             seed (int): Random seed
         """
-
+        self.seed = seed
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
         self.full_state = np.zeros((1, 1))
