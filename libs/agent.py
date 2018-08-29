@@ -209,11 +209,13 @@ class ReplayBuffer:
             batch_size (int): size of each training batch
             seed (int): Random seed
         """
+        random.seed(seed)
+        np.random.seed(seed)
         self.action_size = action_size
         self.memory = deque(maxlen=buffer_size)
         self.batch_size = batch_size
         self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "priority"])
-        random.seed(seed)
+
 
     def add(self, state, action, reward, next_state, done, priority):
         """Add a new experience to memory."""
@@ -246,12 +248,16 @@ class ReplayBuffer:
         for i in range(self.batch_size):
             e = self.experience(states[i], int(actions[i]), float(rewards[i]), next_states[i], bool(dones[i]), float(new_priorities[i]))
             self.memory[indexes[i]] = e
+            #del self.memory[indexes[i]]
+            #self.memory.append(e)
 
     def sort(self):
         """ Sort memory based on priority (TD error) """
 
         # sort memory based on priority (sixth item in experience tuple)
-        self.memory = sorted(self.memory, key=lambda x: x[5], reverse=True)
+        items = [self.memory.pop() for i in range(len(self.memory))]
+        items.sort(key=lambda x: x[5], reverse=True)
+        self.memory.extend(items)
 
     def sample_with_priority(self, alpha):
         """ Sample a batch of experiences from memory using Prioritized Experience. """
