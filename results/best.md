@@ -33,6 +33,8 @@ Environment solved in 933 episodes!	Average Score: 200.19
 Environment solved in 640 episodes!	Average Score: 200.16
 Environment solved in 605 episodes!	Average Score: 200.11
 Avg: 726
+
+Environment solved in 745 episodes!	Average Score: 200.02	StdDev: 49.85  Seed: 0
 ```
 
 #### MountainCar-v0

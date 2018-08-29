@@ -8,15 +8,17 @@ SEED=42
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = UnityMLEnvironment('VisualBanana.app', 'visual', seed=SEED)
+environment = UnityMLVisualEnvironment('VisualBanana.app', seed=SEED)
 #environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual', seed=SEED)
 
-#model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=SEED)
 model = ConvQNet(state_size=(3, 42, 42), action_size=4, seed=SEED)
+#model = ThreeDConvQNet(state_size=(3, 4, 42, 42), action_size=4, seed=SEED)
 #model = OneHiddenLayerWithFlattenQNet(state_size=1764, fc1_units=256, action_size=4, seed=SEED)
 
 
 agent = Agent(model, action_size=4, seed=SEED,
+              gamma=0.95,
+              lr=9e-4,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 
