@@ -12,9 +12,9 @@ ANGELA: Artificial Neural Game Environment Learning Agent
 
 ## Introduction
 
-Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) environments.
+Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) and [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) environments.
 
-The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
+The code is originally based on [this DQN code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
 
 
 #### Algorithms supported
@@ -30,8 +30,7 @@ The code is originally based on [this code](https://github.com/udacity/deep-rein
 - visualize neural network layout
 - realtime output of training stats
 - save and load model weights
-- visualize agent training
-- aural indication when training is finished :)
+- visualize agent in action
 
 
 ## Installation
@@ -50,7 +49,7 @@ brew install swig
 conda create -n angela python=3.6 anaconda
 source activate angela
 conda install pytorch torchvision -c pytorch
-conda install -n angela opencv
+conda install -n angela opencv scikit-image
 pip install gym Box2D box2d-py simpleaudio torchsummary unityagents
 ```
 
@@ -61,6 +60,12 @@ cd gym
 pip install -e '.[atari]'
 ```
 
+#### Step 4: Install Unity ML Agents
+```
+git clone https://github.com/Unity-Technologies/ml-agents.git
+cd ml-agents/python
+pip install .
+```
 
 ## Usage
 Each environment has its own file that will run the agent in that environment.  The file also acts as a config file for setting all the various hyperparameters that you may care to tweak.
@@ -68,13 +73,14 @@ Each environment has its own file that will run the agent in that environment.  
 To train the agent just run the desired environment file, for example to train on CartPole-v1:
 
 ```
-cd envs
+cd envs/gym
 python cartpole.py
 ```
 
-You can also visualize a trained agent by uncommenting the `watch()` function.
+You can also load a saved agent using `load()` or visualize a trained agent using `watch()`.
 
 
 ## Coming soon
-- Support for [Unity ML environments](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector).
+- hill climbing
+- policy gradient methods
 - convolutional neural networks for learning from pixels

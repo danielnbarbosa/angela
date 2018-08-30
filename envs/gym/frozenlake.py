@@ -1,6 +1,6 @@
 from imports import *
 
-SEED = 42
+SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 

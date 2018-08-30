@@ -1,6 +1,6 @@
 from imports import *
 
-SEED = 42
+SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
@@ -12,4 +12,4 @@ agent = Agent(model, action_size=3, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False)
 
-train(environment, agent, n_episodes=4000, max_t=1000)
+train(environment, agent, n_episodes=12000, max_t=1000)

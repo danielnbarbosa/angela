@@ -7,7 +7,7 @@ SEED = 42
 
 environment = GymEnvironment('LunarLander-v2', seed=SEED)
 
-model = DuelingQNet(state_size=8, action_size=4, fc1_units=64, fc2_units=64, seed=SEED)
+model = DuelingQNet(state_size=8, action_size=4, fc1_units=128, fc2_units=128, seed=SEED)
 
 agent = Agent(model, action_size=4, seed=SEED,
               use_double_dqn=True,
