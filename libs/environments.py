@@ -10,6 +10,7 @@ from skimage.filters import gaussian
 import gym
 from discretize import create_uniform_grid
 import cv2
+import time
 
 
 class GymEnvironment():
@@ -34,7 +35,7 @@ class GymEnvironment():
         # override environment default for max steps in an episode
         if max_steps:
             self.env._max_episode_steps = max_steps
-
+        self.frame_sleep = 0.05
 
     def reset(self):
         """Reset the environment."""
@@ -66,6 +67,7 @@ class GymEnvironment():
         """ Render the environment to visualize the agent interacting."""
 
         self.env.render()
+        time.sleep(self.frame_sleep)
 
 
 class UnityMLVectorEnvironment():

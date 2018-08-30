@@ -12,8 +12,86 @@ from visualize import sub_plot, plot, sub_plot_img, show_frames, play_sound
 #import simpleaudio as sa
 
 
+def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
+             gamma=1.0,
+             noise_scale=1e-2,
+             print_every=100,
+             render_every=100000,
+             solve_score=100000.0,
+             sound_when_done=False,
+             graph_when_done=False):
+    """ Run training loop for Hill Climbing.
 
-def train(environment, agent, n_episodes=2000, max_t=1000,
+    Params
+    ======
+        environment: environment object
+        agent: agent object
+        n_episodes (int): maximum number of training episodes
+        max_t (int): maximum number of timesteps per episode
+        gamma (float): discount rate
+        noise_scale (float): standard deviation of additive noise
+        render_every (int): render the agent interacting in the environment every n episodes
+        solve_score (float): criteria for considering the environment solved
+        sound_when_done (bool): wheter to play a sound to announce training is finished
+        graph_when_done (bool): whether to show matplotlib graphs of the training run
+    """
+    np.random.seed(seed)
+
+    scores = []
+    avg_scores = []
+    scores_window = deque(maxlen=100)
+    best_return = -np.Inf
+    best_weights = agent.weights
+
+    for i_episode in range(1, n_episodes+1):
+        # render during training
+        if i_episode % render_every == 0:
+            environment.render()
+
+        rewards = []
+        state = environment.reset()
+        for t in range(max_t):
+            action = agent.act(state)
+            state, reward, done = environment.step(action)
+            rewards.append(reward)
+            if done:
+                break
+
+        # update stats
+        scores_window.append(sum(rewards))
+        scores.append(sum(rewards))
+        avg_score = np.mean(scores_window)
+        avg_scores.append(avg_score)
+
+        # calculate return
+        discounts = [gamma**i for i in range(len(rewards)+1)]
+        current_return = sum([a*b for a,b in zip(discounts, rewards)])
+
+        # compare current return to best return
+        if current_return >= best_return: # found better weights
+            best_return = current_return
+            best_weights = agent.weights
+            noise_scale = max(1e-3, noise_scale / 2)
+            agent.weights += noise_scale * np.random.rand(*agent.weights.shape)
+        else: # did not find better weights
+            noise_scale = min(2, noise_scale * 2)
+            agent.weights = best_weights + noise_scale * np.random.rand(*agent.weights.shape)
+
+        # print stats every n episodes
+        if i_episode % print_every == 0:
+            print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}\tNoiseScale: {:.4f}'
+                  .format(i_episode, avg_score, best_return, noise_scale))
+
+        # if solved
+        if avg_score >= solve_score:
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
+                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
+            agent.weights = best_weights
+            break
+
+
+
+def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
           eps_start=1.0,
           eps_end=0.01,
           eps_decay=0.995,
@@ -21,7 +99,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
           solve_score=100000.0,
           sound_when_done=False,
           graph_when_done=False):
-    """ Run training loop.
+    """ Run training loop for DQN.
 
     Params
     ======

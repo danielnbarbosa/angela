@@ -8,7 +8,7 @@ environment = GymEnvironment('CartPole-v1', seed=SEED)
 
 model = DuelingQNet(state_size=4, action_size=2, fc1_units=64, fc2_units=32, seed=SEED)
 
-agent = Agent(model, action_size=2, seed=SEED,
+agent = DQNAgent(model, action_size=2, seed=SEED,
               use_double_dqn=True,
               use_prioritized_experience_replay=False,
               alpha_start=0.5,
@@ -16,4 +16,4 @@ agent = Agent(model, action_size=2, seed=SEED,
               buffer_size=10000)
 
 #load(model, 'cartpole.pth')
-train(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0)
+train_dqn(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0)

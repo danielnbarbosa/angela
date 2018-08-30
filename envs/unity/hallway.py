@@ -15,11 +15,11 @@ environment = UnityMLVectorEnvironment('compiled_unity_environments/Hallway.app'
 
 model = TwoHiddenLayerQNet(state_size=36, action_size=16, fc1_units=64, fc2_units=64, seed=SEED)
 
-agent = Agent(model, action_size=16, seed=SEED,
-              use_double_dqn=False,
-              use_prioritized_experience_replay=False)
+agent = DQNAgent(model, action_size=16, seed=SEED,
+                 use_double_dqn=False,
+                 use_prioritized_experience_replay=False)
 
-train(environment, agent, n_episodes=1000, solve_score=0.7,
-      eps_start=1,
-      eps_end=0.001,
-      eps_decay=0.97)
+train_dqn(environment, agent, n_episodes=1000, solve_score=0.7,
+          eps_start=1,
+          eps_end=0.001,
+          eps_decay=0.97)

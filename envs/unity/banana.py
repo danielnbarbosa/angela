@@ -14,11 +14,11 @@ environment = UnityMLVectorEnvironment('compiled_unity_environments/Banana.app',
 
 model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=SEED)
 
-agent = Agent(model, action_size=4, seed=SEED,
-              use_double_dqn=False,
-              use_prioritized_experience_replay=False)
+agent = DQNAgent(model, action_size=4, seed=SEED,
+                 use_double_dqn=False,
+                 use_prioritized_experience_replay=False)
 
-train(environment, agent, n_episodes=1000, solve_score=13.0,
-      eps_start=1.0,
-      eps_end=0.001,
-      eps_decay=0.97)
+train_dqn(environment, agent, n_episodes=1000, solve_score=13.0,
+          eps_start=1.0,
+          eps_end=0.001,
+          eps_decay=0.97)

@@ -1,5 +1,5 @@
 """
-Classes to model an RL agent.
+Classes to model a DQN agent.
 """
 
 import random
@@ -11,7 +11,8 @@ import torch.optim as optim
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-class Agent():
+
+class DQNAgent():
     """Interacts with and learns from the environment."""
 
     def __init__(self, model, action_size, seed,
