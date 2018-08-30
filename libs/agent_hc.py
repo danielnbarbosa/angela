@@ -20,7 +20,7 @@ class HillClimbingAgent():
         np.random.seed(seed)
         self.action_size = action_size
         self.policy = policy
-        self.weights = 1e-4 * np.random.rand(state_size, action_size)  # weights for simple linear policy: state_space x action_space
+        self.weights = 1e-4 * np.random.randn(state_size, action_size)  # weights for simple linear policy: state_space x action_space
 
     def _softmax(self, x):
         exp = np.exp(x)

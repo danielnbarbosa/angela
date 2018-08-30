@@ -35,7 +35,7 @@ class GymEnvironment():
         # override environment default for max steps in an episode
         if max_steps:
             self.env._max_episode_steps = max_steps
-        self.frame_sleep = 0.05
+        self.frame_sleep = 0.0
 
     def reset(self):
         """Reset the environment."""

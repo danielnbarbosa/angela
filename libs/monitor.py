@@ -8,12 +8,12 @@ import time
 from collections import deque
 import numpy as np
 import torch
-from visualize import sub_plot, plot, sub_plot_img, show_frames, play_sound
-#import simpleaudio as sa
+from visualize import plot_dqn, plot_hc
 
 
 def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              gamma=1.0,
+             use_adaptive_noise=True,
              noise_scale=1e-2,
              print_every=100,
              render_every=100000,
@@ -37,20 +37,22 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     """
     np.random.seed(seed)
 
-    scores = []
-    avg_scores = []
-    scores_window = deque(maxlen=100)
-    best_return = -np.Inf
-    best_weights = agent.weights
+    scores = []                         # list containing scores from each episode
+    avg_scores = []                     # list containing average scores after each episode
+    scores_window = deque(maxlen=100)   # last 100 scores
+    best_avg_score = -np.Inf            # best score for a single episode
+    time_start = time.time()            # track wall time over 100 episodes
+    best_return = -np.Inf               # current best return
+    best_weights = agent.weights        # current best weights
 
     for i_episode in range(1, n_episodes+1):
-        # render during training
-        if i_episode % render_every == 0:
-            environment.render()
-
+        # rollout a single episode and gather the rewards
         rewards = []
         state = environment.reset()
         for t in range(max_t):
+            # render during training
+            if i_episode % render_every == 0:
+                environment.render()
             action = agent.act(state)
             state, reward, done = environment.step(action)
             rewards.append(reward)
@@ -62,6 +64,9 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         scores.append(sum(rewards))
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
+        # update best average score, let a few episodes pass in case you get lucky early
+        if avg_score > best_avg_score and i_episode > 30:
+            best_avg_score = avg_score
 
         # calculate return
         discounts = [gamma**i for i in range(len(rewards)+1)]
@@ -71,16 +76,16 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         if current_return >= best_return: # found better weights
             best_return = current_return
             best_weights = agent.weights
-            noise_scale = max(1e-3, noise_scale / 2)
-            agent.weights += noise_scale * np.random.rand(*agent.weights.shape)
+            noise_scale = max(1e-3, noise_scale / 2) if use_adaptive_noise else 1
+            agent.weights += noise_scale * np.random.randn(*agent.weights.shape)
         else: # did not find better weights
-            noise_scale = min(2, noise_scale * 2)
-            agent.weights = best_weights + noise_scale * np.random.rand(*agent.weights.shape)
+            noise_scale = min(2, noise_scale * 2) if use_adaptive_noise else 1
+            agent.weights = best_weights + noise_scale * np.random.randn(*agent.weights.shape)
 
         # print stats every n episodes
         if i_episode % print_every == 0:
-            print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}\tNoiseScale: {:.4f}'
-                  .format(i_episode, avg_score, best_return, noise_scale))
+            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:5.2f}\tCurrentReturn: {:5.2f}\tBestReturn: {:5.2f}\tNoiseScale: {:.4f}'
+                  .format(i_episode, avg_score, best_avg_score, current_return, best_return, noise_scale))
 
         # if solved
         if avg_score >= solve_score:
@@ -88,6 +93,10 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             agent.weights = best_weights
             break
+
+    # training finished
+    if graph_when_done:
+        plot_hc(scores, avg_scores)
 
 
 
@@ -167,7 +176,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}'
+        print('\rEpisode {:5}\tAvg: {:5.3f}\tBestAvg: {:5.3f}'
               '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'
               .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
 
@@ -176,7 +185,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:5.3f}\tBest: {:5.3f}'
+            print('\rEpisode {:5}\tAvg: {:5.3f}\tBestAvg: {:5.3f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
                   .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
@@ -192,11 +201,11 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/last_run/solved.pth')
             break
 
-    # play sound to signal training is finished
+    # training finished
     if sound_when_done:
         play_sound('../../libs/fanfare.wav')
     if graph_when_done:
-        plot(scores, avg_scores, agent.loss_list, agent.entropy_list)
+        plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
 
 def watch(environment, agent, checkpoints, frame_sleep=0.05):

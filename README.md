@@ -14,19 +14,25 @@ ANGELA: Artificial Neural Game Environment Learning Agent
 
 Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) and [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) environments.
 
-The code is originally based on [this DQN code](https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It it is written in python3 and pytorch.
+The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.
+
+The code is written in python3 and pytorch.  I use this as a sandbox to test out different RL algorithms in a variety of environments.
 
 
-#### Algorithms supported
-- DQN
+#### DQN Agent Features
+- Standard DQN with Experience Replay and Fixed Q-Targets
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
 
-#### Features
+#### Hill Climbing Agent Features
+- Standard Hill Climbing
+- Adaptive Noise
+
+#### General Features
 - supports discrete state spaces using one-hot encoding
 - supports continuous action spaces using discretization
-- graph metrics related to reward, loss and entropy
+- graph training metrics
 - visualize neural network layout
 - realtime output of training stats
 - save and load model weights
@@ -74,13 +80,12 @@ To train the agent just run the desired environment file, for example to train o
 
 ```
 cd envs/gym
-python cartpole.py
+python pendulum.py
 ```
 
 You can also load a saved agent using `load()` or visualize a trained agent using `watch()`.
 
 
 ## Coming soon
-- hill climbing
 - policy gradient methods
 - convolutional neural networks for learning from pixels
