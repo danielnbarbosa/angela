@@ -15,6 +15,10 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              gamma=1.0,
              noise_scale=1e-2,
              use_adaptive_noise=False,
+             noise_scale_in=2,
+             noise_scale_out=2,
+             noise_min=1e-3,
+             noise_max=2,
              npop=1,
              print_every=100,
              render_every=100000,
@@ -32,6 +36,8 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         gamma (float): discount rate
         noise_scale (float): standard deviation of additive noise
         use_adaptive_noise (bool): whether to implement adaptive noise
+        noise_scale_in (int): factor to reduce noise by
+        noise_scale_out (int): factor to increase noise by, set to 1 for simmulated annealing
         npop (int): population size for steepest ascent
         render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
@@ -81,9 +87,9 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         if pop_best_return >= best_return: # found better weights
             best_return = pop_best_return
             best_weights += noise_scale * pop_noise[pop_return.argmax()]
-            noise_scale = max(1e-3, noise_scale / 2) if use_adaptive_noise else noise_scale
+            noise_scale = max(noise_min, noise_scale / noise_scale_in) if use_adaptive_noise else noise_scale
         else: # did not find better weights
-            noise_scale = min(2, noise_scale * 2) if use_adaptive_noise else noise_scale
+            noise_scale = min(noise_max, noise_scale * noise_scale_out) if use_adaptive_noise else noise_scale
 
         # consider the best rewards from the current population for calculating stats
         pop_best_rewards = pop_rewards[pop_return.argmax()]

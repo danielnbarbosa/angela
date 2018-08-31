@@ -29,6 +29,7 @@ Consider this as a sandbox to test out different RL algorithms in a variety of e
 - Standard Hill Climbing
 - Adaptive Noise
 - Steepest Ascent
+- Simulated Annealing
 
 #### General Features
 - supports discrete state spaces using one-hot encoding

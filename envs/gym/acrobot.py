@@ -17,9 +17,9 @@ def dqn():
 
 
 def hc():
-    #SEED = 653326216
-    SEED = random.randint(0, 2 ** 30)
-    print('SEED: {}'.format(SEED))
+    SEED = 653326216
+    #SEED = random.randint(0, 2 ** 30)
+    #print('SEED: {}'.format(SEED))
 
     environment = GymEnvironment('Acrobot-v1', seed=SEED)
 
@@ -29,6 +29,8 @@ def hc():
     train_hc(environment, agent, seed=SEED, n_episodes=1000, max_t=1000,
              use_adaptive_noise=False,
              npop=5,
+             noise_scale_in=2,
+             noise_scale_out=1,
              print_every=100,
              render_every=10000,
              graph_when_done=True)
