@@ -3,14 +3,11 @@ Classes to model various RL environments.
 """
 
 import random
+import time
 import numpy as np
 from unityagents import UnityEnvironment
-from skimage.color import rgb2gray
-from skimage.filters import gaussian
 import gym
 from discretize import create_uniform_grid
-import cv2
-import time
 
 
 class GymEnvironment():

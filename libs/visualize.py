@@ -71,7 +71,6 @@ def show_frames(state):
 def play_sound(file):
     """ Play a sound. """
 
-    pass
-    #wave_obj = sa.WaveObject.from_wave_file(file)
-    #play_obj = wave_obj.play()
-    #play_obj.wait_done()
+    wave_obj = sa.WaveObject.from_wave_file(file)
+    play_obj = wave_obj.play()
+    play_obj.wait_done()

@@ -38,6 +38,8 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         use_adaptive_noise (bool): whether to implement adaptive noise
         noise_scale_in (int): factor to reduce noise by
         noise_scale_out (int): factor to increase noise by, set to 1 for simmulated annealing
+        noise_min (int): minimum noise_scale
+        noise_max (int): maximum noise scale
         npop (int): population size for steepest ascent
         render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
@@ -77,7 +79,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
                     break
             # calculate return
             discounts = [gamma**i for i in range(len(rewards)+1)]
-            pop_return[j] = sum([a*b for a,b in zip(discounts, rewards)])
+            pop_return[j] = sum([a*b for a, b in zip(discounts, rewards)])
             pop_rewards.append(rewards)
 
         # determine who got the highest reward
@@ -122,13 +124,13 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
 
 def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
-          eps_start=1.0,
-          eps_end=0.01,
-          eps_decay=0.995,
-          render_every=100000,
-          solve_score=100000.0,
-          sound_when_done=False,
-          graph_when_done=False):
+              eps_start=1.0,
+              eps_end=0.01,
+              eps_decay=0.995,
+              render_every=100000,
+              solve_score=100000.0,
+              sound_when_done=False,
+              graph_when_done=False):
     """ Run training loop for DQN.
 
     Params
@@ -154,8 +156,8 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
     total_steps = 0                     # track steps taken over 100 episodes
 
     # remove checkpoints from prior run
-    last_checkpoints=glob.glob('../../checkpoints/last_run/episode*.pth')
-    for checkpoint in last_checkpoints:
+    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
+    for checkpoint in prior_checkpoints:
         os.remove(checkpoint)
 
     for i_episode in range(1, n_episodes+1):
@@ -223,8 +225,8 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             break
 
     # training finished
-    if sound_when_done:
-        play_sound('../../libs/fanfare.wav')
+    #if sound_when_done:
+    #    play_sound('../../libs/fanfare.wav')
     if graph_when_done:
         plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
