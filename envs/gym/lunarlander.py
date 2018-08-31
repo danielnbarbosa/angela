@@ -19,19 +19,20 @@ def dqn():
 
 
 def hc():
-    #SEED = 280797091
-    SEED = random.randint(0, 2 ** 30)
-    print('SEED: {}'.format(SEED))
+    SEED = 888417152
+    #SEED = random.randint(0, 2 ** 30)
+    #print('SEED: {}'.format(SEED))
 
     environment = GymEnvironment('LunarLander-v2', seed=SEED)
 
     agent = HillClimbingAgent(state_size=8, action_size=4, seed=SEED,
                               policy='deterministic')
 
-    train_hc(environment, agent, seed=SEED, n_episodes=5000, max_t=2000,
+    train_hc(environment, agent, seed=SEED, n_episodes=1500, max_t=2000,
              use_adaptive_noise=True,
+             npop=10,
              print_every=100,
-             render_every=10000,
+             solve_score=200.0,
              graph_when_done=True)
 
 

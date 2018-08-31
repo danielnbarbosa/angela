@@ -24,7 +24,8 @@ def hc():
     #SEED = 878833714   # -99 episodes to solve (with adaptive noise)
     #SEED = 256533649   # +96 episodes to solve (with adaptive noise)
     #SEED = 983301353   # good for seeing the difference between having adaptive noise and not
-    SEED = random.randint(0, 2 ** 30)
+    SEED = 897277145
+    #SEED = random.randint(0, 2 ** 30)
     #print('SEED: {}'.format(SEED))
 
     environment = GymEnvironment('CartPole-v1', seed=SEED,
@@ -34,11 +35,11 @@ def hc():
                               policy='deterministic')
 
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
-             use_adaptive_noise=True,
+             use_adaptive_noise=False,
+             npop=10,
              print_every=1,
-             render_every=10000,
              solve_score=195.0,
-             graph_when_done=True)
+             graph_when_done=False)
 
 
 ### main ###

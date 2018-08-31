@@ -22,7 +22,7 @@ def dqn():
 
 
 def hc():
-    #SEED = 173225865
+    #SEED = 716600281
     SEED = random.randint(0, 2 ** 30)
     print('SEED: {}'.format(SEED))
 
@@ -31,10 +31,11 @@ def hc():
     agent = HillClimbingAgent(state_size=2, action_size=3, seed=SEED,
                               policy='deterministic')
 
-    train_hc(environment, agent, seed=SEED, n_episodes=5000, max_t=1000,
+    train_hc(environment, agent, seed=SEED, n_episodes=1000, max_t=1000,
              use_adaptive_noise=True,
-             print_every=100,
-             render_every=10000,
+             npop=4,
+             print_every=20,
+             solve_score=-110.0,
              graph_when_done=True)
 
 

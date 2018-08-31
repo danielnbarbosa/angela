@@ -13,8 +13,9 @@ from visualize import plot_dqn, plot_hc
 
 def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              gamma=1.0,
-             use_adaptive_noise=True,
              noise_scale=1e-2,
+             use_adaptive_noise=False,
+             npop=1,
              print_every=100,
              render_every=100000,
              solve_score=100000.0,
@@ -30,6 +31,8 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         max_t (int): maximum number of timesteps per episode
         gamma (float): discount rate
         noise_scale (float): standard deviation of additive noise
+        use_adaptive_noise (bool): whether to implement adaptive noise
+        npop (int): population size for steepest ascent
         render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
         sound_when_done (bool): wheter to play a sound to announce training is finished
@@ -41,51 +44,63 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     avg_scores = []                     # list containing average scores after each episode
     scores_window = deque(maxlen=100)   # last 100 scores
     best_avg_score = -np.Inf            # best score for a single episode
-    time_start = time.time()            # track wall time over 100 episodes
     best_return = -np.Inf               # current best return
     best_weights = agent.weights        # current best weights
 
+
     for i_episode in range(1, n_episodes+1):
-        # rollout a single episode and gather the rewards
-        rewards = []
-        state = environment.reset()
-        for t in range(max_t):
-            # render during training
-            if i_episode % render_every == 0:
-                environment.render()
-            action = agent.act(state)
-            state, reward, done = environment.step(action)
-            rewards.append(reward)
-            if done:
-                break
+        # generate noise for each member of population
+        pop_noise = np.random.randn(npop, *agent.weights.shape)
+        # generate placeholders for each member of population
+        pop_return = np.zeros(npop)
+        pop_rewards = []
+        # rollout one episode for each population member and gather the rewards
+        for j in range(npop):
+            rewards = []
+            # evaluate each population member
+            agent.weights = best_weights + noise_scale * pop_noise[j]
+            state = environment.reset()
+            for t in range(max_t):
+                # render during training
+                if i_episode % render_every == 0:
+                    environment.render()
+                action = agent.act(state)
+                state, reward, done = environment.step(action)
+                rewards.append(reward)
+                if done:
+                    break
+            # calculate return
+            discounts = [gamma**i for i in range(len(rewards)+1)]
+            pop_return[j] = sum([a*b for a,b in zip(discounts, rewards)])
+            pop_rewards.append(rewards)
+
+        # determine who got the highest reward
+        pop_best_return = pop_return.max()
+
+        # compare best return from current population to global best return
+        if pop_best_return >= best_return: # found better weights
+            best_return = pop_best_return
+            best_weights += noise_scale * pop_noise[pop_return.argmax()]
+            noise_scale = max(1e-3, noise_scale / 2) if use_adaptive_noise else noise_scale
+        else: # did not find better weights
+            noise_scale = min(2, noise_scale * 2) if use_adaptive_noise else noise_scale
+
+        # consider the best rewards from the current population for calculating stats
+        pop_best_rewards = pop_rewards[pop_return.argmax()]
 
         # update stats
-        scores_window.append(sum(rewards))
-        scores.append(sum(rewards))
+        scores_window.append(sum(pop_best_rewards))
+        scores.append(sum(pop_best_rewards))
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
         # update best average score, let a few episodes pass in case you get lucky early
         if avg_score > best_avg_score and i_episode > 30:
             best_avg_score = avg_score
 
-        # calculate return
-        discounts = [gamma**i for i in range(len(rewards)+1)]
-        current_return = sum([a*b for a,b in zip(discounts, rewards)])
-
-        # compare current return to best return
-        if current_return >= best_return: # found better weights
-            best_return = current_return
-            best_weights = agent.weights
-            noise_scale = max(1e-3, noise_scale / 2) if use_adaptive_noise else 1
-            agent.weights += noise_scale * np.random.randn(*agent.weights.shape)
-        else: # did not find better weights
-            noise_scale = min(2, noise_scale * 2) if use_adaptive_noise else 1
-            agent.weights = best_weights + noise_scale * np.random.randn(*agent.weights.shape)
-
         # print stats every n episodes
         if i_episode % print_every == 0:
-            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:5.2f}\tCurrentReturn: {:5.2f}\tBestReturn: {:5.2f}\tNoiseScale: {:.4f}'
-                  .format(i_episode, avg_score, best_avg_score, current_return, best_return, noise_scale))
+            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:7.2f}\tCurRet: {:8.2f}\tBestRet: {:5.2f}\tNoise: {:.4f}'
+                  .format(i_episode, avg_score, best_avg_score, pop_best_return, best_return, noise_scale))
 
         # if solved
         if avg_score >= solve_score:
