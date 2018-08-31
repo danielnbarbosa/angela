@@ -109,7 +109,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
                   .format(i_episode, avg_score, best_avg_score, pop_best_return, best_return, noise_scale))
 
         # if solved
-        if avg_score >= solve_score:
+        if avg_score >= solve_score and i_episode >= 100:
             print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             agent.weights = best_weights
@@ -216,7 +216,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             total_steps = 0
 
         # if solved
-        if avg_score >= solve_score:
+        if avg_score >= solve_score and i_episode >= 100:
             print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/last_run/solved.pth')

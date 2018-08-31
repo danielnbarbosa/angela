@@ -37,7 +37,7 @@ def hc():
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              use_adaptive_noise=False,
              npop=10,
-             print_every=1,
+             print_every=10,
              solve_score=195.0,
              graph_when_done=False)
 

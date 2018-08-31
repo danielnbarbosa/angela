@@ -16,9 +16,18 @@ Episode  1000	Avg: -73.03	BestAvg:  -70.10	CurRet:   -70.00	BestRet: -61.00	Nois
 
 #### CartPole-v1
 ```
-Episode     1	Avg: 608.00	BestAvg:    -inf	CurRet:   608.00	BestRet: 608.00	Noise: 0.0100
+Episode    10	Avg: 960.80	BestAvg:    -inf	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    20	Avg: 980.40	BestAvg:    -inf	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    30	Avg: 986.93	BestAvg:    -inf	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    40	Avg: 990.20	BestAvg:  990.20	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    50	Avg: 992.16	BestAvg:  992.16	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    60	Avg: 993.47	BestAvg:  993.47	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    70	Avg: 994.40	BestAvg:  994.40	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    80	Avg: 995.10	BestAvg:  995.10	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode    90	Avg: 995.64	BestAvg:  995.64	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
+Episode   100	Avg: 996.08	BestAvg:  996.08	CurRet:  1000.00	BestRet: 1000.00	Noise: 0.0100
 
-Environment solved in -99 episodes!	AvgScore: 608.000	StdDev: 0.000	Seed: 897277145
+Environment solved in 0 episodes!	AvgScore: 996.080	StdDev: 39.004	Seed: 897277145
 ```
 
 #### LunarLander-v2
