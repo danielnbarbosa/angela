@@ -324,6 +324,17 @@ Episode  3900	Avg: -521.279	Best: -384.263	ε: 0.0100  ⍺: 0.5000  Buffer: 1000
 Episode  4000	Avg: -506.196	Best: -384.263	ε: 0.0100  ⍺: 0.5000  Buffer: 100000  Steps:  99900  Secs:  110
 ```
 
+#### Breakout-ram-v0
+```
+Episode   100	Avg: 1.280	BestAvg: 1.326	ε: 0.6058  ⍺: 0.5000  Buffer:  24168  Steps:  24068  Secs:   81
+Episode   200	Avg: 1.350	BestAvg: 1.470	ε: 0.3670  ⍺: 0.5000  Buffer:  49183  Steps:  24915  Secs:   85
+Episode   300	Avg: 1.460	BestAvg: 1.480	ε: 0.2223  ⍺: 0.5000  Buffer:  76980  Steps:  27697  Secs:   98
+Episode   400	Avg: 1.480	BestAvg: 1.540	ε: 0.1347  ⍺: 0.5000  Buffer: 100000  Steps:  29325  Secs:  117
+Episode   500	Avg: 1.870	BestAvg: 1.930	ε: 0.0816  ⍺: 0.5000  Buffer: 100000  Steps:  33284  Secs:  138
+Episode   600	Avg: 2.130	BestAvg: 2.130	ε: 0.0494  ⍺: 0.5000  Buffer: 100000  Steps:  42235  Secs:  152
+Episode   700	Avg: 2.290	BestAvg: 2.610	ε: 0.0299  ⍺: 0.5000  Buffer: 100000  Steps:  55424  Secs:  201
+```
+
 ## Unity ML Environments
 
 #### Banana
@@ -333,6 +344,47 @@ Episode   200	Avg: 9.580	Best: 9.630	ε: 0.0023  ⍺: 0.5000  Buffer:  60000  St
 Episode   300	Avg: 12.410	Best: 12.410	ε: 0.0010  ⍺: 0.5000  Buffer:  90000  Steps:  29900  Secs:   99
 Episode   311	Avg: 13.000	Best: 13.000	ε: 0.0010  ⍺: 0.5000  Buffer:  93300
 Environment solved in 211 episodes!	AvgScore: 13.000	StdDev: 5.070	Seed: 895815691
+
+Episode   100	Avg: 3.1800	BestAvg: 3.180	ε: 0.0476  ⍺: 0.5000  Buffer:  30000  Steps:  29900  Secs:   96
+Episode   200	Avg: 10.240	BestAvg: 10.250	ε: 0.0023  ⍺: 0.5000  Buffer:  60000  Steps:  29900  Secs:   93
+Episode   300	Avg: 10.740	BestAvg: 10.960	ε: 0.0010  ⍺: 0.5000  Buffer:  90000  Steps:  29900  Secs:   98
+Episode   400	Avg: 14.010	BestAvg: 14.190	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  101
+Episode   500	Avg: 15.650	BestAvg: 15.670	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   98
+Episode   600	Avg: 16.500	BestAvg: 16.580	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  101
+Episode   700	Avg: 16.330	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   94
+Episode   800	Avg: 16.710	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode   900	Avg: 16.530	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1000	Avg: 16.690	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1100	Avg: 15.660	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1200	Avg: 16.690	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1300	Avg: 16.400	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1400	Avg: 16.930	BestAvg: 17.090	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1500	Avg: 17.000	BestAvg: 17.240	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1600	Avg: 16.780	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1700	Avg: 16.720	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  1800	Avg: 16.290	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   96
+Episode  1900	Avg: 16.610	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   99
+Episode  2000	Avg: 16.840	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   97
+Episode  2100	Avg: 16.730	BestAvg: 17.320	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   95
+Episode  2200	Avg: 17.120	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   95
+Episode  2300	Avg: 16.640	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   95
+Episode  2400	Avg: 16.680	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   94
+Episode  2500	Avg: 16.270	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   94
+Episode  2600	Avg: 15.910	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  2700	Avg: 15.110	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  2800	Avg: 15.490	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   93
+Episode  2900	Avg: 16.890	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  103
+Episode  3000	Avg: 17.140	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  110
+Episode  3100	Avg: 16.760	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  105
+Episode  3200	Avg: 16.750	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  100
+Episode  3300	Avg: 16.250	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   98
+Episode  3400	Avg: 16.780	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   98
+Episode  3500	Avg: 15.340	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:   96
+Episode  3600	Avg: 16.410	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  105
+Episode  3700	Avg: 16.830	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  105
+Episode  3800	Avg: 16.600	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  106
+Episode  3900	Avg: 16.590	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  107
+Episode  4000	Avg: 16.640	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  103
 ```
 
 #### Basic
