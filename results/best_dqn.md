@@ -326,13 +326,11 @@ Episode  4000	Avg: -506.196	Best: -384.263	ε: 0.0100  ⍺: 0.5000  Buffer: 1000
 
 #### Breakout-ram-v0
 ```
-Episode   100	Avg: 1.280	BestAvg: 1.326	ε: 0.6058  ⍺: 0.5000  Buffer:  24168  Steps:  24068  Secs:   81
-Episode   200	Avg: 1.350	BestAvg: 1.470	ε: 0.3670  ⍺: 0.5000  Buffer:  49183  Steps:  24915  Secs:   85
-Episode   300	Avg: 1.460	BestAvg: 1.480	ε: 0.2223  ⍺: 0.5000  Buffer:  76980  Steps:  27697  Secs:   98
-Episode   400	Avg: 1.480	BestAvg: 1.540	ε: 0.1347  ⍺: 0.5000  Buffer: 100000  Steps:  29325  Secs:  117
-Episode   500	Avg: 1.870	BestAvg: 1.930	ε: 0.0816  ⍺: 0.5000  Buffer: 100000  Steps:  33284  Secs:  138
-Episode   600	Avg: 2.130	BestAvg: 2.130	ε: 0.0494  ⍺: 0.5000  Buffer: 100000  Steps:  42235  Secs:  152
-Episode   700	Avg: 2.290	BestAvg: 2.610	ε: 0.0299  ⍺: 0.5000  Buffer: 100000  Steps:  55424  Secs:  201
+128x128 DoDuDQN:
+Episode  6000	Avg: 2.020	BestAvg: 2.260	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:  28273  Secs:   69
+
+256x128 DoDuDQN:
+Episode 30000	Avg: 5.360	BestAvg: 6.430	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:  44020  Secs:  113
 ```
 
 ## Unity ML Environments

@@ -13,7 +13,7 @@ from discretize import create_uniform_grid
 class GymEnvironment():
     """Define an OpenAI Gym environment."""
 
-    def __init__(self, name, seed, max_steps=None, one_hot=None, action_bins=None):
+    def __init__(self, name, seed, max_steps=None, one_hot=None, action_bins=None, normalize=False):
         """ Initialize environment
         Params
         ======
@@ -22,17 +22,24 @@ class GymEnvironment():
             max_steps (int): Maximum number of steps to run before returning done
             one_hot (int): Size of 1-D one-hot vector
             action_bins (tuple): Number of splits to divide each dimension of continuous space
+            normalize (bool): Whether to normalize the state input
         """
         self.seed = seed
         self.one_hot = one_hot
         self.action_bins = action_bins
+        self.normalize = normalize
         self.env = gym.make(name)
         #self.env = gym.wrappers.Monitor(self.env, "recording")
         self.env.seed(seed)
         # override environment default for max steps in an episode
         if max_steps:
             self.env._max_episode_steps = max_steps
+        # grab value to use for normalization
+        if normalize:
+            self.obs_space_high = self.env.observation_space.high[0]
+
         self.frame_sleep = 0.02
+
 
     def reset(self):
         """Reset the environment."""
@@ -41,6 +48,9 @@ class GymEnvironment():
         # one-hot encode state space (needed in environments where each state is numbered)
         if self.one_hot:
             state = np.eye(self.one_hot)[state]
+        # normalize state input (used in atari ram environments)
+        if self.normalize:
+            state = state / self.obs_space_high
         return state
 
 
@@ -58,6 +68,9 @@ class GymEnvironment():
         # one-hot encode state space (needed in environments where each state is numbered)
         if self.one_hot:
             state = np.eye(self.one_hot)[state]
+        # normalize state input (used in atari ram environments)
+        if self.normalize:
+            state = state / self.obs_space_high
         return state, reward, done
 
     def render(self):

@@ -199,16 +199,16 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:5.3f}\tBestAvg: {:5.3f}'
-              '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}'
-              .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len), end="")
+        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}'
+              '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  CurrRet: {:5}'
+              .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, score), end="")
 
         # every 100 episodes
         if i_episode % 100 == 0:
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:5.3f}\tBestAvg: {:5.3f}'
+            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
                   .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
