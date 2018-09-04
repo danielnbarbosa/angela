@@ -343,6 +343,12 @@ Episode  2700	Avg:   4.910	BestAvg:   5.010	ε: 0.1510  ⍺: 0.5000  Buffer: 100
 
 128x64x32x16 DoDQN 2 frames:
 Episode 10000	Avg:   5.430	BestAvg:   5.700	StdDev: 2.669	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:  3992281  Secs:  10505
+
+256x128 DoDQN 2 frames:
+Episode  9200	Avg:   4.600	BestAvg:   5.260	StdDev: 2.362	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:    41869  Secs:     79
+
+128x128x128x128 DoDQN 1 frame:
+Episode 26500	Avg:   4.700	BestAvg:   5.950	StdDev: 2.261	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:    44561  Secs:     96
 ```
 
 ## Unity ML Environments
