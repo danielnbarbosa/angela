@@ -331,6 +331,15 @@ Episode  6000	Avg: 2.020	BestAvg: 2.260	ε: 0.1000  ⍺: 0.5000  Buffer: 100000 
 
 256x128 DoDuDQN:
 Episode 30000	Avg: 5.360	BestAvg: 6.430	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:  44020  Secs:  113
+
+128x128 DQN:
+Episode  7500	Avg:   4.260	BestAvg:   5.170	ε: 0.0500  ⍺: 0.5000  Buffer: 100000  Steps:  2874105  Secs:   6546
+
+128x128x128x128 DQN:
+Episode 10000	Avg:   4.630	BestAvg:   5.990	ε: 0.1000  ⍺: 0.5000  Buffer: 100000  Steps:  3756830  Secs:  11537
+
+128x64x32x16 DoDQN:
+Episode  2700	Avg:   4.910	BestAvg:   5.010	ε: 0.1510  ⍺: 0.5000  Buffer: 100000  Steps:   882055  Secs:   2240
 ```
 
 ## Unity ML Environments

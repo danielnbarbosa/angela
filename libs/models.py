@@ -40,6 +40,38 @@ class TwoHiddenLayerNet(nn.Module):
         return x
 
 
+class FourHiddenLayerNet(nn.Module):
+    """ Classic DQN. """
+
+    def __init__(self, state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units,seed):
+        """Initialize parameters and build model.
+        Params
+        ======
+            state_size (int): Dimension of each state
+            action_size (int): Dimension of each action
+            seed (int): Random seed
+        """
+        super(FourHiddenLayerNet, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+        self.fc1 = nn.Linear(state_size, fc1_units)
+        self.fc2 = nn.Linear(fc1_units, fc2_units)
+        self.fc3 = nn.Linear(fc2_units, fc3_units)
+        self.fc4 = nn.Linear(fc3_units, fc4_units)
+        self.output = nn.Linear(fc4_units, action_size)
+
+    def forward(self, x):
+        """Build a network that maps state -> action values."""
+        #print('in:  {}'.format(x.shape))
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
+        x = F.relu(self.fc4(x))
+        x = self.output(x)
+        #print('out:  {}'.format(x.shape))
+        return x
+
+
 class DuelingNet(nn.Module):
     """ Dueling DQN. """
 
@@ -78,6 +110,14 @@ class TwoHiddenLayerQNet():
         """Initialize local and target network with identical initial weights."""
         self.local = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
         self.target = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        print(self.local)
+        summary(self.local, (state_size,))
+
+class FourHiddenLayerQNet():
+    def __init__(self, state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed):
+        """Initialize local and target network with identical initial weights."""
+        self.local = FourHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed).to(device)
+        self.target = FourHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 

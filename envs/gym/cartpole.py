@@ -34,6 +34,7 @@ def hc():
     agent = HillClimbingAgent(state_size=4, action_size=2, seed=SEED,
                               policy='deterministic')
 
+    #load_pickle(agent, 'last_run/solved.pck')
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              use_adaptive_noise=False,
              npop=10,

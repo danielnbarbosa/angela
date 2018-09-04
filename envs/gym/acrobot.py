@@ -26,11 +26,12 @@ def hc():
     agent = HillClimbingAgent(state_size=6, action_size=3, seed=SEED,
                               policy='deterministic')
 
+    load_pickle(agent, 'best/acrobot.pck')
     train_hc(environment, agent, seed=SEED, n_episodes=1000, max_t=1000,
-             use_adaptive_noise=False,
+             use_adaptive_noise=True,
              npop=5,
              noise_scale_in=2,
-             noise_scale_out=1,
+             noise_scale_out=2,
              print_every=100,
              render_every=10000,
              graph_when_done=True)

@@ -7,6 +7,7 @@ import os
 import time
 from collections import deque
 import numpy as np
+import pickle
 import torch
 from visualize import plot_dqn, plot_hc
 
@@ -55,6 +56,10 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     best_return = -np.Inf               # current best return
     best_weights = agent.weights        # current best weights
 
+    # remove checkpoints from prior run
+    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pck')
+    for checkpoint in prior_checkpoints:
+        os.remove(checkpoint)
 
     for i_episode in range(1, n_episodes+1):
         # generate noise for each member of population
@@ -101,20 +106,24 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         scores.append(sum(pop_best_rewards))
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
+        std_dev = np.std(scores_window)
         # update best average score, let a few episodes pass in case you get lucky early
         if avg_score > best_avg_score and i_episode > 30:
             best_avg_score = avg_score
 
         # print stats every n episodes
         if i_episode % print_every == 0:
-            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:7.2f}\tCurRet: {:8.2f}\tBestRet: {:5.2f}\tNoise: {:.4f}'
-                  .format(i_episode, avg_score, best_avg_score, pop_best_return, best_return, noise_scale))
+            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:7.2f}\tStdDev: {:.3f}\tCurRet: {:8.2f}\tBestRet: {:5.2f}\tNoise: {:.4f}'
+                  .format(i_episode, avg_score, best_avg_score, std_dev, pop_best_return, best_return, noise_scale))
+            save_name = '../../checkpoints/last_run/episode.{}.pck'.format(i_episode)
+            pickle.dump(agent.weights, open(save_name, 'wb'))
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
             print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
-                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
+                  .format(i_episode-100, avg_score, std_dev, environment.seed))
             agent.weights = best_weights
+            pickle.dump(agent.weights, open('../../checkpoints/last_run/solved.pck', 'wb'))
             break
 
     # training finished
@@ -193,29 +202,30 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         scores.append(score)
         avg_score = np.mean(scores_window)
         avg_scores.append(avg_score)
+        std_dev = np.std(scores_window)
         buffer_len = len(agent.memory)
         # update best average score, let a few episodes pass in case you get lucky early
         if avg_score > best_avg_score and i_episode > 30:
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}'
+        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
               '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  CurrRet: {:5}'
-              .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, score), end="")
+              .format(i_episode, avg_score, best_avg_score, std_dev, eps, agent.alpha, buffer_len, score), end="")
 
         # every 100 episodes
         if i_episode % 100 == 0:
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}'
-                  '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:6}  Secs: {:4}'
-                  .format(i_episode, avg_score, best_avg_score, eps, agent.alpha, buffer_len, total_steps, n_secs))
+            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
+                  '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:8}  Secs: {:6}'
+                  .format(i_episode, avg_score, best_avg_score, std_dev, eps, agent.alpha, buffer_len, total_steps, n_secs))
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
             # reset counters
-            time_start = time.time()
-            total_steps = 0
+            #time_start = time.time()
+            #total_steps = 0
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
@@ -254,6 +264,13 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
 def load(model, file_name):
     """ Load saved model weights from a checkpoint file """
 
-    print('Loaded: {}'.format(file_name))
     model.local.load_state_dict(torch.load('../../checkpoints/' + file_name))
     model.target.load_state_dict(torch.load('../../checkpoints/' + file_name))
+    print('Loaded: {}'.format(file_name))
+
+
+def load_pickle(agent, file_name):
+    """ Load saved model weights from a picke file """
+
+    agent.weights = pickle.load(open('../../checkpoints/' + file_name, 'rb'))
+    print('Loaded: {}'.format(file_name))
