@@ -10,7 +10,7 @@ def dqn():
 
     #model = DuelingQNet(state_size=128, action_size=4, fc1_units=256, fc2_units=256, seed=SEED)
     #model = TwoHiddenLayerQNet(state_size=128, action_size=4, fc1_units=128, fc2_units=128, seed=SEED)
-    model = FourHiddenLayerQNet(state_size=128, action_size=4, fc1_units=128, fc2_units=64, fc3_units=32, fc4_units=16, seed=SEED)
+    model = FourHiddenLayerQNet(state_size=256, action_size=4, fc1_units=256, fc2_units=128, fc3_units=64, fc4_units=32, seed=SEED)
 
 
     agent = DQNAgent(model, action_size=4, seed=SEED,
@@ -23,6 +23,7 @@ def dqn():
               eps_start=1,
               eps_end=0.1,
               eps_decay=0.9993,
+              frames=2,
               graph_when_done=True,
               render_every=10000000)
 

@@ -136,6 +136,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
               eps_start=1.0,
               eps_end=0.01,
               eps_decay=0.995,
+              frames=1,
               render_every=100000,
               solve_score=100000.0,
               sound_when_done=False,
@@ -151,6 +152,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         eps_start (float): starting value of epsilon, for epsilon-greedy action selection
         eps_end (float): minimum value of epsilon
         eps_decay (float): multiplicative factor (per episode) for decreasing epsilon
+        frames (int): number of frames to pass in as state (currently either 1 or 2)
         render_every (int): render the agent interacting in the environment every n episodes
         solve_score (float): criteria for considering the environment solved
         sound_when_done (bool): wheter to play a sound to announce training is finished
@@ -171,7 +173,12 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
 
     for i_episode in range(1, n_episodes+1):
         # reset environment
-        state = environment.reset()
+        if frames == 2:
+            prior_state = environment.reset()
+            current_state = prior_state.copy()
+        elif frames == 1:
+            state = environment.reset()
+
         score = 0
         # loop over steps
         for t in range(max_t):
@@ -183,12 +190,22 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             # show_frames()
 
             # select an action
-            action = agent.act(state, eps)
+            if frames == 2:
+                state_concat = np.concatenate((prior_state, current_state))
+                action = agent.act(state_concat, eps)
+            elif frames == 1:
+                action = agent.act(state, eps)
             # take action in environment
             next_state, reward, done = environment.step(action)
             # update agent with returned information
-            agent.step(state, action, reward, next_state, done)
-            state = next_state
+            if frames == 2:
+                next_state_concat = np.concatenate((current_state, next_state))
+                agent.step(state_concat, action, reward, next_state_concat, done)
+                prior_state = current_state
+                current_state = next_state
+            elif frames == 1:
+                agent.step(state, action, reward, next_state, done)
+                state = next_state
             score += reward
             if done:
                 total_steps += t
@@ -224,8 +241,8 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
             # reset counters
-            #time_start = time.time()
-            #total_steps = 0
+            time_start = time.time()
+            total_steps = 0
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
