@@ -103,6 +103,60 @@ class DuelingNet(nn.Module):
         return q
 
 
+class Simple3DConvNet(nn.Module):
+    """
+    3D Convolutional Neural Network for learning from pixels.
+    Assumes 4 stacked RGB frames with dimensions of 84x84.
+    """
+
+    def __init__(self, state_size, action_size, seed):
+        """Initialize parameters and build model.
+        Params
+        ======
+            state_size (tuple): Shape of state input
+            action_size (int): Dimension of each action
+            seed (int): Random seed
+        """
+        super(Simple3DConvNet, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+
+        # formula for calculcating conv net output dims: (W-F)/S + 1
+        # DQN Paper:
+        # conv1: 32, 8x8, 4
+        # conv2: 64, 4x4, 2
+        # conv3: 64, 3x3, 1
+        # fc: 512
+        # input shape: (m, 3, 4, 84, 84)                               shape after
+        self.conv1 = nn.Conv3d(3, 32, (1, 8, 8), stride=(1, 4, 4))     # (m, 32, 4, 20, 20)
+        self.bn1 = nn.BatchNorm3d(32)
+        self.conv2 = nn.Conv3d(32, 64, (1, 4, 4), stride=(1, 2, 2))    # (m, 64, 4, 9, 9)
+        self.bn2 = nn.BatchNorm3d(64)
+        self.conv3 = nn.Conv3d(64, 64, (4, 3, 3), stride=(1, 1, 1))    # (m, 128, 1, 7, 7)
+        self.bn3 = nn.BatchNorm3d(64)
+        self.fc = nn.Linear(64*7*7*1, 512)                             # (m, 3136, 512)
+        self.output = nn.Linear(512, action_size)                      # (m, 512, n_a)
+
+    def forward(self, x):
+        #print('in:  {}'.format(x.shape))
+        # reshape state output from environment to fit torch conv3d format
+        # (m, 4, 84, 84, 3) -> (m, 3, 4, 84, 84)
+        x = x.reshape(-1, 3, 4, 84, 84)
+        #print('tx:  {}'.format(x.shape))
+        # convolutions
+        x = F.elu(self.bn1(self.conv1(x)))
+        x = F.elu(self.bn2(self.conv2(x)))
+        x = F.elu(self.bn3(self.conv3(x)))
+        # flatten
+        x = x.view(x.size(0), -1)
+        # fully connected layer
+        x = F.elu(self.fc(x))
+        x = self.output(x)
+        #print('out: {}'.format(x.shape))
+        return x
+
+
+
 ##### Define QNets with two copies of the above architectures. #####
 
 class TwoHiddenLayerQNet():
@@ -128,3 +182,11 @@ class DuelingQNet():
         self.target = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
+
+class Simple3DConvQNet():
+    def __init__(self, state_size, action_size, seed):
+        """Initialize local and target network with identical initial weights."""
+        self.local = Simple3DConvNet(state_size, action_size, seed).to(device)
+        self.target = Simple3DConvNet(state_size, action_size, seed).to(device)
+        print(self.local)
+        summary(self.local, (state_size))

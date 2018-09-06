@@ -117,3 +117,54 @@ class UnityMLVectorEnvironment():
         """ Render the environment to visualize the agent interacting."""
 
         pass
+
+
+class UnityMLVisualEnvironmentSimple():
+    """Define a UnityML visual (pixels based) environment.
+       This is a simplified version of the one in environments_experimental.
+       It stacks 4 frames but does no pre-processing."""
+
+    def __init__(self, name, seed):
+        """ Initialize environment
+        Params
+        ======
+            name (str): Environment name
+        """
+
+        self.env = UnityEnvironment(file_name=name, seed=seed)
+        self.brain_name = self.env.brain_names[0]
+        self.full_state = np.zeros((1, 1))
+
+
+    def _add_frame(self, frame):
+        """ Add a frame to a state.  Used for processing multiple states over time."""
+
+        self.full_state[:, 3, :, :, : :] = self.full_state[:, 2, :, :, : :]
+        self.full_state[:, 2, :, :, : :] = self.full_state[:, 1, :, :, : :]
+        self.full_state[:, 1, :, :, : :] = self.full_state[:, 0, :, :, : :]
+        self.full_state[:, 0, :, :, : :] = frame
+        return self.full_state
+
+    def reset(self):
+        """Reset the environment."""
+
+        info = self.env.reset(train_mode=True)[self.brain_name]
+        frame = info.visual_observations[0]
+        self.full_state = np.stack((frame, frame, frame, frame), axis=1)
+        return self.full_state
+
+
+    def step(self, action):
+        """Take a step in the environment.  Given an action, return the next state."""
+
+        info = self.env.step(action)[self.brain_name]   # send the action to the environment
+        frame = info.visual_observations[0]
+        state = self._add_frame(frame)
+        reward = info.rewards[0]                        # get the reward
+        done = info.local_done[0]
+        return state, reward, done
+
+    def render(self):
+        """ Render the environment to visualize the agent interacting."""
+
+        pass

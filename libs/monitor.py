@@ -9,7 +9,7 @@ from collections import deque
 import numpy as np
 import pickle
 import torch
-from visualize import plot_dqn, plot_hc
+from visualize import plot_dqn, plot_hc, show_frames
 
 
 def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
@@ -187,7 +187,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
                 environment.render()
 
             # visualize each frame of Conv3D state
-            # show_frames()
+            #show_frames(state)
 
             # select an action
             if frames == 2:

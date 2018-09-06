@@ -44,6 +44,7 @@ def plot_dqn(scores, avg_scores, loss_list, entropy_list):
 
     plt.show()
 
+
 def plot_hc(scores, avg_scores):
     """Plot all data from training run."""
 
@@ -60,11 +61,11 @@ def show_frames(state):
     print(state.shape)
     state = state.squeeze(0)
     plt.figure(1)
-    sub_plot_img(221, state.squeeze(0), x_label='0')
-    sub_plot_img(221, state.squeeze(0)[0], x_label='0')
-    sub_plot_img(222, state.squeeze(0)[1], x_label='1')
-    sub_plot_img(223, state.squeeze(0)[2], x_label='2')
-    sub_plot_img(224, state.squeeze(0)[3], x_label='3')
+    #sub_plot_img(221, state, x_label='0')
+    sub_plot_img(221, state[0], x_label='0')
+    sub_plot_img(222, state[1], x_label='1')
+    sub_plot_img(223, state[2], x_label='2')
+    sub_plot_img(224, state[3], x_label='3')
     plt.show()
 
 
