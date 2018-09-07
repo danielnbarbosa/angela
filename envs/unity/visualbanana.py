@@ -9,14 +9,14 @@ SEED=42
 #print('SEED: {}'.format(SEED))
 
 environment = UnityMLVisualEnvironmentSimple('compiled_unity_environments/VisualBanana.app', seed=SEED)
-#environment = UnityMLEnvironment('VisualBanana_Linux/Banana.x86_64', 'visual', seed=SEED)
+#environment = UnityMLVisualEnvironmentSimple('compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)
 
-#model = FourFrameConvQNet(state_size=(3, 84, 84), action_size=4, seed=SEED)
+# shape is (m, c, f, h, w)
 model = Simple3DConvQNet(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
-#model = OneHiddenLayerWithFlattenQNet(state_size=1764, fc1_units=256, action_size=4, seed=SEED)
 
 
 agent = DQNAgent(model, action_size=4, seed=SEED,
+                 buffer_size=100000,
                  gamma=0.99,
                  lr=5e-4,
                  use_double_dqn=False,

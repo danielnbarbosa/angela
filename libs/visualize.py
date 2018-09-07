@@ -58,14 +58,27 @@ def plot_hc(scores, avg_scores):
 
 def show_frames(state):
     """Show each of the frames being passed as a single state."""
-    print(state.shape)
-    state = state.squeeze(0)
     plt.figure(1)
-    #sub_plot_img(221, state, x_label='0')
-    sub_plot_img(221, state[0], x_label='0')
-    sub_plot_img(222, state[1], x_label='1')
-    sub_plot_img(223, state[2], x_label='2')
-    sub_plot_img(224, state[3], x_label='3')
+    sub_plot_img(141, state[0, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
+    sub_plot_img(142, state[0, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
+    sub_plot_img(143, state[0, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
+    sub_plot_img(144, state[0, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
+    plt.figure(2)
+    sub_plot_img(141, state[10, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
+    sub_plot_img(142, state[10, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
+    sub_plot_img(143, state[10, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
+    sub_plot_img(144, state[10, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
+    plt.show()
+
+
+def show_frames2(now, state):
+    """Show each of the frames being passed as a single state."""
+    plt.figure(1)
+    sub_plot_img(151, now[0, :, :, : :].reshape(84, 84, 3), x_label='now')
+    sub_plot_img(152, state[0, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
+    sub_plot_img(153, state[0, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
+    sub_plot_img(154, state[0, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
+    sub_plot_img(155, state[0, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
     plt.show()
 
 

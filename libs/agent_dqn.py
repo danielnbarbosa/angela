@@ -8,6 +8,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+from visualize import show_frames
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -138,6 +139,15 @@ class DQNAgent():
             gamma (float): discount factor
         """
         states, actions, rewards, next_states, dones, priorities = experiences
+        #print('learning:')
+        #print(states.shape)
+        #show_frames(states)
+        #show_frames(next_states)
+        #print(actions.shape)
+        #print(rewards.shape)
+        #print(next_states.shape)
+        #print(dones.shape)
+        #print(priorities.shape)
 
         # Select double DQN or regular DQN
         if self.use_double_dqn:

@@ -127,30 +127,26 @@ class Simple3DConvNet(nn.Module):
         # conv2: 64, 4x4, 2
         # conv3: 64, 3x3, 1
         # fc: 512
-        # input shape: (m, 3, 4, 84, 84)                               shape after
-        self.conv1 = nn.Conv3d(3, 32, (1, 8, 8), stride=(1, 4, 4))     # (m, 32, 4, 20, 20)
-        self.bn1 = nn.BatchNorm3d(32)
-        self.conv2 = nn.Conv3d(32, 64, (1, 4, 4), stride=(1, 2, 2))    # (m, 64, 4, 9, 9)
-        self.bn2 = nn.BatchNorm3d(64)
-        self.conv3 = nn.Conv3d(64, 64, (4, 3, 3), stride=(1, 1, 1))    # (m, 128, 1, 7, 7)
-        self.bn3 = nn.BatchNorm3d(64)
-        self.fc = nn.Linear(64*7*7*1, 512)                             # (m, 3136, 512)
-        self.output = nn.Linear(512, action_size)                      # (m, 512, n_a)
+        # input shape: (m, 3, 4, 84, 84)                                shape after
+        self.conv1 = nn.Conv3d(3, 128, (1, 3, 3), stride=(1, 3, 3))     # (m, 128, 4, 28, 28)
+        self.bn1 = nn.BatchNorm3d(128)
+        self.conv2 = nn.Conv3d(128, 256, (1, 3, 3), stride=(1, 3, 3))   # (m, 256, 4, 9, 9)
+        self.bn2 = nn.BatchNorm3d(256)
+        self.conv3 = nn.Conv3d(256, 256, (4, 3, 3), stride=(1, 3, 3))   # (m, 256, 1, 3, 3)
+        self.bn3 = nn.BatchNorm3d(256)
+        self.fc = nn.Linear(256*1*3*3, 1024)                            # (m, 2304, 1024)
+        self.output = nn.Linear(1024, action_size)                      # (m, 512, n_a)
 
     def forward(self, x):
         #print('in:  {}'.format(x.shape))
-        # reshape state output from environment to fit torch conv3d format
-        # (m, 4, 84, 84, 3) -> (m, 3, 4, 84, 84)
-        x = x.reshape(-1, 3, 4, 84, 84)
-        #print('tx:  {}'.format(x.shape))
         # convolutions
-        x = F.elu(self.bn1(self.conv1(x)))
-        x = F.elu(self.bn2(self.conv2(x)))
-        x = F.elu(self.bn3(self.conv3(x)))
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer
-        x = F.elu(self.fc(x))
+        x = F.relu(self.fc(x))
         x = self.output(x)
         #print('out: {}'.format(x.shape))
         return x
