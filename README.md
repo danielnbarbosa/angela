@@ -24,6 +24,7 @@ Consider this as a sandbox to test out different RL algorithms in a variety of e
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
+- Convolutional neural networks for learning from pixels
 
 #### Hill Climbing Agent Features
 - Standard Hill Climbing
@@ -90,4 +91,3 @@ You can also load a saved agent using `load()` or visualize a trained agent usin
 
 ## Coming soon
 - Policy gradient methods
-- Convolutional neural networks for learning from pixels
