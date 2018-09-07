@@ -64,7 +64,7 @@ class DQNAgent():
         self.qnetwork_local = model.local
         self.qnetwork_target = model.target
 
-        # debug weight initialization
+        # DEBUG weight initialization
         #print(self.qnetwork_local.fc_s.weight.data[0])
         #print(self.qnetwork_target.fc_s.weight.data[0])
         #self.qnetwork_local.fc_s.weight.data[0] = torch.tensor([0.0, 0.0, 0.0, 0.0])
@@ -139,15 +139,11 @@ class DQNAgent():
             gamma (float): discount factor
         """
         states, actions, rewards, next_states, dones, priorities = experiences
+
+        # DEBUG replay memory
         #print('learning:')
-        #print(states.shape)
         #show_frames(states)
         #show_frames(next_states)
-        #print(actions.shape)
-        #print(rewards.shape)
-        #print(next_states.shape)
-        #print(dones.shape)
-        #print(priorities.shape)
 
         # Select double DQN or regular DQN
         if self.use_double_dqn:
@@ -239,6 +235,17 @@ class ReplayBuffer:
     def sample(self):
         """Randomly sample a batch of experiences from memory."""
         experiences = random.sample(self.memory, k=self.batch_size)
+
+        # DEBUG experience sampling
+        #print('sampling:')
+        #for i, e in enumerate(experiences):
+        #    print('------ experience {}:'.format(i))
+        #    print(np.sum(e.state))
+        #    print(e.action)
+        #    print(e.reward)
+        #    print(np.sum(e.next_state))
+        #    print(e.done)
+        #    print(e.priority)
 
         states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float().to(device)
         actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(device)

@@ -135,9 +135,10 @@ class UnityMLVisualEnvironmentSimple():
             name (str): Environment name
         """
 
+        self.seed = seed
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
-        self.full_state = None
+        self.full_state = np.zeros((1, 3, 4, 84, 84))
 
 
     def _add_frame(self, frame):
@@ -147,7 +148,7 @@ class UnityMLVisualEnvironmentSimple():
         self.full_state[:, :, 2, :, : :] = self.full_state[:, :, 1, :, : :]
         self.full_state[:, :, 1, :, : :] = self.full_state[:, :, 0, :, : :]
         self.full_state[:, :, 0, :, : :] = frame
-        return self.full_state
+        #return self.full_state
 
     def reset(self):
         """Reset the environment."""
@@ -155,11 +156,14 @@ class UnityMLVisualEnvironmentSimple():
         info = self.env.reset(train_mode=True)[self.brain_name]
         frame = info.visual_observations[0]
         #print('reset frame before reshape:  {}'.format(frame.shape))
-        frame = frame.reshape(-1, 3, 84, 84)
+        frame = frame.reshape(1, 3, 84, 84)
         #print('reset frame afer reshape:  {}'.format(frame.shape))
-        self.full_state = np.stack((frame, frame, frame, frame), axis=2)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
         #print('reset:  {}'.format(self.full_state.shape))
-        return self.full_state
+        return self.full_state.copy()
 
 
     def step(self, action):
@@ -168,13 +172,13 @@ class UnityMLVisualEnvironmentSimple():
         info = self.env.step(action)[self.brain_name]   # send the action to the environment
         frame = info.visual_observations[0]
         #print('step frame before reshape:  {}'.format(frame.shape))
-        frame = frame.reshape(-1, 3, 84, 84)
+        frame = frame.reshape(1, 3, 84, 84)
         #print('step frame afer reshape:  {}'.format(frame.shape))
-        state = self._add_frame(frame)
+        self._add_frame(frame)
         reward = info.rewards[0]                        # get the reward
         done = info.local_done[0]
-        #print('step:  {}'.format(state.shape))
-        return state, reward, done
+        #print('step:  {}'.format(self.full_state.shape))
+        return self.full_state.copy(), reward, done
 
     def render(self):
         """ Render the environment to visualize the agent interacting."""

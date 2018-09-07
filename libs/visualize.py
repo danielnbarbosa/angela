@@ -63,11 +63,6 @@ def show_frames(state):
     sub_plot_img(142, state[0, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
     sub_plot_img(143, state[0, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
     sub_plot_img(144, state[0, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
-    plt.figure(2)
-    sub_plot_img(141, state[10, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
-    sub_plot_img(142, state[10, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
-    sub_plot_img(143, state[10, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
-    sub_plot_img(144, state[10, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
     plt.show()
 
 

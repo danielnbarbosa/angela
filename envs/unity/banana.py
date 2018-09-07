@@ -44,5 +44,5 @@ def hc():
 
 
 ### main ###
-#dqn()
-hc()
+dqn()
+#hc()
