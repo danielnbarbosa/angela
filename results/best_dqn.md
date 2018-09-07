@@ -403,6 +403,20 @@ Episode  3900	Avg: 16.590	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 10000
 Episode  4000	Avg: 16.640	BestAvg: 17.410	ε: 0.0010  ⍺: 0.5000  Buffer: 100000  Steps:  29900  Secs:  103
 ```
 
+#### Visual Banana
+```
+Episode   100	Avg:   0.170	BestAvg:   0.188	StdDev: 1.312	ε: 0.6058  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1276
+Episode   200	Avg:   0.850	BestAvg:   0.850	StdDev: 1.639	ε: 0.3670  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1299
+Episode   300	Avg:   2.400	BestAvg:   2.400	StdDev: 2.107	ε: 0.2223  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1316
+Episode   400	Avg:   4.770	BestAvg:   4.770	StdDev: 2.956	ε: 0.1347  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1338
+Episode   500	Avg:   6.310	BestAvg:   6.380	StdDev: 3.282	ε: 0.0816  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1334
+Episode   600	Avg:   7.970	BestAvg:   7.970	StdDev: 3.711	ε: 0.0494  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1344
+Episode   700	Avg:   8.920	BestAvg:   9.280	StdDev: 3.501	ε: 0.0299  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1349
+Episode   800	Avg:   9.150	BestAvg:   9.430	StdDev: 3.433	ε: 0.0181  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1342
+Episode   900	Avg:  10.980	BestAvg:  10.980	StdDev: 3.739	ε: 0.0110  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1337
+Episode  1000	Avg:  11.620	BestAvg:  11.670	StdDev: 3.695	ε: 0.0100  ⍺: 0.5000  Buffer:  10000  Steps:    29900  Secs:   1341
+```
+
 #### Basic
 ```
 Episode   100	Avg: 0.827	Best: 0.827	ε: 0.0476  ⍺: 0.5000  Buffer:   1096  Steps:    996  Secs:    2
