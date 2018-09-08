@@ -140,13 +140,13 @@ class Simple3DConvNet(nn.Module):
     def forward(self, x):
         #print('in:  {}'.format(x.shape))
         # convolutions
-        x = F.elu(self.bn1(self.conv1(x)))
-        x = F.elu(self.bn2(self.conv2(x)))
-        x = F.elu(self.bn3(self.conv3(x)))
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer
-        x = F.elu(self.fc(x))
+        x = F.relu(self.fc(x))
         x = self.output(x)
         #print('out: {}'.format(x.shape))
         return x
