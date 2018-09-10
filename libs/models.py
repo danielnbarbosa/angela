@@ -138,6 +138,7 @@ class Simple3DConvNet(nn.Module):
         self.output = nn.Linear(1024, action_size)                      # (m, 512, n_a)
 
     def forward(self, x):
+        x = x.float() / 255
         #print('in:  {}'.format(x.shape))
         # convolutions
         x = F.relu(self.bn1(self.conv1(x)))

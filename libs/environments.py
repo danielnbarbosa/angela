@@ -155,6 +155,7 @@ class UnityMLVisualEnvironmentSimple():
 
         info = self.env.reset(train_mode=True)[self.brain_name]
         frame = info.visual_observations[0]
+        frame = (frame * 255).astype(np.uint8)
         #print('reset frame before reshape:  {}'.format(frame.shape))
         frame = frame.reshape(1, 3, 84, 84)
         #print('reset frame afer reshape:  {}'.format(frame.shape))
@@ -171,6 +172,7 @@ class UnityMLVisualEnvironmentSimple():
 
         info = self.env.step(action)[self.brain_name]   # send the action to the environment
         frame = info.visual_observations[0]
+        frame = (frame * 255).astype(np.uint8)
         #print('step frame before reshape:  {}'.format(frame.shape))
         frame = frame.reshape(1, 3, 84, 84)
         #print('step frame afer reshape:  {}'.format(frame.shape))

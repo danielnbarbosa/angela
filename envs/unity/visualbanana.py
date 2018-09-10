@@ -16,7 +16,7 @@ model = Simple3DConvQNet(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
 
 
 agent = DQNAgent(model, action_size=4, seed=SEED,
-                 buffer_size=10000,
+                 buffer_size=100000,
                  gamma=0.99,
                  lr=5e-4,
                  use_double_dqn=False,
