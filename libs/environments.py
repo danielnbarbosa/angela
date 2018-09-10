@@ -138,7 +138,7 @@ class UnityMLVisualEnvironmentSimple():
         self.seed = seed
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
-        self.full_state = np.zeros((1, 3, 4, 84, 84))
+        self.full_state = np.zeros((1, 3, 4, 84, 84), dtype=np.uint8)
 
 
     def _add_frame(self, frame):
