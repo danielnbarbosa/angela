@@ -43,6 +43,24 @@ def hc():
              graph_when_done=False)
 
 
+def pg():
+    SEED = 74371080
+    #SEED = random.randint(0, 2 ** 30)
+    #print('SEED: {}'.format(SEED))
+
+    environment = GymEnvironment('CartPole-v1', seed=SEED,
+                                 max_steps=1000)
+
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=4, action_size=2, fc1_units=16, seed=SEED)
+
+    agent = PolicyGradientAgent(model, state_size=4, seed=SEED,
+                                lr=0.005)
+
+    train_pg(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
+             solve_score=195.0,
+             graph_when_done=False)
+
 ### main ###
-dqn()
+#dqn()
 #hc()
+pg()

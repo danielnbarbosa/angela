@@ -9,7 +9,84 @@ from collections import deque
 import numpy as np
 import pickle
 import torch
-from visualize import plot_dqn, plot_hc, show_frames
+from visualize import plot_dqn, plot_hc, plot_pg, show_frames
+
+
+def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
+             gamma=1.0,
+             print_every=100,
+             solve_score=100000.0,
+             graph_when_done=False):
+
+    scores = []                         # list containing scores from each episode
+    avg_scores = []                     # list containing average scores after each episode
+    scores_window = deque(maxlen=100)   # last 100 scores
+    best_avg_score = -np.Inf            # best score for a single episode
+    time_start = time.time()            # track wall time over 100 episodes
+    total_steps = 0                     # track steps taken over 100 episodes
+
+    # remove checkpoints from prior run
+    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
+    for checkpoint in prior_checkpoints:
+        os.remove(checkpoint)
+
+    for i_episode in range(1, n_episodes+1):
+        saved_log_probs = []
+        rewards = []
+        state = environment.reset()
+        for t in range(max_t):
+            action, log_prob = agent.act(state)
+            saved_log_probs.append(log_prob)
+            state, reward, done = environment.step(action)
+            rewards.append(reward)
+            if done:
+                break
+
+        agent.learn(rewards, saved_log_probs, gamma)
+
+        # update stats
+        score = sum(rewards)
+        scores_window.append(score)
+        scores.append(score)
+        avg_score = np.mean(scores_window)
+        avg_scores.append(avg_score)
+        std_dev = np.std(scores_window)
+        # update best average score, let a few episodes pass in case you get lucky early
+        if avg_score > best_avg_score and i_episode > 30:
+            best_avg_score = avg_score
+
+        # print stats every episode
+        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
+              '\tCurrRet: {:5}'
+              .format(i_episode, avg_score, best_avg_score, std_dev, score), end="")
+
+        # every 100 episodes
+        if i_episode % 100 == 0:
+            # calculate wall time
+            n_secs = int(time.time() - time_start)
+            # print extented stats
+            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
+                  '\tSteps: {:8}  Secs: {:6}'
+                  .format(i_episode, avg_score, best_avg_score, std_dev, total_steps, n_secs))
+            save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
+            torch.save(agent.model.state_dict(), save_name)
+            # reset counters
+            time_start = time.time()
+            total_steps = 0
+
+        # if solved
+        if avg_score >= solve_score and i_episode >= 100:
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
+                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
+            torch.save(agent.model.state_dict(), '../../checkpoints/last_run/solved.pth')
+            break
+
+    # training finished
+    #if sound_when_done:
+    #    play_sound('../../libs/fanfare.wav')
+    if graph_when_done:
+        plot_pg(scores, avg_scores)
+
 
 
 def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
@@ -57,7 +134,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     best_weights = agent.weights        # current best weights
 
     # remove checkpoints from prior run
-    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pck')
+    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
     for checkpoint in prior_checkpoints:
         os.remove(checkpoint)
 

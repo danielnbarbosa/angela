@@ -51,55 +51,15 @@ Episode  1500	Avg: 156.22	BestAvg:  187.75	CurRet:   200.78	BestRet: 274.20	Nois
 
 #### MountainCar-v0
 ```
-Episode    20	Avg: -1000.00	BestAvg:    -inf	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode    40	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode    60	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode    80	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
 Episode   100	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode   120	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode   140	Avg: -1000.00	BestAvg: -1000.00	CurRet: -1000.00	BestRet: -1000.00	Noise: 0.0010
-Episode   160	Avg: -953.05	BestAvg: -953.05	CurRet: -1000.00	BestRet: -199.00	Noise: 2.0000
-Episode   180	Avg: -944.29	BestAvg: -944.29	CurRet: -1000.00	BestRet: -124.00	Noise: 2.0000
 Episode   200	Avg: -936.01	BestAvg: -936.01	CurRet: -1000.00	BestRet: -124.00	Noise: 2.0000
-Episode   220	Avg: -927.76	BestAvg: -927.76	CurRet: -1000.00	BestRet: -124.00	Noise: 2.0000
-Episode   240	Avg: -918.91	BestAvg: -918.91	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   260	Avg: -957.47	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   280	Avg: -958.03	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   300	Avg: -949.21	BestAvg: -910.52	CurRet:  -175.00	BestRet: -115.00	Noise: 2.0000
-Episode   320	Avg: -949.05	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   340	Avg: -949.66	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   360	Avg: -958.05	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   380	Avg: -966.25	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   400	Avg: -974.60	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   420	Avg: -967.54	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   440	Avg: -958.21	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   460	Avg: -949.47	BestAvg: -910.52	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   480	Avg: -906.23	BestAvg: -906.23	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   500	Avg: -898.33	BestAvg: -898.33	CurRet:  -172.00	BestRet: -115.00	Noise: 2.0000
-Episode   520	Avg: -913.80	BestAvg: -898.33	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   540	Avg: -888.62	BestAvg: -888.62	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   560	Avg: -846.09	BestAvg: -837.35	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   580	Avg: -863.03	BestAvg: -837.31	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   600	Avg: -845.58	BestAvg: -837.31	CurRet:  -121.00	BestRet: -115.00	Noise: 2.0000
-Episode   620	Avg: -786.46	BestAvg: -786.46	CurRet:  -172.00	BestRet: -115.00	Noise: 2.0000
-Episode   640	Avg: -812.00	BestAvg: -786.46	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   660	Avg: -820.24	BestAvg: -786.46	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   680	Avg: -760.30	BestAvg: -760.30	CurRet:  -132.00	BestRet: -115.00	Noise: 2.0000
 Episode   700	Avg: -759.66	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   720	Avg: -801.94	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   740	Avg: -792.88	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   760	Avg: -810.36	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   780	Avg: -862.94	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   800	Avg: -889.31	BestAvg: -742.65	CurRet:  -163.00	BestRet: -115.00	Noise: 2.0000
-Episode   820	Avg: -906.15	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   840	Avg: -906.79	BestAvg: -742.65	CurRet:  -180.00	BestRet: -115.00	Noise: 2.0000
-Episode   860	Avg: -915.38	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   880	Avg: -922.63	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 Episode   900	Avg: -896.70	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   920	Avg: -861.48	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   940	Avg: -835.21	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   960	Avg: -775.22	BestAvg: -742.65	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
-Episode   980	Avg: -732.98	BestAvg: -723.72	CurRet:  -124.00	BestRet: -115.00	Noise: 2.0000
 Episode  1000	Avg: -724.89	BestAvg: -716.25	CurRet: -1000.00	BestRet: -115.00	Noise: 2.0000
 ```
 

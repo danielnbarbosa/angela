@@ -9,8 +9,8 @@ def dqn():
     environment = GymEnvironment('Breakout-ram-v0', seed=SEED, normalize=True)
 
     #model = DuelingQNet(state_size=128, action_size=4, fc1_units=256, fc2_units=256, seed=SEED)
-    model = TwoHiddenLayerQNet(state_size=256, action_size=4, fc1_units=256, fc2_units=128, seed=SEED)
-    #model = FourHiddenLayerQNet(state_size=256, action_size=4, fc1_units=256, fc2_units=128, fc3_units=64, fc4_units=32, seed=SEED)
+    #model = TwoHiddenLayerQNet(state_size=256, action_size=4, fc1_units=256, fc2_units=128, seed=SEED)
+    model = FourHiddenLayerQNet(state_size=256, action_size=4, fc1_units=256, fc2_units=128, fc3_units=64, fc4_units=32, seed=SEED)
 
 
     agent = DQNAgent(model, action_size=4, seed=SEED,
@@ -23,7 +23,6 @@ def dqn():
               eps_start=1,
               eps_end=0.1,
               eps_decay=0.9993,
-              frames=2,
               graph_when_done=True,
               render_every=10000000)
 
@@ -36,7 +35,7 @@ def hc():
     environment = GymEnvironment('Breakout-ram-v0', seed=SEED, normalize=True)
 
     agent = HillClimbingAgent(state_size=128, action_size=4, seed=SEED,
-                              policy='deterministic')
+                              policy='stochastic')
 
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=2000,
              use_adaptive_noise=True,
@@ -46,5 +45,5 @@ def hc():
 
 
 ### main ###
-dqn()
-#hc()
+#dqn()
+hc()

@@ -19,20 +19,25 @@ The code is originally based on [this code](https://github.com/udacity/deep-rein
 Consider this as a sandbox to test out different RL algorithms in a variety of environments.
 
 
-#### DQN Agent Features
+## Features
+
+#### DQN Agent
 - Standard DQN with Experience Replay and Fixed Q-Targets
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
 - Convolutional neural networks for learning from pixels
 
-#### Hill Climbing Agent Features
+#### Hill Climbing Agent
 - Standard Hill Climbing
 - Adaptive Noise
 - Steepest Ascent
 - Simulated Annealing
 
-#### General Features
+#### Policy Gradient Agent
+- REINFORCE
+
+#### General
 - supports discrete state spaces using one-hot encoding
 - supports continuous action spaces using discretization
 - graph training metrics
@@ -87,7 +92,3 @@ python pendulum.py
 ```
 
 You can also load a saved agent using `load()` or visualize a trained agent using `watch()`.
-
-
-## Coming soon
-- Policy gradient methods

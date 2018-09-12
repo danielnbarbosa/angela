@@ -56,6 +56,17 @@ def plot_hc(scores, avg_scores):
     plt.show()
 
 
+def plot_pg(scores, avg_scores):
+    """Plot all data from training run."""
+
+    plt.figure(1)
+    # plot score
+    sub_plot(211, scores, y_label='Score')
+    sub_plot(212, avg_scores, y_label='Avg Score', x_label='Episodes')
+
+    plt.show()
+
+
 def show_frames(state):
     """Show each of the frames being passed as a single state."""
     plt.figure(1)

@@ -35,7 +35,23 @@ def hc():
              solve_score=200.0,
              graph_when_done=True)
 
+def pg():
+    SEED = 0
+    #SEED = random.randint(0, 2 ** 30)
+    #print('SEED: {}'.format(SEED))
+
+    environment = GymEnvironment('LunarLander-v2', seed=SEED)
+
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=8, action_size=4, fc1_units=16, seed=SEED)
+
+    agent = PolicyGradientAgent(model, state_size=8, seed=SEED,
+                                lr=0.01)
+
+    train_pg(environment, agent, seed=SEED, n_episodes=5000, max_t=2000,
+             gamma=0.99,
+             graph_when_done=True)
 
 ### main ###
 #dqn()
-hc()
+#hc()
+pg()

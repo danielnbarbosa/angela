@@ -153,6 +153,20 @@ class Simple3DConvNet(nn.Module):
         return x
 
 
+class SingleHiddenLayerWithSoftmaxOutput(nn.Module):
+    def __init__(self, state_size, action_size, fc1_units, seed):
+        super(SingleHiddenLayerWithSoftmaxOutput, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+
+        self.fc1 = nn.Linear(state_size, fc1_units)
+        self.output = nn.Linear(fc1_units, action_size)
+
+    def forward(self, x):
+        x = F.relu(self.fc1(x))
+        x = self.output(x)
+        return F.softmax(x, dim=1)
+
 
 ##### Define QNets with two copies of the above architectures. #####
 

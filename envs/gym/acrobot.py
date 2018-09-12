@@ -36,7 +36,22 @@ def hc():
              render_every=10000,
              graph_when_done=True)
 
+def pg():
+    SEED = 0
+    #SEED = random.randint(0, 2 ** 30)
+    #print('SEED: {}'.format(SEED))
 
+    environment = GymEnvironment('Acrobot-v1', seed=SEED)
+
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=6, action_size=3, fc1_units=128, seed=SEED)
+
+    agent = PolicyGradientAgent(model, state_size=6, seed=SEED,
+                                lr=0.005)
+
+    train_pg(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
+             gamma=0.99,
+             graph_when_done=True)
 ### main ###
 #dqn()
-hc()
+#hc()
+pg()
