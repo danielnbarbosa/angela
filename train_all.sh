@@ -7,16 +7,10 @@ train_envs() {
   for environment in $1
   do
     echo "Starting training for: $environment"
-    python $environment
+    ./train.py --env $environment --agent dqn
   done
 }
 
-cd gym
 #environments="acrobot.py cartpole.py frozenlake.py frozenlake8x8.py lunarlander.py mountaincar.py pendulum.py"
-environments="frozenlake.py frozenlake8x8.py lunarlander.py mountaincar.py pendulum.py"
-train_envs "$environments"
-
-
-cd ../unity
-environments="banana.py basic.py"
+environments="acrobot cartpole frozenlake frozenlake8x8 lunarlander mountaincar pendulum banana basic"
 train_envs "$environments"

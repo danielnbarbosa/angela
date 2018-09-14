@@ -26,7 +26,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
     total_steps = 0                     # track steps taken over 100 episodes
 
     # remove checkpoints from prior run
-    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
+    prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
     for checkpoint in prior_checkpoints:
         os.remove(checkpoint)
 
@@ -40,6 +40,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
             state, reward, done = environment.step(action)
             rewards.append(reward)
             if done:
+                total_steps += t
                 break
 
         agent.learn(rewards, saved_log_probs, gamma)
@@ -68,22 +69,22 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
             print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
                   '\tSteps: {:8}  Secs: {:6}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, total_steps, n_secs))
-            save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
+            save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.model.state_dict(), save_name)
             # reset counters
-            time_start = time.time()
-            total_steps = 0
+            #time_start = time.time()
+            #total_steps = 0
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSeed: {:d}'
-                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
-            torch.save(agent.model.state_dict(), '../../checkpoints/last_run/solved.pth')
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSteps: {:8}\tSecs: {:6}\tSeed: {:d}'
+                  .format(i_episode-100, avg_score, np.std(scores_window), total_steps, n_secs, environment.seed))
+            torch.save(agent.model.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 
     # training finished
     #if sound_when_done:
-    #    play_sound('../../libs/fanfare.wav')
+    #    play_sound('libs/fanfare.wav')
     if graph_when_done:
         plot_pg(scores, avg_scores)
 
@@ -134,7 +135,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     best_weights = agent.weights        # current best weights
 
     # remove checkpoints from prior run
-    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
+    prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pck')
     for checkpoint in prior_checkpoints:
         os.remove(checkpoint)
 
@@ -190,9 +191,9 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
         # print stats every n episodes
         if i_episode % print_every == 0:
-            print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}\tCurRet: {:7.2f}\tBestRet: {:7.2f}\tNoise: {:.4f}'
+            print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}\tG: {:7.2f}\tBestG: {:7.2f}\tNoise: {:.4f}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, pop_best_return, best_return, noise_scale))
-            save_name = '../../checkpoints/last_run/episode.{}.pck'.format(i_episode)
+            save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.weights, open(save_name, 'wb'))
 
         # if solved
@@ -200,7 +201,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
             print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, std_dev, environment.seed))
             agent.weights = best_weights
-            pickle.dump(agent.weights, open('../../checkpoints/last_run/solved.pck', 'wb'))
+            pickle.dump(agent.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break
 
     # training finished
@@ -242,7 +243,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
     total_steps = 0                     # track steps taken over 100 episodes
 
     # remove checkpoints from prior run
-    prior_checkpoints = glob.glob('../../checkpoints/last_run/episode*.pth')
+    prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
     for checkpoint in prior_checkpoints:
         os.remove(checkpoint)
 
@@ -299,22 +300,22 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:8}  Secs: {:6}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, eps, agent.alpha, buffer_len, total_steps, n_secs))
-            save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
+            save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
             # reset counters
-            time_start = time.time()
-            total_steps = 0
+            #time_start = time.time()
+            #total_steps = 0
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.2f}\tσ: {:.2f}\tSeed: {:d}'
-                  .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
-            torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/last_run/solved.pth')
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.2f}\tσ: {:.2f}\tSteps: {:8}\tSecs: {:6}\tSeed: {:d}'
+                  .format(i_episode-100, avg_score, np.std(scores_window), total_steps, n_secs, environment.seed))
+            torch.save(agent.qnetwork_local.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 
     # training finished
     #if sound_when_done:
-    #    play_sound('../../libs/fanfare.wav')
+    #    play_sound('libs/fanfare.wav')
     if graph_when_done:
         plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
@@ -325,7 +326,7 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
     for checkpoint in checkpoints:
         # load saved weights from file
         print('Watching: {}'.format(checkpoint))
-        agent.qnetwork_local.load_state_dict(torch.load('../../checkpoints/' + checkpoint + '.pth'))
+        agent.qnetwork_local.load_state_dict(torch.load('checkpoints/' + checkpoint + '.pth'))
         # reset environment
         state = environment.reset()
         # interact with environment
@@ -339,16 +340,24 @@ def watch(environment, agent, checkpoints, frame_sleep=0.05):
             if done:
                 break
 
-def load(model, file_name):
-    """ Load saved model weights from a checkpoint file """
 
-    model.local.load_state_dict(torch.load('../../checkpoints/' + file_name))
-    model.target.load_state_dict(torch.load('../../checkpoints/' + file_name))
+def load_dqn(model, file_name):
+    """Load saved model weights from a checkpoint file for DQN agent."""
+
+    model.local.load_state_dict(torch.load('checkpoints/' + file_name))
+    model.target.load_state_dict(torch.load('checkpoints/' + file_name))
     print('Loaded: {}'.format(file_name))
 
 
 def load_pickle(agent, file_name):
-    """ Load saved model weights from a picke file """
+    """Load saved model weights from a pickle file for HC agent."""
 
-    agent.weights = pickle.load(open('../../checkpoints/' + file_name, 'rb'))
+    agent.weights = pickle.load(open('checkpoints/' + file_name, 'rb'))
+    print('Loaded: {}'.format(file_name))
+
+
+def load_model(model, file_name):
+    """Load saved model weights from a checkpoint file for PG agent."""
+
+    model.load_state_dict(torch.load('checkpoints/' + file_name))
     print('Loaded: {}'.format(file_name))

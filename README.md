@@ -82,13 +82,13 @@ pip install .
 ```
 
 ## Usage
-Each environment has its own file that will run the agent in that environment.  The file also acts as a config file for setting all the various hyperparameters that you may care to tweak.
+Each environment has its own file with a separate function for each agent type (e.g. dqn, hc, pg).  The file acts as a config file for setting all the various hyperparameters that you may care to tweak.
 
-To train the agent just run the desired environment file, for example to train on CartPole-v1:
+To start training, use the wrapper script and pass in the desired environment and agent type.  For example to train on the CartPole-v1 environment with the DQN agent:
 
 ```
-cd envs/gym
-python pendulum.py
+./train.py --env cartpole --agent dqn
 ```
 
-You can also load a saved agent using `load()` or visualize a trained agent using `watch()`.
+## Results
+Current best results for each environment are stored in the results directory.  I haven't done an exhaustive hyperparameter search so there is probably lost of room for improvement!
