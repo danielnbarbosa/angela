@@ -34,7 +34,7 @@ def hc():
     environment = UnityMLVectorEnvironment('compiled_unity_environments/Banana.app', seed=SEED)
 
     agent = HillClimbingAgent(state_size=37, action_size=4, seed=SEED,
-                              policy='deterministic')
+                              policy='stochastic')
 
     train_hc(environment, agent, seed=SEED, n_episodes=2000, solve_score=13.0,
              use_adaptive_noise=True,
@@ -44,5 +44,5 @@ def hc():
 
 
 ### main ###
-dqn()
-#hc()
+#dqn()
+hc()
