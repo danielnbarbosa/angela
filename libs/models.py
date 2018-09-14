@@ -105,7 +105,7 @@ class DuelingNet(nn.Module):
 
 class Simple3DConvNet(nn.Module):
     """
-    3D Convolutional Neural Network for learning from pixels.
+    3D Convolutional Neural Network for learning from pixels using DQN.
     Assumes 4 stacked RGB frames with dimensions of 84x84.
     """
 
@@ -167,6 +167,49 @@ class SingleHiddenLayerWithSoftmaxOutput(nn.Module):
         x = self.output(x)
         return F.softmax(x, dim=1)
 
+
+class PGConv2D(nn.Module):
+    """
+    2D Convolutional Neural Network for learning from pixels using Policy Gradients.
+    Assumes 2 stacked greyscale frames with dimensions of 80x80.
+    """
+
+    def __init__(self, state_size, action_size, fc1_units, seed):
+        """Initialize parameters and build model.
+        Params
+        ======
+            state_size (tuple): Shape of state input
+            action_size (int): Dimension of each action
+            fc1_units (int): Nodes in fully connected layer
+            seed (int): Random seed
+        """
+        super(PGConv2D, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+
+        # formula for calculcating conv net output dims: (W-F)/S + 1
+        # input shape: (m, 2, 80, 80)                     shape after
+        self.conv1 = nn.Conv2d(2, 16, 8, stride=4)        # (m, 16, 19, 19)
+        self.bn1 = nn.BatchNorm2d(16)
+        self.conv2 = nn.Conv2d(16, 32, 4, stride=3)       # (m, 32, 6, 6)
+        self.bn2 = nn.BatchNorm2d(32)
+        self.fc = nn.Linear(32*6*6, fc1_units)            # (m, 800, fc1_units)
+        self.output = nn.Linear(fc1_units, action_size)   # (m, fc1_units, n_a)
+
+    def forward(self, x):
+        #print('in:  {}'.format(x.shape))
+        x = x.float() / 255
+        #print('norm:  {}'.format(x.shape))
+        # convolutions
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        # flatten
+        x = x.view(x.size(0), -1)
+        # fully connected layer
+        x = F.relu(self.fc(x))
+        x = self.output(x)
+        #print('out: {}'.format(x.shape))
+        return F.softmax(x, dim=1)
 
 ##### Define QNets with two copies of the above architectures. #####
 

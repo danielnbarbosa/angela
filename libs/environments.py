@@ -81,6 +81,85 @@ class GymEnvironment():
         time.sleep(self.frame_sleep)
 
 
+class GymEnvironmentAtari():
+    """Define an OpenAI Gym environment for Atari games."""
+
+    def __init__(self, name, seed, max_steps=None):
+        """ Initialize environment
+        Params
+        ======
+            name (str): Environment name
+            seed (int): Random seed
+            max_steps (int): Maximum number of steps to run before returning done
+        """
+        self.seed = seed
+        self.env = gym.make(name)
+        #self.env = gym.wrappers.Monitor(self.env, "recording")
+        self.env.seed(seed)
+        # override environment default for max steps in an episode
+        if max_steps:
+            self.env._max_episode_steps = max_steps
+
+        self.frame_sleep = 0.02
+        self.full_state = np.zeros((1, 2, 80, 80), dtype=np.uint8)
+
+
+    # this function is from https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5
+    def _prepro(self, frame):
+        """ prepro 210x160x3 uint8 frame into 6400 (80x80) 1D float vector
+            This only works for Pong.
+        """
+        frame = frame[35:195] # crop
+        frame = frame[::2,::2,0] # downsample by factor of 2
+        frame[frame == 144] = 0 # erase background (background type 1)
+        frame[frame == 109] = 0 # erase background (background type 2)
+        frame[frame != 0] = 1 # everything else (paddles, ball) just set to 1
+        #return frame.astype(np.float).ravel()
+        return frame
+
+    def _add_frame(self, frame):
+        """ Add a frame to a state.  Used for processing multiple states over time."""
+
+        self.full_state[:, 1, :, : :] = self.full_state[:, 0, :, : :]
+        self.full_state[:, 0, :, : :] = frame
+
+
+    def reset(self):
+        """Reset the environment."""
+
+        frame = self.env.reset()
+        #print('reset() frame from environment:  {}'.format(frame.shape))
+        frame = self._prepro(frame)
+        #print('reset() frame after _prepro():  {}'.format(frame.shape))
+        frame = frame.reshape(1, 80, 80)
+        #print('reset() frame after reshape:  {}'.format(frame.shape))
+        self._add_frame(frame)
+        self._add_frame(frame)
+        #print('reset():  {}'.format(self.full_state.shape))
+        return self.full_state.copy()
+
+
+    def step(self, action):
+        """Take a step in the environment.  Given an action, return the next state."""
+
+        frame, reward, done, _ = self.env.step(action)
+        #print('step() frame from environment:  {}'.format(frame.shape))
+        frame = self._prepro(frame)
+        #print('step() frame after _prepro():  {}'.format(frame.shape))
+        frame = frame.reshape(1, 80, 80)
+        #print('step() frame after reshape:  {}'.format(frame.shape))
+        self._add_frame(frame)
+        #print('step():  {}'.format(self.full_state.shape))
+        return self.full_state.copy(), reward, done
+
+
+    def render(self):
+        """Render the environment to visualize the agent interacting."""
+
+        self.env.render()
+        time.sleep(self.frame_sleep)
+
+
 class UnityMLVectorEnvironment():
     """Define a UnityML vector based environment."""
 

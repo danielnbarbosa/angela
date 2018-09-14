@@ -91,4 +91,4 @@ To start training, use the wrapper script and pass in the desired environment an
 ```
 
 ## Results
-Current best results for each environment are stored in the results directory.  I haven't done an exhaustive hyperparameter search so there is probably lost of room for improvement!
+Current best results for each environment are stored in the results directory.  I haven't done an exhaustive hyperparameter search so there is probably lots of room for improvement!

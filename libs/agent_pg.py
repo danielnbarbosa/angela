@@ -29,7 +29,9 @@ class PolicyGradientAgent():
 
         self.model = model
         print(self.model)
-        summary(self.model, (state_size,))
+        # TODO don't do the summary here, should be in the model
+        #summary(self.model, (state_size,))
+        summary(self.model, state_size)
         self.optimizer = optim.Adam(model.parameters(), lr=lr)
 
     # this function is from https://github.com/wagonhelm/Deep-Policy-Gradient
@@ -47,11 +49,15 @@ class PolicyGradientAgent():
         return discounted_rewards
 
     def act(self, state):
-        state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        # TODO make this work for both conv2d and flat networks
+        # state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        state = torch.from_numpy(state).float().to(device)
         probs = self.model.forward(state).cpu()
         m = Categorical(probs)
         action = m.sample()
-        return action.item(), m.log_prob(action)
+        # TODO make this generic
+        action_map = {0: 0, 1: 2, 2: 5}
+        return action_map[action.item()], m.log_prob(action)
 
 
     def learn(self, rewards, saved_log_probs, gamma):
