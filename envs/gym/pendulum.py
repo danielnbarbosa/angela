@@ -40,10 +40,10 @@ def pg():
 
     environment = GymEnvironment('Pendulum-v0', seed=SEED, max_steps=1000, action_bins=(10,))
 
-    model = SingleHiddenLayerWithSoftmaxOutput(state_size=3, action_size=9, fc1_units=32, seed=SEED)
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=3, action_size=9, fc1_units=24, seed=SEED)
 
     agent = PolicyGradientAgent(model, state_size=3, seed=SEED,
-                                lr=0.01)
+                                lr=0.005)
 
     train_pg(environment, agent, seed=SEED, n_episodes=5000, max_t=1000,
              gamma=0.99,

@@ -57,7 +57,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
 
         # print stats every episode
         print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
-              '\tCurrRet: {:5}'
+              '\tCurrRet: {:8.2f}'
               .format(i_episode, avg_score, best_avg_score, std_dev, score), end="")
 
         # every 100 episodes

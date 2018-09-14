@@ -44,7 +44,7 @@ def hc():
 
 
 def pg():
-    SEED = 74371080
+    SEED = 0
     #SEED = random.randint(0, 2 ** 30)
     #print('SEED: {}'.format(SEED))
 
@@ -58,6 +58,7 @@ def pg():
 
     train_pg(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              solve_score=195.0,
+             gamma=0.99,
              graph_when_done=False)
 
 ### main ###

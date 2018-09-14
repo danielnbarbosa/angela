@@ -1,5 +1,5 @@
 """
-Classes to model a Policy Gradient agent.
+Class to model a Policy Gradient agent.
 """
 
 import numpy as np
@@ -32,6 +32,19 @@ class PolicyGradientAgent():
         summary(self.model, (state_size,))
         self.optimizer = optim.Adam(model.parameters(), lr=lr)
 
+    # this function is from https://github.com/wagonhelm/Deep-Policy-Gradient
+    def _discount(self, rewards, gamma, normal):
+        discounted_rewards = np.zeros_like(rewards)
+        G = 0.0
+        for i in reversed(range(0, len(rewards))):
+            G = G * gamma + rewards[i]
+            discounted_rewards[i] = G
+        # Normalize
+        if normal:
+            mean = np.mean(discounted_rewards)
+            std = np.std(discounted_rewards)
+            discounted_rewards = (discounted_rewards - mean) / (std)
+        return discounted_rewards
 
     def act(self, state):
         state = torch.from_numpy(state).float().unsqueeze(0).to(device)
@@ -42,14 +55,21 @@ class PolicyGradientAgent():
 
 
     def learn(self, rewards, saved_log_probs, gamma):
-        discounts = gamma**np.arange(len(rewards))
-        R = np.dot(discounts, rewards)
+        # original code just calculates return from initial step
         #discounts = [gamma**i for i in range(len(rewards))]
         #R = sum([a*b for a,b in zip(discounts, rewards)])
 
+        # same as above but uses numpy instead for better speed
+        #discounts = gamma**np.arange(len(rewards))
+        #R = np.dot(discounts, rewards)
+
+        # calculating discounted rewards for each step and normalizing them
+        # this made huge improvement in performance!
+        discounted_rewards = self._discount(rewards, gamma, True)
+
         policy_loss = []
-        for log_prob in saved_log_probs:
-            policy_loss.append(-log_prob * R)
+        for i, log_prob in enumerate(saved_log_probs):
+            policy_loss.append(-log_prob * discounted_rewards[i])
         policy_loss = torch.cat(policy_loss).sum()
 
         self.optimizer.zero_grad()

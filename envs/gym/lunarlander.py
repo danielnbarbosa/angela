@@ -42,10 +42,10 @@ def pg():
 
     environment = GymEnvironment('LunarLander-v2', seed=SEED)
 
-    model = SingleHiddenLayerWithSoftmaxOutput(state_size=8, action_size=4, fc1_units=16, seed=SEED)
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=8, action_size=4, fc1_units=32, seed=SEED)
 
     agent = PolicyGradientAgent(model, state_size=8, seed=SEED,
-                                lr=0.01)
+                                lr=0.005)
 
     train_pg(environment, agent, seed=SEED, n_episodes=5000, max_t=2000,
              gamma=0.99,

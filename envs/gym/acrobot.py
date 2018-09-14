@@ -43,7 +43,7 @@ def pg():
 
     environment = GymEnvironment('Acrobot-v1', seed=SEED)
 
-    model = SingleHiddenLayerWithSoftmaxOutput(state_size=6, action_size=3, fc1_units=128, seed=SEED)
+    model = SingleHiddenLayerWithSoftmaxOutput(state_size=6, action_size=3, fc1_units=32, seed=SEED)
 
     agent = PolicyGradientAgent(model, state_size=6, seed=SEED,
                                 lr=0.005)
