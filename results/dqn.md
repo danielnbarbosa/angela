@@ -19,13 +19,11 @@ Episode 12000	Avg: -72.540	Best: -67.180	ε: 0.0100  ⍺: 0.5000  Buffer: 100000
 
 #### CartPole-v1
 ```
-Episode   100	Avg: 22.710	Best: 22.886	ε: 0.6058  ⍺: 0.5000  Buffer:   2271  Steps:   2171  Secs:    2
-Episode   200	Avg: 17.490	Best: 23.110	ε: 0.3670  ⍺: 0.5000  Buffer:   4020  Steps:   1649  Secs:    2
-Episode   300	Avg: 21.950	Best: 23.110	ε: 0.2223  ⍺: 0.5000  Buffer:   6215  Steps:   2095  Secs:    3
-Episode   400	Avg: 84.290	Best: 84.290	ε: 0.1347  ⍺: 0.5000  Buffer:  10000  Steps:   8329  Secs:   11
-Episode   500	Avg: 193.320	Best: 193.320	ε: 0.0816  ⍺: 0.5000  Buffer:  10000  Steps:  19232  Secs:   26
-Episode   502	Avg: 195.490	Best: 195.490	ε: 0.0808  ⍺: 0.5000  Buffer:  10000
-Environment solved in 402 episodes!	AvgScore: 195.490	StdDev: 60.038	Seed: 0
+Episode   100	Avg:  19.360	BestAvg:  21.226	StdDev: 9.5148	ε: 0.6058  ⍺: 0.2364  Buffer:   1936  Steps:     1836  Secs:      7
+Episode   200	Avg:  19.540	BestAvg:  21.226	StdDev: 12.792	ε: 0.3670  ⍺: 0.1082  Buffer:   3890  Steps:     1854  Secs:      9
+Episode   300	Avg: 109.080	BestAvg: 109.080	StdDev: 93.869	ε: 0.2223  ⍺: 0.0014  Buffer:  10000  Steps:    10808  Secs:     91
+Episode   342	Avg: 195.120	BestAvg: 195.120	StdDev: 91.6177	ε: 0.1801  ⍺: 0.0000  Buffer:  10000  CurrRet: 236.0
+Environment solved in 242 episodes!	AvgScore: 195.120	StdDev: 91.617	Seed: 0
 ```
 
 #### FrozenLake-v0

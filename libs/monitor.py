@@ -56,8 +56,8 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
-              '\tCurrRet: {:8.2f}'
+        print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
+              '\tG: {:7.2f}'
               .format(i_episode, avg_score, best_avg_score, std_dev, score), end="")
 
         # every 100 episodes
@@ -65,7 +65,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
+            print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
                   '\tSteps: {:8}  Secs: {:6}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, total_steps, n_secs))
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
@@ -76,7 +76,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             torch.save(agent.model.state_dict(), '../../checkpoints/last_run/solved.pth')
             break
@@ -190,14 +190,14 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
         # print stats every n episodes
         if i_episode % print_every == 0:
-            print('\rEpisode {:5}\tAvg: {:5.2f}\tBestAvg: {:7.2f}\tStdDev: {:.3f}\tCurRet: {:8.2f}\tBestRet: {:5.2f}\tNoise: {:.4f}'
+            print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}\tCurRet: {:7.2f}\tBestRet: {:7.2f}\tNoise: {:.4f}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, pop_best_return, best_return, noise_scale))
             save_name = '../../checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.weights, open(save_name, 'wb'))
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, std_dev, environment.seed))
             agent.weights = best_weights
             pickle.dump(agent.weights, open('../../checkpoints/last_run/solved.pck', 'wb'))
@@ -287,8 +287,8 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             best_avg_score = avg_score
 
         # print stats every episode
-        print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
-              '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  CurrRet: {:5}'
+        print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
+              '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  G: {:7.2f}'
               .format(i_episode, avg_score, best_avg_score, std_dev, eps, agent.alpha, buffer_len, score), end="")
 
         # every 100 episodes
@@ -296,7 +296,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             # calculate wall time
             n_secs = int(time.time() - time_start)
             # print extented stats
-            print('\rEpisode {:5}\tAvg: {:7.3f}\tBestAvg: {:7.3f}\tStdDev: {:.3f}'
+            print('\rEpisode {:5}\tAvg: {:7.2f}\tBestAvg: {:7.2f}\tσ: {:7.2f}'
                   '\tε: {:.4f}  ⍺: {:.4f}  Buffer: {:6}  Steps: {:8}  Secs: {:6}'
                   .format(i_episode, avg_score, best_avg_score, std_dev, eps, agent.alpha, buffer_len, total_steps, n_secs))
             save_name = '../../checkpoints/last_run/episode.{}.pth'.format(i_episode)
@@ -307,7 +307,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.3f}\tStdDev: {:.3f}\tSeed: {:d}'
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:.2f}\tσ: {:.2f}\tSeed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), environment.seed))
             torch.save(agent.qnetwork_local.state_dict(), '../../checkpoints/last_run/solved.pth')
             break
