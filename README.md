@@ -14,9 +14,9 @@ ANGELA: Artificial Neural Game Environment Learning Agent
 
 Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) and [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) environments.
 
-The code is originally based on [this code](https://github.com/udacity/deep-reinforcement-learning) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It is written in python3 and pytorch.
+The code is originally based on [code](https://github.com/udacity/deep-reinforcement-learning) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It is written in python3 and pytorch.
 
-Consider this as a sandbox to test out different RL algorithms in a variety of environments.
+Consider this a sandbox to test out different RL algorithms in a variety of environments.
 
 
 ## Features
@@ -26,7 +26,7 @@ Consider this as a sandbox to test out different RL algorithms in a variety of e
 - Double DQN
 - Dueling Networks
 - Prioritized Experience Replay (without importance sampling)
-- Convolutional neural networks for learning from pixels
+- 3D Convolutional Neural Network with frame stacking
 
 #### Hill Climbing Agent
 - Standard Hill Climbing
@@ -36,6 +36,7 @@ Consider this as a sandbox to test out different RL algorithms in a variety of e
 
 #### Policy Gradient Agent
 - REINFORCE
+- 2D Convolutional Neural Network with frame stacking
 
 #### General
 - supports discrete state spaces using one-hot encoding

@@ -4,38 +4,35 @@ Class to model a Policy Gradient agent.
 
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
-from torchsummary import summary
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-class PolicyGradientAgent():
-    def __init__(self, model, state_size, seed,
-                 lr=1e-2):
+class PolicyGradient():
+    def __init__(self, model, seed, lr=1e-2, action_map=None):
         """Initialize an Agent object.
 
         Params
         ======
             model: model object
-            state_size (int): dimension of each state
             seed (int): Random seed
+            lr (float): learning rate
+            action_map (dict): how map action indexes from model to gym environment
         """
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
         self.model = model
-        print(self.model)
-        # TODO don't do the summary here, should be in the model
-        #summary(self.model, (state_size,))
-        summary(self.model, state_size)
+        self.action_map = action_map
         self.optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    # this function is from https://github.com/wagonhelm/Deep-Policy-Gradient
+
     def _discount(self, rewards, gamma, normal):
+        """Calulate discounted (and optionally normalized) rewards.
+           From https://github.com/wagonhelm/Deep-Policy-Gradient
+        """
         discounted_rewards = np.zeros_like(rewards)
         G = 0.0
         for i in reversed(range(0, len(rewards))):
@@ -49,28 +46,22 @@ class PolicyGradientAgent():
         return discounted_rewards
 
     def act(self, state):
-        # TODO make this work for both conv2d and flat networks
-        # state = torch.from_numpy(state).float().unsqueeze(0).to(device)
+        """Returns action and log probability for given state."""
+        if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
+            state = np.expand_dims(state, axis=0)
         state = torch.from_numpy(state).float().to(device)
         probs = self.model.forward(state).cpu()
         m = Categorical(probs)
         action = m.sample()
-        # TODO make this generic
-        action_map = {0: 0, 1: 2, 2: 5}
-        return action_map[action.item()], m.log_prob(action)
-
+        # if an action_map is defined then use it
+        if self.action_map:
+            return self.action_map[action.item()], m.log_prob(action)
+        else:
+            return action.item(), m.log_prob(action)
 
     def learn(self, rewards, saved_log_probs, gamma):
-        # original code just calculates return from initial step
-        #discounts = [gamma**i for i in range(len(rewards))]
-        #R = sum([a*b for a,b in zip(discounts, rewards)])
-
-        # same as above but uses numpy instead for better speed
-        #discounts = gamma**np.arange(len(rewards))
-        #R = np.dot(discounts, rewards)
-
-        # calculating discounted rewards for each step and normalizing them
-        # this made huge improvement in performance!
+        """Update model weights."""
+        # calculate discounted rewards for each step and normalize them
         discounted_rewards = self._discount(rewards, gamma, True)
 
         policy_loss = []

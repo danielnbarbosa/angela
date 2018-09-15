@@ -8,13 +8,13 @@ SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = UnityMLVisualEnvironmentSimple('envs/unity/compiled_unity_environments/VisualBanana.app', seed=SEED)
+environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments/VisualBanana.app', seed=SEED)
 #environment = UnityMLVisualEnvironmentSimple('envs/unity/compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)
 
 def dqn():
     # shape is (m, c, f, h, w)
-    model = Simple3DConvQNet(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
-    agent = DQNAgent(model, action_size=4, seed=SEED,
+    model = models.DQNConv3D_Q(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
+    agent = agents.DQN(model, action_size=4, seed=SEED,
                      buffer_size=10000,
                      gamma=0.99,
                      lr=5e-4,

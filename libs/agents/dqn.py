@@ -13,7 +13,7 @@ from visualize import show_frames
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-class DQNAgent():
+class DQN():
     """Interacts with and learns from the environment."""
 
     def __init__(self, model, action_size, seed,
@@ -112,12 +112,9 @@ class DQNAgent():
             state (array_like): current state
             eps (float): epsilon, for epsilon-greedy action selection
         """
-        # reshape 1-D states into 2-D
-        # not strictly necessary but more asthetically pleasing
-        if len(state.shape) == 1:
-            state = torch.from_numpy(state).float().unsqueeze(0).to(device)
-        else:
-            state = torch.from_numpy(state).float().to(device)
+        if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
+            state = np.expand_dims(state, axis=0)
+        state = torch.from_numpy(state).float().to(device)
         # calculate action values
         self.qnetwork_local.eval()
         with torch.no_grad():

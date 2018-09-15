@@ -12,23 +12,24 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 ##### Define various neural network architectures. #####
 
 
-class TwoHiddenLayerNet(nn.Module):
+class DQNTwoHiddenLayer(nn.Module):
     """ Classic DQN. """
 
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize parameters and build model.
         Params
         ======
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
+            fc_units (tuple): Dimension of each hidden layer
             seed (int): Random seed
         """
-        super(TwoHiddenLayerNet, self).__init__()
+        super(DQNTwoHiddenLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, fc1_units)
-        self.fc2 = nn.Linear(fc1_units, fc2_units)
-        self.output = nn.Linear(fc2_units, action_size)
+        self.fc1 = nn.Linear(state_size, fc_units[0])
+        self.fc2 = nn.Linear(fc_units[0], fc_units[1])
+        self.output = nn.Linear(fc_units[1], action_size)
 
     def forward(self, x):
         """Build a network that maps state -> action values."""
@@ -40,25 +41,26 @@ class TwoHiddenLayerNet(nn.Module):
         return x
 
 
-class FourHiddenLayerNet(nn.Module):
+class DQNFourHiddenLayer(nn.Module):
     """ Classic DQN. """
 
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units,seed):
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize parameters and build model.
         Params
         ======
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
+            fc_units (tuple): Dimension of each hidden layer
             seed (int): Random seed
         """
-        super(FourHiddenLayerNet, self).__init__()
+        super(DQNFourHiddenLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, fc1_units)
-        self.fc2 = nn.Linear(fc1_units, fc2_units)
-        self.fc3 = nn.Linear(fc2_units, fc3_units)
-        self.fc4 = nn.Linear(fc3_units, fc4_units)
-        self.output = nn.Linear(fc4_units, action_size)
+        self.fc1 = nn.Linear(state_size, fc_units[0])
+        self.fc2 = nn.Linear(fc_units[0], fc_units[1])
+        self.fc3 = nn.Linear(fc_units[1], fc_units[2])
+        self.fc4 = nn.Linear(fc_units[2], fc_units[3])
+        self.output = nn.Linear(fc_units[3], action_size)
 
     def forward(self, x):
         """Build a network that maps state -> action values."""
@@ -72,25 +74,26 @@ class FourHiddenLayerNet(nn.Module):
         return x
 
 
-class DuelingNet(nn.Module):
+class DQNDueling(nn.Module):
     """ Dueling DQN. """
 
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize parameters and build model.
         Params
         ======
             state_size (int): Dimension of each state
             action_size (int): Dimension of each action
+            fc_units (tuple): Dimension of each hidden layer
             seed (int): Random seed
         """
-        super(DuelingNet, self).__init__()
+        super(DQNDueling, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
-        self.fc_s = nn.Linear(state_size, fc1_units)     # shared fc layer
-        self.fc_v = nn.Linear(fc1_units, fc2_units)      # state fc layer
-        self.out_v = nn.Linear(fc2_units, 1)             # state output
-        self.fc_a = nn.Linear(fc1_units, fc2_units)      # advantage fc layer
-        self.out_a = nn.Linear(fc2_units, action_size)   # advantage output
+        self.fc_s = nn.Linear(state_size, fc_units[0])     # shared fc layer
+        self.fc_v = nn.Linear(fc_units[0], fc_units[1])    # state fc layer
+        self.out_v = nn.Linear(fc_units[1], 1)             # state output
+        self.fc_a = nn.Linear(fc_units[0], fc_units[1])    # advantage fc layer
+        self.out_a = nn.Linear(fc_units[1], action_size)   # advantage output
 
     def forward(self, x):
         """Build a network that maps state -> action values."""
@@ -103,7 +106,7 @@ class DuelingNet(nn.Module):
         return q
 
 
-class Simple3DConvNet(nn.Module):
+class DQNConv3D(nn.Module):
     """
     3D Convolutional Neural Network for learning from pixels using DQN.
     Assumes 4 stacked RGB frames with dimensions of 84x84.
@@ -117,7 +120,7 @@ class Simple3DConvNet(nn.Module):
             action_size (int): Dimension of each action
             seed (int): Random seed
         """
-        super(Simple3DConvNet, self).__init__()
+        super(DQNConv3D, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
@@ -153,9 +156,9 @@ class Simple3DConvNet(nn.Module):
         return x
 
 
-class SingleHiddenLayerWithSoftmaxOutput(nn.Module):
+class PGOneHiddenLayer(nn.Module):
     def __init__(self, state_size, action_size, fc1_units, seed):
-        super(SingleHiddenLayerWithSoftmaxOutput, self).__init__()
+        super(PGOneHiddenLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
@@ -195,6 +198,9 @@ class PGConv2D(nn.Module):
         self.bn2 = nn.BatchNorm2d(32)
         self.fc = nn.Linear(32*6*6, fc1_units)            # (m, 800, fc1_units)
         self.output = nn.Linear(fc1_units, action_size)   # (m, fc1_units, n_a)
+        # print model
+        print(self)
+        summary(self, state_size)
 
     def forward(self, x):
         #print('in:  {}'.format(x.shape))
@@ -213,34 +219,34 @@ class PGConv2D(nn.Module):
 
 ##### Define QNets with two copies of the above architectures. #####
 
-class TwoHiddenLayerQNet():
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+class DQNTwoHiddenLayer_Q():
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-        self.target = TwoHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        self.local = DQNTwoHiddenLayer(state_size, action_size, fc_units, seed).to(device)
+        self.target = DQNTwoHiddenLayer(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 
-class FourHiddenLayerQNet():
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed):
+class DQNFourHiddenLayer_Q():
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = FourHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed).to(device)
-        self.target = FourHiddenLayerNet(state_size, action_size, fc1_units, fc2_units, fc3_units, fc4_units, seed).to(device)
+        self.local = DQNFourHiddenLayer(state_size, action_size, fc_units, seed).to(device)
+        self.target = DQNFourHiddenLayer(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 
-class DuelingQNet():
-    def __init__(self, state_size, action_size, fc1_units, fc2_units, seed):
+class DQNDueling_Q():
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
-        self.target = DuelingNet(state_size, action_size, fc1_units, fc2_units, seed).to(device)
+        self.local = DQNDueling(state_size, action_size, fc_units, seed).to(device)
+        self.target = DQNDueling(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
         summary(self.local, (state_size,))
 
-class Simple3DConvQNet():
+class DQNConv3D_Q():
     def __init__(self, state_size, action_size, seed):
         """Initialize local and target network with identical initial weights."""
-        self.local = Simple3DConvNet(state_size, action_size, seed).to(device)
-        self.target = Simple3DConvNet(state_size, action_size, seed).to(device)
+        self.local = DQNConv3D(state_size, action_size, seed).to(device)
+        self.target = DQNConv3D(state_size, action_size, seed).to(device)
         print(self.local)
         summary(self.local, (state_size))

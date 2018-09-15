@@ -15,6 +15,7 @@ from visualize import plot_dqn, plot_hc, plot_pg, show_frames
 def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
              gamma=1.0,
              print_every=100,
+             render_every=100000,
              solve_score=100000.0,
              graph_when_done=False):
 
@@ -35,6 +36,9 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
         rewards = []
         state = environment.reset()
         for t in range(max_t):
+            # render during training
+            if i_episode % render_every == 0:
+                environment.render()
             action, log_prob = agent.act(state)
             saved_log_probs.append(log_prob)
             state, reward, done = environment.step(action)
@@ -77,7 +81,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
 
         # if solved
         if avg_score >= solve_score and i_episode >= 100:
-            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSteps: {:8}\tSecs: {:6}\tSeed: {:d}'
+            print('\nEnvironment solved in {:d} episodes!\tAvgScore: {:7.2f}\tσ: {:7.2f}\tSteps: {:8} Secs: {:6} Seed: {:d}'
                   .format(i_episode-100, avg_score, np.std(scores_window), total_steps, n_secs, environment.seed))
             torch.save(agent.model.state_dict(), 'checkpoints/last_run/solved.pth')
             break

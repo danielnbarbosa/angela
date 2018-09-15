@@ -8,13 +8,13 @@ SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = UnityMLVectorEnvironment('envs/unity/compiled_unity_environments/Banana.app', seed=SEED)
+environment = environments.UnityMLVector('envs/unity/compiled_unity_environments/Banana.app', seed=SEED)
 
-    
+
 def dqn():
     #SEED=895815691
-    model = TwoHiddenLayerQNet(state_size=37, action_size=4, fc1_units=32, fc2_units=32, seed=SEED)
-    agent = DQNAgent(model, action_size=4, seed=SEED,
+    model = models.DQNTwoHiddenLayer_Q(state_size=37, action_size=4, fc_units=(32, 32), seed=SEED)
+    agent = agents.DQN(model, action_size=4, seed=SEED,
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
     train_dqn(environment, agent, n_episodes=1000, solve_score=13.0,
@@ -24,7 +24,7 @@ def dqn():
 
 
 def hc():
-    agent = HillClimbingAgent(state_size=37, action_size=4, seed=SEED, policy='stochastic')
+    agent = agents.HillClimbing(state_size=37, action_size=4, seed=SEED, policy='stochastic')
     train_hc(environment, agent, seed=SEED, n_episodes=2000, solve_score=13.0,
              use_adaptive_noise=True,
              npop=6,

@@ -8,10 +8,10 @@ import numpy as np
 from unityagents import UnityEnvironment
 import gym
 from discretize import create_uniform_grid
-from visualize import show_frames
+from visualize import show_frames_pg
 
 
-class GymEnvironment():
+class Gym():
     """Define an OpenAI Gym environment."""
 
     def __init__(self, name, seed, max_steps=None, one_hot=None, action_bins=None, normalize=False):
@@ -81,7 +81,7 @@ class GymEnvironment():
         time.sleep(self.frame_sleep)
 
 
-class GymEnvironmentAtari():
+class GymAtari():
     """Define an OpenAI Gym environment for Atari games."""
 
     def __init__(self, name, seed, max_steps=None):
@@ -160,7 +160,7 @@ class GymEnvironmentAtari():
         time.sleep(self.frame_sleep)
 
 
-class UnityMLVectorEnvironment():
+class UnityMLVector():
     """Define a UnityML vector based environment."""
 
     def __init__(self, name, seed):
@@ -199,7 +199,7 @@ class UnityMLVectorEnvironment():
         pass
 
 
-class UnityMLVisualEnvironmentSimple():
+class UnityMLVisual():
     """Define a UnityML visual (pixels based) environment.
        This is a simplified version of the one in environments_experimental.
        Frames from the environment are reshaped to fit torch Conv3D:

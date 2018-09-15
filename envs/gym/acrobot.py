@@ -4,12 +4,12 @@ SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 #print('SEED: {}'.format(SEED))
 
-environment = GymEnvironment('Acrobot-v1', seed=SEED)
+environment = environments.Gym('Acrobot-v1', seed=SEED)
 
 
 def dqn():
-    model = DuelingQNet(state_size=6, action_size=3, fc1_units=64, fc2_units=64, seed=SEED)
-    agent = DQNAgent(model, action_size=3, seed=SEED,
+    model = models.DQNDueling_Q(state_size=6, action_size=3, fc_units=(64, 64), seed=SEED)
+    agent = agents.DQN(model, action_size=3, seed=SEED,
                      use_double_dqn=True,
                      use_prioritized_experience_replay=False)
     train_dqn(environment, agent, n_episodes=12000, max_t=1000)
@@ -28,8 +28,8 @@ def hc():
 
 
 def pg():
-    model = SingleHiddenLayerWithSoftmaxOutput(state_size=6, action_size=3, fc1_units=32, seed=SEED)
-    agent = PolicyGradientAgent(model, state_size=6, seed=SEED, lr=0.005)
+    model = models.PGOneHiddenLayer(state_size=6, action_size=3, fc1_units=32, seed=SEED)
+    agent = PolicyGradientAgent(model, seed=SEED, lr=0.005)
     train_pg(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              gamma=0.99,
              graph_when_done=True)

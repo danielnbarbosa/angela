@@ -5,7 +5,7 @@ Classes to model a Hill Climbing agent.
 import numpy as np
 
 
-class HillClimbingAgent():
+class HillClimbing():
     def __init__(self, state_size, action_size, seed, policy='deterministic'):
         """Initialize an Agent object.
 

@@ -77,14 +77,12 @@ def show_frames(state):
     plt.show()
 
 
-def show_frames2(now, state):
+def show_frames_pg(now, state):
     """Show each of the frames being passed as a single state."""
     plt.figure(1)
-    sub_plot_img(151, now[0, :, :, : :].reshape(84, 84, 3), x_label='now')
-    sub_plot_img(152, state[0, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
-    sub_plot_img(153, state[0, :, 1, :, : :].reshape(84, 84, 3), x_label='1')
-    sub_plot_img(154, state[0, :, 2, :, : :].reshape(84, 84, 3), x_label='2')
-    sub_plot_img(155, state[0, :, 3, :, : :].reshape(84, 84, 3), x_label='3')
+    sub_plot_img(131, now[0, :, ].reshape(80, 80), x_label='now')
+    sub_plot_img(132, state[0, 0, :, ].reshape(80, 80), x_label='0')
+    sub_plot_img(133, state[0, 1, :, ].reshape(80, 80), x_label='1')
     plt.show()
 
 
