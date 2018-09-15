@@ -9,18 +9,18 @@ Environment solved in 242 episodes!	AvgScore: 195.120	StdDev: 91.617	Seed: 0
 
 #### HC
 ```
-Episode    10	Avg:  940.50	BestAvg:    -inf	σ:  178.50	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    20	Avg:  970.25	BestAvg:    -inf	σ:  129.68	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    30	Avg:  980.17	BestAvg:    -inf	σ:  106.81	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    40	Avg:  985.12	BestAvg:  985.12	σ:   92.89	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    50	Avg:  988.10	BestAvg:  988.10	σ:   83.30	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    60	Avg:  983.23	BestAvg:  989.56	σ:   91.84	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    70	Avg:  985.63	BestAvg:  989.56	σ:   85.23	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    80	Avg:  987.42	BestAvg:  989.56	σ:   79.87	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode    90	Avg:  988.82	BestAvg:  989.56	σ:   75.40	G: 1000.00	BestG: 1000.00	Noise: 0.0100
-Episode   100	Avg:  989.94	BestAvg:  989.94	σ:   71.61	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    10	Avg:  574.90	BestAvg:    -inf	σ:  319.11	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    20	Avg:  787.45	BestAvg:    -inf	σ:  309.99	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    30	Avg:  858.30	BestAvg:    -inf	σ:  272.22	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    40	Avg:  893.73	BestAvg:  893.73	σ:  243.60	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    50	Avg:  876.54	BestAvg:  903.39	σ:  260.69	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    60	Avg:  888.65	BestAvg:  903.39	σ:  247.46	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    70	Avg:  904.56	BestAvg:  904.56	σ:  232.40	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    80	Avg:  916.49	BestAvg:  916.49	σ:  219.67	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode    90	Avg:  925.77	BestAvg:  925.77	σ:  208.76	G: 1000.00	BestG: 1000.00	Noise: 0.0100
+Episode   100	Avg:  933.19	BestAvg:  933.19	σ:  199.30	G: 1000.00	BestG: 1000.00	Noise: 0.0100
 
-Environment solved in 0 episodes!	AvgScore:  989.94	σ:   71.61	Seed: 0
+Environment solved in 0 episodes!	AvgScore:  933.19	σ:  199.30	Seed: 0
 ```
 
 #### PG
