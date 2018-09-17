@@ -1,6 +1,7 @@
 import time
-import numpy as np
 from collections import deque
+import numpy as np
+
 
 class Stats():
 
@@ -60,7 +61,7 @@ class HillClimbingStats(Stats):
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
                       max_best_return, noise_scale, pop_best_return), end="")
 
-    def print_epoch(self, i_episode, pop_best_return, max_best_return, noise_scale):
+    def print_epoch(self, i_episode, max_best_return, noise_scale):
         n_secs = int(time.time() - self.time_start)
         print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}   σ: {:7.2f}'
               '   |   Best: {:7.2f}   Noise: {:6.4f}'
@@ -69,8 +70,8 @@ class HillClimbingStats(Stats):
                       max_best_return, noise_scale,
                       self.total_steps, n_secs))
 
-    def print_solve(self, i_episode, pop_best_return, max_best_return, noise_scale):
-        self.print_epoch(i_episode, pop_best_return, max_best_return, noise_scale)
+    def print_solve(self, i_episode, max_best_return, noise_scale):
+        self.print_epoch(i_episode, max_best_return, noise_scale)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
 
 

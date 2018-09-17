@@ -1,16 +1,15 @@
 """
-Functions to execute training and visualize agent.
+Functions to execute training loops.
 """
 
-import glob
-import os
-import time
-from collections import deque
-import numpy as np
+#import glob
+#import os
 import pickle
-import torch
-from visualize import plot_dqn, plot_hc, plot_pg, show_frames
 import statistics
+import numpy as np
+import torch
+from visualize import plot_dqn, plot_hc, plot_pg
+
 
 def train_pg(environment, agent, n_episodes=10000, max_t=2000,
              gamma=1.0,
@@ -136,13 +135,13 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale)
+            stats.print_epoch(i_episode, agent.max_best_return, agent.noise_scale)
             save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.model.weights, open(save_name, 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale)
+            stats.print_solve(i_episode, agent.max_best_return, agent.noise_scale)
             agent.model.weights = agent.max_best_weights
             pickle.dump(agent.model.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break

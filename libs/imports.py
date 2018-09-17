@@ -1,8 +1,5 @@
 import random
-from monitor import *
-#from agent_dqn import DQNAgent
-#import agent_hc
-#import agent_pg
+from training import *
 import environments
 import models
 import agents

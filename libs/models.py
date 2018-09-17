@@ -113,11 +113,10 @@ class DQNConv3D(nn.Module):
     Assumes 4 stacked RGB frames with dimensions of 84x84.
     """
 
-    def __init__(self, state_size, action_size, seed):
+    def __init__(self, action_size, seed):
         """Initialize parameters and build model.
         Params
         ======
-            state_size (tuple): Shape of state input
             action_size (int): Dimension of each action
             seed (int): Random seed
         """
