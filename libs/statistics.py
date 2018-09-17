@@ -1,6 +1,8 @@
 import time
 from collections import deque
 import numpy as np
+import matplotlib.pyplot as plt
+from visualize import sub_plot
 
 
 class Stats():
@@ -53,6 +55,22 @@ class DeepQNetworkStats(Stats):
         self.print_epoch(i_episode, epsilon, alpha, buffer_len)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
 
+    def plot(self, loss_list, entropy_list):
+        window_size = len(loss_list) // 100 # window size is 1% of total steps
+        plt.figure(1)
+        # plot score
+        sub_plot(231, self.scores, y_label='Score')
+        sub_plot(234, self.avg_scores, y_label='Avg Score', x_label='Episodes')
+        # plot loss
+        sub_plot(232, loss_list, y_label='Loss')
+        avg_loss = np.convolve(loss_list, np.ones((window_size,))/window_size, mode='valid')
+        sub_plot(235, avg_loss, y_label='Avg Loss', x_label='Steps')
+        # plot entropy
+        sub_plot(233, entropy_list, y_label='Entropy')
+        avg_entropy = np.convolve(entropy_list, np.ones((window_size,))/window_size, mode='valid')
+        sub_plot(236, avg_entropy, y_label='Avg Entropy', x_label='Steps')
+        plt.show()
+
 
 class HillClimbingStats(Stats):
     def print_episode(self, i_episode, pop_best_return, max_best_return, noise_scale):
@@ -74,6 +92,12 @@ class HillClimbingStats(Stats):
         self.print_epoch(i_episode, max_best_return, noise_scale)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
 
+    def plot(self):
+        plt.figure(1)
+        sub_plot(211, self.scores, y_label='Score')
+        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
+        plt.show()
+
 
 class PolicyGradientStats(Stats):
     def print_episode(self, i_episode):
@@ -94,3 +118,9 @@ class PolicyGradientStats(Stats):
     def print_solve(self, i_episode):
         self.print_epoch(i_episode)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
+
+    def plot(self):
+        plt.figure(1)
+        sub_plot(211, self.scores, y_label='Score')
+        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
+        plt.show()

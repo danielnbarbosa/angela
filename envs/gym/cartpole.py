@@ -20,8 +20,9 @@ def dqn(render, load_file):
               solve_score=195.0,
               eps_start=1.0,
               eps_end=0.01,
+              eps_decay=0.995,
               render=render,
-              eps_decay=0.995)
+              graph_when_done=False)
 
 
 def hc(render, load_file):

@@ -8,7 +8,6 @@ import pickle
 import statistics
 import numpy as np
 import torch
-from visualize import plot_dqn, plot_hc, plot_pg
 
 
 def train_pg(environment, agent, n_episodes=10000, max_t=2000,
@@ -69,7 +68,7 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
 
     # training finished
     if graph_when_done:
-        plot_pg(scores, avg_scores)
+        stats.plot()
 
 
 
@@ -148,7 +147,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
     # training finished
     if graph_when_done:
-        plot_hc(scores, avg_scores)
+        stats.plot()
 
 
 
@@ -223,4 +222,4 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
 
     # training finished
     if graph_when_done:
-        plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
+        stats.plot(agent.loss_list, agent.entropy_list)
