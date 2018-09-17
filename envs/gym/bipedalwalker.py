@@ -6,7 +6,6 @@ NOTE: Need to make some modifications to support multiple simultaneous actions.
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.Gym('BipedalWalker-v2', seed=SEED, action_bins=(5,5,5,5))
 

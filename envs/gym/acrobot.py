@@ -2,7 +2,6 @@ from imports import *
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.Gym('Acrobot-v1', seed=SEED)
 

@@ -2,7 +2,6 @@ from imports import *
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.Gym('FrozenLake8x8-v0', seed=SEED, one_hot=64)
 

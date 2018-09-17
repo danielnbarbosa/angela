@@ -7,6 +7,7 @@ from unityagents import UnityEnvironment
 from skimage.color import rgb2gray
 from skimage.filters import gaussian
 import gym
+import gym.spaces
 from discretize import create_uniform_grid
 import cv2
 

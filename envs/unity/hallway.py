@@ -7,7 +7,6 @@ NOTE: Compile and build the Basic.app with Unity using the scene in ml-agents.
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.UnityMLVector('env/unity/compiled_unity_environments/Hallway.app', seed=SEED)
 

@@ -6,7 +6,6 @@ NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amaz
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments/VisualBanana.app', seed=SEED)
 #environment = UnityMLVisualEnvironmentSimple('envs/unity/compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)

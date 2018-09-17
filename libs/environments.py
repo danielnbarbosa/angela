@@ -7,6 +7,7 @@ import time
 import numpy as np
 from unityagents import UnityEnvironment
 import gym
+import gym.spaces
 from discretize import create_uniform_grid
 from visualize import show_frames_pg
 
@@ -26,6 +27,7 @@ class Gym():
             normalize (bool): Whether to normalize the state input
         """
         self.seed = seed
+        print('SEED: {}'.format(self.seed))
         self.one_hot = one_hot
         self.action_bins = action_bins
         self.normalize = normalize
@@ -93,6 +95,7 @@ class GymAtari():
             max_steps (int): Maximum number of steps to run before returning done
         """
         self.seed = seed
+        print('SEED: {}'.format(self.seed))
         self.env = gym.make(name)
         #self.env = gym.wrappers.Monitor(self.env, "recording")
         self.env.seed(seed)
@@ -175,6 +178,7 @@ class UnityMLVector():
             seed (int): Random seed
         """
         self.seed = seed
+        print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
         self.full_state = np.zeros((1, 1))
@@ -219,6 +223,7 @@ class UnityMLVisual():
         """
 
         self.seed = seed
+        print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
         self.full_state = np.zeros((1, 3, 4, 84, 84), dtype=np.uint8)

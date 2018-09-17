@@ -6,7 +6,6 @@ NOTE: download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
-#print('SEED: {}'.format(SEED))
 
 environment = environments.UnityMLVector('envs/unity/compiled_unity_environments/Banana.app', seed=SEED)
 
