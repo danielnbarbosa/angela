@@ -191,8 +191,8 @@ class PGConv2D(nn.Module):
         torch.cuda.manual_seed(seed)
 
         # formula for calculcating conv net output dims: (W-F)/S + 1
-        # input shape: (m, 2, 80, 80)                     shape after
-        self.conv1 = nn.Conv2d(2, 16, 8, stride=4)        # (m, 16, 19, 19)
+        # input shape: (m, 4, 80, 80)                     shape after
+        self.conv1 = nn.Conv2d(4, 16, 8, stride=4)        # (m, 16, 19, 19)
         self.bn1 = nn.BatchNorm2d(16)
         self.conv2 = nn.Conv2d(16, 32, 4, stride=3)       # (m, 32, 6, 6)
         self.bn2 = nn.BatchNorm2d(32)

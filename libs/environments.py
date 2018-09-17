@@ -101,7 +101,7 @@ class GymAtari():
             self.env._max_episode_steps = max_steps
 
         self.frame_sleep = 0.02
-        self.full_state = np.zeros((1, 2, 80, 80), dtype=np.uint8)
+        self.full_state = np.zeros((1, 4, 80, 80), dtype=np.uint8)
 
 
     # this function is from https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5
@@ -120,6 +120,8 @@ class GymAtari():
     def _add_frame(self, frame):
         """ Add a frame to a state.  Used for processing multiple states over time."""
 
+        self.full_state[:, 3, :, : :] = self.full_state[:, 2, :, : :]
+        self.full_state[:, 2, :, : :] = self.full_state[:, 1, :, : :]
         self.full_state[:, 1, :, : :] = self.full_state[:, 0, :, : :]
         self.full_state[:, 0, :, : :] = frame
 
@@ -133,6 +135,8 @@ class GymAtari():
         #print('reset() frame after _prepro():  {}'.format(frame.shape))
         frame = frame.reshape(1, 80, 80)
         #print('reset() frame after reshape:  {}'.format(frame.shape))
+        self._add_frame(frame)
+        self._add_frame(frame)
         self._add_frame(frame)
         self._add_frame(frame)
         #print('reset():  {}'.format(self.full_state.shape))
