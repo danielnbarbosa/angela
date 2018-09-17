@@ -6,7 +6,7 @@ SEED = 0
 environment = environments.Gym('CartPole-v1', seed=SEED, max_steps=1000)
 
 
-def dqn():
+def dqn(render):
     model = models.DQNDueling_Q(state_size=4, action_size=2, fc_units=(64, 32), seed=SEED)
     agent = agents.DQN(model, action_size=2, seed=SEED,
                      use_double_dqn=True,
@@ -19,24 +19,27 @@ def dqn():
     train_dqn(environment, agent, n_episodes=1000, max_t=1000, solve_score=195.0,
               eps_start=1.0,
               eps_end=0.01,
+              render=render,
               eps_decay=0.995)
 
 
-def hc():
+def hc(render):
     agent = agents.HillClimbing(state_size=4, action_size=2, seed=SEED, policy='deterministic')
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              use_adaptive_noise=False,
              npop=10,
              print_every=10,
              solve_score=195.0,
+             render=render,
              graph_when_done=False)
 
 
-def pg():
+def pg(render):
     model = models.PGOneHiddenLayer(state_size=4, action_size=2, fc1_units=16, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
     #load_model(model, 'last_run/solved.pth')
     train_pg(environment, agent, n_episodes=4000, max_t=1000,
              solve_score=195.0,
              gamma=0.99,
+             render=render,
              graph_when_done=False)
