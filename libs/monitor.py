@@ -225,25 +225,3 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
     # training finished
     if graph_when_done:
         plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
-
-
-def load_dqn(model, file_name):
-    """Load saved model weights from a checkpoint file for DQN agent."""
-
-    model.local.load_state_dict(torch.load('checkpoints/' + file_name))
-    model.target.load_state_dict(torch.load('checkpoints/' + file_name))
-    print('Loaded: {}'.format(file_name))
-
-
-def load_pickle(model, file_name):
-    """Load saved model weights from a pickle file for HC agent."""
-
-    agent.weights = pickle.load(open('checkpoints/' + file_name, 'rb'))
-    print('Loaded: {}'.format(file_name))
-
-
-def load_model(model, file_name):
-    """Load saved model weights from a checkpoint file for PG agent."""
-
-    model.load_state_dict(torch.load('checkpoints/' + file_name))
-    print('Loaded: {}'.format(file_name))

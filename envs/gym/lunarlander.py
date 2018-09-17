@@ -6,7 +6,7 @@ SEED = 0
 environment = environments.Gym('LunarLander-v2', seed=SEED)
 
 
-def dqn(render):
+def dqn(render, load_file):
     model = models.DQNDueling_Q(state_size=8, action_size=4, fc_units=(128, 128), seed=SEED)
     agent = agents.DQN(model, action_size=4, seed=SEED,
                     use_double_dqn=True,
@@ -15,7 +15,7 @@ def dqn(render):
     train_dqn(environment, agent, n_episodes=4000, max_t=2000, solve_score=200.0)
 
 
-def hc(render):
+def hc(render, load_file):
     model = models.HillClimbing(state_size=8, action_size=4, seed=SEED)
     agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='deterministic')
     train_hc(environment, agent, seed=SEED, n_episodes=1500, max_t=2000,
@@ -23,7 +23,7 @@ def hc(render):
              graph_when_done=True)
 
 
-def pg(render):
+def pg(render, load_file):
     model = models.PGOneHiddenLayer(state_size=8, action_size=4, fc1_units=32, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
     train_pg(environment, agent, n_episodes=5000, max_t=2000,

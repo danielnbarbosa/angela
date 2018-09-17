@@ -6,7 +6,7 @@ SEED = 0
 environment = environments.Gym('FrozenLake8x8-v0', seed=SEED, one_hot=64)
 
 
-def dqn(render):
+def dqn(render, load_file):
     model = models.DQNDueling_Q(state_size=64, action_size=4, fc_units=(64, 64), seed=SEED)
     agent = agents.DQN(model, action_size=4, seed=SEED,
                   use_double_dqn=True,

@@ -10,7 +10,7 @@ SEED = 0
 environment = environments.UnityMLVector('envs/unity/compiled_unity_environments/Basic.app', seed=SEED)
 
 
-def dqn(render):
+def dqn(render, load_file):
     model = models.DQNTwoHiddenLayer_Q(state_size=1, action_size=2, fc_units=(8, 8), seed=SEED)
     agent = agents.DQN(model, action_size=2, seed=SEED,
                      use_double_dqn=False,

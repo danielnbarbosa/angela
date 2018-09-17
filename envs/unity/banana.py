@@ -10,7 +10,7 @@ SEED = 0
 environment = environments.UnityMLVector('envs/unity/compiled_unity_environments/Banana.app', seed=SEED)
 
 
-def dqn(render):
+def dqn(render, load_file):
     #SEED=895815691
     model = models.DQNTwoHiddenLayer_Q(state_size=37, action_size=4, fc_units=(32, 32), seed=SEED)
     agent = agents.DQN(model, action_size=4, seed=SEED,
@@ -22,7 +22,7 @@ def dqn(render):
               eps_decay=0.97)
 
 
-def hc(render):
+def hc(render, load_file):
     model = models.HillClimbing(state_size=37, action_size=4, seed=SEED)
     agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='stochastic')
     train_hc(environment, agent, seed=SEED, n_episodes=2000, solve_score=13.0,

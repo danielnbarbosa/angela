@@ -10,7 +10,7 @@ SEED = 0
 environment = environments.Gym('BipedalWalker-v2', seed=SEED, action_bins=(5,5,5,5))
 
 
-def dqn(render):
+def dqn(render, load_file):
     model = models.DQNDueling_Q(state_size=24, action_size=256, fc_units=(64, 64), seed=SEED)
     agent = agents.DQN(model, state_size=24, action_size=256, seed=SEED,
                      use_double_dqn=True,

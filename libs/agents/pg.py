@@ -11,7 +11,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 class PolicyGradient():
-    def __init__(self, model, seed, lr=1e-2, action_map=None):
+    def __init__(self, model, seed, load_file=None, lr=1e-2, action_map=None):
         """Initialize an Agent object.
 
         Params
@@ -25,6 +25,9 @@ class PolicyGradient():
         torch.cuda.manual_seed(seed)
 
         self.model = model
+        if load_file:
+            self.model.load_state_dict(torch.load(load_file))
+            print('Loaded: {}'.format(load_file))
         self.action_map = action_map
         self.optimizer = optim.Adam(model.parameters(), lr=lr)
 

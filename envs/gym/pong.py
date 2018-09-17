@@ -6,10 +6,12 @@ SEED = 0
 environment = environments.GymAtari('Pong-v0', seed=SEED)
 
 
-def pg(render):
+def pg(render, load_file):
     model = models.PGConv2D(state_size=(4, 80, 80), action_size=3, fc1_units=200, seed=SEED)
-    agent = agents.PolicyGradient(model, seed=SEED, lr=0.0001, action_map={0: 0, 1: 2, 2: 5})
-    load_model(model, 'best/pong_4frames_01.pth')
+    agent = agents.PolicyGradient(model, seed=SEED,
+                                  lr=0.0001,
+                                  load_file=load_file,
+                                  action_map={0: 0, 1: 2, 2: 5})
     train_pg(environment, agent, n_episodes=50000, max_t=10000,
              gamma=0.99,
              render=render,

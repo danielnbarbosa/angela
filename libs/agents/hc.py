@@ -2,11 +2,12 @@
 Classes to model a Hill Climbing agent.
 """
 
+import pickle
 import numpy as np
 
 
 class HillClimbing():
-    def __init__(self, model, action_size, seed,
+    def __init__(self, model, action_size, seed, load_file=None,
                  noise_scale=1e-2,
                  use_adaptive_noise=True,
                  noise_scale_in=2,
@@ -31,6 +32,9 @@ class HillClimbing():
         """
         np.random.seed(seed)
         self.model = model
+        if load_file:
+            model.weights = pickle.load(open(load_file, 'rb'))
+            print('Loaded: {}'.format(load_file))
         self.action_size = action_size
         self.noise_scale = noise_scale
         self.use_adaptive_noise = use_adaptive_noise

@@ -90,9 +90,9 @@ To start training, use the wrapper script and pass in the desired environment an
 ./train.py --env cartpole --agent dqn
 ```
 
-To load a saved agent call the load function just before the train function:
+To load a saved model:
 ```
-load_model(model, 'best/cartpole.pth')
+./train.py --env cartpole --agent dqn --load=checkpoints/best/cartpole.pth
 ```
 
 To render an agent:
