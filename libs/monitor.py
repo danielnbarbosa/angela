@@ -110,8 +110,8 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     np.random.seed(seed)
 
     stats = statistics.HillClimbingStats()
-    best_return = -np.Inf               # current best return
-    best_weights = agent.weights        # current best weights
+    max_best_return = -np.Inf               # overall best return
+    max_best_weights = agent.weights        # overall best weights
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pck')
@@ -128,7 +128,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         for j in range(npop):
             rewards = []
             # evaluate each population member
-            agent.weights = best_weights + noise_scale * pop_noise[j]
+            agent.weights = max_best_weights + noise_scale * pop_noise[j]
             state = environment.reset()
             for t in range(max_t):
                 if render:  # optionally render agent
@@ -147,9 +147,9 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         pop_best_return = pop_return.max()
 
         # compare best return from current population to global best return
-        if pop_best_return >= best_return: # found better weights
-            best_return = pop_best_return
-            best_weights += noise_scale * pop_noise[pop_return.argmax()]
+        if pop_best_return >= max_best_return: # found better weights
+            max_best_return = pop_best_return
+            max_best_weights += noise_scale * pop_noise[pop_return.argmax()]
             noise_scale = max(noise_min, noise_scale / noise_scale_in) if use_adaptive_noise else noise_scale
         else: # did not find better weights
             noise_scale = min(noise_max, noise_scale * noise_scale_out) if use_adaptive_noise else noise_scale
@@ -160,19 +160,20 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
         # every episode
         # TODO: suff some of the above into agent.learn()
+        #agent.learn(pop_return, pop_rewards)
         stats.update(len(pop_best_rewards), pop_best_rewards, i_episode)
-        stats.print_episode(i_episode, pop_best_return, best_return, noise_scale)
+        stats.print_episode(i_episode, pop_best_return, max_best_return, noise_scale)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, pop_best_return, best_return, noise_scale)
+            stats.print_epoch(i_episode, pop_best_return, max_best_return, noise_scale)
             save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.weights, open(save_name, 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, pop_best_return, best_return, noise_scale)
-            agent.weights = best_weights
+            stats.print_solve(i_episode, pop_best_return, max_best_return, noise_scale)
+            agent.weights = max_best_weights
             pickle.dump(agent.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break
 
