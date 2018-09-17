@@ -113,7 +113,7 @@ class DQNConv3D(nn.Module):
     Assumes 4 stacked RGB frames with dimensions of 84x84.
     """
 
-    def __init__(self, action_size, seed):
+    def __init__(self, state_size, action_size, seed):
         """Initialize parameters and build model.
         Params
         ======
@@ -231,6 +231,52 @@ class PGConv2D(nn.Module):
         # convolutions
         x = F.relu(self.bn1(self.conv1(x)))
         x = F.relu(self.bn2(self.conv2(x)))
+        # flatten
+        x = x.view(x.size(0), -1)
+        # fully connected layer
+        x = F.relu(self.fc(x))
+        x = self.output(x)
+        #print('out: {}'.format(x.shape))
+        return F.softmax(x, dim=1)
+
+
+class PGConv3D(nn.Module):
+    """
+    3D Convolutional Neural Network for learning from pixels using Policy Gradients.
+    Assumes 4 stacked RGB frames with dimensions of 84x84.
+    """
+
+    def __init__(self, state_size, action_size, seed):
+        """Initialize parameters and build model.
+        Params
+        ======
+            action_size (int): Dimension of each action
+            seed (int): Random seed
+        """
+        super(PGConv3D, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+
+        # input shape: (m, 3, 4, 84, 84)                                shape after
+        self.conv1 = nn.Conv3d(3, 128, (1, 3, 3), stride=(1, 3, 3))     # (m, 128, 4, 28, 28)
+        self.bn1 = nn.BatchNorm3d(128)
+        self.conv2 = nn.Conv3d(128, 256, (1, 3, 3), stride=(1, 3, 3))   # (m, 256, 4, 9, 9)
+        self.bn2 = nn.BatchNorm3d(256)
+        self.conv3 = nn.Conv3d(256, 256, (4, 3, 3), stride=(1, 3, 3))   # (m, 256, 1, 3, 3)
+        self.bn3 = nn.BatchNorm3d(256)
+        self.fc = nn.Linear(256*1*3*3, 1024)                            # (m, 2304, 1024)
+        self.output = nn.Linear(1024, action_size)                      # (m, 512, n_a)
+        # print model
+        print(self)
+        summary(self, state_size)
+
+    def forward(self, x):
+        x = x.float() / 255
+        #print('in:  {}'.format(x.shape))
+        # convolutions
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer

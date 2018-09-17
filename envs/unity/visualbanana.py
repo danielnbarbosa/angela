@@ -20,7 +20,20 @@ def dqn(render, load_file):
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
     # don't forget to reset epsilon when continuing training
-    train_dqn(environment, agent, n_episodes=10000, solve_score=13.0,
+    train_dqn(environment, agent, n_episodes=10000,
+              solve_score=13.0,
               eps_start=1.0,
               eps_end=0.01,
               eps_decay=0.995)
+
+
+def pg(render, load_file):
+    model = models.PGConv3D(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
+    agent = agents.PolicyGradient(model, seed=SEED,
+                                  lr=0.0001,
+                                  load_file=load_file)
+    train_pg(environment, agent, n_episodes=50000, max_t=10000,
+             solve_score=13.0,
+             gamma=0.99,
+             render=render,
+             graph_when_done=True)
