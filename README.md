@@ -86,9 +86,18 @@ pip install .
 Each environment has its own file with a separate function for each agent type (e.g. dqn, hc, pg).  The file acts as a config file for setting all the various hyperparameters that you may care to tweak.
 
 To start training, use the wrapper script and pass in the desired environment and agent type.  For example to train on the CartPole-v1 environment with the DQN agent:
-
 ```
 ./train.py --env cartpole --agent dqn
+```
+
+To load a saved agent call the load function just before the train function:
+```
+load_model(model, 'best/cartpole.pth')
+```
+
+To render an agent:
+```
+./train.py --env cartpole --agent dqn --render=True
 ```
 
 ## Results

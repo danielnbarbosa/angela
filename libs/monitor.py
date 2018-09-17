@@ -227,27 +227,6 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
 
 
-def watch(environment, agent, checkpoints, frame_sleep=0.05):
-    """ Visualize agent using saved checkpoints. """
-
-    for checkpoint in checkpoints:
-        # load saved weights from file
-        print('Watching: {}'.format(checkpoint))
-        agent.qnetwork_local.load_state_dict(torch.load('checkpoints/' + checkpoint + '.pth'))
-        # reset environment
-        state = environment.reset()
-        # interact with environment
-        for _ in range(600):
-            # select an action
-            action = agent.act(state)
-            time.sleep(frame_sleep)
-            # take action in environment
-            state, _, done = environment.step(action)
-            environment.render()
-            if done:
-                break
-
-
 def load_dqn(model, file_name):
     """Load saved model weights from a checkpoint file for DQN agent."""
 
