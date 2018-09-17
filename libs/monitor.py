@@ -12,13 +12,24 @@ import torch
 from visualize import plot_dqn, plot_hc, plot_pg, show_frames
 import statistics
 
-def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
+def train_pg(environment, agent, n_episodes=10000, max_t=2000,
              gamma=1.0,
-             print_every=100,
-             render_every=100000,
+             render=False,
              solve_score=100000.0,
              graph_when_done=False):
+    """ Run training loop for Policy Gradients.
 
+    Params
+    ======
+        environment: environment object
+        agent: agent object
+        n_episodes (int): maximum number of training episodes
+        max_t (int): maximum number of timesteps per episode
+        gamma (float): discount rate
+        render (bool): whether to render the agent
+        solve_score (float): criteria for considering the environment solved
+        graph_when_done (bool): whether to show matplotlib graphs of the training run
+    """
     stats = statistics.Stats()
 
     # remove checkpoints from prior run
@@ -31,8 +42,7 @@ def train_pg(environment, agent, seed, n_episodes=10000, max_t=2000,
         rewards = []
         state = environment.reset()
         for t in range(max_t):
-            # render during training
-            if i_episode % render_every == 0:
+            if render:  # optionally render agent
                 environment.render()
             action, log_prob = agent.act(state)
             saved_log_probs.append(log_prob)
@@ -76,7 +86,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              noise_max=2,
              npop=1,
              print_every=100,
-             render_every=100000,
+             render=False,
              solve_score=100000.0,
              sound_when_done=False,
              graph_when_done=False):
@@ -96,7 +106,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         noise_min (int): minimum noise_scale
         noise_max (int): maximum noise scale
         npop (int): population size for steepest ascent
-        render_every (int): render the agent interacting in the environment every n episodes
+        render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
         sound_when_done (bool): wheter to play a sound to announce training is finished
         graph_when_done (bool): whether to show matplotlib graphs of the training run
@@ -125,8 +135,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
             agent.weights = best_weights + noise_scale * pop_noise[j]
             state = environment.reset()
             for t in range(max_t):
-                # render during training
-                if i_episode % render_every == 0:
+                if render:  # optionally render agent
                     environment.render()
                 action = agent.act(state)
                 state, reward, done = environment.step(action)
@@ -181,7 +190,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
               eps_start=1.0,
               eps_end=0.01,
               eps_decay=0.995,
-              render_every=100000,
+              render=False,
               solve_score=100000.0,
               sound_when_done=False,
               graph_when_done=False):
@@ -196,7 +205,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         eps_start (float): starting value of epsilon, for epsilon-greedy action selection
         eps_end (float): minimum value of epsilon
         eps_decay (float): multiplicative factor (per episode) for decreasing epsilon
-        render_every (int): render the agent interacting in the environment every n episodes
+        render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
         sound_when_done (bool): wheter to play a sound to announce training is finished
         graph_when_done (bool): whether to show matplotlib graphs of the training run
@@ -216,8 +225,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
 
         # loop over steps
         for t in range(max_t):
-            # render during training
-            if i_episode % render_every == 0:
+            if render:  # optionally render agent
                 environment.render()
 
             # select an action

@@ -27,6 +27,6 @@ def hc():
 def pg():
     model = models.PGOneHiddenLayer(state_size=3, action_size=9, fc1_units=24, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
-    train_pg(environment, agent, seed=SEED, n_episodes=5000, max_t=1000,
+    train_pg(environment, agent, n_episodes=5000, max_t=1000,
              gamma=0.99,
              graph_when_done=True)
