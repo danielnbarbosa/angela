@@ -20,7 +20,7 @@ def dqn(render, load_file):
 def hc(render, load_file):
     model = models.HillClimbing(state_size=2, action_size=3, seed=SEED)
     agent = agents.HillClimbing(model, action_size=3, seed=SEED, policy='deterministic')
-    train_hc(environment, agent, seed=SEED, n_episodes=1000, max_t=1000,
+    train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              npop=4,
              solve_score=-110.0,
              graph_when_done=True)

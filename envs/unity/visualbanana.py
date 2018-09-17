@@ -1,7 +1,7 @@
 from imports import *
 
 """
-NOTE: download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
+NOTE: Download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
 """
 
 SEED = 0

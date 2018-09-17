@@ -2,15 +2,17 @@
 
 # Wrapper script to execute a training run on all the working environments.
 
+ENVIRONMENTS='cartpole frozenlake frozenlake8x8 acrobot mountaincar pendulum lunarlander banana basic'
+AGENTS='dqn hc pg'
 
-train_envs() {
-  for environment in $1
+
+for environment in $ENVIRONMENTS
+do
+  for agent in $AGENTS
   do
-    echo "Starting training for: $environment"
-    ./train.py --env $environment --agent dqn
+    echo ''
+    echo '----------------------------------------------------------------'
+    echo "Starting training on $environment environment with $agent agent."
+    ./train.py --env $environment --agent $agent
   done
-}
-
-#environments="acrobot.py cartpole.py frozenlake.py frozenlake8x8.py lunarlander.py mountaincar.py pendulum.py"
-environments="acrobot cartpole frozenlake frozenlake8x8 lunarlander mountaincar pendulum banana basic"
-train_envs "$environments"
+done

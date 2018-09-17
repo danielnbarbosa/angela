@@ -11,4 +11,4 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=4, seed=SEED,
                   use_double_dqn=True,
                   use_prioritized_experience_replay=False)
-    train_dqn(environment, agent, n_episodes=4000, max_t=1000)
+    train_dqn(environment, agent, n_episodes=6000, max_t=1000)
