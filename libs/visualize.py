@@ -23,7 +23,7 @@ def sub_plot_img(coords, img, y_label='', x_label=''):
     plt.xlabel(x_label)
 
 
-def show_frames(state):
+def show_frames_3d(state):
     """Show each of the frames being passed as a single state."""
     plt.figure(1)
     sub_plot_img(141, state[0, :, 0, :, : :].reshape(84, 84, 3), x_label='0')
@@ -33,7 +33,7 @@ def show_frames(state):
     plt.show()
 
 
-def show_frames_pg(now, state):
+def show_frames_2d(now, state):
     """Show each of the frames being passed as a single state."""
     plt.figure(1)
     sub_plot_img(131, now[0, :, ].reshape(80, 80), x_label='now')

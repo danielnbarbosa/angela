@@ -8,7 +8,7 @@ from unityagents import UnityEnvironment
 import gym
 import gym.spaces
 from discretize import create_uniform_grid
-#from visualize import show_frames_pg
+from visualize import show_frames_2d, show_frames_3d
 
 
 class Gym():

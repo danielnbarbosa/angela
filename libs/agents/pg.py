@@ -45,7 +45,7 @@ class PolicyGradient():
         if normal:
             mean = np.mean(discounted_rewards)
             std = np.std(discounted_rewards)
-            std = max(1e-8, std) # avoid divide by zero if rewards = 0
+            std = max(1e-8, std) # avoid divide by zero if rewards = 0.0
             discounted_rewards = (discounted_rewards - mean) / (std)
         return discounted_rewards
 

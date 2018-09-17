@@ -8,7 +8,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from visualize import show_frames
+#from visualize import show_frames_3d
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
