@@ -105,7 +105,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
     for i_episode in range(1, n_episodes+1):
         # generate noise for each member of population
-        pop_noise = np.random.randn(npop, *agent.weights.shape)
+        pop_noise = np.random.randn(npop, *agent.model.weights.shape)
         # generate placeholders for each member of population
         pop_return = np.zeros(npop)
         pop_rewards = []
@@ -113,7 +113,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         for j in range(npop):
             rewards = []
             # evaluate each population member
-            agent.weights = agent.max_best_weights + agent.noise_scale * pop_noise[j]
+            agent.model.weights = agent.max_best_weights + agent.noise_scale * pop_noise[j]
             state = environment.reset()
             for t in range(max_t):
                 if render:  # optionally render agent
@@ -138,13 +138,13 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         if i_episode % 100 == 0:
             stats.print_epoch(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale)
             save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
-            pickle.dump(agent.weights, open(save_name, 'wb'))
+            pickle.dump(agent.model.weights, open(save_name, 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
             stats.print_solve(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale)
-            agent.weights = agent.max_best_weights
-            pickle.dump(agent.weights, open('checkpoints/last_run/solved.pck', 'wb'))
+            agent.model.weights = agent.max_best_weights
+            pickle.dump(agent.model.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break
 
     # training finished
@@ -235,7 +235,7 @@ def load_dqn(model, file_name):
     print('Loaded: {}'.format(file_name))
 
 
-def load_pickle(agent, file_name):
+def load_pickle(model, file_name):
     """Load saved model weights from a pickle file for HC agent."""
 
     agent.weights = pickle.load(open('checkpoints/' + file_name, 'rb'))

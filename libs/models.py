@@ -2,6 +2,7 @@
 Classes to model agent's neural networks.
 """
 
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -154,6 +155,28 @@ class DQNConv3D(nn.Module):
         x = self.output(x)
         #print('out: {}'.format(x.shape))
         return x
+
+
+class HillClimbing():
+    def __init__(self, state_size, action_size, seed):
+        np.random.seed(seed)
+         # weights for simple linear policy: state_space x action_space
+        self.weights = 1e-4 * np.random.randn(state_size, action_size)
+
+    def _softmax(self, x):
+        exp = np.exp(x)
+        return exp/np.sum(exp)
+
+    def _softmax_stable(self, x):
+        #exp = np.exp(x) - np.exp(max(x))
+        #return exp/np.sum(exp)
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum()
+
+    def forward(self, state):
+        x = np.dot(state, self.weights)
+        #return np.exp(x)/sum(np.exp(x))
+        return self._softmax_stable(x)
 
 
 class PGOneHiddenLayer(nn.Module):

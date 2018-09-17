@@ -6,7 +6,7 @@ SEED = 0
 environment = environments.Gym('Carnival-ram-v0', seed=SEED, normalize=True)
 
 
-def dqn():
+def dqn(render):
     model = models.DQNDueling_Q(state_size=128, action_size=6, fc_units=(256, 128), seed=SEED)
     agent = agents.DQN(model, action_size=6, seed=SEED,
               use_double_dqn=True,
@@ -20,10 +20,9 @@ def dqn():
               render_every=10000000)
 
 
-def hc():
-    agent = agents.HillClimbing(state_size=128, action_size=6, seed=SEED, policy='deterministic')
+def hc(render):
+    model = models.HillClimbing(state_size=128, action_size=6, seed=SEED)
+    agent = agents.HillClimbing(action_size=6, seed=SEED, policy='deterministic')
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=2000,
-             use_adaptive_noise=True,
              npop=10,
-             print_every=100,
              graph_when_done=True)

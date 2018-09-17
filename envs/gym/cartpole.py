@@ -24,7 +24,8 @@ def dqn(render):
 
 
 def hc(render):
-    agent = agents.HillClimbing(state_size=4, action_size=2, seed=SEED,
+    model = models.HillClimbing(state_size=4, action_size=2, seed=SEED)
+    agent = agents.HillClimbing(model, action_size=2, seed=SEED,
                                 use_adaptive_noise=False,
                                 policy='deterministic')
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,

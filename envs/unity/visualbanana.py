@@ -10,7 +10,7 @@ SEED = 0
 environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments/VisualBanana.app', seed=SEED)
 #environment = UnityMLVisualEnvironmentSimple('envs/unity/compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)
 
-def dqn():
+def dqn(render):
     # shape is (m, c, f, h, w)
     model = models.DQNConv3D_Q(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
     agent = agents.DQN(model, action_size=4, seed=SEED,

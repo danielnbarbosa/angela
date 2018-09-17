@@ -11,7 +11,7 @@ SEED = 0
 environment = environments.UnityMLVector('env/unity/compiled_unity_environments/Hallway.app', seed=SEED)
 
 
-def dqn():
+def dqn(render):
     model = models.DQNTwoHiddenLayer_Q(state_size=36, action_size=16, fc_units=(64, 64), seed=SEED)
     agent = agents.DQN(model, action_size=16, seed=SEED,
                      use_double_dqn=False,

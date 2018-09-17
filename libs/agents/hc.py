@@ -6,7 +6,7 @@ import numpy as np
 
 
 class HillClimbing():
-    def __init__(self, state_size, action_size, seed,
+    def __init__(self, model, action_size, seed,
                  noise_scale=1e-2,
                  use_adaptive_noise=True,
                  noise_scale_in=2,
@@ -19,7 +19,6 @@ class HillClimbing():
         Params
         ======
             model: model object
-            state_size (int): dimension of each state
             action_size (int): dimension of each action
             seed (int): Random seed
             noise_scale (float): standard deviation of additive noise
@@ -31,6 +30,7 @@ class HillClimbing():
             policy (str): Either 'deterministic' or 'stochastic'
         """
         np.random.seed(seed)
+        self.model = model
         self.action_size = action_size
         self.noise_scale = noise_scale
         self.use_adaptive_noise = use_adaptive_noise
@@ -39,31 +39,17 @@ class HillClimbing():
         self.noise_min = noise_min
         self.noise_max = noise_max
         self.policy = policy
-        self.weights = 1e-4 * np.random.randn(state_size, action_size)  # weights for simple linear policy: state_space x action_space
         self.max_best_return = -np.Inf               # overall best return
-        self.max_best_weights = self.weights        # overall best weights
+        self.max_best_weights = model.weights        # overall best weights
 
-    def _softmax(self, x):
-        exp = np.exp(x)
-        return exp/np.sum(exp)
-
-    def _softmax_stable(self, x):
-        #exp = np.exp(x) - np.exp(max(x))
-        #return exp/np.sum(exp)
-        e_x = np.exp(x - np.max(x))
-        return e_x / e_x.sum()
-
-    def forward(self, state):
-        x = np.dot(state, self.weights)
-        #return np.exp(x)/sum(np.exp(x))
-        return self._softmax_stable(x)
 
     def act(self, state):
-        probs = self.forward(state)
+        probs = self.model.forward(state)
         if self.policy == 'deterministic':
             return np.argmax(probs)
         elif self.policy == 'stochastic':
             return np.random.choice(self.action_size, p=probs)
+
 
     def learn(self, pop_noise, pop_return, pop_rewards):
         # determine who got the highest reward
