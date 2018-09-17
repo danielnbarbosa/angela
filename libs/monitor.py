@@ -69,8 +69,6 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
             break
 
     # training finished
-    #if sound_when_done:
-    #    play_sound('libs/fanfare.wav')
     if graph_when_done:
         plot_pg(scores, avg_scores)
 
@@ -88,7 +86,6 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              print_every=100,
              render=False,
              solve_score=100000.0,
-             sound_when_done=False,
              graph_when_done=False):
     """ Run training loop for Hill Climbing.
 
@@ -108,7 +105,6 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         npop (int): population size for steepest ascent
         render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
-        sound_when_done (bool): wheter to play a sound to announce training is finished
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
     np.random.seed(seed)
@@ -192,7 +188,6 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
               eps_decay=0.995,
               render=False,
               solve_score=100000.0,
-              sound_when_done=False,
               graph_when_done=False):
     """ Run training loop for DQN.
 
@@ -207,7 +202,6 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         eps_decay (float): multiplicative factor (per episode) for decreasing epsilon
         render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
-        sound_when_done (bool): wheter to play a sound to announce training is finished
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
 
@@ -258,8 +252,6 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
             break
 
     # training finished
-    #if sound_when_done:
-    #    play_sound('libs/fanfare.wav')
     if graph_when_done:
         plot_dqn(scores, avg_scores, agent.loss_list, agent.entropy_list)
 

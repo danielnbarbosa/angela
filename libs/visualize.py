@@ -4,8 +4,6 @@ Utility functions for generating training graphs and peeking at agent internals.
 
 import numpy as np
 import matplotlib.pyplot as plt
-#import simpleaudio as sa
-
 
 def sub_plot_img(coords, img, y_label='', x_label=''):
     """Plot a single image (subplot)."""
@@ -84,11 +82,3 @@ def show_frames_pg(now, state):
     sub_plot_img(132, state[0, 0, :, ].reshape(80, 80), x_label='0')
     sub_plot_img(133, state[0, 1, :, ].reshape(80, 80), x_label='1')
     plt.show()
-
-
-def play_sound(file):
-    """ Play a sound. """
-
-    wave_obj = sa.WaveObject.from_wave_file(file)
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
