@@ -30,7 +30,7 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
         solve_score (float): criteria for considering the environment solved
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
-    stats = statistics.Stats()
+    stats = statistics.PolicyGradientStats()
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -54,17 +54,17 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
         # every episode
         agent.learn(rewards, saved_log_probs, gamma)
         stats.update(t, rewards, i_episode)
-        stats.print_pg_episode(i_episode)
+        stats.print_episode(i_episode)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_pg_epoch(i_episode)
+            stats.print_epoch(i_episode)
             save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.model.state_dict(), save_name)
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_pg_solve(i_episode)
+            stats.print_solve(i_episode)
             torch.save(agent.model.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 
@@ -109,7 +109,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     """
     np.random.seed(seed)
 
-    stats = statistics.Stats()
+    stats = statistics.HillClimbingStats()
     best_return = -np.Inf               # current best return
     best_weights = agent.weights        # current best weights
 
@@ -161,17 +161,17 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         # every episode
         # TODO: suff some of the above into agent.learn()
         stats.update(len(pop_best_rewards), pop_best_rewards, i_episode)
-        stats.print_hc_episode(i_episode, pop_best_return, best_return, noise_scale)
+        stats.print_episode(i_episode, pop_best_return, best_return, noise_scale)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_hc_epoch(i_episode, pop_best_return, best_return, noise_scale)
+            stats.print_epoch(i_episode, pop_best_return, best_return, noise_scale)
             save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.weights, open(save_name, 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_hc_solve(i_episode, pop_best_return, best_return, noise_scale)
+            stats.print_solve(i_episode, pop_best_return, best_return, noise_scale)
             agent.weights = best_weights
             pickle.dump(agent.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break
@@ -205,7 +205,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
 
-    stats = statistics.Stats()
+    stats = statistics.DeepQNetworkStats()
     eps = eps_start                     # initialize epsilon
 
     # remove checkpoints from prior run
@@ -237,17 +237,17 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         eps = max(eps_end, eps_decay*eps)  # decrease epsilon
         buffer_len = len(agent.memory)
         stats.update(t, rewards, i_episode)
-        stats.print_dqn_episode(i_episode, eps, agent.alpha, buffer_len)
+        stats.print_episode(i_episode, eps, agent.alpha, buffer_len)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_dqn_epoch(i_episode, eps, agent.alpha, buffer_len)
+            stats.print_epoch(i_episode, eps, agent.alpha, buffer_len)
             save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_dqn_solve(i_episode, eps, agent.alpha, buffer_len)
+            stats.print_solve(i_episode, eps, agent.alpha, buffer_len)
             torch.save(agent.qnetwork_local.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 
