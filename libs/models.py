@@ -222,7 +222,7 @@ class PGConv2D(nn.Module):
         self.output = nn.Linear(fc1_units, action_size)   # (m, fc1_units, n_a)
         # print model
         print(self)
-        summary(self, state_size)
+        summary(self.to(device), state_size)
 
     def forward(self, x):
         #print('in:  {}'.format(x.shape))
@@ -268,7 +268,7 @@ class PGConv3D(nn.Module):
         self.output = nn.Linear(1024, action_size)                      # (m, 512, n_a)
         # print model
         print(self)
-        summary(self, state_size)
+        summary(self.to(device), state_size)
 
     def forward(self, x):
         x = x.float() / 255

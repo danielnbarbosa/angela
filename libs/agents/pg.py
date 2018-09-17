@@ -24,7 +24,7 @@ class PolicyGradient():
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
-        self.model = model
+        self.model = model.to(device)
         if load_file:
             self.model.load_state_dict(torch.load(load_file))
             print('Loaded: {}'.format(load_file))

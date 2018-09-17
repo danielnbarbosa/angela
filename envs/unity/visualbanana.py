@@ -8,7 +8,7 @@ SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 
 environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments/VisualBanana.app', seed=SEED)
-#environment = UnityMLVisualEnvironmentSimple('envs/unity/compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)
+#environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments/VisualBanana_Linux/Banana.x86_64', seed=SEED)
 
 def dqn(render, load_file):
     # shape is (m, c, f, h, w)
