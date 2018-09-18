@@ -3,11 +3,11 @@ from imports import *
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 
-environment = environments.GymAtari('Pong-v0', seed=SEED)
+environment = environments.GymAtariPong('Pong-v0', seed=SEED)
 
 
 def pg(render, load_file):
-    model = models.PGConv2D(state_size=(4, 80, 80), action_size=3, fc1_units=200, seed=SEED)
+    model = models.PGConv2DPong(state_size=(4, 80, 80), action_size=3, fc1_units=200, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file,
