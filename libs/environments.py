@@ -9,8 +9,8 @@ import gym
 import gym.spaces
 from skimage.color import rgb2gray
 import cv2
-from discretize import create_uniform_grid
-from visualize import show_frames_2d, show_frames_3d
+from libs.discretize import create_uniform_grid
+from libs.visualize import show_frames_2d, show_frames_3d
 
 
 class Gym():

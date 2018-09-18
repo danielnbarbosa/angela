@@ -8,7 +8,7 @@ import pickle
 import statistics
 import numpy as np
 import torch
-
+import libs.statistics
 
 def train_pg(environment, agent, n_episodes=10000, max_t=2000,
              gamma=1.0,
@@ -28,7 +28,7 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
         solve_score (float): criteria for considering the environment solved
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
-    stats = statistics.PolicyGradientStats()
+    stats = libs.statistics.PolicyGradientStats()
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -94,7 +94,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
     """
     np.random.seed(seed)
 
-    stats = statistics.HillClimbingStats()
+    stats = libs.statistics.HillClimbingStats()
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pck')
@@ -174,7 +174,7 @@ def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
 
-    stats = statistics.DeepQNetworkStats()
+    stats = libs.statistics.DeepQNetworkStats()
     eps = eps_start                     # initialize epsilon
 
     # remove checkpoints from prior run

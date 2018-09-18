@@ -1,4 +1,4 @@
-from imports import *
+from libs import environments, models, agents, training
 
 """
 NOTE: Download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
@@ -12,7 +12,7 @@ environment = environments.UnityMLVisual('envs/unity/compiled_unity_environments
 
 def dqn(render, load_file):
     # shape is (m, c, f, h, w)
-    model = models.DQNConv3D_Q(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
+    model = models.dqn.Conv3D2x(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
     agent = agents.DQN(model, action_size=4, seed=SEED,
                      buffer_size=10000,
                      gamma=0.99,
@@ -20,7 +20,7 @@ def dqn(render, load_file):
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
     # don't forget to reset epsilon when continuing training
-    train_dqn(environment, agent, n_episodes=10000,
+    training.train_dqn(environment, agent, n_episodes=10000,
               solve_score=13.0,
               eps_start=1.0,
               eps_end=0.01,
@@ -28,11 +28,11 @@ def dqn(render, load_file):
 
 
 def pg(render, load_file):
-    model = models.PGConv3D(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
+    model = models.pg.Conv3D(state_size=(3, 4, 84, 84), action_size=4, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file)
-    train_pg(environment, agent, n_episodes=10000,
+    training.train_pg(environment, agent, n_episodes=10000,
              solve_score=13.0,
              gamma=0.99,
              render=render,
