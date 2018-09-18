@@ -190,15 +190,17 @@ class GymAtari():
             self.env._max_episode_steps = max_steps
 
         self.frame_sleep = 0.02
-        self.full_state = np.zeros((1, 4, 105, 80), dtype=np.uint8)
+        self.full_state = np.zeros((1, 4, 80, 80), dtype=np.float32)
 
 
     def _prepro(self, frame):
-        """ Pre-process 210x160x3 uint8 frame into 80x80 uint8 frame.
+        """ Pre-process 210x160x3 uint8 frame into 80x80 float32 frame.
             This works for all Atari games.
         """
         frame = rgb2gray(frame)  # convert to grayscale
+        #print('_prepro() frame after rgb2gray:  {}'.format(frame))
         frame = cv2.resize(frame, (80, 80), interpolation=cv2.INTER_AREA)  # downsample
+        #print('_prepro() frame after resize:  {}'.format(frame))
         return frame
 
 
@@ -218,7 +220,7 @@ class GymAtari():
         #print('reset() frame from environment:  {}'.format(frame.shape))
         frame = self._prepro(frame)
         #print('reset() frame after _prepro():  {}'.format(frame.shape))
-        frame = frame.reshape(1, 105, 80)
+        frame = frame.reshape(1, 80, 80)
         #print('reset() frame after reshape:  {}'.format(frame.shape))
         self._add_frame(frame)
         self._add_frame(frame)
@@ -235,7 +237,7 @@ class GymAtari():
         #print('step() frame from environment:  {}'.format(frame.shape))
         frame = self._prepro(frame)
         #print('step() frame after _prepro():  {}'.format(frame.shape))
-        frame = frame.reshape(1, 105, 80)
+        frame = frame.reshape(1, 80, 80)
         #print('step() frame after reshape:  {}'.format(frame.shape))
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state.shape))

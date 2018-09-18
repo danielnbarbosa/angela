@@ -3,7 +3,7 @@ from imports import *
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 
-environment = environments.GymAtariPong('Pong-v0', seed=SEED)
+environment = environments.GymAtari('Pong-v0', seed=SEED)
 
 
 def pg(render, load_file):
