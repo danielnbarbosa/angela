@@ -1,10 +1,11 @@
 #### DQN
 ```
-Episode   100	Avg: 2.6800	Best: 2.680	ε: 0.0476  ⍺: 0.5000  Buffer:  30000  Steps:  29900  Secs:  109
-Episode   200	Avg: 9.580	Best: 9.630	ε: 0.0023  ⍺: 0.5000  Buffer:  60000  Steps:  29900  Secs:  111
-Episode   300	Avg: 12.410	Best: 12.410	ε: 0.0010  ⍺: 0.5000  Buffer:  90000  Steps:  29900  Secs:   99
-Episode   311	Avg: 13.000	Best: 13.000	ε: 0.0010  ⍺: 0.5000  Buffer:  93300
-Environment solved in 211 episodes!	AvgScore: 13.000	StdDev: 5.070	Seed: 895815691
+Episode   100   Avg:     2.63   BestAvg:     -inf   σ:     3.37   |   ε: 0.0476  ⍺: 0.5000  Buffer:  30000   |   Steps:    29900  Secs:     93
+Episode   200   Avg:     9.27   BestAvg:     9.27   σ:     4.41   |   ε: 0.0023  ⍺: 0.5000  Buffer:  60000   |   Steps:    59800  Secs:    186
+Episode   300   Avg:    11.51   BestAvg:    11.54   σ:     5.00   |   ε: 0.0010  ⍺: 0.5000  Buffer:  90000   |   Steps:    89700  Secs:    281
+Episode   336   Avg:    13.00   BestAvg:    13.00   σ:     5.28   |   ε: 0.0010  ⍺: 0.5000  Buffer: 100000   |   Steps:   100464  Secs:    315
+
+Solved in 236 episodes!
 ```
 
 #### HC

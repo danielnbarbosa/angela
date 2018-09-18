@@ -23,7 +23,7 @@ def hc(render, load_file):
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=1000,
              npop=4,
              solve_score=-110.0,
-             graph_when_done=True)
+             graph_when_done=False)
 
 
 def pg(render, load_file):
@@ -32,4 +32,4 @@ def pg(render, load_file):
     train_pg(environment, agent, n_episodes=5000, max_t=1000,
              gamma=0.99,
              solve_score=-110.0,
-             graph_when_done=True)
+             graph_when_done=False)

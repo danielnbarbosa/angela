@@ -15,4 +15,4 @@ def pg(render, load_file):
     train_pg(environment, agent, n_episodes=50000, max_t=10000,
              gamma=0.99,
              render=render,
-             graph_when_done=True)
+             graph_when_done=False)

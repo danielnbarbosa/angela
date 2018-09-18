@@ -37,14 +37,14 @@ class Stats():
 
 class DeepQNetworkStats(Stats):
     def print_episode(self, i_episode, epsilon, alpha, buffer_len):
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}   σ: {:7.2f}'
-              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}   Now: {:7.2f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}   Now: {:8.2f}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
                       epsilon, alpha, buffer_len, self.score), end="")
 
     def print_epoch(self, i_episode, epsilon, alpha, buffer_len):
         n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}   σ: {:7.2f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
               '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}'
               '   |   Steps: {:8}  Secs: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
@@ -74,15 +74,15 @@ class DeepQNetworkStats(Stats):
 
 class HillClimbingStats(Stats):
     def print_episode(self, i_episode, pop_best_return, max_best_return, noise_scale):
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}   σ: {:7.2f}'
-              '   |   Best: {:7.2f}   Noise: {:6.4f}   Now: {:7.2f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   Best: {:8.2f}   Noise: {:6.4f}   Now: {:8.2f}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
                       max_best_return, noise_scale, pop_best_return), end="")
 
     def print_epoch(self, i_episode, max_best_return, noise_scale):
         n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}   σ: {:7.2f}'
-              '   |   Best: {:7.2f}   Noise: {:6.4f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   Best: {:8.2f}   Noise: {:6.4f}'
               '   |   Steps: {:8}  Secs: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
                       max_best_return, noise_scale,
@@ -101,15 +101,14 @@ class HillClimbingStats(Stats):
 
 class PolicyGradientStats(Stats):
     def print_episode(self, i_episode):
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}'
-              '   |   σ: {:7.2f}   Now: {:7.2f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   Now: {:8.2f}'
               .format(i_episode, self.avg_score, self.best_avg_score,
                       self.std_dev, self.score), end="")
 
     def print_epoch(self, i_episode):
         n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:7.2f}   BestAvg: {:7.2f}'
-              '   |   σ: {:7.2f}'
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
               '   |   Steps: {:8}  Secs: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score,
                       self.std_dev,

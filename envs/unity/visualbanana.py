@@ -36,4 +36,4 @@ def pg(render, load_file):
              solve_score=13.0,
              gamma=0.99,
              render=render,
-             graph_when_done=True)
+             graph_when_done=False)

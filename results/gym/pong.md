@@ -85,5 +85,10 @@ Episode  7600   Avg:    1.01   BestAvg:    2.71   σ:    5.16   |   Steps: 35673
 Episode  7700   Avg:    1.98   BestAvg:    2.71   σ:    4.86   |   Steps: 36256709  Secs: 100215
 Episode  7800   Avg:    1.35   BestAvg:    2.97   σ:    4.39   |   Steps: 36813940  Secs: 101909
 Episode  7900   Avg:    2.14   BestAvg:    2.97   σ:    5.11   |   Steps: 37385256  Secs: 103558
-
+Episode  8000   Avg:    2.28   BestAvg:    3.48   σ:    6.02   |   Steps: 37932477  Secs: 105031
+Episode  8100   Avg:    1.73   BestAvg:    3.48   σ:    5.23   |   Steps: 38529342  Secs: 106608
+Episode  8200   Avg:    1.25   BestAvg:    3.48   σ:    4.85   |   Steps: 39111070  Secs: 108381
+Episode  8300   Avg:    2.13   BestAvg:    3.48   σ:    4.97   |   Steps: 39692956  Secs: 110160
+Episode  8400   Avg:    2.04   BestAvg:    3.48   σ:    5.08   |   Steps: 40272475  Secs: 112066
+Saved to best/pong_conv2dsmall_fc200.pth
 ```

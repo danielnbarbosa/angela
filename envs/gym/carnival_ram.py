@@ -25,4 +25,4 @@ def hc(render, load_file):
     agent = agents.HillClimbing(action_size=6, seed=SEED, policy='deterministic')
     train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=2000,
              npop=10,
-             graph_when_done=True)
+             graph_when_done=False)
