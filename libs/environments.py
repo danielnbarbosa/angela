@@ -194,11 +194,11 @@ class GymAtari():
 
 
     def _prepro(self, frame):
-        """ Pre-process 210x160x3 uint8 frame into 105x80 uint8 frame.
+        """ Pre-process 210x160x3 uint8 frame into 80x80 uint8 frame.
             This works for all Atari games.
         """
         frame = rgb2gray(frame)  # convert to grayscale
-        frame = cv2.resize(frame, (80, 105), interpolation=cv2.INTER_AREA)  # downsample
+        frame = cv2.resize(frame, (80, 80), interpolation=cv2.INTER_AREA)  # downsample
         return frame
 
 

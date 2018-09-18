@@ -193,14 +193,14 @@ class PGOneHiddenLayer(nn.Module):
         return F.softmax(x, dim=1)
 
 
-class PGConv2DPong(nn.Module):
+class PGConv2DSmall(nn.Module):
     """
     2D Convolutional Neural Network for learning from pixels using Policy Gradients.
     Assumes 4 stacked greyscale frames with dimensions of 80x80.
-    Dimensions are specific to pre-processing for Pong.
+    Total parameters: 243K
     """
 
-    def __init__(self, state_size, action_size, fc1_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed):
         """Initialize parameters and build model.
         Params
         ======
@@ -209,7 +209,7 @@ class PGConv2DPong(nn.Module):
             fc1_units (int): Nodes in fully connected layer
             seed (int): Random seed
         """
-        super(PGConv2DPong, self).__init__()
+        super(PGConv2DSmall, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
@@ -219,8 +219,8 @@ class PGConv2DPong(nn.Module):
         self.bn1 = nn.BatchNorm2d(16)
         self.conv2 = nn.Conv2d(16, 32, 4, stride=3)       # (m, 32, 6, 6)
         self.bn2 = nn.BatchNorm2d(32)
-        self.fc = nn.Linear(32*6*6, fc1_units)            # (m, 800, fc1_units)
-        self.output = nn.Linear(fc1_units, action_size)   # (m, fc1_units, n_a)
+        self.fc = nn.Linear(32*6*6, fc_units)            # (m, 800, fc_units)
+        self.output = nn.Linear(fc_units, action_size)   # (m, fc1_units, n_a)
         # print model
         print(self)
         summary(self.to(device), state_size)
@@ -241,11 +241,11 @@ class PGConv2DPong(nn.Module):
         return F.softmax(x, dim=1)
 
 
-class PGConv2D(nn.Module):
+class PGConv2DBig(nn.Module):
     """
     2D Convolutional Neural Network for learning from pixels using Policy Gradients.
-    Assumes 4 stacked greyscale frames with dimensions of 105x80.
-    Dimensions are generic for all Atari games.
+    Assumes 4 stacked greyscale frames with dimensions of 80x80.
+    Total parameters: 1260K
     """
 
     def __init__(self, state_size, action_size, fc_units, seed):
@@ -257,17 +257,20 @@ class PGConv2D(nn.Module):
             fc_units (int): Nodes in fully connected layer
             seed (int): Random seed
         """
-        super(PGConv2D, self).__init__()
+        super(PGConv2DBig, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
 
+
         # formula for calculcating conv net output dims: (W-F)/S + 1
         # input shape: (m, 4, 80, 80)                     shape after
-        self.conv1 = nn.Conv2d(4, 16, 8, stride=4)        # (m, 16, 25, 19)
-        self.bn1 = nn.BatchNorm2d(16)
-        self.conv2 = nn.Conv2d(16, 32, 4, stride=3)       # (m, 32, 8, 6)
-        self.bn2 = nn.BatchNorm2d(32)
-        self.fc = nn.Linear(32*8*6, fc_units)            # (m, 1536, fc_units)
+        self.conv1 = nn.Conv2d(4, 32, 8, stride=4)        # (m, 16, 19, 19)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 64, 4, stride=2)       # (m, 32, 8, 8)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.conv3 = nn.Conv2d(64, 64, 3, stride=1)       # (m, 32, 6, 6)
+        self.bn3 = nn.BatchNorm2d(64)
+        self.fc = nn.Linear(64*6*6, fc_units)            # (m, 2304, fc_units)
         self.output = nn.Linear(fc_units, action_size)   # (m, fc_units, n_a)
         # print model
         print(self)
@@ -280,6 +283,7 @@ class PGConv2D(nn.Module):
         # convolutions
         x = F.relu(self.bn1(self.conv1(x)))
         x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
         # flatten
         x = x.view(x.size(0), -1)
         # fully connected layer

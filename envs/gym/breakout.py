@@ -7,7 +7,7 @@ environment = environments.GymAtari('Breakout-v0', seed=SEED)
 
 
 def pg(render, load_file):
-    model = models.PGConv2D(state_size=(4, 105, 80), action_size=4, fc_units=256, seed=SEED)
+    model = models.PGConv2DBig(state_size=(4, 80, 80), action_size=4, fc_units=512, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file)

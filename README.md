@@ -65,7 +65,7 @@ conda create -n angela python=3.6 anaconda
 source activate angela
 conda install pytorch torchvision -c pytorch
 conda install -n angela opencv scikit-image
-pip install gym Box2D box2d-py simpleaudio torchsummary unityagents
+pip install gym Box2D box2d-py torchsummary unityagents
 ```
 
 #### Step 3: Install OpenAI Gym
