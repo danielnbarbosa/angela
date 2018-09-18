@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 """
 NOTE: Download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
@@ -16,7 +16,7 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=4, seed=SEED,
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
-    training.train_dqn(environment, agent, n_episodes=1000, solve_score=13.0,
+    train.dqn(environment, agent, n_episodes=1000, solve_score=13.0,
               eps_start=1.0,
               eps_end=0.001,
               eps_decay=0.97)
@@ -25,6 +25,6 @@ def dqn(render, load_file):
 def hc(render, load_file):
     model = models.hc.SingleLayerPerceptron(state_size=37, action_size=4, seed=SEED)
     agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='stochastic')
-    training.train_hc(environment, agent, seed=SEED, n_episodes=2000, solve_score=13.0,
+    train.hc(environment, agent, seed=SEED, n_episodes=2000, solve_score=13.0,
              npop=6,
              graph_when_done=False)

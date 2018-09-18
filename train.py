@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import argparse
-import libs, envs
 import sys
 sys.path.insert(1, 'envs/gym')
 sys.path.insert(2, 'envs/unity')

@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
@@ -12,7 +12,7 @@ def pg(render, load_file):
                                   lr=0.0001,
                                   load_file=load_file,
                                   action_map={0: 0, 1: 2, 2: 5})
-    training.train_pg(environment, agent, n_episodes=50000, max_t=10000,
+    train.pg(environment, agent, n_episodes=50000, max_t=10000,
              gamma=0.99,
              render=render,
              graph_when_done=False)

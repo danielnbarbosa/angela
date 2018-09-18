@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
@@ -13,14 +13,14 @@ def dqn(render, load_file):
                     use_double_dqn=True,
                     use_prioritized_experience_replay=False,
                     buffer_size=100000)
-    training.train_dqn(environment, agent, n_episodes=4000, max_t=2000, solve_score=200.0)
+    train.dqn(environment, agent, n_episodes=4000, max_t=2000, solve_score=200.0)
 
 
 def hc(render, load_file):
     # SEED = 888417152
     model = models.hc.SingleLayerPerceptron(state_size=8, action_size=4, seed=SEED)
     agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='deterministic')
-    training.train_hc(environment, agent, seed=SEED, n_episodes=1500, max_t=2000,
+    train.hc(environment, agent, seed=SEED, n_episodes=1500, max_t=2000,
              solve_score=200.0,
              graph_when_done=False)
 
@@ -28,7 +28,7 @@ def hc(render, load_file):
 def pg(render, load_file):
     model = models.pg.SingleHiddenLayer(state_size=8, action_size=4, fc1_units=32, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
-    training.train_pg(environment, agent, n_episodes=5000, max_t=2000,
+    train.pg(environment, agent, n_episodes=5000, max_t=2000,
              solve_score=200.0,
              gamma=0.99,
              graph_when_done=False)

@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 """
 NOTE: Need to make some modifications to support multiple simultaneous actions.
@@ -15,4 +15,4 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=256, seed=SEED,
                      use_double_dqn=True,
                      use_prioritized_experience_replay=False)
-    training.train_dqn(environment, agent, n_episodes=4000, max_t=1000)
+    train.dqn(environment, agent, n_episodes=4000, max_t=1000)

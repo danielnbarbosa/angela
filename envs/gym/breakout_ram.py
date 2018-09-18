@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
@@ -14,7 +14,7 @@ def dqn(render, load_file):
               use_double_dqn=True,
               use_prioritized_experience_replay=False,
               buffer_size=100000)
-    training.train_dqn(environment, agent, n_episodes=10000, max_t=10000,
+    train.dqn(environment, agent, n_episodes=10000, max_t=10000,
               eps_start=1,
               eps_end=0.1,
               eps_decay=0.9993,
@@ -24,6 +24,6 @@ def dqn(render, load_file):
 def hc(render, load_file):
     model = models.hc.SingleLayerPerceptron(state_size=128, action_size=4, seed=SEED)
     agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='stochastic')
-    training.train_hc(environment, agent, seed=SEED, n_episodes=4000, max_t=2000,
+    train.hc(environment, agent, seed=SEED, n_episodes=4000, max_t=2000,
              npop=4,
              graph_when_done=False)

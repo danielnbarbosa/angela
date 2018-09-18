@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
@@ -11,7 +11,7 @@ def pg(render, load_file):
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file)
-    training.train_pg(environment, agent, n_episodes=10000, max_t=10000,
+    train.pg(environment, agent, n_episodes=10000, max_t=10000,
              gamma=0.99,
              render=render,
              graph_when_done=False)

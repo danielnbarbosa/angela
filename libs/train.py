@@ -10,7 +10,7 @@ import numpy as np
 import torch
 import libs.statistics
 
-def train_pg(environment, agent, n_episodes=10000, max_t=2000,
+def pg(environment, agent, n_episodes=10000, max_t=2000,
              gamma=1.0,
              render=False,
              solve_score=100000.0,
@@ -72,7 +72,7 @@ def train_pg(environment, agent, n_episodes=10000, max_t=2000,
 
 
 
-def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
+def hc(environment, agent, seed, n_episodes=2000, max_t=1000,
              gamma=1.0,
              npop=1,
              render=False,
@@ -151,7 +151,7 @@ def train_hc(environment, agent, seed, n_episodes=2000, max_t=1000,
 
 
 
-def train_dqn(environment, agent, n_episodes=2000, max_t=1000,
+def dqn(environment, agent, n_episodes=2000, max_t=1000,
               eps_start=1.0,
               eps_end=0.01,
               eps_decay=0.995,

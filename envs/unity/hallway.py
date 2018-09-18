@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 """
 NOTE: Compile and build the Basic.app with Unity using the scene in ml-agents.
@@ -16,7 +16,7 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=16, seed=SEED,
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
-    training.train_dqn(environment, agent, n_episodes=1000, solve_score=0.7,
+    train.dqn(environment, agent, n_episodes=1000, solve_score=0.7,
               eps_start=1,
               eps_end=0.001,
               eps_decay=0.97)

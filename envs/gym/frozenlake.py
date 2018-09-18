@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
@@ -11,4 +11,4 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=4, seed=SEED,
                   use_double_dqn=True,
                   use_prioritized_experience_replay=False)
-    training.train_dqn(environment, agent, n_episodes=6000, max_t=1000)
+    train.dqn(environment, agent, n_episodes=6000, max_t=1000)

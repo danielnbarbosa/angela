@@ -1,4 +1,4 @@
-from libs import environments, models, agents, training
+from libs import environments, models, agents, train
 
 """
 NOTE: Download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
@@ -20,7 +20,7 @@ def dqn(render, load_file):
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
     # don't forget to reset epsilon when continuing training
-    training.train_dqn(environment, agent, n_episodes=10000,
+    train.dqn(environment, agent, n_episodes=10000,
               solve_score=13.0,
               eps_start=1.0,
               eps_end=0.01,
@@ -32,7 +32,7 @@ def pg(render, load_file):
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file)
-    training.train_pg(environment, agent, n_episodes=10000,
+    train.pg(environment, agent, n_episodes=10000,
              solve_score=13.0,
              gamma=0.99,
              render=render,
