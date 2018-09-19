@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Wrapper script to execute a training run on all the working environments.
+# Wrapper script to execute a training run on a handful of environments.
 
-ENVIRONMENTS='cartpole frozenlake frozenlake8x8 acrobot mountaincar pendulum lunarlander banana basic'
+ENVIRONMENTS='cartpole frozenlake frozenlake8x8 acrobot mountaincar pendulum lunarlander basic'
 AGENTS='dqn hc pg'
 
 
@@ -12,7 +12,8 @@ do
   do
     echo ''
     echo '----------------------------------------------------------------'
-    echo "Starting training on $environment environment with $agent agent."
+    echo "| Starting training on $environment environment with $agent agent."
+    echo '----------------------------------------------------------------'
     ./train.py --env $environment --agent $agent
   done
 done

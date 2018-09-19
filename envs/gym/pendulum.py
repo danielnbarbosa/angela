@@ -16,8 +16,8 @@ def dqn(render, load_file):
 
 def hc(render, load_file):
     model = models.hc.SingleLayerPerceptron(state_size=3, action_size=9, seed=SEED)
-    agent = agents.HillClimbing(model, action_size=9, seed=SEED, policy='deterministic')
-    train.hc(environment, agent, seed=SEED, n_episodes=1000, max_t=1000,
+    agent = agents.HillClimbing(model, action_size=9, seed=SEED, policy='stochastic')
+    train.hc(environment, agent, seed=SEED, n_episodes=2000, max_t=1000,
              npop=10,
              graph_when_done=False)
 
@@ -25,6 +25,6 @@ def hc(render, load_file):
 def pg(render, load_file):
     model = models.pg.SingleHiddenLayer(state_size=3, action_size=9, fc1_units=24, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
-    train.pg(environment, agent, n_episodes=5000, max_t=1000,
+    train.pg(environment, agent, n_episodes=10000, max_t=1000,
              gamma=0.99,
              graph_when_done=False)

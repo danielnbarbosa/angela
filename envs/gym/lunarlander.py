@@ -19,7 +19,7 @@ def dqn(render, load_file):
 def hc(render, load_file):
     # SEED = 888417152
     model = models.hc.SingleLayerPerceptron(state_size=8, action_size=4, seed=SEED)
-    agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='deterministic')
+    agent = agents.HillClimbing(model, action_size=4, seed=SEED, policy='stochastic')
     train.hc(environment, agent, seed=SEED, n_episodes=1500, max_t=2000,
              solve_score=200.0,
              graph_when_done=False)
