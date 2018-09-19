@@ -10,7 +10,7 @@ import gym.spaces
 from skimage.color import rgb2gray
 import cv2
 from libs.discretize import create_uniform_grid
-from libs.visualize import show_frames_2d, show_frames_3d
+from libs.visualize import show_frames_2d, show_frames_3d, show_frame
 from ple.games.flappybird import FlappyBird
 from ple import PLE
 
@@ -367,16 +367,16 @@ class PLEFlappyBird():
     def __init__(self, seed, max_steps=None):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
-        game = FlappyBird()
+        game = FlappyBird(pipe_gap=200)
         self.env = PLE(game, fps=30, display_screen=False)
+        # TODO: figure out how to pass seed.  it's not using rng=seed in PLE()
         self.env.init()
-        #self.env.seed(seed)
-        self.full_state = np.zeros((1, 4, 80, 80), dtype=np.float32)
+        self.full_state = np.zeros((1, 4, 80, 80), dtype=np.uint8)
         self.frame_sleep = 0.02
 
 
     def _prepro(self, frame):
-        """ Pre-process 288x512x3 uint8 frame into 80x80 float32 frame with values of 0.0 or 1.0.
+        """ Pre-process 288x512x3 uint8 frame into 80x80 uint8 frame.
         """
         frame = frame[:, :, 2]   # drop to one color channel
         frame = frame.T          # rotate 90 degrees
@@ -385,9 +385,10 @@ class PLEFlappyBird():
         frame[frame == 160] = 0
         frame[frame == 194] = 0
         frame[frame == 210] = 0
-        frame[frame != 0] = 1    # set everything else to 1
+        frame[frame != 0] = 255    # set everything else to 255
         frame = cv2.resize(frame, (80, 80))  # downsample
-        return frame.astype(np.float)
+        #show_frame(frame)
+        return frame
 
 
     def _add_frame(self, frame):
@@ -407,13 +408,13 @@ class PLEFlappyBird():
         frame = self._prepro(frame)
         #print('reset() frame after _prepro():  {}'.format(frame.shape))
         frame = np.expand_dims(frame, axis=0)
-        #frame = frame.reshape(1, 80, 80)
         #print('reset() frame after reshape:  {}'.format(frame.shape))
         self._add_frame(frame)
         self._add_frame(frame)
         self._add_frame(frame)
         self._add_frame(frame)
         #print('reset():  {}'.format(self.full_state.shape))
+        #show_frames_2d(self.full_state)
         return self.full_state.copy()
 
 
@@ -427,7 +428,6 @@ class PLEFlappyBird():
         frame = self._prepro(frame)
         #print('step() frame after _prepro():  {}'.format(frame))
         frame = np.expand_dims(frame, axis=0)
-        #frame = frame.reshape(1, 80, 80)
         #print('step() frame after reshape:  {}'.format(frame))
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state))

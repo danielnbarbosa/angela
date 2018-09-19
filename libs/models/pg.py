@@ -33,7 +33,7 @@ class SingleHiddenLayer(nn.Module):
 class SmallConv2D(nn.Module):
     """
     CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
-    if normalize == True frames should be uint8, otherwise float32
+    Defaults to float32 frames.  If using unit8 frames, set normalize=True
     Total parameters: 243K
     """
 
@@ -43,11 +43,11 @@ class SmallConv2D(nn.Module):
         torch.cuda.manual_seed(seed)
         self.normalize = normalize
         # input shape: (m, 4, 80, 80)                    shape after
-        self.conv1 = nn.Conv2d(4, 16, 8, stride=4)       # (m, 16, 19, 19)
-        self.bn1 = nn.BatchNorm2d(16)
-        self.conv2 = nn.Conv2d(16, 32, 4, stride=3)      # (m, 32, 6, 6)
-        self.bn2 = nn.BatchNorm2d(32)
-        self.fc = nn.Linear(32*6*6, fc_units)            # (m, 800, fc_units)
+        self.conv1 = nn.Conv2d(4, 32, 8, stride=4)       # (m, 16, 19, 19)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 64, 4, stride=3)      # (m, 32, 6, 6)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.fc = nn.Linear(64*6*6, fc_units)            # (m, 800, fc_units)
         self.output = nn.Linear(fc_units, action_size)   # (m, fc1_units, n_a)
         print(self)  # print model
         summary(self.to(device), state_size)
