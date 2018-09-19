@@ -32,14 +32,16 @@ class SingleHiddenLayer(nn.Module):
 
 class SmallConv2D(nn.Module):
     """
-    CNN for learning from pixels.  Assumes 4 stacked 80x80 uint8 grayscale frames.
+    CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
+    if normalize == True frames should be uint8, otherwise float32
     Total parameters: 243K
     """
 
-    def __init__(self, state_size, action_size, fc_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed, normalize=False):
         super(SmallConv2D, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
+        self.normalize = normalize
         # input shape: (m, 4, 80, 80)                    shape after
         self.conv1 = nn.Conv2d(4, 16, 8, stride=4)       # (m, 16, 19, 19)
         self.bn1 = nn.BatchNorm2d(16)
@@ -51,15 +53,16 @@ class SmallConv2D(nn.Module):
         summary(self.to(device), state_size)
 
     def forward(self, x):
-        #print('in:  {}'.format(x.shape))
-        x = x.float() / 255                  # normalization
-        #print('norm:  {}'.format(x.shape))
+        #print('in:  {}'.format(x))
+        if self.normalize:                   # normalization
+            x = x.float() / 255
+        #print('norm:  {}'.format(x))
         x = F.relu(self.bn1(self.conv1(x)))  # convolutions
         x = F.relu(self.bn2(self.conv2(x)))
         x = x.view(x.size(0), -1)            # flatten
         x = F.relu(self.fc(x))               # fully connected layer
         x = self.output(x)
-        #print('out: {}'.format(x.shape))
+        #print('out: {}'.format(x))
         return F.softmax(x, dim=1)
 
 

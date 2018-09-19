@@ -12,7 +12,7 @@ ANGELA: Artificial Neural Game Environment Learning Agent
 
 ## Introduction
 
-Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) and [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) environments.
+Angela uses reinforcement learning to solve a variety of [Open AI Gym](https://gym.openai.com/) [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector) and [PyGame Learning Environment](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html) environments.
 
 The code is originally based on [code](https://github.com/udacity/deep-reinforcement-learning) from the Udacity Deep Reinforcement Learning Nanodegree course that I am taking.  It is written in python3 and pytorch.
 
@@ -65,7 +65,7 @@ conda create -n angela python=3.6 anaconda
 source activate angela
 conda install pytorch torchvision -c pytorch
 conda install -n angela opencv scikit-image
-pip install gym Box2D box2d-py torchsummary unityagents
+pip install torchsummary gym Box2D box2d-py unityagents pygame
 ```
 
 #### Step 3: Install OpenAI Gym
@@ -80,6 +80,13 @@ pip install -e '.[atari]'
 git clone https://github.com/Unity-Technologies/ml-agents.git
 cd ml-agents/python
 pip install .
+```
+
+#### Step 5: Install PLE
+```
+git clone https://github.com/ntasfi/PyGame-Learning-Environment
+cd PyGame-Learning-Environment
+pip install -e .
 ```
 
 ## Usage

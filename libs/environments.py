@@ -11,6 +11,8 @@ from skimage.color import rgb2gray
 import cv2
 from libs.discretize import create_uniform_grid
 from libs.visualize import show_frames_2d, show_frames_3d
+from ple.games.flappybird import FlappyBird
+from ple import PLE
 
 
 class Gym():
@@ -358,3 +360,75 @@ class UnityMLVisual():
         """ Render the environment to visualize the agent interacting."""
 
         pass
+
+
+class PLEFlappyBird():
+    """Define an flappy bird environment."""
+    def __init__(self, seed, max_steps=None):
+        self.seed = seed
+        print('SEED: {}'.format(self.seed))
+        game = FlappyBird()
+        self.env = PLE(game, fps=30, display_screen=False)
+        self.env.init()
+        #self.env.seed(seed)
+        self.full_state = np.zeros((1, 4, 80, 80), dtype=np.float32)
+        self.frame_sleep = 0.02
+
+
+    def _prepro(self, frame):
+        """ Pre-process 210x160x3 uint8 frame into 80x80 float32 frame.
+            This works for all Atari games.
+        """
+        frame = rgb2gray(frame)  # convert to grayscale
+        #print('_prepro() frame after rgb2gray:  {}'.format(frame.shape))
+        frame = cv2.resize(frame, (80, 80), interpolation=cv2.INTER_AREA)  # downsample
+        #print('_prepro() frame after resize:  {}'.format(frame.shape))
+        return frame
+
+
+    def _add_frame(self, frame):
+        """ Add a frame to a state.  Used for processing multiple states over time."""
+
+        self.full_state[:, 3, :, : :] = self.full_state[:, 2, :, : :]
+        self.full_state[:, 2, :, : :] = self.full_state[:, 1, :, : :]
+        self.full_state[:, 1, :, : :] = self.full_state[:, 0, :, : :]
+        self.full_state[:, 0, :, : :] = frame
+
+
+    def reset(self):
+        """Reset the environment."""
+        self.env.reset_game()
+        frame = self.env.getScreenRGB()
+        #print('reset() frame from environment:  {}'.format(frame.shape))
+        frame = self._prepro(frame)
+        #print('reset() frame after _prepro():  {}'.format(frame.shape))
+        frame = frame.reshape(1, 80, 80)
+        #print('reset() frame after reshape:  {}'.format(frame.shape))
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        #print('reset():  {}'.format(self.full_state.shape))
+        return self.full_state.copy()
+
+
+    def step(self, action):
+        """Take a step in the environment.  Given an action, return the next state."""
+
+        reward = self.env.act(action)
+        frame = self.env.getScreenRGB()
+        done = True if self.env.game_over() else False
+        #print('step() frame from environment:  {}'.format(frame))
+        frame = self._prepro(frame)
+        #print('step() frame after _prepro():  {}'.format(frame))
+        frame = frame.reshape(1, 80, 80)
+        #print('step() frame after reshape:  {}'.format(frame))
+        self._add_frame(frame)
+        #print('step():  {}'.format(self.full_state))
+        return self.full_state.copy(), reward, done
+
+
+    def render(self):
+        """ Render the environment to visualize the agent interacting."""
+        self.env.render()
+        time.sleep(self.frame_sleep)

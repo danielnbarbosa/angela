@@ -2,9 +2,9 @@
 
 import argparse
 import sys
-sys.path.insert(1, 'envs/gym')
-sys.path.insert(2, 'envs/unity')
-
+sys.path.append('envs/gym')
+sys.path.append('envs/unity')
+sys.path.append('envs/ple')
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--agent", help="agent type: [dqn | hc | pg]", type=str)
