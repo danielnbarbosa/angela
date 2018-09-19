@@ -1,5 +1,5 @@
 """
-Class to model a Policy Gradient agent.
+Policy Gradient agent.
 """
 
 import numpy as np
@@ -12,14 +12,14 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class PolicyGradient():
     def __init__(self, model, seed, load_file=None, lr=1e-2, action_map=None):
-        """Initialize an Agent object.
-
+        """
         Params
         ======
             model: model object
             seed (int): Random seed
+            load_file (str): path of checkpoint file to load
             lr (float): learning rate
-            action_map (dict): how map action indexes from model to gym environment
+            action_map (dict): how to map action indexes from model output to gym environment
         """
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -33,15 +33,17 @@ class PolicyGradient():
 
 
     def _discount(self, rewards, gamma, normal):
-        """Calulate discounted (and optionally normalized) rewards.
-           From https://github.com/wagonhelm/Deep-Policy-Gradient
         """
+        Calulate discounted (and optionally normalized) rewards.
+        From https://github.com/wagonhelm/Deep-Policy-Gradient
+        """
+
         discounted_rewards = np.zeros_like(rewards)
         G = 0.0
         for i in reversed(range(0, len(rewards))):
             G = G * gamma + rewards[i]
             discounted_rewards[i] = G
-        # Normalize
+        # normalize rewards
         if normal:
             mean = np.mean(discounted_rewards)
             std = np.std(discounted_rewards)
@@ -49,22 +51,26 @@ class PolicyGradient():
             discounted_rewards = (discounted_rewards - mean) / (std)
         return discounted_rewards
 
+
     def act(self, state):
-        """Returns action and log probability for given state."""
+        """Given a state, determine the next action."""
+
         if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
             state = np.expand_dims(state, axis=0)
         state = torch.from_numpy(state).float().to(device)
         probs = self.model.forward(state).cpu()
         m = Categorical(probs)
         action = m.sample()
-        # if an action_map is defined then use it
+        # use action_map if it exists
         if self.action_map:
             return self.action_map[action.item()], m.log_prob(action)
         else:
             return action.item(), m.log_prob(action)
 
+
     def learn(self, rewards, saved_log_probs, gamma):
         """Update model weights."""
+
         # calculate discounted rewards for each step and normalize them
         discounted_rewards = self._discount(rewards, gamma, True)
 

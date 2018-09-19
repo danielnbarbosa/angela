@@ -1,5 +1,5 @@
 """
-Classes to model a Hill Climbing agent.
+Hill Climbing agent.
 """
 
 import pickle
@@ -15,13 +15,13 @@ class HillClimbing():
                  noise_min=1e-3,
                  noise_max=2,
                  policy='deterministic'):
-        """Initialize an Agent object.
-
+        """
         Params
         ======
             model: model object
             action_size (int): dimension of each action
             seed (int): Random seed
+            load_file (str): path of checkpoint file to load
             noise_scale (float): standard deviation of additive noise
             use_adaptive_noise (bool): whether to implement adaptive noise
             noise_scale_in (int): factor to reduce noise by
@@ -48,6 +48,8 @@ class HillClimbing():
 
 
     def act(self, state):
+        """Given a state, determine the next action."""
+
         probs = self.model.forward(state)
         if self.policy == 'deterministic':
             return np.argmax(probs)
@@ -56,10 +58,12 @@ class HillClimbing():
 
 
     def learn(self, pop_noise, pop_return, pop_rewards):
+        """If a better performing model was found then use it's weights."""
+
         # determine who got the highest reward
         pop_best_return = pop_return.max()
 
-        # compare best return from current population to global best return
+        # compare best return from current population to overall best return
         if pop_best_return >= self.max_best_return: # found better weights
             self.max_best_return = pop_best_return
             self.max_best_weights += self.noise_scale * pop_noise[pop_return.argmax()]

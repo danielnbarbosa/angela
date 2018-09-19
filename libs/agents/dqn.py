@@ -1,5 +1,5 @@
 """
-Classes to model a DQN agent.
+Deep Q Network agent.
 """
 
 import random
@@ -27,13 +27,13 @@ class DQN():
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
                  alpha_decay=0.9992):
-        """Initialize an Agent object.
-
+        """
         Params
         ======
             model: model object
             action_size (int): dimension of each action
             seed (int): Random seed
+            load_file (str): path of checkpoint file to load
             buffer_size (int): replay buffer size
             batch_size (int): minibatch size
             gamma (float): discount factor
@@ -171,9 +171,6 @@ class DQN():
 
         # calculate loss using mean squared error: (targets - predictions).pow(2).mean()
         loss = F.mse_loss(predictions, targets)
-        #loss = F.smooth_l1_loss(predictions, targets)
-
-
         # minimize loss
         self.optimizer.zero_grad()
         loss.backward()
