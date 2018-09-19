@@ -1,10 +1,12 @@
 """
 Models used by Deep Q Network agent:
-- TwoLayer
-- FourLayer
-- Dueling
-- Conv3D
+- TwoLayer: MLP with two hidden layers
+- FourLayer: MLP with four hidden layers
+- Dueling: Dueling network
+- Conv3D: CNN with 3 Conv3d layers
 
+DQN uses a local and a target network with the same underlying model.
+These wrapper classes end with '2x':
 - TwoLayer2x
 - FourLayer2x
 - Dueling2x
@@ -18,21 +20,11 @@ from torchsummary import summary
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-##### Define various neural network architectures. #####
-
 
 class TwoLayer(nn.Module):
-    """ Classic DQN. """
+    """ MLP with two hidden layers."""
 
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize parameters and build model.
-        Params
-        ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
-            fc_units (tuple): Dimension of each hidden layer
-            seed (int): Random seed
-        """
         super(TwoLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -41,7 +33,6 @@ class TwoLayer(nn.Module):
         self.output = nn.Linear(fc_units[1], action_size)
 
     def forward(self, x):
-        """Build a network that maps state -> action values."""
         #print('in:  {}'.format(x.shape))
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
@@ -51,17 +42,9 @@ class TwoLayer(nn.Module):
 
 
 class FourLayer(nn.Module):
-    """ Classic DQN. """
+    """ MLP with four hidden layers."""
 
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize parameters and build model.
-        Params
-        ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
-            fc_units (tuple): Dimension of each hidden layer
-            seed (int): Random seed
-        """
         super(FourLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -72,7 +55,6 @@ class FourLayer(nn.Module):
         self.output = nn.Linear(fc_units[3], action_size)
 
     def forward(self, x):
-        """Build a network that maps state -> action values."""
         #print('in:  {}'.format(x.shape))
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
@@ -84,17 +66,9 @@ class FourLayer(nn.Module):
 
 
 class Dueling(nn.Module):
-    """ Dueling DQN. """
+    """ Dueling network with one shared layer and separate value and advantage layers."""
 
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize parameters and build model.
-        Params
-        ======
-            state_size (int): Dimension of each state
-            action_size (int): Dimension of each action
-            fc_units (tuple): Dimension of each hidden layer
-            seed (int): Random seed
-        """
         super(Dueling, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -105,7 +79,6 @@ class Dueling(nn.Module):
         self.out_a = nn.Linear(fc_units[1], action_size)   # advantage output
 
     def forward(self, x):
-        """Build a network that maps state -> action values."""
         #print('in:  {}'.format(x.shape))
         s = F.relu(self.fc_s(x))                # shared
         v = self.out_v(F.relu(self.fc_v(s)))    # state
@@ -117,21 +90,14 @@ class Dueling(nn.Module):
 
 class Conv3D(nn.Module):
     """
-    3D Convolutional Neural Network for learning from pixels using DQN.
-    Assumes 4 stacked RGB frames with dimensions of 84x84.
+    CNN for learning from pixels.  Assumes 4 stacked 84x84 uint8 RGB frames.
+    Total parameters: 5M
     """
 
-    def __init__(self, state_size, action_size, seed):
-        """Initialize parameters and build model.
-        Params
-        ======
-            action_size (int): Dimension of each action
-            seed (int): Random seed
-        """
+    def __init__(self, action_size, seed):
         super(Conv3D, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
-
         # input shape: (m, 3, 4, 84, 84)                                shape after
         self.conv1 = nn.Conv3d(3, 128, (1, 3, 3), stride=(1, 3, 3))     # (m, 128, 4, 28, 28)
         self.bn1 = nn.BatchNorm3d(128)
@@ -143,7 +109,7 @@ class Conv3D(nn.Module):
         self.output = nn.Linear(1024, action_size)                      # (m, 512, n_a)
 
     def forward(self, x):
-        x = x.float() / 255
+        x = x.float() / 255                  # normalization
         #print('in:  {}'.format(x.shape))
         x = F.relu(self.bn1(self.conv1(x)))  # convolutions
         x = F.relu(self.bn2(self.conv2(x)))
@@ -155,11 +121,11 @@ class Conv3D(nn.Module):
         return x
 
 
-##### Define QNets with two copies of the above architectures. #####
+
+# Initialize local and target network with identical initial weights.
 
 class TwoLayer2x():
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize local and target network with identical initial weights."""
         self.local = TwoLayer(state_size, action_size, fc_units, seed).to(device)
         self.target = TwoLayer(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
@@ -167,7 +133,6 @@ class TwoLayer2x():
 
 class FourLayer2x():
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize local and target network with identical initial weights."""
         self.local = FourLayer(state_size, action_size, fc_units, seed).to(device)
         self.target = FourLayer(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
@@ -175,7 +140,6 @@ class FourLayer2x():
 
 class Dueling2x():
     def __init__(self, state_size, action_size, fc_units, seed):
-        """Initialize local and target network with identical initial weights."""
         self.local = Dueling(state_size, action_size, fc_units, seed).to(device)
         self.target = Dueling(state_size, action_size, fc_units, seed).to(device)
         print(self.local)
@@ -183,8 +147,7 @@ class Dueling2x():
 
 class Conv3D2x():
     def __init__(self, state_size, action_size, seed):
-        """Initialize local and target network with identical initial weights."""
-        self.local = Conv3D(state_size, action_size, seed).to(device)
-        self.target = Conv3D(state_size, action_size, seed).to(device)
+        self.local = Conv3D(action_size, seed).to(device)
+        self.target = Conv3D(action_size, seed).to(device)
         print(self.local)
         summary(self.local, (state_size))
