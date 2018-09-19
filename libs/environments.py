@@ -376,14 +376,18 @@ class PLEFlappyBird():
 
 
     def _prepro(self, frame):
-        """ Pre-process 210x160x3 uint8 frame into 80x80 float32 frame.
-            This works for all Atari games.
+        """ Pre-process 288x512x3 uint8 frame into 80x80 float32 frame with values of 0.0 or 1.0.
         """
-        frame = rgb2gray(frame)  # convert to grayscale
-        #print('_prepro() frame after rgb2gray:  {}'.format(frame.shape))
-        frame = cv2.resize(frame, (80, 80), interpolation=cv2.INTER_AREA)  # downsample
-        #print('_prepro() frame after resize:  {}'.format(frame.shape))
-        return frame
+        frame = frame[:, :, 2]   # drop to one color channel
+        frame = frame.T          # rotate 90 degrees
+        frame[frame == 140] = 0  # filter out background
+        frame[frame == 147] = 0
+        frame[frame == 160] = 0
+        frame[frame == 194] = 0
+        frame[frame == 210] = 0
+        frame[frame != 0] = 1    # set everything else to 1
+        frame = cv2.resize(frame, (80, 80))  # downsample
+        return frame.astype(np.float)
 
 
     def _add_frame(self, frame):
@@ -402,7 +406,8 @@ class PLEFlappyBird():
         #print('reset() frame from environment:  {}'.format(frame.shape))
         frame = self._prepro(frame)
         #print('reset() frame after _prepro():  {}'.format(frame.shape))
-        frame = frame.reshape(1, 80, 80)
+        frame = np.expand_dims(frame, axis=0)
+        #frame = frame.reshape(1, 80, 80)
         #print('reset() frame after reshape:  {}'.format(frame.shape))
         self._add_frame(frame)
         self._add_frame(frame)
@@ -421,10 +426,12 @@ class PLEFlappyBird():
         #print('step() frame from environment:  {}'.format(frame))
         frame = self._prepro(frame)
         #print('step() frame after _prepro():  {}'.format(frame))
-        frame = frame.reshape(1, 80, 80)
+        frame = np.expand_dims(frame, axis=0)
+        #frame = frame.reshape(1, 80, 80)
         #print('step() frame after reshape:  {}'.format(frame))
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state))
+        #show_frames_2d(self.full_state)
         return self.full_state.copy(), reward, done
 
 
