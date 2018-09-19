@@ -364,11 +364,11 @@ class UnityMLVisual():
 
 class PLEFlappyBird():
     """Define an flappy bird environment."""
-    def __init__(self, seed, max_steps=None):
+    def __init__(self, seed, render=False):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         game = FlappyBird(pipe_gap=200)
-        self.env = PLE(game, fps=30, display_screen=False)
+        self.env = PLE(game, fps=30, display_screen=render)
         # TODO: figure out how to pass seed.  it's not using rng=seed in PLE()
         self.env.init()
         self.full_state = np.zeros((1, 4, 80, 80), dtype=np.uint8)
@@ -434,8 +434,7 @@ class PLEFlappyBird():
         #show_frames_2d(self.full_state)
         return self.full_state.copy(), reward, done
 
-
     def render(self):
         """ Render the environment to visualize the agent interacting."""
-        self.env.render()
-        time.sleep(self.frame_sleep)
+
+        pass

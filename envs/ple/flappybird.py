@@ -3,9 +3,11 @@ from libs import environments, models, agents, train
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 
-environment = environments.PLEFlappyBird(seed=SEED)
+# NOTE: environment is inside agent functions for PLE environments so it can take the render flag
+
 
 def dqn(render, load_file):
+    environment = environments.PLEFlappyBird(seed=SEED, render=render)
     model = models.dqn.SmallConv2D2x(state_size=(4, 80, 80), action_size=2, fc_units=256, seed=SEED, normalize=True)
     agent = agents.DQN(model, action_size=2, seed=SEED,
                      use_double_dqn=False,
@@ -17,6 +19,7 @@ def dqn(render, load_file):
 
 
 def pg(render, load_file):
+    environment = environments.PLEFlappyBird(seed=SEED, render=render)
     model = models.pg.SmallConv2D(state_size=(4, 80, 80), action_size=2, fc_units=256, seed=SEED, normalize=True)
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
