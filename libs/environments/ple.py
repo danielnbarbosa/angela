@@ -14,11 +14,11 @@ class PLEFlappyBird():
     PyGame Learning Environment for use only with FlappyBird.
     Does pre-processing specific to FlappyBird game.
     """
-    
+
     def __init__(self, seed, render=False):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
-        game = FlappyBird(pipe_gap=200)
+        game = FlappyBird(pipe_gap=150)
         self.env = PLE(game, fps=30, display_screen=render)
         # TODO: figure out how to pass seed.  it's not using rng=seed in PLE()
         self.env.init()

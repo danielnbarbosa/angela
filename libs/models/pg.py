@@ -30,6 +30,55 @@ class SingleHiddenLayer(nn.Module):
         return F.softmax(x, dim=1)
 
 
+class TwoLayerConv2D(nn.Module):
+    """
+    CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
+    Defaults to float32 frames.  If using uint8 frames, set normalize=True
+    Total parameters: 243K
+    """
+
+    def __init__(self, state_size, action_size, filter_maps, kernels, strides, conv_out, fc_units, seed, normalize=False):
+        """
+        Params
+        ======
+        state_size: dimension of each state
+        action_size (int): dimension of each action
+        filter_maps (tuple): output size of each convolutional layer
+        kernels (tuple): kernel size of each convolutional layer
+        strides (tuple): stride size of each convolutional layer
+        conv_out (int): size of final convolutional output
+        fc_units (int): dimension of fully connected layer
+        seed (int): random seed
+        normalize (bool): whether to convert uint8 input to float32
+        """
+        super(TwoLayerConv2D, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+        self.normalize = normalize
+        # input shape: (m, 4, 80, 80)
+        self.conv1 = nn.Conv2d(4, filter_maps[0], kernels[0], stride=strides[0])
+        self.bn1 = nn.BatchNorm2d(filter_maps[0])
+        self.conv2 = nn.Conv2d(filter_maps[0], filter_maps[1], kernels[1], stride=strides[1])
+        self.bn2 = nn.BatchNorm2d(filter_maps[1])
+        self.fc = nn.Linear(filter_maps[1]*conv_out**2, fc_units)
+        self.output = nn.Linear(fc_units, action_size)
+        print(self)  # print model
+        summary(self.to(device), state_size)
+
+    def forward(self, x):
+        #print('in:  {}'.format(x))
+        if self.normalize:                   # normalization
+            x = x.float() / 255
+        #print('norm:  {}'.format(x))
+        x = F.relu(self.bn1(self.conv1(x)))  # convolutions
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = x.view(x.size(0), -1)            # flatten
+        x = F.relu(self.fc(x))               # fully connected layer
+        x = self.output(x)
+        #print('out: {}'.format(x))
+        return F.softmax(x, dim=1)
+
+
 class SmallConv2D(nn.Module):
     """
     CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
