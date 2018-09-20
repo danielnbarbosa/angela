@@ -121,6 +121,7 @@ class SmallConv2D(nn.Module):
         x = F.relu(self.fc(x))               # fully connected layer
         x = self.output(x)
         #print('out: {}'.format(x))
+        return x
 
 
 class Conv3D(nn.Module):
@@ -186,7 +187,6 @@ class SmallConv2D2x():
         self.target = SmallConv2D(state_size, action_size, fc_units, seed, normalize).to(device)
         print(self.local)
         summary(self.local, (state_size))
-
 
 class Conv3D2x():
     def __init__(self, state_size, action_size, seed):

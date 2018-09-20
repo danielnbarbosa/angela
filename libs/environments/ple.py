@@ -19,8 +19,7 @@ class PLEFlappyBird():
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         game = FlappyBird(pipe_gap=150)
-        self.env = PLE(game, fps=30, display_screen=render)
-        # TODO: figure out how to pass seed.  it's not using rng=seed in PLE()
+        self.env = PLE(game, fps=30, display_screen=render, rng=seed)
         self.env.init()
         self.full_state = np.zeros((1, 4, 80, 80), dtype=np.uint8)
         self.frame_sleep = 0.02
@@ -75,7 +74,7 @@ class PLEFlappyBird():
         #print('step() frame after reshape:  {}'.format(frame))  # DEBUG
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state))  # DEBUG
-        #show_frames_2d(self.full_state)  # DEBUG
+        show_frames_2d(self.full_state)  # DEBUG
         return self.full_state.copy(), reward, done
 
     def render(self):
