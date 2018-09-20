@@ -58,11 +58,11 @@ Create an anaconda environment that contains all the required dependencies to ru
 ```
 git clone https://github.com/danielnbarbosa/angela.git
 brew install swig
-conda create -n angela python=3.6 anaconda
+conda create -y -n angela python=3.6 anaconda
 source activate angela
-conda install -n angela pytorch torchvision -c pytorch
-conda install -n angela opencv scikit-image
+conda install -y -n angela -c conda-forge pytorch torchvision opencv ffmpeg scikit-image
 pip install torchsummary gym Box2D box2d-py unityagents pygame
+
 cd ..
 ```
 
