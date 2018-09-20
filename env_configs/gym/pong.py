@@ -12,7 +12,7 @@ def pg(render, load_file):
     model = models.pg.TwoLayerConv2D(state_size=(4, 80, 80), action_size=3,
                                      filter_maps=(16, 32), kernels=(8, 4), strides=(4, 3),
                                      conv_out=6, fc_units=200, seed=SEED)
-    #model = models.pg.SmallConv2D(state_size=(4, 80, 80), action_size=3, fc_units=200, seed=SEED, normalize=True)
+    model = models.pg.SmallConv2D(state_size=(4, 80, 80), action_size=3, fc_units=256, seed=SEED, normalize=True)
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file,
