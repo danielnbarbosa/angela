@@ -91,4 +91,29 @@ Episode  8200   Avg:    1.25   BestAvg:    3.48   σ:    4.85   |   Steps: 39111
 Episode  8300   Avg:    2.13   BestAvg:    3.48   σ:    4.97   |   Steps: 39692956  Secs: 110160
 Episode  8400   Avg:    2.04   BestAvg:    3.48   σ:    5.08   |   Steps: 40272475  Secs: 112066
 Saved to best/pong_conv2dsmall_fc200.pth
+
+Loaded: checkpoints/best/pong_conv2dsmall_fc200.pth
+Episode   100   Avg:     1.07   BestAvg:     -inf   σ:     4.74   |   Steps:   561786  Secs:   1686
+Episode   200   Avg:     2.19   BestAvg:     2.57   σ:     5.03   |   Steps:  1150253  Secs:   3374
+Episode   300   Avg:     2.01   BestAvg:     2.57   σ:     5.18   |   Steps:  1717129  Secs:   5040
+Episode   400   Avg:     1.86   BestAvg:     2.64   σ:     4.60   |   Steps:  2270654  Secs:   6626
+Episode   500   Avg:     2.75   BestAvg:     2.77   σ:     4.60   |   Steps:  2837772  Secs:   8295
+Episode   600   Avg:     2.60   BestAvg:     3.36   σ:     4.63   |   Steps:  3404221  Secs:   9919
+Episode   700   Avg:     2.32   BestAvg:     3.36   σ:     4.48   |   Steps:  3988634  Secs:  11626
+Episode   800   Avg:     2.67   BestAvg:     3.36   σ:     5.05   |   Steps:  4557696  Secs:  13256
+Episode   900   Avg:     2.64   BestAvg:     3.36   σ:     4.96   |   Steps:  5099538  Secs:  14804
+Episode  1000   Avg:     2.94   BestAvg:     3.82   σ:     4.93   |   Steps:  5657200  Secs:  16439
+Episode  1100   Avg:     2.41   BestAvg:     3.82   σ:     4.81   |   Steps:  6209780  Secs:  18022
+Episode  1200   Avg:     2.26   BestAvg:     3.82   σ:     5.00   |   Steps:  6765091  Secs:  19651
+Episode  1300   Avg:     2.66   BestAvg:     3.82   σ:     4.78   |   Steps:  7314662  Secs:  21222
+Episode  1400   Avg:     3.69   BestAvg:     4.25   σ:     5.06   |   Steps:  7877658  Secs:  22873
+Episode  1500   Avg:     3.21   BestAvg:     4.25   σ:     4.60   |   Steps:  8440556  Secs:  24478
+Episode  1600   Avg:     3.37   BestAvg:     4.25   σ:     4.99   |   Steps:  9004292  Secs:  26136
+Episode  1700   Avg:     3.12   BestAvg:     4.25   σ:     4.96   |   Steps:  9560902  Secs:  27906
+Episode  1800   Avg:     2.87   BestAvg:     4.25   σ:     4.76   |   Steps: 10116194  Secs:  29518
+Episode  1900   Avg:     2.25   BestAvg:     4.25   σ:     4.96   |   Steps: 10663455  Secs:  31127
+Episode  2000   Avg:     1.62   BestAvg:     4.25   σ:     5.28   |   Steps: 11218080  Secs:  32729
+Episode  2100   Avg:     2.83   BestAvg:     4.25   σ:     5.14   |   Steps: 11766714  Secs:  34345
+Episode  2200   Avg:     3.71   BestAvg:     4.25   σ:     4.69   |   Steps: 12313118  Secs:  35915
+Saved to best/pong_conv2dsmall_fc200_2.pth
 ```

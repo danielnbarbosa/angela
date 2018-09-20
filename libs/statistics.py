@@ -36,11 +36,11 @@ class Stats():
 
 
 class DeepQNetworkStats(Stats):
-    def print_episode(self, i_episode, epsilon, alpha, buffer_len):
+    def print_episode(self, i_episode, epsilon, alpha, buffer_len, steps):
         print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}   Now: {:8.2f}'
+              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}   Reward: {:8.2f}   Steps: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      epsilon, alpha, buffer_len, self.score), end="")
+                      epsilon, alpha, buffer_len, self.score, steps), end="")
 
     def print_epoch(self, i_episode, epsilon, alpha, buffer_len):
         n_secs = int(time.time() - self.time_start)
@@ -73,11 +73,11 @@ class DeepQNetworkStats(Stats):
 
 
 class HillClimbingStats(Stats):
-    def print_episode(self, i_episode, pop_best_return, max_best_return, noise_scale):
+    def print_episode(self, i_episode, pop_best_return, max_best_return, noise_scale, steps):
         print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Best: {:8.2f}   Noise: {:6.4f}   Now: {:8.2f}'
+              '   |   Best: {:8.2f}   Noise: {:6.4f}   Reward: {:8.2f}   Steps: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      max_best_return, noise_scale, pop_best_return), end="")
+                      max_best_return, noise_scale, pop_best_return, steps), end="")
 
     def print_epoch(self, i_episode, max_best_return, noise_scale):
         n_secs = int(time.time() - self.time_start)
@@ -100,16 +100,16 @@ class HillClimbingStats(Stats):
 
 
 class PolicyGradientStats(Stats):
-    def print_episode(self, i_episode):
+    def print_episode(self, i_episode, steps):
         print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Now: {:8.2f}'
+              '   |   Reward: {:8.2f}   Steps: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score,
-                      self.std_dev, self.score), end="")
+                      self.std_dev, self.score, steps), end="")
 
     def print_epoch(self, i_episode):
         n_secs = int(time.time() - self.time_start)
         print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Steps: {:8}  Secs: {:6}'
+              '   |   Steps: {:8}  Secs: {:6}     '
               .format(i_episode, self.avg_score, self.best_avg_score,
                       self.std_dev,
                       self.total_steps, n_secs))

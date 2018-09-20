@@ -52,7 +52,7 @@ def pg(environment, agent, n_episodes=10000, max_t=2000,
         # every episode
         agent.learn(rewards, saved_log_probs, gamma)
         stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode)
+        stats.print_episode(i_episode, t)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
@@ -130,7 +130,7 @@ def hc(environment, agent, seed, n_episodes=2000, max_t=1000,
         # every episode
         pop_best_rewards, pop_best_return = agent.learn(pop_noise, pop_return, pop_rewards)
         stats.update(len(pop_best_rewards), pop_best_rewards, i_episode)
-        stats.print_episode(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale)
+        stats.print_episode(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale, t)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
@@ -206,7 +206,7 @@ def dqn(environment, agent, n_episodes=2000, max_t=1000,
         eps = max(eps_end, eps_decay*eps)  # decrease epsilon
         buffer_len = len(agent.memory)
         stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, eps, agent.alpha, buffer_len)
+        stats.print_episode(i_episode, eps, agent.alpha, buffer_len, t)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
