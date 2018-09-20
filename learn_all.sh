@@ -14,6 +14,6 @@ do
     echo '----------------------------------------------------------------'
     echo "| Starting training on $environment environment with $agent agent."
     echo '----------------------------------------------------------------'
-    ./train.py --env $environment --agent $agent
+    ./learn.py --env $environment --agent $agent
   done
 done

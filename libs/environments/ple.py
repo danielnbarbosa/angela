@@ -74,7 +74,7 @@ class PLEFlappyBird():
         #print('step() frame after reshape:  {}'.format(frame))  # DEBUG
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state))  # DEBUG
-        show_frames_2d(self.full_state)  # DEBUG
+        #show_frames_2d(self.full_state)  # DEBUG
         return self.full_state.copy(), reward, done
 
     def render(self):

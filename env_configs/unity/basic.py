@@ -7,7 +7,7 @@ NOTE: Compile and build the Basic.app with Unity using the scene in ml-agents.
 SEED = 0
 #SEED = random.randint(0, 2 ** 30)
 
-environment = environments.UnityMLVector('envs/unity/compiled_unity_environments/Basic.app', seed=SEED)
+environment = environments.UnityMLVector('env_configs/unity/compiled_unity_environments/Basic.app', seed=SEED)
 
 
 def dqn(render, load_file):

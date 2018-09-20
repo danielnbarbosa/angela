@@ -85,25 +85,25 @@ cd ..
 ```
 
 ## Usage
-To start training, use the `train.py` wrapper script and pass in the desired environment and agent type.  For example to train on the Pong environment with the policy gradient agent:
+To start training, use the `learn.py` wrapper script and pass in the desired environment and agent type.  For example to train on the Pong environment with the policy gradient agent:
 ```
-./train.py --env pong --agent pg
+./learn.py --env pong --agent pg
 ```
 
 To load a saved model:
 ```
-./train.py --env pong --agent pg --load=checkpoints/best/cartpole.pth
+./learn.py --env pong --agent pg --load=checkpoints/best/pong.pth
 ```
 
 To render an agent:
 ```
-./train.py --env pong --agent pg --render=True
+./learn.py --env pong --agent pg --render=True
 ```
 
 ## Project layout
 The directory tree structure is as follows:
  - `checkpoints`: Saved model weights.
- - `envs`: One file per environment.  Configuration of hyperparameters pertaining to agent, model and training loop.
+ - `env_configs`: One file per environment.  Configuration of hyperparameters pertaining to environment, agent, model and training loop.
  - `libs`: Shared libraries.  Code for models, agents, training loops and various utility functions.
  - `results`: Current best training results for each environment.
 
