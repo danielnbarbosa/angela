@@ -32,8 +32,4 @@ def pg(render, load_file):
     agent = agents.PolicyGradient(model, seed=SEED,
                                   lr=0.0001,
                                   load_file=load_file)
-    train.pg(environment, agent, n_episodes=10000,
-             solve_score=13.0,
-             gamma=0.99,
-             render=render,
-             graph_when_done=False)
+    train.pg(environment, agent, n_episodes=10000, solve_score=13.0, render=render)

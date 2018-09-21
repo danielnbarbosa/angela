@@ -26,6 +26,4 @@ def hc(render, load_file):
 def pg(render, load_file):
     model = models.pg.SingleHiddenLayer(state_size=6, action_size=3, fc1_units=32, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, load_file=load_file, lr=0.005)
-    train.pg(environment, agent, n_episodes=4000, max_t=1000,
-             gamma=0.99,
-             graph_when_done=False)
+    train.pg(environment, agent, n_episodes=4000, max_t=1000)

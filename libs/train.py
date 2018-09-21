@@ -11,7 +11,7 @@ import torch
 import libs.statistics
 
 def pg(environment, agent, n_episodes=10000, max_t=2000,
-             gamma=1.0,
+             gamma=0.99,
              render=False,
              solve_score=100000.0,
              graph_when_done=False):

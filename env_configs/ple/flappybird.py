@@ -25,7 +25,4 @@ def pg(render, load_file):
                                   lr=0.0001,
                                   load_file=load_file,
                                   action_map={0: None, 1: 119})
-    train.pg(environment, agent, n_episodes=500000, max_t=2000,
-             gamma=0.99,
-             render=render,
-             graph_when_done=False)
+    train.pg(environment, agent, n_episodes=500000, max_t=2000, render=render)

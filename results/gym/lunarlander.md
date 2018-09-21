@@ -1,22 +1,13 @@
 #### DQN
 ```
-Episode   100   Avg: -211.95   BestAvg:    -inf   σ:  106.46   |   ε: 0.6058  ⍺: 0.5000  Buffer:  12284   |   Steps:    12184  Secs:     23
-Episode   200   Avg: -160.31   BestAvg: -160.31   σ:  100.92   |   ε: 0.3670  ⍺: 0.5000  Buffer:  39073   |   Steps:    38873  Secs:     88
-Episode   300   Avg: -105.47   BestAvg:  -97.27   σ:   83.45   |   ε: 0.2223  ⍺: 0.5000  Buffer: 100000   |   Steps:   121682  Secs:    361
-Episode   400   Avg:  -56.45   BestAvg:  -56.45   σ:   57.90   |   ε: 0.1347  ⍺: 0.5000  Buffer: 100000   |   Steps:   218363  Secs:    715
-Episode   500   Avg:    6.61   BestAvg:    8.65   σ:  106.14   |   ε: 0.0816  ⍺: 0.5000  Buffer: 100000   |   Steps:   304968  Secs:   1005
-Episode   600   Avg:   75.95   BestAvg:   78.60   σ:  125.83   |   ε: 0.0494  ⍺: 0.5000  Buffer: 100000   |   Steps:   371969  Secs:   1229
-Episode   700   Avg:  131.20   BestAvg:  131.20   σ:   86.67   |   ε: 0.0299  ⍺: 0.5000  Buffer: 100000   |   Steps:   431846  Secs:   1400
-Episode   800   Avg:  164.93   BestAvg:  166.24   σ:   82.39   |   ε: 0.0181  ⍺: 0.5000  Buffer: 100000   |   Steps:   478146  Secs:   1517
-Episode   900   Avg:  160.61   BestAvg:  182.58   σ:   81.42   |   ε: 0.0110  ⍺: 0.5000  Buffer: 100000   |   Steps:   520425  Secs:   1621
-Episode  1000   Avg:  137.51   BestAvg:  182.58   σ:   92.50   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   566643  Secs:   1736
-Episode  1100   Avg:  142.50   BestAvg:  182.58   σ:   98.20   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   608964  Secs:   1839
-Episode  1200   Avg:  181.10   BestAvg:  182.58   σ:   54.51   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   647320  Secs:   1930
-Episode  1300   Avg:  185.03   BestAvg:  191.97   σ:   59.79   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   681821  Secs:   2008
-Episode  1400   Avg:  193.12   BestAvg:  193.21   σ:   74.01   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   714614  Secs:   2081
-Episode  1407   Avg:  200.36   BestAvg:  200.36   σ:   35.18   |   ε: 0.0100  ⍺: 0.5000  Buffer: 100000   |   Steps:   716417  Secs:   2085
+Episode   100   Avg:  -144.30   BestAvg:     -inf   σ:    94.67   |   ε: 0.6058  ⍺: 0.5000  Buffer:  11256   |   Steps:    11156  Secs:     27
+Episode   200   Avg:  -109.46   BestAvg:  -109.46   σ:    82.83   |   ε: 0.3670  ⍺: 0.5000  Buffer:  37306   |   Steps:    37106  Secs:    104
+Episode   300   Avg:   -60.05   BestAvg:   -60.04   σ:    76.34   |   ε: 0.2223  ⍺: 0.5000  Buffer: 100000   |   Steps:   116499  Secs:    427
+Episode   400   Avg:     8.61   BestAvg:     8.61   σ:    61.00   |   ε: 0.1347  ⍺: 0.5000  Buffer: 100000   |   Steps:   212348  Secs:    791
+Episode   500   Avg:   166.59   BestAvg:   166.59   σ:    97.06   |   ε: 0.0816  ⍺: 0.5000  Buffer: 100000   |   Steps:   276862  Secs:    998
+Episode   585   Avg:   201.05   BestAvg:   201.05   σ:    83.50   |   ε: 0.0533  ⍺: 0.5000  Buffer: 100000   |   Steps:   318555  Secs:   1123
 
-Solved in 1307 episodes!
+Solved in 485 episodes!
 ```
 
 #### HC

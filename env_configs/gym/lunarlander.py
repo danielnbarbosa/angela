@@ -1,6 +1,6 @@
 from libs import environments, models, agents, train
 
-SEED = 0
+SEED = 42
 #SEED = random.randint(0, 2 ** 30)
 
 environment = environments.Gym('LunarLander-v2', seed=SEED)
@@ -28,7 +28,4 @@ def hc(render, load_file):
 def pg(render, load_file):
     model = models.pg.SingleHiddenLayer(state_size=8, action_size=4, fc1_units=32, seed=SEED)
     agent = agents.PolicyGradient(model, seed=SEED, lr=0.005)
-    train.pg(environment, agent, n_episodes=5000, max_t=2000,
-             solve_score=200.0,
-             gamma=0.99,
-             graph_when_done=False)
+    train.pg(environment, agent, n_episodes=5000, max_t=2000, solve_score=200.0)
