@@ -26,7 +26,8 @@ class PolicyGradient():
 
         self.model = model.to(device)
         if load_file:
-            self.model.load_state_dict(torch.load(load_file))
+            # self.model.load_state_dict(torch.load(load_file))
+            self.model.load_state_dict(torch.load(load_file, map_location='cpu'))  # load from GPU to CPU
             print('Loaded: {}'.format(load_file))
         self.action_map = action_map
         self.optimizer = optim.Adam(model.parameters(), lr=lr)

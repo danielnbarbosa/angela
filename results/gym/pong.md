@@ -90,7 +90,7 @@ Episode  8100   Avg:    1.73   BestAvg:    3.48   σ:    5.23   |   Steps: 38529
 Episode  8200   Avg:    1.25   BestAvg:    3.48   σ:    4.85   |   Steps: 39111070  Secs: 108381
 Episode  8300   Avg:    2.13   BestAvg:    3.48   σ:    4.97   |   Steps: 39692956  Secs: 110160
 Episode  8400   Avg:    2.04   BestAvg:    3.48   σ:    5.08   |   Steps: 40272475  Secs: 112066
-Saved to best/pong_conv2dsmall_fc200.pth
+Saved to checkpoints/best/pong_conv2dsmall_fc200.pth
 
 Loaded: checkpoints/best/pong_conv2dsmall_fc200.pth
 Episode   100   Avg:     1.07   BestAvg:     -inf   σ:     4.74   |   Steps:   561786  Secs:   1686
@@ -115,5 +115,5 @@ Episode  1900   Avg:     2.25   BestAvg:     4.25   σ:     4.96   |   Steps: 10
 Episode  2000   Avg:     1.62   BestAvg:     4.25   σ:     5.28   |   Steps: 11218080  Secs:  32729
 Episode  2100   Avg:     2.83   BestAvg:     4.25   σ:     5.14   |   Steps: 11766714  Secs:  34345
 Episode  2200   Avg:     3.71   BestAvg:     4.25   σ:     4.69   |   Steps: 12313118  Secs:  35915
-Saved to best/pong_conv2dsmall_fc200_2.pth
+Saved to checkpoints/best/pong_conv2dsmall_fc200_2.pth
 ```

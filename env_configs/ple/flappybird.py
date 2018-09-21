@@ -12,7 +12,7 @@ def dqn(render, load_file):
     agent = agents.DQN(model, action_size=2, seed=SEED,
                      use_double_dqn=False,
                      use_prioritized_experience_replay=False)
-    train.dqn(environment, agent, n_episodes=50000, max_t=1000,
+    train.dqn(environment, agent, n_episodes=500000, max_t=1000,
               eps_start=1.0,
               eps_end=0.0001,
               eps_decay=0.9999)
@@ -25,7 +25,7 @@ def pg(render, load_file):
                                   lr=0.0001,
                                   load_file=load_file,
                                   action_map={0: None, 1: 119})
-    train.pg(environment, agent, n_episodes=50000, max_t=2000,
+    train.pg(environment, agent, n_episodes=500000, max_t=2000,
              gamma=0.99,
              render=render,
              graph_when_done=False)
