@@ -18,7 +18,7 @@ class Gym():
     CartPole, MountainCar, LunarLander, FrozenLake, etc.
     """
 
-    def __init__(self, name, seed, max_steps=None, one_hot=None, action_bins=None, normalize=False):
+    def __init__(self, name, seed=0, max_steps=None, one_hot=None, action_bins=None, normalize=False):
         """
         Params
         ======
@@ -81,7 +81,7 @@ class GymAtari(Gym):
     Stacks 4 frames into state.
     """
 
-    def __init__(self, name, seed):
+    def __init__(self, name, seed=0):
         super(GymAtari, self).__init__(name, seed)
         self.full_state = np.zeros((1, 4, 80, 80), dtype=np.float32)
 
@@ -137,7 +137,7 @@ class GymAtariPong(GymAtari):
 
     # this function is from https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5
     def _prepro(self, frame):
-        """ Pre-process 210x160x3 uint8 frame into 80x80 uint8 frame.
+        """ Pre-process 210x160x3 uint8 frame into 80x80 float32 frame.
             Custom pre-processing that only works with Pong.
             Maybe is cheating a bit but definitely speeds up learning.
         """
@@ -146,4 +146,5 @@ class GymAtariPong(GymAtari):
         frame[frame == 144] = 0 # erase background (background type 1)
         frame[frame == 109] = 0 # erase background (background type 2)
         frame[frame != 0] = 1 # everything else (paddles, ball) just set to 1
+        #frame = frame.astype(np.float32) / 255
         return frame

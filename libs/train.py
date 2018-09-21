@@ -72,7 +72,7 @@ def pg(environment, agent, n_episodes=10000, max_t=2000,
 
 
 
-def hc(environment, agent, seed, n_episodes=2000, max_t=1000,
+def hc(environment, agent, seed=0, n_episodes=2000, max_t=1000,
              gamma=1.0,
              npop=1,
              render=False,

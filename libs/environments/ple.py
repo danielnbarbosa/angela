@@ -15,10 +15,10 @@ class PLEFlappyBird():
     Does pre-processing specific to FlappyBird game.
     """
 
-    def __init__(self, seed, render=False):
+    def __init__(self, render=False, seed=0, pipe_gap=100):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
-        game = FlappyBird(pipe_gap=150)
+        game = FlappyBird(pipe_gap=pipe_gap)
         self.env = PLE(game, fps=30, display_screen=render, rng=seed)
         self.env.init()
         self.full_state = np.zeros((1, 4, 80, 80), dtype=np.uint8)

@@ -16,7 +16,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class DQN():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, model, action_size, seed, load_file=None,
+    def __init__(self, model, action_size, seed=0, load_file=None,
                  buffer_size=int(1e5),
                  batch_size=64,
                  gamma=0.99,

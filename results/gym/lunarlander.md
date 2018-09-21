@@ -12,21 +12,21 @@ Solved in 485 episodes!
 
 #### HC
 ```
-Episode   100   Avg:  -370.04   BestAvg:     -inf   σ:   205.22   |   Best:   -56.06   Noise: 2.0000   |   Steps:     8419  Secs:      1
-Episode   200   Avg:  -401.11   BestAvg:  -368.10   σ:   254.33   |   Best:   -51.65   Noise: 2.0000   |   Steps:    16554  Secs:      3
-Episode   300   Avg:  -303.61   BestAvg:  -303.53   σ:   324.93   |   Best:    -6.17   Noise: 2.0000   |   Steps:    23984  Secs:      4
-Episode   400   Avg:  -268.35   BestAvg:  -252.13   σ:   165.36   |   Best:    -6.17   Noise: 2.0000   |   Steps:    30978  Secs:      5
-Episode   500   Avg:  -282.74   BestAvg:  -252.13   σ:   199.51   |   Best:    -6.17   Noise: 2.0000   |   Steps:    37833  Secs:      6
-Episode   600   Avg:  -291.54   BestAvg:  -252.13   σ:   192.18   |   Best:    -6.17   Noise: 2.0000   |   Steps:    44842  Secs:      7
-Episode   700   Avg:  -287.75   BestAvg:  -252.13   σ:   182.17   |   Best:    -6.17   Noise: 2.0000   |   Steps:    51965  Secs:      8
-Episode   800   Avg:  -287.18   BestAvg:  -252.13   σ:   204.80   |   Best:    -6.17   Noise: 2.0000   |   Steps:    59163  Secs:      9
-Episode   900   Avg:  -291.37   BestAvg:  -252.13   σ:   184.66   |   Best:    -6.17   Noise: 2.0000   |   Steps:    66193  Secs:     11
-Episode  1000   Avg:  -303.78   BestAvg:  -252.13   σ:   242.22   |   Best:    -6.17   Noise: 2.0000   |   Steps:    73412  Secs:     12
-Episode  1100   Avg:  -353.09   BestAvg:  -252.13   σ:   346.52   |   Best:    -3.07   Noise: 2.0000   |   Steps:    80479  Secs:     13
-Episode  1200   Avg:  -303.90   BestAvg:  -252.13   σ:   187.06   |   Best:     5.39   Noise: 2.0000   |   Steps:    87611  Secs:     14
-Episode  1300   Avg:  -257.00   BestAvg:  -252.13   σ:   165.55   |   Best:     5.39   Noise: 2.0000   |   Steps:    94664  Secs:     15
-Episode  1400   Avg:  -254.64   BestAvg:  -249.81   σ:   124.33   |   Best:     5.39   Noise: 2.0000   |   Steps:   101629  Secs:     16
-Episode  1500   Avg:  -291.06   BestAvg:  -249.81   σ:   165.90   |   Best:     5.39   Noise: 2.0000   |   Steps:   108696  Secs:     17
+Episode   100   Avg:  -133.56   BestAvg:     -inf   σ:   100.32   |   Best:    29.06   Noise: 2.0000   |   Steps:     8508  Secs:      7
+Episode   200   Avg:  -114.95   BestAvg:  -112.66   σ:   118.62   |   Best:    30.26   Noise: 2.0000   |   Steps:    17285  Secs:     14
+Episode   300   Avg:   -94.86   BestAvg:   -92.49   σ:   135.42   |   Best:   239.43   Noise: 2.0000   |   Steps:    31739  Secs:     29
+Episode   400   Avg:   -20.62   BestAvg:   -18.32   σ:    97.21   |   Best:   244.24   Noise: 2.0000   |   Steps:    45329  Secs:     43
+Episode   500   Avg:   -56.50   BestAvg:   -15.09   σ:   125.29   |   Best:   260.19   Noise: 2.0000   |   Steps:    58622  Secs:     55
+Episode   600   Avg:   -80.86   BestAvg:   -15.09   σ:   114.77   |   Best:   260.19   Noise: 2.0000   |   Steps:    70365  Secs:     68
+Episode   700   Avg:   -63.35   BestAvg:   -15.09   σ:   135.38   |   Best:   260.19   Noise: 2.0000   |   Steps:    82996  Secs:     79
+Episode   800   Avg:   -84.03   BestAvg:   -15.09   σ:   123.28   |   Best:   260.19   Noise: 2.0000   |   Steps:    96136  Secs:     89
+Episode   900   Avg:   -85.30   BestAvg:   -15.09   σ:   144.28   |   Best:   263.46   Noise: 2.0000   |   Steps:   108713  Secs:    102
+Episode  1000   Avg:  -172.66   BestAvg:   -15.09   σ:   164.25   |   Best:   289.18   Noise: 2.0000   |   Steps:   117695  Secs:    108
+Episode  1100   Avg:  -159.66   BestAvg:   -15.09   σ:   186.86   |   Best:   289.18   Noise: 2.0000   |   Steps:   128730  Secs:    117
+Episode  1200   Avg:  -155.25   BestAvg:   -15.09   σ:   170.60   |   Best:   289.18   Noise: 2.0000   |   Steps:   139373  Secs:    124
+Episode  1300   Avg:  -157.05   BestAvg:   -15.09   σ:   167.74   |   Best:   289.18   Noise: 2.0000   |   Steps:   148534  Secs:    131
+Episode  1400   Avg:  -180.72   BestAvg:   -15.09   σ:   150.12   |   Best:   289.18   Noise: 2.0000   |   Steps:   157442  Secs:    137
+Episode  1500   Avg:  -169.34   BestAvg:   -15.09   σ:   164.99   |   Best:   289.18   Noise: 2.0000   |   Steps:   166169  Secs:    143
 ```
 
 #### PG

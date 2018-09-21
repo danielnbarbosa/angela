@@ -9,7 +9,7 @@ import numpy as np
 class SingleLayerPerceptron():
     """Simple SLP."""
 
-    def __init__(self, state_size, action_size, seed):
+    def __init__(self, state_size, action_size, seed=0):
         np.random.seed(seed)
         # simple linear policy: state_size x action_size
         self.weights = 1e-4 * np.random.randn(state_size, action_size)

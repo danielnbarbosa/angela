@@ -1,7 +1,6 @@
 """
 Models used by Policy Gradients agent:
 - SingleHiddenLayer: simple multi-layer perceptron
-- SmallConv2D: CNN with 2 Conv2d layers
 - BigConv2D: CNN with 3 Conv2d layers
 - Conv3D: CNN with 3 Conv3d layers
 """
@@ -17,12 +16,12 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 class SingleHiddenLayer(nn.Module):
     """ MLP with one hidden layer."""
 
-    def __init__(self, state_size, action_size, fc1_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed=0):
         super(SingleHiddenLayer, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
-        self.fc1 = nn.Linear(state_size, fc1_units)
-        self.output = nn.Linear(fc1_units, action_size)
+        self.fc1 = nn.Linear(state_size, fc_units)
+        self.output = nn.Linear(fc_units, action_size)
 
     def forward(self, x):
         x = F.relu(self.fc1(x))
@@ -37,7 +36,7 @@ class TwoLayerConv2D(nn.Module):
     Total parameters: 243K
     """
 
-    def __init__(self, state_size, action_size, filter_maps, kernels, strides, conv_out, fc_units, seed, normalize=False):
+    def __init__(self, state_size, action_size, filter_maps, kernels, strides, conv_out, fc_units, seed=0, normalize=False):
         """
         Params
         ======
@@ -79,42 +78,6 @@ class TwoLayerConv2D(nn.Module):
         return F.softmax(x, dim=1)
 
 
-class SmallConv2D(nn.Module):
-    """
-    CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
-    Defaults to float32 frames.  If using unit8 frames, set normalize=True
-    Total parameters: 243K
-    """
-
-    def __init__(self, state_size, action_size, fc_units, seed, normalize=False):
-        super(SmallConv2D, self).__init__()
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed(seed)
-        self.normalize = normalize
-        # input shape: (m, 4, 80, 80)                    shape after
-        self.conv1 = nn.Conv2d(4, 32, 8, stride=4)       # (m, 16, 19, 19)
-        self.bn1 = nn.BatchNorm2d(32)
-        self.conv2 = nn.Conv2d(32, 64, 4, stride=3)      # (m, 32, 6, 6)
-        self.bn2 = nn.BatchNorm2d(64)
-        self.fc = nn.Linear(64*6*6, fc_units)            # (m, 800, fc_units)
-        self.output = nn.Linear(fc_units, action_size)   # (m, fc1_units, n_a)
-        print(self)  # print model
-        summary(self.to(device), state_size)
-
-    def forward(self, x):
-        #print('in:  {}'.format(x))
-        if self.normalize:                   # normalization
-            x = x.float() / 255
-        #print('norm:  {}'.format(x))
-        x = F.relu(self.bn1(self.conv1(x)))  # convolutions
-        x = F.relu(self.bn2(self.conv2(x)))
-        x = x.view(x.size(0), -1)            # flatten
-        x = F.relu(self.fc(x))               # fully connected layer
-        x = self.output(x)
-        #print('out: {}'.format(x))
-        return F.softmax(x, dim=1)
-
-
 class BigConv2D(nn.Module):
     """
     CNN for learning from pixels.  Assumes 4 stacked 80x80 float32 grayscale frames.
@@ -122,7 +85,7 @@ class BigConv2D(nn.Module):
     Total parameters: 1.2M
     """
 
-    def __init__(self, state_size, action_size, fc_units, seed):
+    def __init__(self, state_size, action_size, fc_units, seed=0):
         super(BigConv2D, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)
@@ -156,7 +119,7 @@ class Conv3D(nn.Module):
     Total parameters: 5M
     """
 
-    def __init__(self, state_size, action_size, seed):
+    def __init__(self, state_size, action_size, seed=0):
         super(Conv3D, self).__init__()
         torch.manual_seed(seed)
         torch.cuda.manual_seed(seed)

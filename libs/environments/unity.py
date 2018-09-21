@@ -10,7 +10,7 @@ from libs.visualize import show_frames_2d, show_frames_3d, show_frame
 class UnityMLVector():
     """UnityML environment with vector observations."""
 
-    def __init__(self, name, seed):
+    def __init__(self, name, seed=0):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
@@ -45,7 +45,7 @@ class UnityMLVisual(UnityMLVector):
     Final state is shaped to fit torch Conv3D: (m, 3, 4, 84, 84)
     """
 
-    def __init__(self, name, seed):
+    def __init__(self, name, seed=0):
         super(UnityMLVisual, self).__init__(name, seed)
         self.full_state = np.zeros((1, 3, 4, 84, 84), dtype=np.uint8)
 

@@ -22,7 +22,7 @@ Everything is written in python3 and pytorch.
 ## Features
 
 #### Environments
- - [Open AI Gym](https://gym.openai.com/): Acrobot | Breakout_ram | Breakout | Cartpole | FrozenLake | FrozenLake8x8 | LunarLander | MountainCar | Pendulum | Pong
+ - [Open AI Gym](https://gym.openai.com/): Acrobot | Cartpole | FrozenLake | FrozenLake8x8 | LunarLander | MountainCar | Pendulum | Pong
  - [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | Banana | VisualBanana
  - [PyGame Learning Environment](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): FlappyBird
 
@@ -85,25 +85,25 @@ cd ..
 ```
 
 ## Usage
-To start training, use the `learn.py` wrapper script and pass in the desired environment and agent type.  For example to train on the Pong environment with the policy gradient agent:
+To start training, use the `learn.py` wrapper script and pass in the desired configuration file.  For example, to train on the Pong environment with the policy gradient agent:
 ```
-./learn.py --env pong --agent pg
+./learn.py --cfg pong_pg
 ```
 
 To load a saved model:
 ```
-./learn.py --env pong --agent pg --load=checkpoints/best/pong.pth
+./learn.py --cfg pong_pg --load=checkpoints/best/pong.pth
 ```
 
 To render an agent:
 ```
-./learn.py --env pong --agent pg --render=True
+./learn.py --cfg pong_pg --render
 ```
 
 ## Project layout
 The directory tree structure is as follows:
+ - `cfg`: Configuration files with saved hyperparameters.
  - `checkpoints`: Saved model weights.
- - `env_configs`: One file per environment.  Configuration of hyperparameters pertaining to environment, agent, model and training loop.
  - `libs`: Shared libraries.  Code for models, agents, training loops and various utility functions.
  - `results`: Current best training results for each environment.
 

@@ -19,9 +19,9 @@ Solved in 0 episodes!
 
 #### PG
 ```
-Episode   100   Avg:   22.54   BestAvg:    -inf   σ:   13.76   |   Steps:     2154  Secs:      1
-Episode   200   Avg:  116.21   BestAvg:  116.21   σ:   97.87   |   Steps:    13675  Secs:      7
-Episode   241   Avg:  198.43   BestAvg:  198.43   σ:  138.37   |   Steps:    24054  Secs:     11
+Episode   100   Avg:    22.54   BestAvg:     -inf   σ:    13.76   |   Steps:     2154  Secs:      0
+Episode   200   Avg:   116.21   BestAvg:   116.21   σ:    97.87   |   Steps:    13675  Secs:      5
+Episode   232   Avg:   196.44   BestAvg:   196.44   σ:   136.42   |   Steps:    23207  Secs:      8
 
-Solved in 141 episodes!
+Solved in 132 episodes!
 ```
