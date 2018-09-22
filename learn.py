@@ -21,9 +21,9 @@ cfg = __import__(args.cfg)
 if   cfg.env_class == 'Gym':           environment = environments.gym.Gym(**cfg.environment)
 elif cfg.env_class == 'GymAtari':      environment = environments.gym.GymAtari(**cfg.environment)
 elif cfg.env_class == 'GymAtariPong':  environment = environments.gym.GymAtariPong(**cfg.environment)
-elif cfg.env_class == 'UnityMLVector': environment = environments.gym.UnityMLVector(**cfg.environment)
-elif cfg.env_class == 'UnityMLVisual': environment = environments.gym.UnityMLVisual(**cfg.environment)
-elif cfg.env_class == 'PLEFlappyBird': environment = environments.gym.PLEFlappyBird(render=args.render, **cfg.environment)
+elif cfg.env_class == 'UnityMLVector': environment = environments.unity.UnityMLVector(**cfg.environment)
+elif cfg.env_class == 'UnityMLVisual': environment = environments.unity.UnityMLVisual(**cfg.environment)
+elif cfg.env_class == 'PLEFlappyBird': environment = environments.ple.PLEFlappyBird(render=args.render, **cfg.environment)
 
 # based on agent_type, create model and agent then start training
 if cfg.agent_type == 'dqn':
