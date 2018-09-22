@@ -1,19 +1,20 @@
 #!/bin/bash
 
-# Wrapper script to execute a training run on a handful of environments.
+# Wrapper script to execute a training run on a variety of simple environments.
 
-ENVIRONMENTS='cartpole frozenlake frozenlake8x8 acrobot mountaincar pendulum lunarlander basic'
-AGENTS='dqn hc pg'
+CFGS='cartpole_dqn cartpole_hc cartpole_pg
+      frozenlake_dqn frozenlake8x8_dqn
+      acrobot_dqn acrobot_hc acrobot_pg
+      mountaincar_dqn mountaincar_hc mountaincar_pg
+      pendulum_dqn pendulum_hc pendulum_pg
+      lunarlander_dqn lunarlander_hc lunarlander_pg
+      basic_dqn'
 
-
-for environment in $ENVIRONMENTS
+for cfg in $CFGS
 do
-  for agent in $AGENTS
-  do
-    echo ''
-    echo '----------------------------------------------------------------'
-    echo "| Starting training on $environment environment with $agent agent."
-    echo '----------------------------------------------------------------'
-    ./learn.py --env $environment --agent $agent
-  done
+  echo ''
+  echo '----------------------------------------------------------------'
+  echo "| Starting training on $cfg configuration."
+  echo '----------------------------------------------------------------'
+  ./learn.py --cfg $cfg
 done

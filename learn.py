@@ -6,9 +6,9 @@ import sys
 sys.path.append('cfg')
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--cfg", help="config file", type=str)
-parser.add_argument("--render", help="render", action="store_true")
-parser.add_argument("--load", help="filename of saved model", type=str, default=None)
+parser.add_argument("--cfg", help="hyperparameter config file", type=str)
+parser.add_argument("--render", help="render agent", action="store_true")
+parser.add_argument("--load", help="path to saved model", type=str, default=None)
 args = parser.parse_args()
 
 # load config from file
