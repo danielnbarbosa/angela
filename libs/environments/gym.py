@@ -118,13 +118,13 @@ class GymAtari(Gym):
     def step(self, action):
         """Take a step in the environment.  Given an action, return the next state."""
         frame, reward, done, _ = self.env.step(action)
-        #print('step() frame from environment:  {}'.format(frame.shape))  # DEBUG
+        #print('step() frame from environment:  {}'.format(frame))  # DEBUG
         frame = self._prepro(frame)
-        #print('step() frame after _prepro():  {}'.format(frame.shape))  # DEBUG
+        #print('step() frame after _prepro():  {}'.format(frame))  # DEBUG
         frame = frame.reshape(1, 80, 80)
-        #print('step() frame after reshape:  {}'.format(frame.shape))  # DEBUG
+        #print('step() frame after reshape:  {}'.format(frame))  # DEBUG
         self._add_frame(frame)
-        #print('step():  {}'.format(self.full_state.shape))  # DEBUG
+        #print('step():  {}'.format(self.full_state))  # DEBUG
         return self.full_state.copy(), reward, done
 
 
@@ -145,6 +145,6 @@ class GymAtariPong(GymAtari):
         frame = frame[::2, ::2, 0] # downsample by factor of 2
         frame[frame == 144] = 0 # erase background (background type 1)
         frame[frame == 109] = 0 # erase background (background type 2)
-        frame[frame != 0] = 1 # everything else (paddles, ball) just set to 1
-        #frame = frame.astype(np.float32) / 255
+        frame[frame != 0] = 255 # everything else (paddles, ball) just set to 1
+        frame = frame.astype(np.float32) / 255
         return frame
