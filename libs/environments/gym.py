@@ -18,7 +18,7 @@ class Gym():
     CartPole, MountainCar, LunarLander, FrozenLake, etc.
     """
 
-    def __init__(self, name, seed=0, max_steps=None, one_hot=None, action_bins=None, normalize=False):
+    def __init__(self, name, seed=0, max_steps=None, one_hot=None, action_bins=None):
         """
         Params
         ======
@@ -27,20 +27,16 @@ class Gym():
             max_steps (int): Maximum number of steps to run before returning done
             one_hot (int): Size of 1-D one-hot vector
             action_bins (tuple): Number of splits to divide each dimension of continuous space
-            normalize (bool): Whether to normalize the state input
         """
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         self.one_hot = one_hot
         self.action_bins = action_bins
-        self.normalize = normalize
         self.env = gym.make(name)
         #self.env = gym.wrappers.Monitor(self.env, "recording")  # uncomment to record video
         self.env.seed(seed)
         if max_steps:  # override environment default for max steps in an episode
             self.env._max_episode_steps = max_steps
-        if normalize:  # grab value to use for normalization
-            self.obs_space_high = self.env.observation_space.high[0]
         self.frame_sleep = 0.02
 
     def reset(self):
@@ -48,8 +44,6 @@ class Gym():
         state = self.env.reset()
         if self.one_hot:
             state = np.eye(self.one_hot)[state]
-        if self.normalize:  # normalize state input (used in atari ram environments).  DEPRECATED?
-            state = state / self.obs_space_high
         return state
 
     def step(self, action):
@@ -64,8 +58,6 @@ class Gym():
             state, reward, done, _ = self.env.step(action)
         if self.one_hot:  # needed when each state is represented as an integer, e.g. FrozenLake
             state = np.eye(self.one_hot)[state]
-        if self.normalize:  # normalize state input (used in atari ram environments).  DEPRECATED?
-            state = state / self.obs_space_high
         return state, reward, done
 
     def render(self):
