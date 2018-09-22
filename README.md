@@ -60,9 +60,11 @@ git clone https://github.com/danielnbarbosa/angela.git
 brew install swig
 conda create -y -n angela python=3.6 anaconda
 source activate angela
-conda install -y -n angela -c conda-forge pytorch torchvision opencv ffmpeg scikit-image
+conda install -y pytorch torchvision -c pytorch
+conda install -y opencv scikit-image
+conda uninstall -y ffmpeg # needed for gym monitor
+conda install -y -c conda-forge opencv ffmpeg  # needed for gym monitor
 pip install torchsummary gym Box2D box2d-py unityagents pygame
-
 cd ..
 ```
 
