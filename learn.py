@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from libs.environments import gym, ple, unity
+from libs.environments import gym, unity, ple
 import argparse
 import sys
 sys.path.append('cfg')

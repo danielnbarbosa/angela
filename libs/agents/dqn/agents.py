@@ -80,7 +80,10 @@ class DQN():
         #self.optimizer = optim.RMSprop(self.qnetwork_local.parameters(), lr=.00025, momentum=0.95)
 
         # Replay memory
-        self.memory = ReplayBuffer(action_size, self.buffer_size, self.batch_size, seed)
+        if use_prioritized_experience_replay:
+            self.memory = PrioritizedReplayBuffer(action_size, self.buffer_size, self.batch_size, seed)
+        else:
+            self.memory = ReplayBuffer(action_size, self.buffer_size, self.batch_size, seed)
         # Initialize time step (for updating every update_every steps)
         self.t_step = 0
         # initalize alpha (used in prioritized experience sampling probability)
@@ -90,8 +93,11 @@ class DQN():
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory
-        priority = 100.0   # set initial priority to max value
-        self.memory.add(state, action, reward, next_state, done, priority)
+        if self.use_prioritized_experience_replay:
+            priority = 100.0   # set initial priority to max value
+            self.memory.add(state, action, reward, next_state, done, priority)
+        else:
+            self.memory.add(state, action, reward, next_state, done)
 
         # Learn every update_every time steps.
         self.t_step = (self.t_step + 1) % self.update_every
@@ -101,12 +107,12 @@ class DQN():
                 # if prioritized experience replay is enabled
                 if self.use_prioritized_experience_replay:
                     self.memory.sort()
-                    indexes, experiences = self.memory.sample_with_priority(self.alpha)
-                    self.learn(indexes, experiences, self.gamma)
+                    indexes, experiences = self.memory.sample(self.alpha)
+                    self.learn(experiences, self.gamma, indexes)
                     self.alpha = self.alpha_decay*self.alpha
                 else:
                     experiences = self.memory.sample()
-                    self.learn(None, experiences, self.gamma)
+                    self.learn(experiences, self.gamma)
 
     def act(self, state, eps=0.):
         """Returns actions for given state as per current policy.
@@ -131,7 +137,7 @@ class DQN():
         else:
             return random.choice(np.arange(self.action_size))
 
-    def learn(self, indexes, experiences, gamma):
+    def learn(self, experiences, gamma, indexes=None):
         """Update value parameters using given batch of experience tuples.
 
         Params
@@ -139,7 +145,10 @@ class DQN():
             experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples
             gamma (float): discount factor
         """
-        states, actions, rewards, next_states, dones, priorities = experiences
+        if self.use_prioritized_experience_replay:
+            states, actions, rewards, next_states, dones, priorities = experiences
+        else:
+            states, actions, rewards, next_states, dones = experiences
 
         # DEBUG replay memory
         #print('learning:')
@@ -203,7 +212,7 @@ class DQN():
             target_param.data.copy_(tau*local_param.data + (1.0-tau)*target_param.data)
 
 
-class ReplayBuffer:
+class ReplayBuffer():
     """Fixed-size buffer to store experience tuples."""
 
     def __init__(self, action_size, buffer_size, batch_size, seed):
@@ -221,19 +230,17 @@ class ReplayBuffer:
         self.action_size = action_size
         self.memory = deque(maxlen=buffer_size)
         self.batch_size = batch_size
-        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "priority"])
+        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done"])
 
 
-    def add(self, state, action, reward, next_state, done, priority):
+    def add(self, state, action, reward, next_state, done):
         """Add a new experience to memory."""
-
-        e = self.experience(state, action, reward, next_state, done, priority)
+        e = self.experience(state, action, reward, next_state, done)
         self.memory.append(e)
 
     def sample(self):
         """Randomly sample a batch of experiences from memory."""
         experiences = random.sample(self.memory, k=self.batch_size)
-
         # DEBUG experience sampling
         #print('sampling:')
         #for i, e in enumerate(experiences):
@@ -244,42 +251,44 @@ class ReplayBuffer:
         #    print(np.sum(e.next_state))
         #    print(e.done)
         #    print(e.priority)
-
         states = torch.from_numpy(np.vstack([e.state for e in experiences if e is not None])).float().to(device)
         actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(device)
         rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(device)
         next_states = torch.from_numpy(np.vstack([e.next_state for e in experiences if e is not None])).float().to(device)
         dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(device)
-        priorities = torch.from_numpy(np.vstack([e.priority for e in experiences if e is not None])).float().to(device)
-
-        return (states, actions, rewards, next_states, dones, priorities)
+        return (states, actions, rewards, next_states, dones)
 
     def __len__(self):
         """Return the current size of internal memory."""
         return len(self.memory)
 
-    # ---------- prioritized exeperience replay methods ---------- #
+
+class PrioritizedReplayBuffer(ReplayBuffer):
+    def __init__(self, action_size, buffer_size, batch_size, seed):
+        super(PrioritizedReplayBuffer, self).__init__(action_size, buffer_size, batch_size, seed)
+        self.experience = namedtuple("Experience", field_names=["state", "action", "reward", "next_state", "done", "priority"])
+
     def batch_update(self, indexes, experiences):
         """ Batch update existing elements in memory. """
-
         states, actions, rewards, next_states, dones, new_priorities = experiences
         for i in range(self.batch_size):
             e = self.experience(states[i], int(actions[i]), float(rewards[i]), next_states[i], bool(dones[i]), float(new_priorities[i]))
             self.memory[indexes[i]] = e
-            #del self.memory[indexes[i]]
-            #self.memory.append(e)
 
     def sort(self):
         """ Sort memory based on priority (TD error) """
-
         # sort memory based on priority (sixth item in experience tuple)
         items = [self.memory.pop() for i in range(len(self.memory))]
         items.sort(key=lambda x: x[5], reverse=True)
         self.memory.extend(items)
 
-    def sample_with_priority(self, alpha):
-        """ Sample a batch of experiences from memory using Prioritized Experience. """
+    def add(self, state, action, reward, next_state, done, priority):
+        """Add a new experience to memory."""
+        e = self.experience(state, action, reward, next_state, done, priority)
+        self.memory.append(e)
 
+    def sample(self, alpha):
+        """ Sample a batch of experiences from memory using Prioritized Experience. """
         # get the number of items in the experience replay memory
         n_items = len(self.memory)
         # calculate the sum of all the probabilities of all the items

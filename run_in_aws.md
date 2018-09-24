@@ -1,11 +1,11 @@
 Training can also be run in AWS to take advantage of cloud GPUs.  Launch Templates are used to automate a lot of the instance setup.
 
 
-#### Launch Spot Instance
+#### Step 1: Launch Spot Instance
 - Use Launch Template to start instance (see below for setup)
 
 
-#### On Every SSH
+#### Step 2: On Every SSH
 ```
 source activate pytorch_p36
 export DISPLAY=:0
