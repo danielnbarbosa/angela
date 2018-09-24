@@ -108,7 +108,7 @@ To render an agent:
 The directory tree structure is as follows:
  - `cfg`: Configuration files with saved hyperparameters.
  - `checkpoints`: Saved model weights.
- - `libs`: Shared libraries.  Code for models, agents, training loops and various utility functions.
+ - `libs`: Shared libraries.  Code for agents, environments and various utility functions.
  - `results`: Current best training results for each environment.
 
 
