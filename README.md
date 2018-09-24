@@ -47,6 +47,8 @@ Everything is written in python3 and pytorch.
 
 
 ## Installation
+The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](run_in_aws.md).
+
 
 #### Pre-requisites
 - [Anaconda](https://www.anaconda.com/download/).

@@ -3,7 +3,7 @@ env_class='PLEFlappyBird'
 model_class='TwoLayerConv2D'
 
 environment = {
-    'pipe_gap': 100
+    'pipe_gap': 150
 }
 
 model = {
