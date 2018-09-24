@@ -4,7 +4,8 @@ model_class='SingleHiddenLayer'
 
 environment = {
     'name': 'CartPole-v1',
-    'max_steps': 1000
+    'max_steps': 1000,
+    'seed': 5
 }
 
 model = {

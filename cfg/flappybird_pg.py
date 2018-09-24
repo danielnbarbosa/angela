@@ -24,5 +24,5 @@ agent = {
 
 train = {
     'n_episodes': 500000,
-    'max_t': 20000
+    'max_t': 2000
 }

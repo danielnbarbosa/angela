@@ -15,6 +15,7 @@ model = {
 
 agent = {
     'action_size': 2,
+    'gamma': 1.0,
     'use_double_dqn': True,
     'use_prioritized_experience_replay': False,
     'update_every': 4,
