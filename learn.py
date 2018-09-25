@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from libs.environments import gym, unity, ple
+import importlib
 import argparse
 import sys
 sys.path.append('cfg')
@@ -12,7 +13,7 @@ parser.add_argument("--load", help="path to saved model", type=str, default=None
 args = parser.parse_args()
 
 # load config from file
-cfg = __import__(args.cfg)
+cfg = importlib.import_module(args.cfg)
 
 # create environment
 if   cfg.env_class == 'Gym':           environment = gym.Gym(**cfg.environment)
