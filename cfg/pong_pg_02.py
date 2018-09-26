@@ -3,7 +3,7 @@ env_class='GymAtariPong'
 model_class='TwoLayerConv2D'
 
 environment = {
-    'name': 'PongDeterministic-v4'
+    'name': 'PongDeterministic-v4',
 }
 
 model = {

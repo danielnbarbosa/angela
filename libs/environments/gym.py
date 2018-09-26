@@ -120,7 +120,6 @@ class GymAtari(Gym):
         return self.full_state.copy(), reward, done
 
 
-
 class GymAtariPong(GymAtari):
     """
     OpenAI Gym Environment for use only with Pong.
@@ -138,5 +137,23 @@ class GymAtariPong(GymAtari):
         frame[frame == 144] = 0 # erase background (background type 1)
         frame[frame == 109] = 0 # erase background (background type 2)
         frame[frame != 0] = 255 # everything else (paddles, ball) just set to 1
+        frame = frame.astype(np.float32) / 255
+        return frame
+
+
+class GymAtariBreakout(GymAtari):
+    """
+    OpenAI Gym Environment for use only with Breakout.
+    Does pre-processing specific to Breakout game.
+    """
+
+    def _prepro(self, frame):
+        """ Pre-process 210x160x3 uint8 frame into 80x80 float32 frame.
+            Custom pre-processing that only works with Breakout.
+            Maybe is cheating a bit but definitely speeds up learning.
+        """
+        frame = frame[32:192] # crop
+        frame = frame[::2, ::2, 0] # downsample by factor of 2
+        frame[frame != 0] = 255 # set all pixels to 255
         frame = frame.astype(np.float32) / 255
         return frame
