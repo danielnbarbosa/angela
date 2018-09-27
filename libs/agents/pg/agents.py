@@ -1,5 +1,5 @@
 """
-Policy Gradient agent.
+Vanilla Policy Gradient agent.
 """
 
 import numpy as np
@@ -35,7 +35,7 @@ class PolicyGradient():
 
     def _discount(self, rewards, gamma, normal):
         """
-        Calulate discounted (and optionally normalized) rewards.
+        Calulate discounted future (and optionally normalized) rewards.
         From https://github.com/wagonhelm/Deep-Policy-Gradient
         """
 
