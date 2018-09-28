@@ -98,19 +98,39 @@ class ProximalPolicyOptimization():
         #print(probs.gather(1, actions))
         return probs.gather(1, actions).squeeze(1)
 
-    def learn(self, old_probs, states, actions, rewards, gamma, epsilon, beta):
+    def learn(self, old_probs, states, actions, rewards_feed, gamma, epsilon, beta):
         """Update model weights."""
+        # DEBUG
+        #print('PRE old_probs: {}'.format(old_probs))
+        #print('PRE states: {}'.format(states))
+        #print('PRE actions: {}'.format(actions))
+        #print('PRE rewards: {}'.format(rewards_feed))
 
         # calculate discounted rewards for each step and normalize them
-        discounted_rewards = self._discount(rewards, gamma, True)
+        discounted_rewards_feed = []
+        for rewards in rewards_feed:
+            discounted_rewards = self._discount(rewards, gamma, True)
+            discounted_rewards_feed.append(discounted_rewards)
         # DEBUG
         #print('rewards: {}'.format(rewards))
         #print('discounted_rewards: {}'.format(discounted_rewards))
 
+        # flatten feeds
+        flatten = lambda l: [item for sublist in l for item in sublist]
+        old_probs = flatten(old_probs)
+        states = flatten(states)
+        actions = flatten(actions)
+        rewards = flatten(discounted_rewards_feed)
+        # DEBUG
+        #print('PST old_probs: {}'.format(old_probs))
+        #print('PST states: {}'.format(states))
+        #print('PST actions: {}'.format(actions))
+        #print('PST rewards: {}'.format(rewards))
+
         # convert everything into pytorch tensors and move to gpu if available
         actions = torch.tensor(actions, dtype=torch.int64, device=device)
         old_probs = torch.tensor(old_probs, dtype=torch.float, device=device)
-        rewards = torch.tensor(discounted_rewards, dtype=torch.float, device=device)
+        rewards = torch.tensor(rewards, dtype=torch.float, device=device)
 
         # convert states to policy (or probability)
         new_probs = self.calc_probs(states, actions)
