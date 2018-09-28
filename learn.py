@@ -46,3 +46,10 @@ elif cfg.agent_type == 'pg':
     elif cfg.model_class == 'Conv3D':            model = models.Conv3D(**cfg.model)
     agent = agents.PolicyGradient(model, load_file=args.load, **cfg.agent)
     training.train(environment, agent, render=args.render, **cfg.train)
+
+elif cfg.agent_type == 'ppo':
+    from libs.agents.ppo import agents, models, training
+    if   cfg.model_class == 'SingleHiddenLayer': model = models.SingleHiddenLayer(**cfg.model)
+    elif cfg.model_class == 'TwoLayerConv2D':    model = models.TwoLayerConv2D(**cfg.model)
+    agent = agents.ProximalPolicyOptimization(model, load_file=args.load, **cfg.agent)
+    training.train(environment, agent, render=args.render, **cfg.train)

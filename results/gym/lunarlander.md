@@ -49,3 +49,15 @@ Episode  1460   Avg:   200.74   BestAvg:   200.74   σ:    53.81   |   Steps:   
 
 Solved in 1360 episodes!
 ```
+
+#### PPO
+```
+Episode   100   Avg:  -186.92   BestAvg:     -inf   σ:   179.88   |   ε: 0.2714   β:      0.0   Steps:    11317  Secs:      4
+Episode   200   Avg:  -215.97   BestAvg:  -197.15   σ:   326.28   |   ε: 0.2456   β:      0.0   Steps:    30277  Secs:     15
+Episode   300   Avg:    41.15   BestAvg:    41.15   σ:   138.87   |   ε: 0.2222   β:      0.0   Steps:    62790  Secs:     44
+Episode   400   Avg:   126.18   BestAvg:   138.03   σ:   126.83   |   ε: 0.2011   β:      0.0   Steps:    96608  Secs:     74
+Episode   500   Avg:   178.41   BestAvg:   178.41   σ:   120.03   |   ε: 0.1819   β:      0.0   Steps:   125400  Secs:     92
+Episode   539   Avg:   201.47   BestAvg:   201.47   σ:   110.78   |   ε:  0.175   β:      0.0   Steps:   137732  Secs:    100
+
+Solved in 439 episodes!
+```

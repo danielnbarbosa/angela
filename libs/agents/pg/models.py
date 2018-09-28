@@ -1,6 +1,7 @@
 """
 Models used by Vanilla Policy Gradients agent:
 - SingleHiddenLayer: simple multi-layer perceptron
+- TwoLayerConv2D: CNN with 2 Conv2d layers
 - BigConv2D: CNN with 3 Conv2d layers
 - Conv3D: CNN with 3 Conv3d layers
 """

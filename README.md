@@ -30,11 +30,13 @@ Everything is written in python3 and pytorch.
  - DQN: experience replay, fixed Q-targets, double DQN, prioritized experience replay
  - Hill Climbing: adaptive noise, steepest ascent, simulated annealing
  - Policy Gradient: REINFORCE
+ - PPO: Proximal Policy Optimization
 
 #### Models
  - DQN: multi-layer perceptron, dueling networks, CNN
  - Hill Climbing: single-layer perceptron
  - Policy Gradient: multi-layer perceptron, CNN
+ - PPO: multi-layer perceptron, CNN
 
 #### Misc
 - supports discrete state spaces using one-hot encoding (e.g. FrozenLake)

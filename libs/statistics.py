@@ -123,3 +123,28 @@ class PolicyGradientStats(Stats):
         sub_plot(211, self.scores, y_label='Score')
         sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
         plt.show()
+
+
+class ProximalPolicyOptimizationStats(Stats):
+    def print_episode(self, i_episode, epsilon, beta, steps):
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   ε: {:6.4}   β:   {:6.4}   Reward: {:8.2f}   Steps: {:6}'
+              .format(i_episode, self.avg_score, self.best_avg_score,
+                      self.std_dev, epsilon, beta, self.score, steps), end="")
+
+    def print_epoch(self, i_episode, epsilon, beta):
+        n_secs = int(time.time() - self.time_start)
+        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
+              '   |   ε: {:6.4}   β:   {:6.4}   Steps: {:8}  Secs: {:6}     '
+              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
+                      epsilon, beta, self.total_steps, n_secs))
+
+    def print_solve(self, i_episode, epsilon, beta):
+        self.print_epoch(i_episode, epsilon, beta)
+        print('\nSolved in {:d} episodes!'.format(i_episode-100))
+
+    def plot(self):
+        plt.figure(1)
+        sub_plot(211, self.scores, y_label='Score')
+        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
+        plt.show()

@@ -24,3 +24,11 @@ Episode   193   Avg:   196.10   BestAvg:   196.10   σ:   138.93   |   Steps:   
 
 Solved in 93 episodes!
 ```
+
+#### PPO
+```
+Episode   100   Avg:   368.85   BestAvg:     -inf   σ:   428.59   |   ε: 0.9048   β:      0.0   Steps:    36785  Secs:      6
+Episode   100   Avg:   368.85   BestAvg:     -inf   σ:   428.59   |   ε: 0.9048   β:      0.0   Steps:    36785  Secs:      6
+
+Solved in 0 episodes!
+```

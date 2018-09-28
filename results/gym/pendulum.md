@@ -169,3 +169,36 @@ Episode  9800   Avg: -2261.86   BestAvg:  -366.44   σ:  3245.75   |   Steps:  9
 Episode  9900   Avg: -2417.43   BestAvg:  -366.44   σ:  3298.39   |   Steps:  9890100  Secs:   3515
 Episode 10000   Avg: -2091.81   BestAvg:  -366.44   σ:  3177.79   |   Steps:  9990000  Secs:   3550
 ```
+
+#### PPO
+```
+Episode   100   Avg: -5520.37   BestAvg:     -inf   σ:  1139.31   |   ε: 0.09048   β:      0.0   Steps:    99900  Secs:     32
+Episode   200   Avg: -5607.85   BestAvg: -5445.45   σ:   963.97   |   ε: 0.08186   β:      0.0   Steps:   199800  Secs:     63
+Episode   300   Avg: -5142.38   BestAvg: -5142.38   σ:   702.93   |   ε: 0.07407   β:      0.0   Steps:   299700  Secs:     93
+Episode   400   Avg: -4987.87   BestAvg: -4967.13   σ:   624.89   |   ε: 0.06702   β:      0.0   Steps:   399600  Secs:    120
+Episode   500   Avg: -4719.68   BestAvg: -4705.88   σ:   413.94   |   ε: 0.06064   β:      0.0   Steps:   499500  Secs:    149
+Episode   600   Avg: -4879.59   BestAvg: -4705.88   σ:   529.37   |   ε: 0.05486   β:      0.0   Steps:   599400  Secs:    177
+Episode   700   Avg: -4750.83   BestAvg: -4705.88   σ:   441.26   |   ε: 0.04964   β:      0.0   Steps:   699300  Secs:    205
+Episode   800   Avg: -4532.15   BestAvg: -4531.21   σ:   391.01   |   ε: 0.04491   β:      0.0   Steps:   799200  Secs:    233
+Episode   900   Avg: -4467.03   BestAvg: -4448.85   σ:   375.51   |   ε: 0.04064   β:      0.0   Steps:   899100  Secs:    262
+Episode  1000   Avg: -4395.62   BestAvg: -4381.94   σ:   339.69   |   ε: 0.03677   β:      0.0   Steps:   999000  Secs:    290
+Episode  1100   Avg: -4386.93   BestAvg: -4346.27   σ:   361.33   |   ε: 0.03327   β:      0.0   Steps:  1098900  Secs:    318
+Episode  1200   Avg: -4420.76   BestAvg: -4346.27   σ:   520.05   |   ε: 0.0301   β:      0.0   Steps:  1198800  Secs:    346
+Episode  1300   Avg: -4201.01   BestAvg: -4178.19   σ:   351.47   |   ε: 0.02724   β:      0.0   Steps:  1298700  Secs:    375
+Episode  1400   Avg: -4184.13   BestAvg: -4177.34   σ:   335.60   |   ε: 0.02464   β:      0.0   Steps:  1398600  Secs:    403
+Episode  1500   Avg: -4159.18   BestAvg: -4105.92   σ:   354.70   |   ε: 0.0223   β:      0.0   Steps:  1498500  Secs:    432
+Episode  1600   Avg: -4096.20   BestAvg: -4096.20   σ:   389.94   |   ε: 0.02017   β:      0.0   Steps:  1598400  Secs:    460
+Episode  1700   Avg: -4051.62   BestAvg: -4019.77   σ:   382.46   |   ε: 0.01825   β:      0.0   Steps:  1698300  Secs:    488
+Episode  1800   Avg: -4102.53   BestAvg: -3992.40   σ:   397.57   |   ε: 0.01652   β:      0.0   Steps:  1798200  Secs:    517
+Episode  1900   Avg: -4162.84   BestAvg: -3992.40   σ:   356.05   |   ε: 0.01494   β:      0.0   Steps:  1898100  Secs:    547
+Episode  2000   Avg: -4046.61   BestAvg: -3992.40   σ:   326.82   |   ε: 0.01352   β:      0.0   Steps:  1998000  Secs:    575
+Episode  2100   Avg: -4094.22   BestAvg: -3992.40   σ:   339.81   |   ε: 0.01223   β:      0.0   Steps:  2097900  Secs:    605
+Episode  2200   Avg: -3992.67   BestAvg: -3991.27   σ:   310.92   |   ε: 0.01107   β:      0.0   Steps:  2197800  Secs:    633
+Episode  2300   Avg: -3980.72   BestAvg: -3945.66   σ:   319.94   |   ε: 0.01001   β:      0.0   Steps:  2297700  Secs:    661
+Episode  2400   Avg: -3999.30   BestAvg: -3945.66   σ:   287.05   |   ε: 0.009061   β:      0.0   Steps:  2397600  Secs:    689
+Episode  2500   Avg: -3906.09   BestAvg: -3906.09   σ:   276.45   |   ε: 0.008198   β:      0.0   Steps:  2497500  Secs:    718
+Episode  2600   Avg: -3944.16   BestAvg: -3904.21   σ:   274.59   |   ε: 0.007418   β:      0.0   Steps:  2597400  Secs:    746
+Episode  2700   Avg: -3950.65   BestAvg: -3904.21   σ:   247.35   |   ε: 0.006711   β:      0.0   Steps:  2697300  Secs:    774
+Episode  2800   Avg: -3930.83   BestAvg: -3904.21   σ:   280.60   |   ε: 0.006072   β:      0.0   Steps:  2797200  Secs:    802
+Episode  2900   Avg: -3948.57   BestAvg: -3904.21   σ:   244.87   |   ε: 0.005494   β:      0.0   Steps:  2897100  Secs:    830
+```
