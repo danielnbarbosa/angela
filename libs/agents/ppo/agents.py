@@ -98,29 +98,26 @@ class ProximalPolicyOptimization():
         #print(probs.gather(1, actions))
         return probs.gather(1, actions).squeeze(1)
 
-    def learn(self, old_probs, states, actions, rewards_feed, gamma, epsilon, beta):
+    def learn(self, old_probs, states, actions, rewards_lists, gamma, epsilon, beta):
         """Update model weights."""
         # DEBUG
         #print('PRE old_probs: {}'.format(old_probs))
         #print('PRE states: {}'.format(states))
         #print('PRE actions: {}'.format(actions))
-        #print('PRE rewards: {}'.format(rewards_feed))
+        #print('PRE rewards: {}'.format(rewards_lists))
 
-        # calculate discounted rewards for each step and normalize them
-        discounted_rewards_feed = []
-        for rewards in rewards_feed:
+        # calculate discounted rewards for each step and normalize them across each trajectory
+        discounted_rewards_lists = []
+        for rewards in rewards_lists:
             discounted_rewards = self._discount(rewards, gamma, True)
-            discounted_rewards_feed.append(discounted_rewards)
+            discounted_rewards_lists.append(discounted_rewards)
         # DEBUG
         #print('rewards: {}'.format(rewards))
         #print('discounted_rewards: {}'.format(discounted_rewards))
 
-        # flatten feeds
+        # flatten discounted_rewards_lists
         flatten = lambda l: [item for sublist in l for item in sublist]
-        old_probs = flatten(old_probs)
-        states = flatten(states)
-        actions = flatten(actions)
-        rewards = flatten(discounted_rewards_feed)
+        rewards = flatten(discounted_rewards_lists)
         # DEBUG
         #print('PST old_probs: {}'.format(old_probs))
         #print('PST states: {}'.format(states))

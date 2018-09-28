@@ -14,8 +14,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           max_noop=0,
           epsilon=0.1,
           beta=.01,
-          SGD_epoch=4,
-          sample_epoch=5,
+          sgd_epoch=4,
+          sample_epoch=1,
           render=False,
           solve_score=100000.0,
           graph_when_done=False):
@@ -32,7 +32,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         max_noop (int): maximum number of initial noops at start of episode
         epsilon (float): PPO clipping parameter
         beta (float): scaling factor for entropy
-        SGD_epoch (int): number of times to run gradient descent using current gradients
+        sgd_epoch (int): number of times to run gradient descent using current gradients
         sample_epoch (int): number of trajectories to gather under same policy
         render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
@@ -47,11 +47,10 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
     #    os.remove(checkpoint)
 
     for i_episode in range(1, n_episodes+1):
-        # each feed is a list of lists of length sample_epoch
-        old_probs_feed = []
-        states_feed = []
-        actions_feed = []
-        rewards_feed = []
+        old_probs = []
+        states = []
+        actions = []
+        rewards_lists = []  # list of lists
         # take a random amount of noop actions before starting episode to inject stochasticity
         for i in range(random.randint(0, max_noop)):
             if render:  # optionally render agent
@@ -59,9 +58,6 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
             state, reward, done = environment.step(0)
         # collect trajectories
         for _ in range(sample_epoch): # collect a few different trajectories under the same policy
-            old_probs = []
-            states = []
-            actions = []
             rewards = []
             state = environment.reset()
             for t in range(max_t):
@@ -77,15 +73,13 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
                 state = next_state
                 if done:
                     break
-            # append to feeds
-            old_probs_feed.append(old_probs)
-            states_feed.append(states)
-            actions_feed.append(actions)
-            rewards_feed.append(rewards)
+            # append rewards from trajectory to rewards_lists
+            # needs special treatment because rewards are normalized per trajectory
+            rewards_lists.append(rewards)
 
         # every episode
-        for _ in range(SGD_epoch):
-            agent.learn(old_probs_feed, states_feed, actions_feed, rewards_feed, gamma, epsilon, beta)
+        for _ in range(sgd_epoch):
+            agent.learn(old_probs, states, actions, rewards_lists, gamma, epsilon, beta)
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, epsilon, beta, t)
         epsilon *= 0.999  # decay the clipping parameter

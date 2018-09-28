@@ -23,6 +23,6 @@ train = {
     'solve_score': -110.0,
     'epsilon': 0.1,
     'beta': 0.0,
-    'SGD_epoch': 4
+    'sgd_epoch': 4
 
 }

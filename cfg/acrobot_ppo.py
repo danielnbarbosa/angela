@@ -17,9 +17,10 @@ agent = {
 }
 
 train = {
-    'n_episodes': 4000,
-    'max_t': 1000,
-    'epsilon': 0.1,
-    'beta': 0.0,
-    'SGD_epoch': 4
+    'n_episodes':   4000,
+    'max_t':        1000,
+    'epsilon':      0.1,
+    'beta':         0.0,
+    'sgd_epoch':    4,
+    'sample_epoch': 5
 }
