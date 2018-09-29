@@ -55,8 +55,10 @@ class ProximalPolicyOptimization():
 
     def act(self, state):
         """
-        Given a state, determine the next action.
-        Returns (environment action, action index, action probability)
+        Given a state, run state through the model.
+        Returns the action expected by the environment (after passing through action_map),
+        index of sampled action (for replaying saved trajectories),
+        probability of sampled action
         """
 
         if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
@@ -81,8 +83,9 @@ class ProximalPolicyOptimization():
 
     def calc_probs(self, states, actions):
         """
-        Given a list of states and actions run each state through the model
-        and get the new probabilities for the actions.
+        Given states and actions, run states through the model.
+        Returns new probabilities for the action
+        and the full probability distribution (for calculating entropy).
         """
 
         states = np.asarray(states)
@@ -96,7 +99,7 @@ class ProximalPolicyOptimization():
         #print(actions)
         #print(actions.shape)
         #print(probs.gather(1, actions))
-        return probs.gather(1, actions).squeeze(1)
+        return probs.gather(1, actions).squeeze(1), probs
 
     def learn(self, old_probs, states, actions, rewards_lists, gamma, epsilon, beta):
         """Update model weights."""
@@ -130,7 +133,7 @@ class ProximalPolicyOptimization():
         rewards = torch.tensor(rewards, dtype=torch.float, device=device)
 
         # convert states to policy (or probability)
-        new_probs = self.calc_probs(states, actions)
+        new_probs, new_probs_all = self.calc_probs(states, actions)
 
         # ratio for clipping
         ratio = new_probs/old_probs
@@ -143,14 +146,16 @@ class ProximalPolicyOptimization():
         clip = torch.clamp(ratio, 1-epsilon, 1+epsilon)
         clipped_surrogate = torch.min(ratio*rewards, clip*rewards)
 
-        # include a regularization term
-        # this steers new_policy towards 0.5
+        # entropy bonus (for regularization)
+        # used to encourage less extreme probabilities and hence exploration early on
         # add in 1.e-10 to avoid log(0) which gives nan
-        # TODO: fix this to work with softmax
-        entropy = -(new_probs*torch.log(old_probs+1.e-10) + (1.0-new_probs)*torch.log(1.0-old_probs+1.e-10))
+        #entropy = -(new_probs*torch.log(old_probs+1.e-10) + (1.0-new_probs)*torch.log(1.0-old_probs+1.e-10))
+        entropy = -torch.sum((new_probs_all * torch.log(new_probs_all+1.e-10)), dim=1)
         # DEBUG
+        #print('--------------')
         #print('old_probs: {}'.format(old_probs))
         #print('new_probs: {}'.format(new_probs))
+        #print('new_probs_all: {}'.format(new_probs_all))
         #print('clipped_surrogate: {}'.format(clipped_surrogate))
         #print('entropy: {}'.format(entropy))
 
