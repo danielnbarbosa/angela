@@ -24,5 +24,6 @@ train = {
     'solve_score': 195.0,
     'epsilon': 1.0,
     'beta': 0.0,
-    'sgd_epoch': 4
+    'sgd_epoch': 4,
+    'sample_epoch': 1
 }

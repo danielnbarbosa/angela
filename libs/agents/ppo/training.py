@@ -52,10 +52,10 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         actions = []
         rewards_lists = []  # list of lists
         # take a random amount of noop actions before starting episode to inject stochasticity
-        for i in range(random.randint(0, max_noop)):
-            if render:  # optionally render agent
-                environment.render()
-            state, reward, done = environment.step(0)
+        #for i in range(random.randint(0, max_noop)):
+        #    if render:  # optionally render agent
+        #        environment.render()
+        #    state, reward, done = environment.step(0)
         # collect trajectories
         for _ in range(sample_epoch): # collect a few different trajectories under the same policy
             rewards = []
@@ -80,6 +80,10 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         # every episode
         for _ in range(sgd_epoch):
             agent.learn(old_probs, states, actions, rewards_lists, gamma, epsilon, beta)
+        # average rewards across all trajectories for stats
+        flatten = lambda l: [item for sublist in l for item in sublist]
+        rewards = flatten(rewards_lists)
+        rewards = [r/sample_epoch for r in rewards]
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, epsilon, beta, t)
         epsilon *= 0.999  # decay the clipping parameter

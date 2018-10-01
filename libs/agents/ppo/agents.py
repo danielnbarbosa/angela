@@ -66,6 +66,9 @@ class ProximalPolicyOptimization():
         action = m.sample()
         action_index = action.item()
         action_prob = probs[0][action.item()]
+        # DEBUG
+        #print(self.action_map[action_index], action_index, action_prob, probs)
+        #print(action_index, action_prob, probs)
         # use action_map if it exists
         if self.action_map:
             return self.action_map[action_index], action_index, action_prob
