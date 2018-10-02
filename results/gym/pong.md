@@ -117,3 +117,16 @@ Episode  2100   Avg:     2.83   BestAvg:     4.25   σ:     5.14   |   Steps: 11
 Episode  2200   Avg:     3.71   BestAvg:     4.25   σ:     4.69   |   Steps: 12313118  Secs:  35915
 Saved to checkpoints/best/pong_conv2dsmall_fc200_2.pth
 ```
+
+#### PPO
+```
+Episode   100   Avg:   -14.44   BestAvg:     -inf   σ:     2.68   |   ε:  0.181   β:   0.01212   Steps:   203865  Secs:   3181
+Episode   200   Avg:   -13.46   BestAvg:   -12.58   σ:     1.17   |   ε: 0.1637   β:   0.007339   Steps:   421166  Secs:   6462
+Loaded: checkpoints/last_run/episode.200.pth
+Episode   100   Avg:    -8.95   BestAvg:     -inf   σ:     1.18   |   ε:  0.181   β:   0.01212   Steps:   199511  Secs:   3063
+Episode   200   Avg:    -7.26   BestAvg:    -7.24   σ:     1.02   |   ε: 0.1637   β:   0.007339   Steps:   399411  Secs:   6122
+Episode   300   Avg:    -9.58   BestAvg:    -7.23   σ:     2.03   |   ε: 0.1481   β:   0.004446   Steps:   597972  Secs:   9158
+Episode   300   Avg:   -12.86   BestAvg:    -8.37   σ:     2.69   |   ε: 0.1481   β:   0.004446   Steps:   586557  Secs:   8974
+Episode   400   Avg:   -10.53   BestAvg:    -8.37   σ:     2.02   |   ε:  0.134   β:   0.002693   Steps:   783070  Secs:  11974
+Episode   500   Avg:    -9.15   BestAvg:    -8.37   σ:     1.24   |   ε: 0.1213   β:   0.001631   Steps:   982721  Secs:  15015
+```
