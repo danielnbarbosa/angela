@@ -127,8 +127,8 @@ class DDPG():
 
     def act(self, state, add_noise=True):
         """Returns actions for given state as per current policy."""
-        #if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
-        #    state = np.expand_dims(state, axis=0)  # TODO: understand why this is not needed
+        if len(state.shape) == 1:   # reshape 1-D states into 2-D (as expected by the model)
+            state = np.expand_dims(state, axis=0)
         state = torch.from_numpy(state).float().to(device)
         # calculate action values
         self.actor_local.eval()

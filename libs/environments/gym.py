@@ -48,15 +48,16 @@ class Gym():
 
     def step(self, action):
         """Take a step in the environment."""
-        # convert discrete output from model to continuous action space
-        if self.action_bins:
+        if self.action_bins: # convert discrete output from model to continuous action space
             action_grid = create_uniform_grid(self.env.action_space.low,
                                               self.env.action_space.high,
                                               bins=self.action_bins)
             state, reward, done, _ = self.env.step([action_grid[0][action]])
-        else:
+        else: # don't discretize
+            if isinstance(action, np.ndarray): # unsqueeze if action is an array of actions
+                action = action[0]
             state, reward, done, _ = self.env.step(action)
-        if self.one_hot:  # needed when each state is represented as an integer, e.g. FrozenLake
+        if self.one_hot:  # one-hot encode state, needed when each state is represented as an integer, e.g. FrozenLake
             state = np.eye(self.one_hot)[state]
         return state, reward, done
 
