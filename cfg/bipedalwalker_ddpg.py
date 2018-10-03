@@ -14,6 +14,8 @@ model = {
 agent = {
     'action_size': 4,
     'update_every': 1,
+    'buffer_size': 1e6,
+    'batch_size': 128,
     'weight_decay': 0.0001,
 }
 
