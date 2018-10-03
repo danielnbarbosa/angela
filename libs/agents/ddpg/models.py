@@ -39,7 +39,7 @@ class LowDimActor(nn.Module):
 
     def forward(self, state):
         """Build an actor (policy) network that maps states -> actions."""
-        #print('in:  {}'.format(state.shape))
+        #print('in:  {}'.format(state))
         x = F.relu(self.fc1(state))
         x = F.relu(self.fc2(x))
         x = torch.tanh(self.fc3(x))
