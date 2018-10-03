@@ -27,16 +27,18 @@ Everything is written in python3 and pytorch.
  - [PyGame Learning Environment](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): FlappyBird
 
 #### Agents
- - DQN: experience replay, fixed Q-targets, double DQN, prioritized experience replay
- - Hill Climbing: adaptive noise, steepest ascent, simulated annealing
- - Policy Gradient: REINFORCE
- - PPO: Proximal Policy Optimization
+ - dqn: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
+ - hc: Hill Climbing with adaptive noise, steepest ascent and simulated annealing
+ - pg: Vanilla Policy Gradient (REINFORCE)
+ - ppo: Proximal Policy Optimization
+ - ddpg: Deep Deterministic Policy Gradient
 
 #### Models
- - DQN: multi-layer perceptron, dueling networks, CNN
- - Hill Climbing: single-layer perceptron
- - Policy Gradient: multi-layer perceptron, CNN
- - PPO: multi-layer perceptron, CNN
+ - dqn: multi-layer perceptron, dueling networks, CNN
+ - hc: single-layer perceptron
+ - pg: multi-layer perceptron, CNN
+ - ppo: multi-layer perceptron, CNN
+ - ddpg: low dimensional state spaces
 
 #### Misc
 - supports discrete state spaces using one-hot encoding (e.g. FrozenLake)

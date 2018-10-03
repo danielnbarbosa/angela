@@ -53,3 +53,9 @@ elif cfg.agent_type == 'ppo':
     elif cfg.model_class == 'TwoLayerConv2D':    model = models.TwoLayerConv2D(**cfg.model)
     agent = agents.ProximalPolicyOptimization(model, load_file=args.load, **cfg.agent)
     training.train(environment, agent, render=args.render, **cfg.train)
+
+elif cfg.agent_type == 'ddpg':
+    from libs.agents.ddpg import agents, models, training
+    if cfg.model_class == 'LowDim2x':      model = models.LowDim2x(**cfg.model)
+    agent = agents.DDPG(model, load_file=args.load, **cfg.agent)
+    training.train(environment, agent, render=args.render, **cfg.train)

@@ -202,3 +202,22 @@ Episode  2700   Avg: -3950.65   BestAvg: -3904.21   σ:   247.35   |   ε: 0.006
 Episode  2800   Avg: -3930.83   BestAvg: -3904.21   σ:   280.60   |   ε: 0.006072   β:      0.0   Steps:  2797200  Secs:    802
 Episode  2900   Avg: -3948.57   BestAvg: -3904.21   σ:   244.87   |   ε: 0.005494   β:      0.0   Steps:  2897100  Secs:    830
 ```
+
+#### DDPG
+```
+Episode   100   Avg: -2120.19   BestAvg:     -inf   σ:   334.02   |   ⍺: 0.5000  Buffer:  30000   |   Steps:    29900  Secs:    136
+Episode   200   Avg: -1587.47   BestAvg: -1585.49   σ:   268.23   |   ⍺: 0.5000  Buffer:  60000   |   Steps:    59800  Secs:    262
+Episode   300   Avg: -1293.03   BestAvg: -1293.03   σ:   473.39   |   ⍺: 0.5000  Buffer:  90000   |   Steps:    89700  Secs:    394
+Episode   400   Avg: -1109.03   BestAvg: -1032.87   σ:   485.58   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   119600  Secs:    526
+Episode   500   Avg: -1172.38   BestAvg: -1032.87   σ:   566.13   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   149500  Secs:    661
+Episode   600   Avg: -1087.78   BestAvg: -1032.87   σ:   525.03   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   179400  Secs:    790
+Episode   700   Avg:  -930.82   BestAvg:  -897.64   σ:   221.27   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   209300  Secs:    924
+Episode   800   Avg:  -965.37   BestAvg:  -897.64   σ:   277.16   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   239200  Secs:   1061
+Episode   900   Avg:  -750.23   BestAvg:  -750.23   σ:   297.22   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   269100  Secs:   1200
+Episode  1000   Avg:  -679.13   BestAvg:  -601.22   σ:   506.08   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   299000  Secs:   1339
+Episode  1100   Avg:  -578.67   BestAvg:  -578.67   σ:   381.00   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   328900  Secs:   1483
+Episode  1200   Avg:  -606.45   BestAvg:  -552.34   σ:   484.73   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   358800  Secs:   1627
+Episode  1300   Avg:  -489.66   BestAvg:  -454.75   σ:   415.36   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   388700  Secs:   1774
+Episode  1400   Avg:  -654.38   BestAvg:  -433.40   σ:   623.24   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   418600  Secs:   1922
+Episode  1500   Avg:  -880.57   BestAvg:  -433.40   σ:   706.77   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   448500  Secs:   2079
+```
