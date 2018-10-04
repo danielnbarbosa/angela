@@ -50,10 +50,11 @@ su - -c "source activate pytorch_p36; cd $DIR/PyGame-Learning-Environment; pip i
 cd $DIR
 su - -c "git clone https://github.com/danielnbarbosa/angela.git" ubuntu
 
-# install visual banana environment
+# install udacity unity ml environments
 cd $DIR/angela/cfg/compiled_unity_environments
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip
-unzip VisualBanana_Linux.zip
-rm VisualBanana_Linux.zip
-chown -R ubuntu:ubuntu VisualBanana_Linux
+wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux.zip
+unzip VisualBanana_Linux.zip Reacher_Linux.zip
+rm VisualBanana_Linux.zip Reacher_Linux.zip
+chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux
 ```
