@@ -182,7 +182,7 @@ class DDPG():
         critic_loss.backward()
         # clip gradients
         if self.clip_critic_gradients:
-            torch.nn.utils.clip_grad_norm(self.critic_local.parameters(), 1)
+            torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
             #for param in self.qnetwork_local.parameters():
             #    param.grad.data.clamp_(-10, 10)
         self.critic_optimizer.step()
