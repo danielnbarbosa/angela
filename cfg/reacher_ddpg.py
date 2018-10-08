@@ -18,10 +18,12 @@ model = {
 agent = {
     'action_size': 4,
     'update_every': 2,
-    'buffer_size': int(1e6)
+    'buffer_size': int(1e6),
+    'clip_critic_gradients': True
 }
 
 train = {
-    'n_episodes': 1000,
+    'n_episodes': 2000,
     'solve_score': 30.0,
+    'graph_when_done': True
 }

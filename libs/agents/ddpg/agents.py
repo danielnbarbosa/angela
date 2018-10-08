@@ -25,6 +25,7 @@ class DDPG():
                  lr_actor=1e-4,
                  lr_critic=1e-3,
                  weight_decay=0.0001,
+                 clip_critic_gradients=False,
                  update_every=1,
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
@@ -179,8 +180,10 @@ class DDPG():
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
         # clip gradients
-        #for param in self.qnetwork_local.parameters():
-        #    param.grad.data.clamp_(-10, 10)
+        if clip_critic_gradients:
+            torch.nn.utils.clip_grad_norm(self.critic_local.parameters(), 1)
+            #for param in self.qnetwork_local.parameters():
+            #    param.grad.data.clamp_(-10, 10)
         self.critic_optimizer.step()
 
         # ---------------------------- update actor ---------------------------- #

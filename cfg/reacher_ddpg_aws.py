@@ -8,20 +8,24 @@ model_class='LowDim2x'
 
 environment = {
     'name': 'cfg/compiled_unity_environments/Reacher_Linux/Reacher.x86_64',
+    'seed': 42
 }
 
 model = {
     'state_size': 33,
     'action_size': 4,
+    'seed': 42
 }
 
 agent = {
     'action_size': 4,
     'update_every': 2,
-    'buffer_size': int(1e6)
+    'buffer_size': int(1e6),
+    'clip_critic_gradients': True,
+    'seed': 42
 }
 
 train = {
-    'n_episodes': 1000,
+    'n_episodes': 10000,
     'solve_score': 30.0,
 }
