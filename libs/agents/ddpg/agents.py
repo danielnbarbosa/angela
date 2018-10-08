@@ -60,6 +60,7 @@ class DDPG():
         self.lr_critic = lr_critic
         self.update_every = update_every
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
+        self.clip_critic_gradients = clip_critic_gradients
 
         self.loss_list = []       # track loss across steps
 
@@ -180,7 +181,7 @@ class DDPG():
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
         # clip gradients
-        if clip_critic_gradients:
+        if self.clip_critic_gradients:
             torch.nn.utils.clip_grad_norm(self.critic_local.parameters(), 1)
             #for param in self.qnetwork_local.parameters():
             #    param.grad.data.clamp_(-10, 10)
