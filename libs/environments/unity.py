@@ -38,6 +38,24 @@ class UnityMLVector():
         pass
 
 
+class UnityMLVectorMultiAgent(UnityMLVector):
+    """Multi-agent UnityML environment with vector observations."""
+
+    def reset(self):
+        """Reset the environment."""
+        info = self.env.reset(train_mode=True)[self.brain_name]
+        state = info.vector_observations
+        return state
+
+    def step(self, action):
+        """Take a step in the environment."""
+        info = self.env.step(action)[self.brain_name]
+        state = info.vector_observations
+        reward = info.rewards
+        done = info.local_done
+        return state, reward, done
+
+
 class UnityMLVisual(UnityMLVector):
     """
     UnityML environment with visual observations.

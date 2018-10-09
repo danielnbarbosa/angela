@@ -4,6 +4,7 @@ Training loop.
 
 #import glob
 #import os
+import numpy as np
 import torch
 import libs.statistics
 
@@ -25,7 +26,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
 
-    stats = libs.statistics.DeepDeterministicPolicyGradientStats()
+    if agent.n_agents == 1:
+        stats = libs.statistics.DeepDeterministicPolicyGradientStats()
+    else:
+        stats = libs.statistics.MultiAgentDeepDeterministicPolicyGradientStats()
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -35,12 +39,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
     for i_episode in range(1, n_episodes+1):
         rewards = []
         state = environment.reset()
-
         # loop over steps
         for t in range(max_t):
             if render:  # optionally render agent
                 environment.render()
-
             # select an action
             action = agent.act(state)
             # take action in environment
@@ -49,13 +51,25 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             agent.step(state, action, reward, next_state, done)
             state = next_state
             rewards.append(reward)
-            if done:
+            if agent.n_agents == 1 and done:
+                break
+            if agent.n_agents > 1 and any(done):
                 break
 
         # every episode
         buffer_len = len(agent.memory)
-        stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, agent.alpha, buffer_len, t)
+        if agent.n_agents == 1:
+            stats.update(t, rewards, i_episode)
+            stats.print_episode(i_episode, agent.alpha, buffer_len, t)
+        else:
+            per_agent_rewards = []
+            for i in range(agent.n_agents):
+              per_agent_reward = 0
+              for step in rewards:
+                per_agent_reward += step[i]
+              per_agent_rewards.append(per_agent_reward)
+            stats.update(t, [np.mean(per_agent_rewards)], i_episode)
+            stats.print_episode(i_episode, agent.alpha, buffer_len, t, per_agent_rewards)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:

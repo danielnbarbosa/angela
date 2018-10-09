@@ -18,6 +18,7 @@ class DDPG():
     """Interacts with and learns from the environment."""
 
     def __init__(self, model, action_size, seed=0, load_file=None,
+                 n_agents=1,
                  buffer_size=int(1e5),
                  batch_size=64,
                  gamma=0.99,
@@ -37,6 +38,7 @@ class DDPG():
             action_size (int): dimension of each action
             seed (int): Random seed
             load_file (str): path of checkpoint file to load
+            n_agents (int): number of agents to train simultaneously
             buffer_size (int): replay buffer size
             batch_size (int): minibatch size
             gamma (float): discount factor
@@ -44,6 +46,7 @@ class DDPG():
             lr_actor (float): learning rate for actor
             lr_critic (float): learning rate for critic
             weight_decay (float): L2 weight decay
+            clip_critic_gradients (bool): whether to clip critic gradients
             update_every (int): how often to update the network
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
@@ -52,6 +55,7 @@ class DDPG():
         random.seed(seed)
 
         self.action_size = action_size
+        self.n_agents = n_agents
         self.buffer_size = buffer_size
         self.batch_size = batch_size
         self.gamma = gamma
@@ -88,7 +92,7 @@ class DDPG():
         #input('->')
 
         # Noise process
-        self.noise = OUNoise(action_size, seed)
+        self.noise = OUNoise((n_agents, action_size), seed)
 
         # Replay memory
         if use_prioritized_experience_replay:
@@ -107,9 +111,17 @@ class DDPG():
         # Save experience in replay memory
         if self.use_prioritized_experience_replay:
             priority = 100.0   # set initial priority to max value
-            self.memory.add(state, action, reward, next_state, done, priority)
+            if self.n_agents == 1:
+                self.memory.add(state, action, reward, next_state, done, priority)
+            else:
+                for i in range(self.n_agents):
+                    self.memory.add(state[i,:], action[i,:], reward[i], next_state[i,:], done[i], priority[i,:])
         else:
-            self.memory.add(state, action, reward, next_state, done)
+            if self.n_agents == 1:
+                self.memory.add(state, action, reward, next_state, done)
+            else:
+                for i in range(self.n_agents):
+                    self.memory.add(state[i,:], action[i,:], reward[i], next_state[i,:], done[i])
 
         # Learn every update_every time steps.
         self.t_step = (self.t_step + 1) % self.update_every
@@ -231,6 +243,8 @@ class OUNoise:
     def __init__(self, size, seed, mu=0., theta=0.15, sigma=0.2):
         """Initialize parameters and noise process."""
         random.seed(seed)
+        np.random.seed(seed)
+        self.size = size
         self.mu = mu * np.ones(size)
         self.theta = theta
         self.sigma = sigma
@@ -243,7 +257,8 @@ class OUNoise:
     def sample(self):
         """Update internal state and return it as a noise sample."""
         x = self.state
-        dx = self.theta * (self.mu - x) + self.sigma * np.array([random.random() for i in range(len(x))])
+        #dx = self.theta * (self.mu - x) + self.sigma * np.array([random.random() for i in range(len(x))])
+        dx = self.theta * (self.mu - x) + self.sigma * np.random.randn(*self.size)
         self.state = x + dx
         return self.state
 

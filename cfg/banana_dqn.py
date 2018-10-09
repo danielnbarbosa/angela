@@ -1,7 +1,3 @@
-"""
-NOTE: Download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
-"""
-
 agent_type='dqn'
 env_class='UnityMLVector'
 model_class='TwoLayer2x'

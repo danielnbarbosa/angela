@@ -1,7 +1,3 @@
-"""
-NOTE: Compile and build the Basic.app with Unity using the scene in ml-agents.
-"""
-
 agent_type='dqn'
 env_class='UnityMLVector'
 model_class='TwoLayer2x'

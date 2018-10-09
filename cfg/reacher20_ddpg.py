@@ -1,9 +1,5 @@
-"""
-NOTE: Download pre-built Unity Bannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher
-"""
-
 agent_type='ddpg'
-env_class='UnityMLVector'
+env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
 environment = {
@@ -18,9 +14,12 @@ model = {
 agent = {
     'action_size': 4,
     'update_every': 2,
+    'n_agents': 20,
+    'batch_size': 128,
 }
 
 train = {
     'n_episodes': 1000,
     'solve_score': 30.0,
+    'graph_when_done': True
 }

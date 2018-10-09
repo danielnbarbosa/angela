@@ -1,7 +1,3 @@
-"""
-NOTE: Download pre-built Unity VisualBannana.app from: https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/
-"""
-
 agent_type='pg'
 env_class='UnityMLVisual'
 model_class='Conv3D'
