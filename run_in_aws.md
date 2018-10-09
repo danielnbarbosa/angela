@@ -34,13 +34,17 @@ su - -c "conda install -y -n pytorch_p36 opencv scikit-image" ubuntu
 su - -c "source activate pytorch_p36; pip install torchsummary gym Box2D box2d-py unityagents pygame" ubuntu
 DIR="/home/ubuntu"
 
-# install ml agents toolkit
-su -c "cd $DIR/ml-agents; git pull" ubuntu
-su - -c "source activate pytorch_p36; cd $DIR/ml-agents/ml-agents; pip install ." ubuntu
-
 # install gym toolkit
 su -c "cd $DIR; git clone https://github.com/openai/gym.git" ubuntu
 su - -c "source activate pytorch_p36; cd $DIR/gym; pip install -e '.[atari]'" ubuntu
+
+# install ml agents toolkit (latest)
+su -c "cd $DIR/ml-agents; git pull" ubuntu  # stay on ml-agents 0.4
+su - -c "source activate pytorch_p36; cd $DIR/ml-agents/ml-agents; pip install ." ubuntu
+
+# install ml agents toolkit (0.4)
+#cd $DIR/ml-agents
+#su - -c "source activate pytorch_p36; cd $DIR/ml-agents/python; pip install ." ubuntu
 
 # install PLE toolkit
 su -c "cd $DIR; git clone https://github.com/ntasfi/PyGame-Learning-Environment" ubuntu
@@ -53,9 +57,14 @@ su - -c "git clone https://github.com/danielnbarbosa/angela.git" ubuntu
 # install udacity unity ml environments
 cd $DIR/angela/cfg/compiled_unity_environments
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip
-wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux.zip
+wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/Reacher_Linux.zip
+wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Linux.zip
 unzip VisualBanana_Linux.zip
 unzip Reacher_Linux.zip
-rm VisualBanana_Linux.zip Reacher_Linux.zip
-chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux
+unzip Crawler_Linux.zip
+rm VisualBanana_Linux.zip Reacher_Linux.zip Crawler_Linux.zip
+chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux Crawler_Linux
+
+# update packages
+su - -c "conda update -y -n pytorch_p36 --all" ubuntu
 ```

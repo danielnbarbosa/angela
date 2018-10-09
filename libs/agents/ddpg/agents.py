@@ -1,5 +1,5 @@
 """
-Deep Q Network agent.
+DDPG agent.
 """
 
 import random
@@ -192,6 +192,9 @@ class DDPG():
         # minimize loss
         self.critic_optimizer.zero_grad()
         critic_loss.backward()
+        # DEBUG gradients
+        #for m in self.critic_local.parameters():
+        #    print(m.grad)
         # clip gradients
         if self.clip_critic_gradients:
             torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
@@ -206,6 +209,9 @@ class DDPG():
         # minimize loss
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
+        # DEBUG gradients
+        #for m in self.actor_local.parameters():
+        #    print(m.grad)
         self.actor_optimizer.step()
 
         # ----------------------- update target networks ----------------------- #

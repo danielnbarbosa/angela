@@ -189,5 +189,5 @@ class MultiAgentDeepDeterministicPolicyGradientStats(DeepDeterministicPolicyGrad
               '   |   ⍺: {:6.4f}  Buffer: {:6}   Reward: {:8.2f}   Steps: {:6}'
               .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
                       alpha, buffer_len, self.score, steps))
-        # display rewards for each agent
-        print(' '.join('%5.2f' % agent for agent in per_agent_rewards))
+        # DEBUG rewards for each agent
+        #print(' '.join('%5.2f' % agent for agent in per_agent_rewards))

@@ -62,6 +62,9 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             stats.update(t, rewards, i_episode)
             stats.print_episode(i_episode, agent.alpha, buffer_len, t)
         else:
+            # DEBUG non zero rewards
+            #flatten = lambda l: [item for sublist in l for item in sublist if item != 0.0]
+            #print(' '.join('%5.2f' % reward for reward in flatten(rewards)))
             per_agent_rewards = []
             for i in range(agent.n_agents):
               per_agent_reward = 0
