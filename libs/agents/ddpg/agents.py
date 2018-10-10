@@ -82,6 +82,10 @@ class DDPG():
             self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth'))
             self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth'))
             self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth'))
+            #self.actor_local.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
+            #self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
+            #self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
+            #self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
             print('Loaded: {}'.format(load_file))
 
         # DEBUG weight initialization
