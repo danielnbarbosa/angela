@@ -14,7 +14,6 @@ model = {
 agent = {
     'action_size': 4,
     'update_every': 2,
-    'buffer_size': int(1e5),
 }
 
 train = {
