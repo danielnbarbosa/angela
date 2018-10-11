@@ -23,22 +23,22 @@ Everything is written in python3 and pytorch.
 
 #### Environments
  - [**Open AI Gym**](https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | [Cartpole](results/videos/cartpole.gif) | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
- - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | VisualBanana
+ - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): [Banana](results/videos/banana.gif) | Basic | Crawler | [Reacher](results/videos/reacher.gif) | VisualBanana
  - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
 
 #### Agents
- - dqn: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
- - hc: Hill Climbing with adaptive noise, steepest ascent and simulated annealing
- - pg: Vanilla Policy Gradient (REINFORCE)
- - ppo: Proximal Policy Optimization
- - ddpg: Deep Deterministic Policy Gradient
+ - **dqn**: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
+ - **hc**: Hill Climbing with adaptive noise, steepest ascent and simulated annealing
+ - **pg**: Vanilla Policy Gradient (REINFORCE)
+ - **ppo**: Proximal Policy Optimization
+ - **ddpg**: Deep Deterministic Policy Gradient
 
 #### Models
- - dqn: multi-layer perceptron, dueling networks, CNN
- - hc: single-layer perceptron
- - pg: multi-layer perceptron, CNN
- - ppo: multi-layer perceptron, CNN
- - ddpg: low dimensional state spaces
+ - **dqn**: multi-layer perceptron, dueling networks, CNN
+ - **hc**: single-layer perceptron
+ - **pg**: multi-layer perceptron, CNN
+ - **ppo**: multi-layer perceptron, CNN
+ - **ddpg**: low dimensional state spaces
 
 #### Misc
 - supports discrete state spaces using one-hot encoding (e.g. FrozenLake)
