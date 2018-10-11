@@ -22,8 +22,8 @@ Everything is written in python3 and pytorch.
 ## Features
 
 #### Environments
- - [Open AI Gym](https://gym.openai.com/): Acrobot | Cartpole | FrozenLake | FrozenLake8x8 | LunarLander | MountainCar | Pendulum | Pong
- - [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | Banana | VisualBanana
+ - [Open AI Gym](https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | Cartpole | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | MountainCar | Pendulum | Pong
+ - [Unity ML](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | Banana | Crawler | Reacher | VisualBanana
  - [PyGame Learning Environment](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): FlappyBird
 
 #### Agents
