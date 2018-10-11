@@ -15,11 +15,12 @@ agent = {
     'action_size': 4,
     'update_every': 2,
     'batch_size': 128,
+    'gamma': 0.98,
     'inference_only': True
 }
 
 train = {
     'n_episodes': 10000,
-    'max_t': 1000,
+    'max_t': 70,
     'solve_score': 300.0
 }
