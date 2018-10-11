@@ -22,9 +22,9 @@ Everything is written in python3 and pytorch.
 ## Features
 
 #### Environments
- - **[Open AI Gym]**(https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | Cartpole | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | MountainCar | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
- - **[Unity ML]**(https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | VisualBanana
- - **[PyGame Learning Environment]**(https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
+ - [**Open AI Gym**](https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | [Cartpole](results/videos/cartpole.gif) | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
+ - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): Basic | [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | VisualBanana
+ - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
 
 #### Agents
  - dqn: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
