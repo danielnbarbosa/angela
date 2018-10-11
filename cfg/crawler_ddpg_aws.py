@@ -9,16 +9,19 @@ environment = {
 model = {
     'state_size': 129,
     'action_size': 20,
+    'fc1_units': 400,
+    'fc2_units': 300
 }
 
 agent = {
     'action_size': 20,
-    'update_every': 2,
+    'update_every': 1,
     'n_agents': 12,
-    'batch_size': 128,
+    'batch_size': 256,
+    'buffer_size': int(2e5),
 }
 
 train = {
-    'n_episodes': 1000000,
+    'n_episodes': 100000,
     'solve_score': 2000.0,
 }

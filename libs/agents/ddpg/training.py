@@ -71,12 +71,16 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             #print(' '.join('%5.2f' % reward for reward in flatten(rewards)))
             per_agent_rewards = []
             for i in range(agent.n_agents):
-              per_agent_reward = 0
-              for step in rewards:
-                per_agent_reward += step[i]
-              per_agent_rewards.append(per_agent_reward)
+                per_agent_reward = 0
+                for step in rewards:
+                    per_agent_reward += step[i]
+                per_agent_rewards.append(per_agent_reward)
             stats.update(t, [np.mean(per_agent_rewards)], i_episode)
             stats.print_episode(i_episode, agent.alpha, buffer_len, t, per_agent_rewards)
+            # TODO remove this when done with Crawler
+            save_name = 'checkpoints/last_run/episode.{}'.format(i_episode)
+            torch.save(agent.actor_local.state_dict(), save_name + '.actor.pth')
+            torch.save(agent.critic_local.state_dict(), save_name + '.critic.pth')
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
