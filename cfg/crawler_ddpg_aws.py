@@ -17,11 +17,12 @@ agent = {
     'action_size': 20,
     'update_every': 1,
     'n_agents': 12,
-    'batch_size': 256,
-    'buffer_size': int(2e5),
+    'batch_size': 64,
+    'buffer_size': int(1e5),
 }
 
 train = {
     'n_episodes': 100000,
+    'max_t': 40,
     'solve_score': 2000.0,
 }
