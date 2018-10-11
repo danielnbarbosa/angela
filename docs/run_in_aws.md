@@ -55,7 +55,7 @@ cd $DIR
 su - -c "git clone https://github.com/danielnbarbosa/angela.git" ubuntu
 
 # install udacity unity ml environments
-cd $DIR/angela/cfg/compiled_unity_environments
+cd $DIR/angela/compiled_unity_environments
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/Reacher_Linux.zip
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Linux.zip

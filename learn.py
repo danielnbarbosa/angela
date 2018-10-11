@@ -4,7 +4,7 @@ from libs.environments import gym, unity, ple
 import importlib
 import argparse
 import sys
-sys.path.append('cfg')
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--cfg", help="hyperparameter config file", type=str)
@@ -13,6 +13,8 @@ parser.add_argument("--load", help="path to saved model", type=str, default=None
 args = parser.parse_args()
 
 # load config from file
+# assume path is cfg/<env>/<env>_<agent type>.  e.g. 'cfg/cartpole/cartpole_dqn'
+sys.path.append('cfg/' + args.cfg.split('_')[0])
 cfg = importlib.import_module(args.cfg)
 
 # create environment

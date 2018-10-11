@@ -3,7 +3,7 @@ env_class='UnityMLVector'
 model_class='SingleLayerPerceptron'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Banana.app'
+    'name': 'compiled_unity_environments/Banana.app'
 }
 
 model = {

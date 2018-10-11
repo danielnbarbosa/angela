@@ -1,9 +1,9 @@
 agent_type='ddpg'
-env_class='UnityMLVector'
+env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Reacher.app'
+    'name': 'compiled_unity_environments/Reacher_Linux/Reacher.x86_64'
 }
 
 model = {
@@ -14,10 +14,11 @@ model = {
 agent = {
     'action_size': 4,
     'update_every': 2,
+    'n_agents': 20,
+    'batch_size': 128,
 }
 
 train = {
-    'n_episodes': 2000,
+    'n_episodes': 1000,
     'solve_score': 30.0,
-    'graph_when_done': True
 }

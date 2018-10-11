@@ -51,7 +51,7 @@ Everything is written in python3 and pytorch.
 
 
 ## Installation
-The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](run_in_aws.md).
+The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](docs/run_in_aws.md).
 
 
 #### Pre-requisites
@@ -112,8 +112,11 @@ To render an agent:
 The directory tree structure is as follows:
  - `cfg`: Configuration files with saved hyperparameters.
  - `checkpoints`: Saved model weights.
+ - `compiled_unity_environments`: Pre-compiled unity environments for use with ML Agents.
+ - `docs`: Auxiliary documentation.
  - `libs`: Shared libraries.  Code for agents, environments and various utility functions.
  - `results`: Current best training results for each environment.
+ - `scripts`: Helper scripts.
 
 
 ## Acknowledgements

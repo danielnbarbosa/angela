@@ -3,7 +3,7 @@ env_class='UnityMLVector'
 model_class='LowDim2x'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Reacher_Linux/Reacher.x86_64'
+    'name': 'compiled_unity_environments/Reacher_Linux/Reacher.x86_64'
 }
 
 model = {

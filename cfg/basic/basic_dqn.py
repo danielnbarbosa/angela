@@ -3,7 +3,7 @@ env_class='UnityMLVector'
 model_class='TwoLayer2x'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Basic.app'
+    'name': 'compiled_unity_environments/Basic.app'
 }
 
 model = {

@@ -6,6 +6,7 @@
 IP=$1
 DIR=$2
 
+cd ..
 mkdir -p checkpoints/$DIR
 scp ubuntu@$IP:angela/checkpoints/last_run/* checkpoints/$DIR/
 rm checkpoints/$DIR/README.md

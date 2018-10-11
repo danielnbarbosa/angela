@@ -3,7 +3,7 @@ env_class='UnityMLVisual'
 model_class='Conv3D'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/VisualBanana.app'
+    'name': 'compiled_unity_environments/VisualBanana.app'
 }
 
 model = {

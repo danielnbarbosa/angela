@@ -10,6 +10,7 @@ CFGS='cartpole_dqn cartpole_hc cartpole_pg
       lunarlander_dqn lunarlander_hc lunarlander_pg
       basic_dqn'
 
+cd ..
 for cfg in $CFGS
 do
   echo ''

@@ -3,7 +3,7 @@ env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Reacher20.app',
+    'name': 'compiled_unity_environments/Reacher20.app',
 }
 
 model = {

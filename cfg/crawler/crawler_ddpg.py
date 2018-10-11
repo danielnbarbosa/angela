@@ -3,7 +3,7 @@ env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
 environment = {
-    'name': 'cfg/compiled_unity_environments/Crawler.app',
+    'name': 'compiled_unity_environments/Crawler.app',
 }
 
 model = {
