@@ -57,7 +57,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             #input('->')
             if agent.n_agents == 1 and done:
                 break
-            if agent.n_agents > 1 and any(done):
+            if agent.n_agents > 1 and any(done) and agent.inference_only == False:
                 break
 
         # every episode

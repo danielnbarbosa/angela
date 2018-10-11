@@ -15,10 +15,11 @@ model = {
 
 agent = {
     'action_size': 20,
-    'update_every': 1000000,
+    'update_every': 1,
     'n_agents': 12,
     'batch_size': 64,
     'buffer_size': int(1e5),
+    'inference_only': True
 }
 
 train = {
