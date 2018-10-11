@@ -44,7 +44,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             if render:  # optionally render agent
                 environment.render()
             # select an action
-            action = agent.act(state)
+            if agent.inference_only == False:
+                action = agent.act(state)
+            else:
+                action = agent.act(state, add_noise=False)
             # take action in environment
             next_state, reward, done = environment.step(action)
             # update agent with returned information
@@ -57,7 +60,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             #input('->')
             if agent.n_agents == 1 and done:
                 break
-            if agent.n_agents > 1 and any(done) and agent.inference_only == False:
+            if agent.n_agents > 1 and all(done):
                 break
 
         # every episode

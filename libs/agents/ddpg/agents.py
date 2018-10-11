@@ -52,7 +52,7 @@ class DDPG():
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
             alpha_decay (float): decay rate for alpha, used in PER
-            inference_only (bool): set to True to disable training
+            inference_only (bool): set to True to disable updating gradients and adding noise
         """
         random.seed(seed)
 
