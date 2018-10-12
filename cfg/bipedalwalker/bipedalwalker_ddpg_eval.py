@@ -13,7 +13,7 @@ model = {
 
 agent = {
     'action_size': 4,
-    'inference_only': True
+    'evaluation_only': True
 }
 
 train = {

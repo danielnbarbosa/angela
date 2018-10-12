@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Sync weights from AWS and run inference on them.
-# Example: ./inference.sh 54.161.76.124 bipedalwalker_ddpg bipedalwalker_ddpg_inference episode.1000
-# Useful for training an agent on AWS and visualzing it locally
+# Sync weights from AWS and run evaluation on them.
+# Example: ./evaluate.sh 54.161.76.124 bipedalwalker_ddpg bipedalwalker_ddpg_evaluation episode.1000
+# Useful for training an agent on AWS and evaluating it locally
 
 IP=$1
 LOCAL_DIR=$2

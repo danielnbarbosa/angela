@@ -685,7 +685,7 @@ Episode 66400   Avg:    32.09   BestAvg:    32.88   σ:     1.69   |   ⍺: 0.50
 Episode 66500   Avg:    32.26   BestAvg:    32.88   σ:     1.58   |   ⍺: 0.5000  Buffer: 100000   |   Steps:  2593500  Secs:  31863
 ```
 
-#### DDPG Inference
+#### DDPG Evaluation
 ```
 Using saved weights: episode.58600
 Episode    10   Avg:   721.88   BestAvg:     -inf   σ:    36.65   |   ⍺: 0.5000  Buffer:  60000   Reward:   784.15   Steps:    499

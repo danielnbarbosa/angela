@@ -17,7 +17,7 @@ agent = {
     'action_size': 20,
     'update_every': 1,
     'n_agents': 12,
-    'inference_only': True
+    'evaluation_only': True
 }
 
 train = {

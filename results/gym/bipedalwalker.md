@@ -4,8 +4,8 @@
 - max_t of 70 allowed enough time for both
 - only episode.6400 weights were successful, others in the vicinity failed
 - not sure how important update_every, batch_size and gamma settings are.  didn't do much tuning
-- having a different config for inference vs training was key
-- disabling noise (as well as gradient updates) also key to good performance during inference
+- having a different config for evaluation vs training was key
+- disabling noise (as well as gradient updates) also key to good performance during evaluation
 
 
 #### DDPG Training
@@ -82,7 +82,7 @@ Episode  6900   Avg:     4.69   BestAvg:     7.01   σ:    19.49   |   ⍺: 0.50
 Episode  7000   Avg:     3.76   BestAvg:     7.01   σ:    22.59   |   ⍺: 0.5000  Buffer: 100000   |   Steps:   474623  Secs:   2086
 ```
 
-#### DDPG Inference
+#### DDPG Evaluation
 ```
 Using saved weights: episode.6400
 Episode    10   Avg:   293.57   BestAvg:     -inf   σ:     1.05   |   ⍺: 0.5000  Buffer:   9249   Reward:   293.49   Steps:    929

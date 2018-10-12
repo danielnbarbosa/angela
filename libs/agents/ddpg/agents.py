@@ -31,7 +31,7 @@ class DDPG():
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
                  alpha_decay=0.9992,
-                 inference_only=False):
+                 evaluation_only=False):
         """
         Params
         ======
@@ -52,7 +52,7 @@ class DDPG():
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
             alpha_decay (float): decay rate for alpha, used in PER
-            inference_only (bool): set to True to disable updating gradients and adding noise
+            evaluation_only (bool): set to True to disable updating gradients and adding noise
         """
         random.seed(seed)
 
@@ -67,7 +67,7 @@ class DDPG():
         self.update_every = update_every
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
         self.clip_critic_gradients = clip_critic_gradients
-        self.inference_only = inference_only
+        self.evaluation_only = evaluation_only
 
         self.loss_list = []       # track loss across steps
 
@@ -135,7 +135,7 @@ class DDPG():
 
         # Learn every update_every time steps.
         self.t_step = (self.t_step + 1) % self.update_every
-        if self.t_step == 0 and self.inference_only == False:
+        if self.t_step == 0 and self.evaluation_only == False:
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > self.batch_size:
                 # if prioritized experience replay is enabled
