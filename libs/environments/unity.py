@@ -6,6 +6,7 @@ import numpy as np
 from unityagents import UnityEnvironment
 from libs.visualize import show_frames_2d, show_frames_3d, show_frame
 
+
 class UnityML():
     """Base class for Unity ML environments."""
 
@@ -14,6 +15,20 @@ class UnityML():
         print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
+
+    def reset(self):
+        """Reset the environment."""
+        info = self.env.reset(train_mode=True)[self.brain_name]
+        state = info.vector_observations
+        return state
+
+    def step(self, action):
+        """Take a step in the environment."""
+        info = self.env.step(action)[self.brain_name]
+        state = info.vector_observations
+        reward = info.rewards
+        done = info.local_done
+        return state, reward, done
 
     def render(self):
         """
@@ -31,38 +46,21 @@ class UnityMLVector(UnityML):
 
     def reset(self):
         """Reset the environment."""
-        info = self.env.reset(train_mode=True)[self.brain_name]
-        state = info.vector_observations[0]
-        return state
+        state = super(UnityMLVector, self).reset()
+        return state[0]
 
     def step(self, action):
         """Take a step in the environment."""
-        info = self.env.step(action)[self.brain_name]
-        state = info.vector_observations[0]
-        reward = info.rewards[0]
-        done = info.local_done[0]
-        return state, reward, done
+        state, reward, done = super(UnityMLVector, self).step(action)
+        return state[0], reward[0], done[0]
 
 
 class UnityMLVectorMultiAgent(UnityML):
     """
     Multi-agent UnityML environment with vector observations.
     state is 2-D numpy array.  reward and done are lists.
+    Currently empty as is identical to base class.
     """
-
-    def reset(self):
-        """Reset the environment."""
-        info = self.env.reset(train_mode=True)[self.brain_name]
-        state = info.vector_observations
-        return state
-
-    def step(self, action):
-        """Take a step in the environment."""
-        info = self.env.step(action)[self.brain_name]
-        state = info.vector_observations
-        reward = info.rewards
-        done = info.local_done
-        return state, reward, done
 
 
 class UnityMLVisual(UnityML):
