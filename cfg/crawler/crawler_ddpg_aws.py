@@ -22,7 +22,7 @@ agent = {
 }
 
 train = {
-    'n_episodes': 100000,
-    'max_t': 40,
+    'n_episodes': 1000000,
+    'max_t': 70,
     'solve_score': 2000.0,
 }

@@ -38,6 +38,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 
     for i_episode in range(1, n_episodes+1):
         rewards = []
+        alive_agents = [True] * 12  # list of agents that are still alive (not done)
         state = environment.reset()
         # loop over steps
         for t in range(max_t):
@@ -50,17 +51,27 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
                 action = agent.act(state)
             # take action in environment
             next_state, reward, done = environment.step(action)
+
+            # set rewards to 0 for agents that are done
+            for i, a in enumerate(alive_agents):
+                reward[i] = reward[i] * a
+            if True in done:
+                indices = [i for i, d in enumerate(done) if d == True]
+                for i in indices:
+                    alive_agents[i] = False
+
             # update agent with returned information
             agent.step(state, action, reward, next_state, done)
             state = next_state
             rewards.append(reward)
             # DEBUG rewards and dones per step
+            #print(alive_agents)
             #print(reward)
             #print(done)
             #input('->')
             if agent.n_agents == 1 and done:
                 break
-            if agent.n_agents > 1 and all(done):
+            if agent.n_agents > 1 and not any(alive_agents):
                 break
 
         # every episode
