@@ -44,10 +44,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             if render:  # optionally render agent
                 environment.render()
             # select an action
-            if agent.inference_only == False:
-                action = agent.act(state)
-            else:
+            if agent.inference_only:  # disable noise on inference
                 action = agent.act(state, add_noise=False)
+            else:
+                action = agent.act(state)
             # take action in environment
             next_state, reward, done = environment.step(action)
             # update agent with returned information
