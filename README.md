@@ -7,16 +7,18 @@
 ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝
 ```
 
-ANGELA: Artificial Neural Game Environment Learning Agent
+ANGELA: Artificial Neural Generated Environment Learning Agent
 
 
 ## Introduction
 
-Angela is a sandbox for experimenting with reinforcement learning.  It provides a modular way to mix and match various environments, agents and models.  It's great for prototyping and getting an agent training quickly without having to re-write a lot of boilerplate.
+Angela is a reinforcement learning agent capable of solving a variety environments.  She implements several different RL algorithms (agents) and neural network models.
 
-It comes with a variety of built in environments, agents and models but should be fairly straightforward to expand.
+She can work with both discrete and continuous action spaces allowing her to tackle anything from Atari games to robotic control problems.
 
-Everything is written in python3 and pytorch.
+She is coded in python3 and pytorch and is getting smarter every day :).
+
+Basically I use Angela as a modular way to test out different RL algorithms in a variety of environments.  It's great for prototyping and getting an agent training quickly without having to re-write a lot of boilerplate.
 
 
 ## Features
