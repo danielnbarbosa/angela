@@ -40,7 +40,7 @@ class UnityML():
 
 class UnityMLVector(UnityML):
     """
-    UnityML environment with vector observations.
+    UnityML environment with vector observations and single agent.
     state is 1-D numpy array.  reward and done are scalars.
     """
 
@@ -57,7 +57,7 @@ class UnityMLVector(UnityML):
 
 class UnityMLVectorMultiAgent(UnityML):
     """
-    Multi-agent UnityML environment with vector observations.
+    UnityML environment with vector observations and multiple agents.
     state is 2-D numpy array.  reward and done are lists.
     Currently empty as is identical to base class.
     """
