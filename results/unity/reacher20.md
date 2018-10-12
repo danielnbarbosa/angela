@@ -1,3 +1,13 @@
+#### Notes
+- able to train in about 1 hour on laptop
+- using a normal distribution (vs uniform) when adding randomness to the Ornstein-Uhlenbeck process helped immensely
+- l2 weight_decay of the critic set to 0.0001 vs 0.01 in the paper helped
+- batch size of 128 vs 64 helped
+- updating gradients every 2 steps reduced wall time but increased episodes to solve
+- elu instead of relu for activation functions did not help
+- increasing buffer_size did not help
+
+
 #### DDPG
 ```
 Episode     1   Avg:     0.66   BestAvg:     -inf   σ:     0.00   |   ⍺: 0.5000  Buffer:  20000   Reward:     0.66   Steps:    999

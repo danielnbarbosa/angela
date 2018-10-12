@@ -1,3 +1,13 @@
+#### Notes
+- training on AWS 5x faster then laptop
+- max_t of 30 only allowed enough time for one leg motion
+- max_t of 70 allowed enough time for both
+- only episode.6400 weights were successful, others in the vicinity failed
+- not sure how important update_every, batch_size and gamma settings are.  didn't do much tuning
+- having a different config for inference vs training was key
+- disabling noise (as well as gradient updates) also key to good performance during inference
+
+
 #### DDPG Training
 ```
 Episode   100   Avg:   -54.58   BestAvg:     -inf   σ:    52.06   |   ⍺: 0.5000  Buffer:   6111   |   Steps:     6011  Secs:     25

@@ -38,7 +38,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
 
     for i_episode in range(1, n_episodes+1):
         rewards = []
-        alive_agents = [True] * 12  # list of agents that are still alive (not done)
+        alive_agents = [True] * agent.n_agents  # list of agents that are still alive (not done)
         state = environment.reset()
         # loop over steps
         for t in range(max_t):

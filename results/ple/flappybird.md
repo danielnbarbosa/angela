@@ -1,7 +1,7 @@
-#### DQN
-
-
-#### HC
+#### Notes
+- success with pipe_gap = 150
+- no success with pipe_gap = 100
+- learnings from a larger pipe_gap to not transfer to a smaller pipe_gap
 
 
 #### PG

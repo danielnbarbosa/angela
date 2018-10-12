@@ -1,3 +1,9 @@
+#### Notes
+- neither double DQN nor dueling network improved performance
+- fast epsilon decay rate of 0.97 and a lower bound on epsilon of 0.001 both helped
+- tested network sizes of 16x16, 32x32, 64x64, 32x16, 64x32 and 32x32 worked best
+
+
 #### DQN
 ```
 Episode   100   Avg:     2.63   BestAvg:     -inf   σ:     3.37   |   ε: 0.0476  ⍺: 0.5000  Buffer:  30000   |   Steps:    29900  Secs:     93
@@ -31,5 +37,3 @@ Episode  1800   Avg:     8.44   BestAvg:     8.54   σ:     2.48   |   Best:    
 Episode  1900   Avg:     8.15   BestAvg:     8.54   σ:     2.69   |   Best:    16.00   Noise: 2.0000   |   Steps:   570000  Secs:   9057
 Episode  2000   Avg:     7.93   BestAvg:     8.54   σ:     2.16   |   Best:    16.00   Noise: 2.0000   |   Steps:   600000  Secs:   9551
 ```
-
-#### PG

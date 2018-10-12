@@ -1,9 +1,3 @@
-#### DQN
-
-
-#### HC
-
-
 #### PG
 ```
 Episode   100   Avg:  -20.24   BestAvg:    -inf   σ:    0.91   |   Steps:   126138  Secs:    345
