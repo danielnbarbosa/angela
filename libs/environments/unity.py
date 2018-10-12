@@ -6,15 +6,28 @@ import numpy as np
 from unityagents import UnityEnvironment
 from libs.visualize import show_frames_2d, show_frames_3d, show_frame
 
-
-class UnityMLVector():
-    """UnityML environment with vector observations."""
+class UnityML():
+    """Base class for Unity ML environments."""
 
     def __init__(self, name, seed=0):
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
         self.brain_name = self.env.brain_names[0]
+
+    def render(self):
+        """
+        Render the environment to visualize the agent interacting.
+        Does nothing because rendering is always on as is required by linux environments.
+        """
+        pass
+
+
+class UnityMLVector(UnityML):
+    """
+    UnityML environment with vector observations.
+    state is 1-D numpy array.  reward and done are scalars.
+    """
 
     def reset(self):
         """Reset the environment."""
@@ -30,16 +43,12 @@ class UnityMLVector():
         done = info.local_done[0]
         return state, reward, done
 
-    def render(self):
-        """
-        Render the environment to visualize the agent interacting.
-        Does nothing because rendering is always on as is required by linux environments.
-        """
-        pass
 
-
-class UnityMLVectorMultiAgent(UnityMLVector):
-    """Multi-agent UnityML environment with vector observations."""
+class UnityMLVectorMultiAgent(UnityML):
+    """
+    Multi-agent UnityML environment with vector observations.
+    state is 2-D numpy array.  reward and done are lists.
+    """
 
     def reset(self):
         """Reset the environment."""
@@ -56,7 +65,7 @@ class UnityMLVectorMultiAgent(UnityMLVector):
         return state, reward, done
 
 
-class UnityMLVisual(UnityMLVector):
+class UnityMLVisual(UnityML):
     """
     UnityML environment with visual observations.
     Takes 84x84 RGB frames output from visual observations and stacks 4 into a state.

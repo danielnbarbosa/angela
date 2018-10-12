@@ -53,12 +53,14 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             next_state, reward, done = environment.step(action)
 
             # set rewards to 0 for agents that are done
-            for i, a in enumerate(alive_agents):
-                reward[i] = reward[i] * a
-            if True in done:
-                indices = [i for i, d in enumerate(done) if d == True]
-                for i in indices:
-                    alive_agents[i] = False
+            # needed to handle multi-agent Crawler environment correctly
+            if agent.n_agents > 1:
+                for i, a in enumerate(alive_agents):
+                    reward[i] = reward[i] * a
+                if True in done:
+                    indices = [i for i, d in enumerate(done) if d == True]
+                    for i in indices:
+                        alive_agents[i] = False
 
             # update agent with returned information
             agent.step(state, action, reward, next_state, done)
