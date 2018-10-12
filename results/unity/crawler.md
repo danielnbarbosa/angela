@@ -1,3 +1,21 @@
+#### Notes
+- can't set max_t too high or else it triggers nans due to bug in environment reward function
+- done triggered by agent hitting head on floor
+- agents continue to gather reward after entering done state unless handled properly, currently setting rewards to 0 after done
+- helpful to separate training from evaluation
+- ideally agent would be able to learn a stable gait with a low max_t while training, then this gait will be repeated evaluating
+- however during evaluation agent frequently flips itself upside down and gets stuck, a state it doesn't see during training with low max_t
+- sometimes does better during evaluation with noise on
+- solve criteria is a score of 2000 when max_t is 1000
+- you get ~ +50 just for sitting still, perhaps facing the target?
+- helpful too see what agent is doing during training to get a feel for how it's getting stuck
+- max_t of 200 triggers nan.  max_t of 70 does not.
+
+#### Ideas
+- add -100 reward on done.  current reward on done is -1.  easily drowned out by large positive rewards.
+- adjust learning rate to handle high rewards better.
+- tweak standard deviation of noise.
+
 #### DDPG Training
 ```
 Episode   100   Avg:     1.06   BestAvg:     -inf   σ:     0.51   |   ⍺: 0.5000  Buffer:  48000   |   Steps:     3900  Secs:     48
