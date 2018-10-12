@@ -31,7 +31,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
     random.seed(seed)
-    stats = libs.statistics.PolicyGradientStats()
+    stats = libs.statistics.Stats()
+    stats_format = ''
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -61,17 +62,17 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         # every episode
         agent.learn(rewards, saved_log_probs, gamma)
         stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, t)
+        stats.print_episode(i_episode, t, stats_format)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode)
+            stats.print_epoch(i_episode, stats_format)
             save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.model.state_dict(), save_name)
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode)
+            stats.print_solve(i_episode, stats_format)
             torch.save(agent.model.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 

@@ -31,7 +31,8 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
 
-    stats = libs.statistics.DeepQNetworkStats()
+    stats = libs.statistics.DQNStats()
+    stats_format = 'ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}'
     eps = eps_start                     # initialize epsilon
 
     # remove checkpoints from prior run
@@ -63,17 +64,17 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         eps = max(eps_end, eps_decay*eps)  # decrease epsilon
         buffer_len = len(agent.memory)
         stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, eps, agent.alpha, buffer_len, t)
+        stats.print_episode(i_episode, t, stats_format, eps, agent.alpha, buffer_len)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, eps, agent.alpha, buffer_len)
+            stats.print_epoch(i_episode, stats_format, eps, agent.alpha, buffer_len)
             save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.qnetwork_local.state_dict(), save_name)
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, eps, agent.alpha, buffer_len)
+            stats.print_solve(i_episode, stats_format, eps, agent.alpha, buffer_len)
             torch.save(agent.qnetwork_local.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 

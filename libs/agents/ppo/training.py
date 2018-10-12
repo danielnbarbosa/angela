@@ -39,7 +39,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
     random.seed(seed)
-    stats = libs.statistics.ProximalPolicyOptimizationStats()
+    stats = libs.statistics.Stats()
+    stats_format = 'ε: {:6.4}   β:   {:6.4}'
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -85,19 +86,19 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         rewards = flatten(rewards_lists)
         rewards = [r/sample_epoch for r in rewards]
         stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, epsilon, beta, t)
+        stats.print_episode(i_episode, t, stats_format, epsilon, beta)
         epsilon *= 0.999  # decay the clipping parameter
         beta *= 0.995  # decay the entropy, this reduces exploration in later runs
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, epsilon, beta)
+            stats.print_epoch(i_episode, stats_format, epsilon, beta)
             save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
             torch.save(agent.model.state_dict(), save_name)
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, epsilon, beta)
+            stats.print_solve(i_episode, stats_format, epsilon, beta)
             torch.save(agent.model.state_dict(), 'checkpoints/last_run/solved.pth')
             break
 

@@ -27,9 +27,10 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
     """
 
     if agent.n_agents == 1:
-        stats = libs.statistics.DeepDeterministicPolicyGradientStats()
+        stats = libs.statistics.DDPGStats()
     else:
-        stats = libs.statistics.MultiAgentDeepDeterministicPolicyGradientStats()
+        stats = libs.statistics.MultiAgentDDPGStats()
+    stats_format = '⍺: {:6.4f}  Buffer: {:6}'
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pth')
@@ -80,7 +81,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         buffer_len = len(agent.memory)
         if agent.n_agents == 1:
             stats.update(t, rewards, i_episode)
-            stats.print_episode(i_episode, agent.alpha, buffer_len, t)
+            stats.print_episode(i_episode, t, stats_format, agent.alpha, buffer_len)
         else:
             # DEBUG non zero rewards
             #flatten = lambda l: [item for sublist in l for item in sublist if item != 0.0]
@@ -92,18 +93,18 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
                     per_agent_reward += step[i]
                 per_agent_rewards.append(per_agent_reward)
             stats.update(t, [np.mean(per_agent_rewards)], i_episode)
-            stats.print_episode(i_episode, agent.alpha, buffer_len, t, per_agent_rewards)
+            stats.print_episode(i_episode, t, stats_format, agent.alpha, buffer_len, per_agent_rewards)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, agent.alpha, buffer_len)
+            stats.print_epoch(i_episode, stats_format, agent.alpha, buffer_len)
             save_name = 'checkpoints/last_run/episode.{}'.format(i_episode)
             torch.save(agent.actor_local.state_dict(), save_name + '.actor.pth')
             torch.save(agent.critic_local.state_dict(), save_name + '.critic.pth')
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, agent.alpha, buffer_len)
+            stats.print_solve(i_episode, stats_format, agent.alpha, buffer_len)
             torch.save(agent.actor_local.state_dict(), 'checkpoints/last_run/solved.actor.pth')
             torch.save(agent.critic_local.state_dict(), 'checkpoints/last_run/solved.critic.pth')
             break

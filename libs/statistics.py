@@ -6,6 +6,7 @@ from libs.visualize import sub_plot
 
 
 class Stats():
+    """Base class for statistics.  Outputs to console and generates graphs."""
 
     def __init__(self):
         self.score = None
@@ -33,27 +34,28 @@ class Stats():
     def is_solved(self, i_episode, solve_score):
         return self.avg_score >= solve_score and i_episode >= 100
 
+    def print_episode(self, i_episode, steps, stats_format, *args):
+        common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Reward: {:8.2f}  |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, steps, self.score)
+        print('\r', common_stats, stats_format.format(*args), end="")
 
-
-class DeepQNetworkStats(Stats):
-    def print_episode(self, i_episode, epsilon, alpha, buffer_len, steps):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      epsilon, alpha, buffer_len, self.score, steps), end="")
-
-    def print_epoch(self, i_episode, epsilon, alpha, buffer_len):
+    def print_epoch(self, i_episode, stats_format, *args):
         n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ε: {:6.4f}  ⍺: {:6.4f}  Buffer: {:6}'
-              '   |   Steps: {:8}  Secs: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      epsilon, alpha, buffer_len,
-                      self.total_steps, n_secs))
+        common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Secs: {:6}      |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, self.total_steps, n_secs)
+        print('\r', common_stats, stats_format.format(*args))
 
-    def print_solve(self, i_episode, epsilon, alpha, buffer_len):
-        self.print_epoch(i_episode, epsilon, alpha, buffer_len)
+    def print_solve(self, i_episode, stats_format, *args):
+        self.print_epoch(i_episode, stats_format, *args)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
+
+    def plot(self):
+        plt.figure(1)
+        sub_plot(211, self.scores, y_label='Score')
+        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
+        plt.show()
+
+
+class DQNStats(Stats):
+    """DQN specific graphs."""
 
     def plot(self, loss_list, entropy_list):
         window_size = len(loss_list) // 100 # window size is 1% of total steps
@@ -72,103 +74,8 @@ class DeepQNetworkStats(Stats):
         plt.show()
 
 
-class HillClimbingStats(Stats):
-    def print_episode(self, i_episode, pop_best_return, max_best_return, noise_scale, steps):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Best: {:8.2f}   Noise: {:6.4f}   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      max_best_return, noise_scale, pop_best_return, steps), end="")
-
-    def print_epoch(self, i_episode, max_best_return, noise_scale):
-        n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Best: {:8.2f}   Noise: {:6.4f}'
-              '   |   Steps: {:8}  Secs: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      max_best_return, noise_scale,
-                      self.total_steps, n_secs))
-
-    def print_solve(self, i_episode, max_best_return, noise_scale):
-        self.print_epoch(i_episode, max_best_return, noise_scale)
-        print('\nSolved in {:d} episodes!'.format(i_episode-100))
-
-    def plot(self):
-        plt.figure(1)
-        sub_plot(211, self.scores, y_label='Score')
-        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
-        plt.show()
-
-
-class PolicyGradientStats(Stats):
-    def print_episode(self, i_episode, steps):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score,
-                      self.std_dev, self.score, steps), end="")
-
-    def print_epoch(self, i_episode):
-        n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   Steps: {:8}  Secs: {:6}     '
-              .format(i_episode, self.avg_score, self.best_avg_score,
-                      self.std_dev,
-                      self.total_steps, n_secs))
-
-    def print_solve(self, i_episode):
-        self.print_epoch(i_episode)
-        print('\nSolved in {:d} episodes!'.format(i_episode-100))
-
-    def plot(self):
-        plt.figure(1)
-        sub_plot(211, self.scores, y_label='Score')
-        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
-        plt.show()
-
-
-class ProximalPolicyOptimizationStats(Stats):
-    def print_episode(self, i_episode, epsilon, beta, steps):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ε: {:6.4}   β:   {:6.4}   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score,
-                      self.std_dev, epsilon, beta, self.score, steps), end="")
-
-    def print_epoch(self, i_episode, epsilon, beta):
-        n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ε: {:6.4}   β:   {:6.4}   Steps: {:8}  Secs: {:6}     '
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      epsilon, beta, self.total_steps, n_secs))
-
-    def print_solve(self, i_episode, epsilon, beta):
-        self.print_epoch(i_episode, epsilon, beta)
-        print('\nSolved in {:d} episodes!'.format(i_episode-100))
-
-    def plot(self):
-        plt.figure(1)
-        sub_plot(211, self.scores, y_label='Score')
-        sub_plot(212, self.avg_scores, y_label='Avg Score', x_label='Episodes')
-        plt.show()
-
-
-class DeepDeterministicPolicyGradientStats(Stats):
-    def print_episode(self, i_episode, alpha, buffer_len, steps):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ⍺: {:6.4f}  Buffer: {:6}   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      alpha, buffer_len, self.score, steps), end="")
-
-    def print_epoch(self, i_episode, alpha, buffer_len):
-        n_secs = int(time.time() - self.time_start)
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ⍺: {:6.4f}  Buffer: {:6}'
-              '   |   Steps: {:8}  Secs: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      alpha, buffer_len,
-                      self.total_steps, n_secs))
-
-    def print_solve(self, i_episode, alpha, buffer_len):
-        self.print_epoch(i_episode, alpha, buffer_len)
-        print('\nSolved in {:d} episodes!'.format(i_episode-100))
+class DDPGStats(Stats):
+    """DDPG specific graphs."""
 
     def plot(self, loss_list):
         window_size = len(loss_list) // 100 # window size is 1% of total steps
@@ -183,12 +90,11 @@ class DeepDeterministicPolicyGradientStats(Stats):
         plt.show()
 
 
-class MultiAgentDeepDeterministicPolicyGradientStats(DeepDeterministicPolicyGradientStats):
-    def print_episode(self, i_episode, alpha, buffer_len, steps, per_agent_rewards):
-        print('\rEpisode {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}'
-              '   |   ⍺: {:6.4f}  Buffer: {:6}   Reward: {:8.2f}   Steps: {:6}'
-              .format(i_episode, self.avg_score, self.best_avg_score, self.std_dev,
-                      alpha, buffer_len, self.score, steps), end="")
+class MultiAgentDDPGStats(DDPGStats):
+    """Provides optional debugging for multi agent DDPG."""
+
+    def print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards):
+        Stats.print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards)
         # DEBUG rewards for each agent
         #print('')
         #print(' '.join('%5.2f' % agent for agent in per_agent_rewards))

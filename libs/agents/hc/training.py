@@ -32,7 +32,8 @@ def train(environment, agent, seed=0, n_episodes=2000, max_t=1000,
     """
     np.random.seed(seed)
 
-    stats = libs.statistics.HillClimbingStats()
+    stats = libs.statistics.Stats()
+    stats_format = 'Best: {:8.2f}   Noise: {:6.4f}'
 
     # remove checkpoints from prior run
     #prior_checkpoints = glob.glob('checkpoints/last_run/episode*.pck')
@@ -68,17 +69,17 @@ def train(environment, agent, seed=0, n_episodes=2000, max_t=1000,
         # every episode
         pop_best_rewards, pop_best_return = agent.learn(pop_noise, pop_return, pop_rewards)
         stats.update(len(pop_best_rewards), pop_best_rewards, i_episode)
-        stats.print_episode(i_episode, pop_best_return, agent.max_best_return, agent.noise_scale, t)
+        stats.print_episode(i_episode, t, stats_format, agent.max_best_return, agent.noise_scale)
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
-            stats.print_epoch(i_episode, agent.max_best_return, agent.noise_scale)
+            stats.print_epoch(i_episode, stats_format, agent.max_best_return, agent.noise_scale)
             save_name = 'checkpoints/last_run/episode.{}.pck'.format(i_episode)
             pickle.dump(agent.model.weights, open(save_name, 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
-            stats.print_solve(i_episode, agent.max_best_return, agent.noise_scale)
+            stats.print_solve(i_episode, stats_format, agent.max_best_return, agent.noise_scale)
             agent.model.weights = agent.max_best_weights
             pickle.dump(agent.model.weights, open('checkpoints/last_run/solved.pck', 'wb'))
             break
