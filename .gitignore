@@ -4,3 +4,5 @@ unity-environment.log
 checkpoints/**/*.pth
 checkpoints/**/*.pck
 runs/
+logs/
+output.txt

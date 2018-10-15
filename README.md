@@ -46,8 +46,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 - supports discrete state spaces using one-hot encoding (e.g. FrozenLake)
 - supports continuous action spaces using discretization (e.g. Pendulum)
 - summarizes model structure
-- provides realtime output of training stats
-- plots training metrics with matplotlib
+- outputs training stats via console, tensorboard and matplotlib
 - saves and loads model weights
 - renders an agent in action
 
@@ -117,7 +116,9 @@ The directory tree structure is as follows:
  - `compiled_unity_environments`: Pre-compiled unity environments for use with ML Agents.
  - `docs`: Auxiliary documentation.
  - `libs`: Shared libraries.  Code for agents, environments and various utility functions.
+ - `logs`: Copies of configs, weights and logging for various training runs.
  - `results`: Current best training results for each environment.
+ - `runs`: Output of tensorboard logging.
  - `scripts`: Helper scripts.
 
 

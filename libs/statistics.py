@@ -20,6 +20,10 @@ class Stats():
         self.time_start = time.time()            # track cumulative wall time
         self.total_steps = 0                     # track cumulative steps taken
         self.writer = SummaryWriter()
+        self.log_file_name = 'output.txt'
+        # zero out current output file
+        f = open(self.log_file_name,'w')
+        f.close()
 
     def update(self, steps, rewards, i_episode):
         self.total_steps += steps
@@ -47,10 +51,12 @@ class Stats():
         n_secs = int(time.time() - self.time_start)
         common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Secs: {:6}      |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, self.total_steps, n_secs)
         print('\r', common_stats, stats_format.format(*args))
+        print(common_stats, stats_format.format(*args), file=open(self.log_file_name,'a'))
 
     def print_solve(self, i_episode, stats_format, *args):
         self.print_epoch(i_episode, stats_format, *args)
         print('\nSolved in {:d} episodes!'.format(i_episode-100))
+        print('\nSolved in {:d} episodes!'.format(i_episode-100), file=open(self.log_file_name,'a'))
 
     def plot(self):
         plt.figure(1)
