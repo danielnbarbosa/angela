@@ -9,6 +9,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+import dill
 #from visualize import show_frames_3d
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -80,20 +81,6 @@ class DDPG():
         self.critic_target = model.critic_target
         self.critic_optimizer = optim.Adam(self.critic_local.parameters(), lr=lr_critic, weight_decay=weight_decay)
 
-        if load_file:
-            if device.type == 'cpu':
-                self.actor_local.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
-                self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
-                self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
-                self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
-            elif device.type == 'cuda:0':
-                self.actor_local.load_state_dict(torch.load(load_file + '.actor.pth'))
-                self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth'))
-                self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth'))
-                self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth'))
-
-            print('Loaded: {}'.format(load_file))
-
         # DEBUG weight initialization
         #print(self.actor_local.fcs1.weight.data[0])
         #print(self.actor_target.fcs1.weight.data[0])
@@ -115,6 +102,21 @@ class DDPG():
         self.alpha_start = alpha_start
         self.alpha_decay = alpha_decay
         self.alpha = self.alpha_start
+
+        if load_file:
+            if device.type == 'cpu':
+                self.actor_local.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
+                self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth', map_location='cpu'))
+                self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
+                self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth', map_location='cpu'))
+                #self.memory = dill.load(open(load_file + '.buffer.pck','rb'))
+            elif device.type == 'cuda:0':
+                self.actor_local.load_state_dict(torch.load(load_file + '.actor.pth'))
+                self.actor_target.load_state_dict(torch.load(load_file + '.actor.pth'))
+                self.critic_local.load_state_dict(torch.load(load_file + '.critic.pth'))
+                self.critic_target.load_state_dict(torch.load(load_file + '.critic.pth'))
+                #self.memory = dill.load(open(load_file + '.buffer.pck','rb'))
+            print('Loaded: {}'.format(load_file))
 
 
     def step(self, state, action, reward, next_state, done):

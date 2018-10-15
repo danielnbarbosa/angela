@@ -9,6 +9,7 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 #from visualize import show_frames_3d
+import dill
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -63,10 +64,6 @@ class DQN():
         # Q-Network
         self.qnetwork_local = model.local
         self.qnetwork_target = model.target
-        if load_file:
-            self.qnetwork_local.load_state_dict(torch.load(load_file))
-            self.qnetwork_target.load_state_dict(torch.load(load_file))
-            print('Loaded: {}'.format(load_file))
 
         # DEBUG weight initialization
         #print(self.qnetwork_local.fc_s.weight.data[0])
@@ -90,6 +87,12 @@ class DQN():
         self.alpha_start = alpha_start
         self.alpha_decay = alpha_decay
         self.alpha = self.alpha_start
+
+        if load_file:
+            self.qnetwork_local.load_state_dict(torch.load(load_file + '.pth'))
+            self.qnetwork_target.load_state_dict(torch.load(load_file + '.pth'))
+            #self.memory = dill.load(open(load_file + '.buffer.pck','rb'))
+            print('Loaded: {}'.format(load_file))
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory

@@ -7,6 +7,7 @@ Training loop.
 import numpy as np
 import torch
 import libs.statistics
+import dill
 
 
 def train(environment, agent, n_episodes=2000, max_t=1000,
@@ -101,12 +102,15 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             save_name = 'checkpoints/last_run/episode.{}'.format(i_episode)
             torch.save(agent.actor_local.state_dict(), save_name + '.actor.pth')
             torch.save(agent.critic_local.state_dict(), save_name + '.critic.pth')
+            #dill.dump(agent.memory, open(save_name + '.buffer.pck', 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
             stats.print_solve(i_episode, stats_format, agent.alpha, buffer_len)
-            torch.save(agent.actor_local.state_dict(), 'checkpoints/last_run/solved.actor.pth')
-            torch.save(agent.critic_local.state_dict(), 'checkpoints/last_run/solved.critic.pth')
+            save_name = 'checkpoints/last_run/solved'
+            torch.save(agent.actor_local.state_dict(), save_name + '.actor.pth')
+            torch.save(agent.critic_local.state_dict(), save_name + '.critic.pth')
+            #dill.dump(agent.memory, open(save_name + '.buffer.pck', 'wb'))
             break
 
     # training finished

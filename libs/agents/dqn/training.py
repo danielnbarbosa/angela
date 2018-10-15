@@ -6,6 +6,7 @@ Training loop.
 #import os
 import torch
 import libs.statistics
+import dill
 
 
 def train(environment, agent, n_episodes=2000, max_t=1000,
@@ -69,13 +70,16 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         # every epoch (100 episodes)
         if i_episode % 100 == 0:
             stats.print_epoch(i_episode, stats_format, eps, agent.alpha, buffer_len)
-            save_name = 'checkpoints/last_run/episode.{}.pth'.format(i_episode)
-            torch.save(agent.qnetwork_local.state_dict(), save_name)
+            save_name = 'checkpoints/last_run/episode.{}'.format(i_episode)
+            torch.save(agent.qnetwork_local.state_dict(), save_name + '.pth')
+            #dill.dump(agent.memory, open(save_name + '.buffer.pck', 'wb'))
 
         # if solved
         if stats.is_solved(i_episode, solve_score):
             stats.print_solve(i_episode, stats_format, eps, agent.alpha, buffer_len)
-            torch.save(agent.qnetwork_local.state_dict(), 'checkpoints/last_run/solved.pth')
+            save_name = 'checkpoints/last_run/solved'
+            torch.save(agent.qnetwork_local.state_dict(), save_name + '.pth')
+            #dill.dump(agent.memory, open(save_name + '.buffer.pck', 'wb'))
             break
 
     # training finished
