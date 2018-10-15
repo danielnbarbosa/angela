@@ -3,3 +3,4 @@ __pycache__
 unity-environment.log
 checkpoints/**/*.pth
 checkpoints/**/*.pck
+runs/

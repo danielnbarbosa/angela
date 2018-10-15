@@ -39,7 +39,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         graph_when_done (bool): whether to show matplotlib graphs of the training run
     """
     random.seed(seed)
-    stats = libs.statistics.Stats()
+    stats = libs.statistics.PPOStats()
     stats_format = 'ε: {:6.4}   β:   {:6.4}'
 
     # remove checkpoints from prior run

@@ -3,6 +3,7 @@ from collections import deque
 import numpy as np
 import matplotlib.pyplot as plt
 from libs.visualize import sub_plot
+from tensorboardX import SummaryWriter
 
 
 class Stats():
@@ -18,6 +19,7 @@ class Stats():
         self.best_avg_score = -np.Inf            # best score for a single episode
         self.time_start = time.time()            # track cumulative wall time
         self.total_steps = 0                     # track cumulative steps taken
+        self.writer = SummaryWriter()
 
     def update(self, steps, rewards, i_episode):
         self.total_steps += steps
@@ -37,6 +39,9 @@ class Stats():
     def print_episode(self, i_episode, steps, stats_format, *args):
         common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Reward: {:8.2f}  |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, steps, self.score)
         print('\r', common_stats, stats_format.format(*args), end="")
+        self.writer.add_scalar('data/reward', self.score, i_episode)
+        self.writer.add_scalar('data/std_dev', self.std_dev, i_episode)
+        self.writer.add_scalar('data/avg_reward', self.avg_score, i_episode)
 
     def print_epoch(self, i_episode, stats_format, *args):
         n_secs = int(time.time() - self.time_start)
@@ -73,9 +78,24 @@ class DQNStats(Stats):
         sub_plot(236, avg_entropy, y_label='Avg Entropy', x_label='Steps')
         plt.show()
 
+class PPOStats(Stats):
+    """DDPG specific graphs."""
+
+    def print_episode(self, i_episode, steps, stats_format, *args):
+        Stats.print_episode(self, i_episode, steps, stats_format, *args)
+        epsilon, beta = args
+        self.writer.add_scalar('data/epsilon', epsilon, i_episode)
+        self.writer.add_scalar('data/beta', beta, i_episode)
+
 
 class DDPGStats(Stats):
     """DDPG specific graphs."""
+
+    def print_episode(self, i_episode, steps, stats_format, *args):
+        Stats.print_episode(self, i_episode, steps, stats_format, *args)
+        alpha, buffer_len = args
+        self.writer.add_scalar('data/alpha', alpha, i_episode)
+        self.writer.add_scalar('data/buffer_len', buffer_len, i_episode)
 
     def plot(self, loss_list):
         window_size = len(loss_list) // 100 # window size is 1% of total steps
@@ -95,6 +115,9 @@ class MultiAgentDDPGStats(DDPGStats):
 
     def print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards):
         Stats.print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards)
+        alpha, buffer_len = args
+        self.writer.add_scalar('data/alpha', alpha, i_episode)
+        self.writer.add_scalar('data/buffer_len', buffer_len, i_episode)
         # DEBUG rewards for each agent
         #print('')
         #print(' '.join('%5.2f' % agent for agent in per_agent_rewards))
