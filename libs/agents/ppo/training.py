@@ -15,7 +15,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           epsilon=0.1,
           beta=.01,
           sgd_epoch=4,
-          sample_epoch=1,
+          n_trajectories=1,
           render=False,
           solve_score=100000.0,
           graph_when_done=False):
@@ -33,7 +33,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         epsilon (float): PPO clipping parameter
         beta (float): scaling factor for entropy
         sgd_epoch (int): number of times to run gradient descent using current gradients
-        sample_epoch (int): number of trajectories to gather under same policy
+        n_trajectories (int): number of trajectories to gather under same policy
         render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
         graph_when_done (bool): whether to show matplotlib graphs of the training run
@@ -58,7 +58,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         #        environment.render()
         #    state, reward, done = environment.step(0)
         # collect trajectories
-        for _ in range(sample_epoch): # collect a few different trajectories under the same policy
+        for _ in range(n_trajectories): # collect a few different trajectories under the same policy
             rewards = []
             state = environment.reset()
             for t in range(max_t):
@@ -84,7 +84,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         # average rewards across all trajectories for stats
         flatten = lambda l: [item for sublist in l for item in sublist]
         rewards = flatten(rewards_lists)
-        rewards = [r/sample_epoch for r in rewards]
+        rewards = [r/n_trajectories for r in rewards]
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, t, stats_format, epsilon, beta)
         epsilon *= 0.999  # decay the clipping parameter

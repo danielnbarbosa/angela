@@ -28,5 +28,5 @@ train = {
     'epsilon':      0.2,
     'beta':         0.02,
     'sgd_epoch':    4,
-    'sample_epoch': 8
+    'n_trajectories': 8
 }

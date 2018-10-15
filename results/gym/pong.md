@@ -1,3 +1,7 @@
+#### Notes
+- PPO results are from pong_ppo_gpu config (I think).
+
+
 #### PG
 ```
 Episode   100   Avg:  -20.24   BestAvg:    -inf   σ:    0.91   |   Steps:   126138  Secs:    345
