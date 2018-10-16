@@ -1,6 +1,7 @@
 __pycache__
 *.app
 unity-environment.log
+UnitySDK.log
 checkpoints/**/*.pth
 checkpoints/**/*.pck
 runs/

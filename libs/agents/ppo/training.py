@@ -8,7 +8,6 @@ import random
 import torch
 import libs.statistics
 
-
 def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           gamma=0.99,
           max_noop=0,
@@ -60,19 +59,33 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         # collect trajectories
         for _ in range(n_trajectories): # collect a few different trajectories under the same policy
             rewards = []
+            alive_agents = [True] * agent.n_agents  # list of agents that are still alive (not done)
             state = environment.reset()
             for t in range(max_t):
                 if render:  # optionally render agent
                     environment.render()
                 action, action_index, prob = agent.act(state)
                 next_state, reward, done = environment.step(action)
+
+                # set rewards to 0 for agents that are done
+                # needed to handle Unity multi-agent environments correctly
+                if agent.n_agents > 1:
+                    for i, a in enumerate(alive_agents):
+                        reward[i] = reward[i] * a
+                    if True in done:
+                        indices = [i for i, d in enumerate(done) if d == True]
+                        for i in indices:
+                            alive_agents[i] = False
+
                 # append to lists
                 old_probs.append(prob)
                 states.append(state)
                 actions.append(action_index)
                 rewards.append(reward)
                 state = next_state
-                if done:
+                if agent.n_agents == 1 and done:
+                    break
+                if agent.n_agents > 1 and not any(alive_agents):
                     break
             # append rewards from trajectory to rewards_lists
             # needs special treatment because rewards are normalized per trajectory
@@ -81,12 +94,21 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         # every episode
         for _ in range(sgd_epoch):
             agent.learn(old_probs, states, actions, rewards_lists, gamma, epsilon, beta)
-        # average rewards across all trajectories for stats
+
         flatten = lambda l: [item for sublist in l for item in sublist]
-        rewards = flatten(rewards_lists)
-        rewards = [r/n_trajectories for r in rewards]
+        if agent.n_agents == 1:
+            # average rewards across all trajectories for stats
+            rewards = flatten(rewards_lists)
+            rewards = [r/n_trajectories for r in rewards]
+        else:
+            # convert from list of list of list of steps to list of trajectories
+            rewards_lists = agent._convert_lists(rewards_lists[0])
+            # average rewards across all trajectories for stats
+            rewards = flatten(rewards_lists)
+            rewards = [r/agent.n_agents for r in rewards]
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, t, stats_format, epsilon, beta)
+
         epsilon *= 0.999  # decay the clipping parameter
         beta *= 0.995  # decay the entropy, this reduces exploration in later runs
 

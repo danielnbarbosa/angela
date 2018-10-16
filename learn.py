@@ -18,14 +18,15 @@ sys.path.append('cfg/' + args.cfg.split('_')[0])
 cfg = importlib.import_module(args.cfg)
 
 # create environment
-if   cfg.env_class == 'Gym':                     environment = gym.Gym(**cfg.environment)
-elif cfg.env_class == 'GymAtari':                environment = gym.GymAtari(**cfg.environment)
-elif cfg.env_class == 'GymAtariPong':            environment = gym.GymAtariPong(**cfg.environment)
-elif cfg.env_class == 'GymAtariBreakout':        environment = gym.GymAtariBreakout(**cfg.environment)
-elif cfg.env_class == 'UnityMLVector':           environment = unity.UnityMLVector(**cfg.environment)
-elif cfg.env_class == 'UnityMLVectorMultiAgent': environment = unity.UnityMLVectorMultiAgent(**cfg.environment)
-elif cfg.env_class == 'UnityMLVisual':           environment = unity.UnityMLVisual(**cfg.environment)
-elif cfg.env_class == 'PLEFlappyBird':           environment = ple.PLEFlappyBird(render=args.render, **cfg.environment)
+if   cfg.env_class == 'Gym':                        environment = gym.Gym(**cfg.environment)
+elif cfg.env_class == 'GymAtari':                   environment = gym.GymAtari(**cfg.environment)
+elif cfg.env_class == 'GymAtariPong':               environment = gym.GymAtariPong(**cfg.environment)
+elif cfg.env_class == 'GymAtariBreakout':           environment = gym.GymAtariBreakout(**cfg.environment)
+elif cfg.env_class == 'UnityMLVector':              environment = unity.UnityMLVector(**cfg.environment)
+elif cfg.env_class == 'UnityMLVectorMultiAgent':    environment = unity.UnityMLVectorMultiAgent(**cfg.environment)
+elif cfg.env_class == 'UnityMLVisual':              environment = unity.UnityMLVisual(**cfg.environment)
+elif cfg.env_class == 'UnityMLVectorMultiAgentNew': environment = unity.UnityMLVectorMultiAgentNew(**cfg.environment)
+elif cfg.env_class == 'PLEFlappyBird':              environment = ple.PLEFlappyBird(render=args.render, **cfg.environment)
 
 # based on agent_type, create model and agent then start training
 if cfg.agent_type == 'dqn':

@@ -3,14 +3,17 @@ UnityML Environments
 """
 
 import numpy as np
-from unityagents import UnityEnvironment
 from libs.visualize import show_frames_2d, show_frames_3d, show_frame
 
+######                                                   ######
+######  Classes for environments built with unityagents. ######
+######                                                   ######
 
 class UnityML():
-    """Base class for Unity ML environments."""
+    """Base class for Unity ML environments using unityagents (v0.4)."""
 
     def __init__(self, name, seed=0):
+        from unityagents import UnityEnvironment
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         self.env = UnityEnvironment(file_name=name, seed=seed)
@@ -109,3 +112,43 @@ class UnityMLVisual(UnityML):
         done = info.local_done[0]
         #print('step:  {}'.format(self.full_state.shape))  # DEBUG
         return self.full_state.copy(), reward, done
+
+
+######                                                ######
+######  Classes for environments built with mlagents. ######
+######                                                ######
+
+class UnityMLNew(UnityML):
+    """Base class for Unity ML environments using mlagents (v0.5)."""
+
+    def __init__(self, name, seed=0):
+        from mlagents import envs
+        self.seed = seed
+        print('SEED: {}'.format(self.seed))
+        self.env = envs.UnityEnvironment(file_name=name, seed=seed)
+        self.brain_name = self.env.brain_names[0]
+
+
+class UnityMLVectorNew(UnityMLNew):
+    """
+    UnityML environment with vector observations and single agent.
+    state is 1-D numpy array.  reward and done are scalars.
+    """
+
+    def reset(self):
+        """Reset the environment."""
+        state = super(UnityMLVectorNew, self).reset()
+        return state[0]
+
+    def step(self, action):
+        """Take a step in the environment."""
+        state, reward, done = super(UnityMLVectorNew, self).step(action)
+        return state[0], reward[0], done[0]
+
+
+class UnityMLVectorMultiAgentNew(UnityMLNew):
+    """
+    UnityML environment with vector observations and multiple agents.
+    state is 2-D numpy array.  reward and done are lists.
+    Currently empty as is identical to base class.
+    """
