@@ -119,9 +119,9 @@ class DDPGStats(Stats):
 class MultiAgentDDPGStats(DDPGStats):
     """Provides optional debugging for multi agent DDPG."""
 
-    def print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards):
-        Stats.print_episode(self, i_episode, steps, stats_format, alpha, buffer_len, per_agent_rewards)
-        alpha, buffer_len = args
+    def print_episode(self, i_episode, steps, stats_format, *args):
+        Stats.print_episode(self, i_episode, steps, stats_format, *args)
+        alpha, buffer_len, per_agent_rewards = args
         self.writer.add_scalar('data/alpha', alpha, i_episode)
         self.writer.add_scalar('data/buffer_len', buffer_len, i_episode)
         # DEBUG rewards for each agent

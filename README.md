@@ -25,7 +25,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 
 #### Environments
  - [**Open AI Gym**](https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | [Cartpole](results/videos/cartpole.gif) | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
- - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): [Banana](results/videos/banana.gif) | Basic | Crawler | [Reacher](results/videos/reacher.gif) | VisualBanana
+ - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): 3DBall | [Banana](results/videos/banana.gif) | Basic | Crawler | PushBlock | [Reacher](results/videos/reacher.gif) | VisualBanana
  - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
 
 #### Agents
