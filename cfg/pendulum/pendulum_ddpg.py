@@ -1,4 +1,4 @@
-agent_type='ddpg'
+algorithm='ddpg'
 env_class='Gym'
 model_class='LowDim2x'
 

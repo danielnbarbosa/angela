@@ -6,7 +6,7 @@ import pickle
 import numpy as np
 
 
-class HillClimbing():
+class Agent():
     def __init__(self, model, action_size, seed=0, load_file=None,
                  noise_scale=1e-2,
                  use_adaptive_noise=True,

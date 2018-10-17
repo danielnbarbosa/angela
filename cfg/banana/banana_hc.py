@@ -1,4 +1,4 @@
-agent_type='hc'
+algorithm='hc'
 env_class='UnityMLVector'
 model_class='SingleLayerPerceptron'
 

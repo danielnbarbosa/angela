@@ -1,4 +1,4 @@
-agent_type='pg'
+algorithm='pg'
 env_class='UnityMLVisual'
 model_class='Conv3D'
 

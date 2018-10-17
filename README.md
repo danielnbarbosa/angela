@@ -12,7 +12,7 @@ ANGELA: Artificial Neural Generated Environment Learning Agent
 
 ## Introduction
 
-Angela is a reinforcement learning agent capable of solving a variety environments.  She implements several different RL algorithms (agents) and neural network models.
+Angela is a deep reinforcement learning agent capable of solving a variety environments.  She implements several different RL algorithms and neural network models.
 
 She can work with both discrete and continuous action spaces allowing her to tackle anything from Atari games to robotic control problems.
 
@@ -28,7 +28,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
  - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): 3DBall | [Banana](results/videos/banana.gif) | Basic | Crawler | PushBlock | [Reacher](results/videos/reacher.gif) | VisualBanana
  - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
 
-#### Agents
+#### Algorithms
  - **dqn**: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
  - **hc**: Hill Climbing with adaptive noise, steepest ascent and simulated annealing
  - **pg**: Vanilla Policy Gradient (REINFORCE)
@@ -43,10 +43,8 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
  - **ddpg**: low dimensional state spaces
 
 #### Misc
-- supports discrete state spaces using one-hot encoding (e.g. FrozenLake)
-- supports continuous action spaces using discretization (e.g. Pendulum)
-- summarizes model structure
 - outputs training stats via console, tensorboard and matplotlib
+- summarizes model structure
 - saves and loads model weights
 - renders an agent in action
 

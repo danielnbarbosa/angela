@@ -14,7 +14,7 @@ import dill
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-class DQN():
+class Agent():
     """Interacts with and learns from the environment."""
 
     def __init__(self, model, action_size, seed=0, load_file=None,

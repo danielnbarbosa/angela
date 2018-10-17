@@ -1,4 +1,4 @@
-agent_type='hc'
+algorithm='hc'
 env_class='Gym'
 model_class='SingleLayerPerceptron'
 

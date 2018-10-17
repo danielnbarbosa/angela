@@ -1,4 +1,4 @@
-agent_type='ppo'
+algorithm='ppo'
 env_class='Gym'
 model_class='SingleHiddenLayer'
 

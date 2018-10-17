@@ -1,4 +1,4 @@
-agent_type='dqn'
+algorithm='dqn'
 env_class='UnityMLVisual'
 model_class='Conv3D2x'
 

@@ -1,4 +1,4 @@
-agent_type='dqn'
+algorithm='dqn'
 env_class='Gym'
 model_class='Dueling2x'
 

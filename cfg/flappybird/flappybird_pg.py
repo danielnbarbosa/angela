@@ -1,4 +1,4 @@
-agent_type='pg'
+algorithm='pg'
 env_class='PLEFlappyBird'
 model_class='TwoLayerConv2D'
 

@@ -1,4 +1,4 @@
-agent_type='dqn'
+algorithm='dqn'
 env_class='UnityMLVector'
 model_class='TwoLayer2x'
 

@@ -10,7 +10,7 @@ from torch.distributions import Categorical
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-class PolicyGradient():
+class Agent():
     def __init__(self, model, seed=0, load_file=None, lr=1e-2, action_map=None):
         """
         Params
