@@ -181,16 +181,16 @@ class ProximalPolicyOptimization():
         # used to encourage less extreme probabilities and hence exploration, early on
         # add in 1.e-10 to avoid log(0) which gives nan
         #entropy = -(new_probs*torch.log(old_probs+1.e-10) + (1.0-new_probs)*torch.log(1.0-old_probs+1.e-10))
-        entropy = -torch.sum((new_probs_all * torch.log(new_probs_all+1.e-10)), dim=1)
+        if self.n_agents == 1:
+            entropy = -torch.sum((new_probs_all * torch.log(new_probs_all+1.e-10)), dim=1)
+        else:
+            entropy = -torch.sum((new_probs_all * torch.log(new_probs_all+1.e-10)), dim=2)
         # this returns an average of all the entries of the tensor
         # effective computing L_sur^clip / T
         # averaged over time-step and number of trajectories
         # this is desirable because we have normalized our rewards
         #policy_loss = -torch.mean(clipped_surrogate + beta*entropy)
-        if self.n_agents == 1:
-            policy_loss = -torch.sum(clipped_surrogate + beta*entropy)
-        else:
-            policy_loss = -torch.sum(clipped_surrogate)  # TODO fix entropy calc in multi-agent
+        policy_loss = -torch.sum(clipped_surrogate + beta*entropy)
         self.optimizer.zero_grad()
         policy_loss.backward()
         # DEBUG
