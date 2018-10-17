@@ -12,7 +12,9 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           gamma=0.99,
           max_noop=0,
           epsilon=0.1,
+          epsilon_decay=0.999,
           beta=.01,
+          beta_decay=0.995,
           sgd_epoch=4,
           n_trajectories=1,
           render=False,
@@ -30,7 +32,9 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         gamma (float): discount rate
         max_noop (int): maximum number of initial noops at start of episode
         epsilon (float): PPO clipping parameter
+        epsilon_decay (float): epsilon_decay rate
         beta (float): scaling factor for entropy
+        beta_decay (float): beta decay rate
         sgd_epoch (int): number of times to run gradient descent using current gradients
         n_trajectories (int): number of trajectories to gather under same policy
         render (bool): whether to render the agent
@@ -109,8 +113,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, t, stats_format, epsilon, beta)
 
-        epsilon *= 0.999  # decay the clipping parameter
-        beta *= 0.995  # decay the entropy, this reduces exploration in later runs
+        epsilon *= epsilon_decay  # decay the clipping parameter
+        beta *= beta_decay  # decay the entropy, this reduces exploration in later runs
 
         # every epoch (100 episodes)
         if i_episode % 100 == 0:

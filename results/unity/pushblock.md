@@ -10,6 +10,10 @@
 
 #### PPO Training
 ```
+Episode:     1   Avg:    -0.20   BestAvg:     -inf   σ:     0.00  |  Steps:      199   Reward:    -0.20  |  ε:    0.1   β:      0.0
+Episode:    10   Avg:    -0.17   BestAvg:     -inf   σ:     0.10  |  Steps:      199   Reward:    -0.20  |  ε: 0.0991   β:      0.0
+Episode:    15   Avg:    -0.16   BestAvg:     -inf   σ:     0.09  |  Steps:      199   Reward:    -0.04  |  ε: 0.09861   β:      0.0
+...
 Episode:   100   Avg:     0.44   BestAvg:     -inf   σ:     0.65  |  Steps:    19900   Secs:    417      |  ε: 0.09048   β:      0.0
 Episode:   200   Avg:     1.19   BestAvg:     1.25   σ:     0.63  |  Steps:    39800   Secs:    970      |  ε: 0.08186   β:      0.0
 ```
