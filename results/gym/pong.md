@@ -1,5 +1,7 @@
 #### Notes
+- PG results are from pong_pg (I think).
 - PPO results are from pong_ppo_gpu config (I think).
+- ran pong_pg_03 for 50000 episodes got to 0.31 during train, -6.09 on eval (over 11 episodes)
 
 
 #### PG
