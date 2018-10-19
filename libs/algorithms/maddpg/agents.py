@@ -123,19 +123,13 @@ class Agent():
         # Save experience in replay memory
         if self.use_prioritized_experience_replay:
             priority = 100.0   # set initial priority to max value
-            if self.n_agents == 2:
-                state = np.expand_dims(state, axis=0)
-                action = np.expand_dims(action, axis=0)
-                next_state = np.expand_dims(next_state, axis=0)
+            if self.n_agents == 2:  # DIFF from DDPG
                 self.memory.add(state, action, reward, next_state, done, priority)
             else:
                 for i in range(self.n_agents):
                     self.memory.add(state[i,:], action[i,:], reward[i], next_state[i,:], done[i], priority[i,:])
         else:
-            if self.n_agents == 2:
-                state = np.expand_dims(state, axis=0)
-                action = np.expand_dims(action, axis=0)
-                next_state = np.expand_dims(next_state, axis=0)
+            if self.n_agents == 2:  # DIFF from DDPG
                 self.memory.add(state, action, reward, next_state, done)
             else:
                 for i in range(self.n_agents):

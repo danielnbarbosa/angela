@@ -73,16 +73,19 @@ class LowDimCritic(nn.Module):
     def forward(self, state, action):
         """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
         #print('state:  {}'.format(state.shape))
-        state = state.reshape((-1, 24))
-        action = action.reshape((-1, 2))
+        state = state.reshape((-1, 24))  # DIFF from DDPG
+        action = action.reshape((-1, 2))  # DIFF from DDPG
         xs = F.relu(self.fc1(state))
         #print('xs:  {}'.format(xs.shape))
+        #print('action:  {}'.format(action.shape))
         x = torch.cat((xs, action), dim=1)
+        #print('cat:  {}'.format(x.shape))
         #print('x:  {}'.format(x.shape))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
-        #print('out:  {}'.format(x))
-        x = x.reshape((-1, 2))
+        #print('fc3:  {}'.format(x.shape))
+        x = x.reshape((-1, 2))  # DIFF from DDPG
+        #print('out:  {}'.format(x.shape))
         return x
 
 # Initialize local and target network with identical initial weights.
