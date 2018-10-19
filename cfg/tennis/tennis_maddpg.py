@@ -1,4 +1,4 @@
-algorithm='ddpg'
+algorithm='maddpg'
 env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
@@ -15,9 +15,7 @@ agent = {
     'action_size': 2,
     'update_every': 2,
     'n_agents': 2,
-    'buffer_size': int(1e5),
-    'batch_size': 64,
-    'gamma': 0.97
+    #'evaluation_only': True
 }
 
 train = {

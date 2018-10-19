@@ -41,7 +41,7 @@ class Stats():
         return self.avg_score >= solve_score and i_episode >= 100
 
     def print_episode(self, i_episode, steps, stats_format, *args):
-        common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Reward: {:8.2f}  |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, steps, self.score)
+        common_stats = 'Episode: {:5}   Avg: {:8.3f}   BestAvg: {:8.3f}   σ: {:8.3f}  |  Steps: {:8}   Reward: {:8.3f}  |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, steps, self.score)
         print( '\r' + common_stats + stats_format.format(*args), end="")
         self.writer.add_scalar('data/reward', self.score, i_episode)
         self.writer.add_scalar('data/std_dev', self.std_dev, i_episode)
@@ -49,7 +49,7 @@ class Stats():
 
     def print_epoch(self, i_episode, stats_format, *args):
         n_secs = int(time.time() - self.time_start)
-        common_stats = 'Episode: {:5}   Avg: {:8.2f}   BestAvg: {:8.2f}   σ: {:8.2f}  |  Steps: {:8}   Secs: {:6}      |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, self.total_steps, n_secs)
+        common_stats = 'Episode: {:5}   Avg: {:8.3f}   BestAvg: {:8.3f}   σ: {:8.3f}  |  Steps: {:8}   Secs: {:6}      |  '.format(i_episode, self.avg_score, self.best_avg_score, self.std_dev, self.total_steps, n_secs)
         print('\r' + common_stats + stats_format.format(*args))
         print(common_stats, stats_format.format(*args), file=open(self.log_file_name,'a'))
 
