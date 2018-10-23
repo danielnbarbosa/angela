@@ -51,6 +51,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
                 action = agent.act(state, add_noise=False)
             else:
                 action = agent.act(state)
+                #print(action)
             # take action in environment
             next_state, reward, done = environment.step(action)
 

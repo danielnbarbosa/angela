@@ -27,7 +27,7 @@ class Agent():
                  lr_actor=1e-4,
                  lr_critic=1e-3,
                  weight_decay=0.0001,
-                 clip_critic_gradients=False,
+                 clip_gradients=False,
                  update_every=1,
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
@@ -48,7 +48,7 @@ class Agent():
             lr_actor (float): learning rate for actor
             lr_critic (float): learning rate for critic
             weight_decay (float): L2 weight decay
-            clip_critic_gradients (bool): whether to clip critic gradients
+            clip_gradients (bool): whether to clip gradients on both actor and critic
             update_every (int): how often to update the network
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
@@ -67,7 +67,7 @@ class Agent():
         self.lr_critic = lr_critic
         self.update_every = update_every
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
-        self.clip_critic_gradients = clip_critic_gradients
+        self.clip_gradients = clip_gradients
         self.evaluation_only = evaluation_only
 
         self.loss_list = []       # track loss across steps
@@ -207,9 +207,8 @@ class Agent():
         # DEBUG gradients
         #for m in self.critic_local.parameters():
         #    print(m.grad)
-        # clip gradients
-        if self.clip_critic_gradients:
-            torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
+        if self.clip_gradients:
+            torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 10, norm_type=2)
             #for param in self.qnetwork_local.parameters():
             #    param.grad.data.clamp_(-10, 10)
         self.critic_optimizer.step()
@@ -224,6 +223,8 @@ class Agent():
         # DEBUG gradients
         #for m in self.actor_local.parameters():
         #    print(m.grad)
+        if self.clip_gradients:
+            torch.nn.utils.clip_grad_norm_(self.actor_local.parameters(), 10, norm_type=2)
         self.actor_optimizer.step()
 
         # ----------------------- update target networks ----------------------- #

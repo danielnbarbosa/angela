@@ -15,7 +15,6 @@ model = {
 
 agent = {
     'action_size': 20,
-    'update_every': 1,
     'n_agents': 12,
     'evaluation_only': True
 }
