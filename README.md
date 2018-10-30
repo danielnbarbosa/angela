@@ -52,13 +52,8 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 ## Installation
 The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](docs/run_in_aws.md).
 
-
-#### Pre-requisites
-- [Anaconda](https://www.anaconda.com/download/).
-
-
 #### Step 1: Install dependencies
-Create an anaconda environment that contains all the required dependencies to run the project.
+Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.
 
 ```
 git clone https://github.com/danielnbarbosa/angela.git
