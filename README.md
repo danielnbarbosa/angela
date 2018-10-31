@@ -24,8 +24,8 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 ## Features
 
 #### Environments
- - [**Open AI Gym**](https://gym.openai.com/): Acrobot | [BipedalWalker](results/videos/bipedalwalker.mp4) | [Cartpole](results/videos/cartpole.gif) | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
- - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): 3DBall | [Banana](results/videos/banana.gif) | Basic | Crawler | PushBlock | [Reacher](results/videos/reacher.gif) | VisualBanana
+ - [**Open AI Gym**](https://gym.openai.com/): Acrobot | [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [Cartpole](results/videos/cartpole.gif) | FrozenLake | FrozenLake8x8 | [LunarLander](results/videos/lunarlander.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum | [Pong](results/videos/pong.mp4)
+ - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#banana-collector): 3DBall | [Banana](results/videos/banana.gif) | Basic | Crawler | PushBlock | [Reacher](results/videos/reacher.gif) | [Tennis](results/videos/tennis.gif) | VisualBanana
  - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/home.html): [FlappyBird](results/videos/flappybird.gif)
 
 #### Algorithms
@@ -34,6 +34,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
  - **pg**: Vanilla Policy Gradient (REINFORCE)
  - **ppo**: Proximal Policy Optimization
  - **ddpg**: Deep Deterministic Policy Gradient
+ - **maddpg**: Multi-Agent Deep Deterministic Policy Gradient with shared actor/critic (v1) and separate actor/critic (v2) for each agent
 
 #### Models
  - **dqn**: multi-layer perceptron, dueling networks, CNN
@@ -41,6 +42,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
  - **pg**: multi-layer perceptron, CNN
  - **ppo**: multi-layer perceptron, CNN
  - **ddpg**: low dimensional state spaces
+ - **maddpg**: low dimensional state spaces
 
 #### Misc
 - outputs training stats via console, tensorboard and matplotlib
