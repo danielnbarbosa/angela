@@ -16,8 +16,7 @@ def train(environment, agent, seed=0, n_episodes=2000, max_t=1000,
           render=False,
           solve_score=100000.0,
           graph_when_done=False):
-    """ Run training loop for Hill Climbing.
-
+    """
     Params
     ======
         environment: environment object

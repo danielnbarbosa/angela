@@ -16,8 +16,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
           render=False,
           solve_score=100000.0,
           graph_when_done=False):
-    """ Run training loop for DQN.
-
+    """
     Params
     ======
         environment: environment object
@@ -46,7 +45,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
         state = environment.reset()
 
         # loop over steps
-        for t in range(max_t):
+        for t in range(1, max_t+1):
             if render:  # optionally render agent
                 environment.render()
 

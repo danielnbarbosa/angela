@@ -10,8 +10,7 @@ import libs.statistics
 def train(environment, agent, n_episodes=10000, max_t=1000,
           render=False,
           solve_score=0.5):
-    """ Run training loop.
-
+    """
     Params
     ======
         environment: environment object
@@ -29,7 +28,7 @@ def train(environment, agent, n_episodes=10000, max_t=1000,
         rewards = []
         state = environment.reset()
         # loop over steps
-        for t in range(max_t):
+        for t in range(1, max_t+1):
             # select an action
             if agent.evaluation_only:  # disable noise on evaluation
                 action = agent.act(state, add_noise=False)

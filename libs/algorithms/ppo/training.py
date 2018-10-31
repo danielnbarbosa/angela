@@ -20,8 +20,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           render=False,
           solve_score=100000.0,
           graph_when_done=False):
-    """ Run training loop for Policy Gradients.
-
+    """
     Params
     ======
         environment: environment object
@@ -65,7 +64,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
             rewards = []
             alive_agents = [True] * agent.n_agents  # list of agents that are still alive (not done)
             state = environment.reset()
-            for t in range(max_t):
+            for t in range(1, max_t+1):
                 if render:  # optionally render agent
                     environment.render()
                 action, action_index, prob = agent.act(state)
