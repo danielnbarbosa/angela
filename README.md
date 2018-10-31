@@ -34,7 +34,7 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
  - **pg**: Vanilla Policy Gradient (REINFORCE)
  - **ppo**: Proximal Policy Optimization
  - **ddpg**: Deep Deterministic Policy Gradient
- - **maddpg**: Multi-Agent Deep Deterministic Policy Gradient with shared actor/critic (v1) and separate actor/critic (v2) for each agent
+ - **maddpg**: Multi-Agent Deep Deterministic Policy Gradient with shared (v1) and separate (v2) actor/critic for each agent
 
 #### Models
  - **dqn**: multi-layer perceptron, dueling networks, CNN
@@ -89,7 +89,7 @@ cd ..
 ```
 
 ## Usage
-To start training, use `main.py` and pass in the desired configuration file.  For example, to train on the CartPole environment using the PPO algorithm:
+To start training, use `main.py` and pass in the desired configuration file.  Training stops when the agent reaches the target solve score.  For example, to train on the CartPole environment using the PPO algorithm (which takes about 6 seconds on my laptop):
 ```
 ./main.py --cfg cartpole_ppo
 ```
