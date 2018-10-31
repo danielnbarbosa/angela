@@ -89,19 +89,24 @@ cd ..
 ```
 
 ## Usage
-To start training, use the `learn.py` wrapper script and pass in the desired configuration file.  For example, to train on the Pong environment with the policy gradient agent:
+To start training, use `main.py` and pass in the desired configuration file.  For example, to train on the CartPole environment using the PPO algorithm:
 ```
-./learn.py --cfg pong_pg
+./main.py --cfg cartpole_ppo
 ```
 
 To load a saved model:
 ```
-./learn.py --cfg pong_pg --load=checkpoints/best/pong.pth
+./main.py --cfg cartpole_ppo --load=checkpoints/last_run/solved.pth
 ```
 
-To render an agent:
+To render an agent during training:
 ```
-./learn.py --cfg pong_pg --render
+./main.py --cfg cartpole_ppo --render
+```
+
+To render a saved model:
+```
+./main.py --cfg cartpole_ppo --render --load=checkpoints/last_run/solved.pth
 ```
 
 ## Project layout
@@ -119,6 +124,6 @@ The directory tree structure is as follows:
 
 ## Acknowledgements
 Code from the following repos has been used to build this project:
- - [Udacity Deep Reinforcement Learning](https://github.com/udacity/deep-reinforcement-learning), a nanodegree course that I am taking.
+ - [Udacity Deep Reinforcement Learning](https://github.com/udacity/deep-reinforcement-learning), a nanodegree course that I took.
  - [Learning Pong from Pixels](https://gist.github.com/karpathy/a4166c7fe253700972fcbc77e4ea32c5) by Andrej Karpathy.
  - [Deep Policy Gradient Reinforcement Learning](https://github.com/wagonhelm/Deep-Policy-Gradient) by Justin Francis.

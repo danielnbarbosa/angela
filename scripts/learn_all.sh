@@ -17,5 +17,5 @@ do
   echo '----------------------------------------------------------------'
   echo "| Starting training on $cfg configuration."
   echo '----------------------------------------------------------------'
-  ./learn.py --cfg $cfg
+  ./main.py --cfg $cfg
 done
