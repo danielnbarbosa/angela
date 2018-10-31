@@ -1,5 +1,5 @@
 """
-Multi-Agent DDPG.
+Multi-Agent DDPG with single shared actor/critic across all agents.
 """
 
 import random

@@ -116,7 +116,7 @@ class DDPGStats(Stats):
         plt.show()
 
 
-class MultiAgentDDPGStats(DDPGStats):
+class MultiAgentDDPGv1Stats(DDPGStats):
     """Provides optional debugging for multi agent DDPG."""
 
     def print_episode(self, i_episode, steps, stats_format, *args):
@@ -124,6 +124,34 @@ class MultiAgentDDPGStats(DDPGStats):
         alpha, buffer_len, per_agent_rewards = args
         self.writer.add_scalar('data/alpha', alpha, i_episode)
         self.writer.add_scalar('data/buffer_len', buffer_len, i_episode)
+        # DEBUG rewards for each agent
+        #print('')
+        #print(' '.join('%5.2f' % agent for agent in per_agent_rewards))
+
+
+class MultiAgentDDPGv2Stats(DDPGStats):
+    """Adds additional logging via tensorboard."""
+
+    def print_episode(self, i_episode, steps, stats_format, *args):
+        buffer_len, noise_weight, critic_loss_01, critic_loss_02, actor_loss_01, actor_loss_02, noise_val_01, noise_val_02, rewards_01, rewards_02 = args
+        Stats.print_episode(self, i_episode, steps, stats_format, buffer_len, noise_weight)
+        #alpha, buffer_len, per_agent_rewards = args
+        # log lots of stuff to tensorboard
+        self.writer.add_scalar('global/reward', self.score, i_episode)
+        self.writer.add_scalar('global/std_dev', self.std_dev, i_episode)
+        self.writer.add_scalar('global/avg_reward', self.avg_score, i_episode)
+        self.writer.add_scalar('global/buffer_len', buffer_len, i_episode)
+        self.writer.add_scalar('global/noise_weight', noise_weight, i_episode)
+        self.writer.add_scalar('agent_01/critic_loss', critic_loss_01, i_episode)
+        self.writer.add_scalar('agent_02/critic_loss', critic_loss_02, i_episode)
+        self.writer.add_scalar('agent_01/actor_loss', actor_loss_01, i_episode)
+        self.writer.add_scalar('agent_02/actor_loss', actor_loss_02, i_episode)
+        self.writer.add_scalar('agent_01/noise_val_01', noise_val_01[0], i_episode)
+        self.writer.add_scalar('agent_01/noise_val_02', noise_val_01[1], i_episode)
+        self.writer.add_scalar('agent_02/noise_val_01', noise_val_02[0], i_episode)
+        self.writer.add_scalar('agent_02/noise_val_02', noise_val_02[1], i_episode)
+        self.writer.add_scalar('agent_01/reward', rewards_01, i_episode)
+        self.writer.add_scalar('agent_02/reward', rewards_02, i_episode)
         # DEBUG rewards for each agent
         #print('')
         #print(' '.join('%5.2f' % agent for agent in per_agent_rewards))

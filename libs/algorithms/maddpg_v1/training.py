@@ -30,7 +30,7 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
     if agent.n_agents == 1:
         stats = libs.statistics.DDPGStats()
     else:
-        stats = libs.statistics.MultiAgentDDPGStats()
+        stats = libs.statistics.MultiAgentDDPGv1Stats()
     stats_format = '⍺: {:6.4f}  Buffer: {:6}'
 
     # remove checkpoints from prior run

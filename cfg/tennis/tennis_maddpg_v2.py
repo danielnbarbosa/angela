@@ -1,4 +1,4 @@
-algorithm='maddpg'
+algorithm='maddpg_v2'
 env_class='UnityMLVectorMultiAgent'
 model_class='LowDim2x'
 
@@ -21,5 +21,4 @@ agent = {
 train = {
     'n_episodes': 100000,
     'solve_score': 0.5,
-    'graph_when_done': True
 }

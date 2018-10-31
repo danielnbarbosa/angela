@@ -38,13 +38,9 @@ DIR="/home/ubuntu"
 su -c "cd $DIR; git clone https://github.com/openai/gym.git" ubuntu
 su - -c "source activate pytorch_p36; cd $DIR/gym; pip install -e '.[atari]'" ubuntu
 
-# install ml agents toolkit (latest)
-su -c "cd $DIR/ml-agents; git pull" ubuntu  # stay on ml-agents 0.4
+# install ml agents toolkit
+su -c "cd $DIR/ml-agents; git pull" ubuntu
 su - -c "source activate pytorch_p36; cd $DIR/ml-agents/ml-agents; pip install ." ubuntu
-
-# install ml agents toolkit (0.4)
-#cd $DIR/ml-agents
-#su - -c "source activate pytorch_p36; cd $DIR/ml-agents/python; pip install ." ubuntu
 
 # install PLE toolkit
 su -c "cd $DIR; git clone https://github.com/ntasfi/PyGame-Learning-Environment" ubuntu
@@ -59,11 +55,15 @@ cd $DIR/angela/compiled_unity_environments
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/VisualBanana_Linux.zip
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/Reacher_Linux.zip
 wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Crawler/Crawler_Linux.zip
+wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux.zip
+wget https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Soccer/Soccer_Linux.zip
 unzip VisualBanana_Linux.zip
 unzip Reacher_Linux.zip
 unzip Crawler_Linux.zip
-rm VisualBanana_Linux.zip Reacher_Linux.zip Crawler_Linux.zip
-chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux Crawler_Linux
+unzip Tennis_Linux.zip
+unzip Soccer_Linux.zip
+rm VisualBanana_Linux.zip Reacher_Linux.zip Crawler_Linux.zip Tennis_Linux.zip Soccer_Linux.zip
+chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux Crawler_Linux Tennis_Linux Soccer_Linux
 
 # update packages
 su - -c "conda update -y -n pytorch_p36 --all" ubuntu

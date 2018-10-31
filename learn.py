@@ -30,7 +30,12 @@ elif cfg.env_class.startswith('PLE'):
 
 # load modules based on algorithm
 exec('from libs.algorithms.' + cfg.algorithm + ' import agents, models, training')
+
 # create model and agent objects and start training
-model = eval('models.' + cfg.model_class + '(**cfg.model)')
-agent = agents.Agent(model, load_file=args.load, **cfg.agent)
-training.train(environment, agent, render=args.render, **cfg.train)
+if cfg.algorithm == 'maddpg_v2':  # model is loaded from inside the agent
+    agent = agents.Agent(load_file=args.load, **cfg.agent)
+    training.train(environment, agent, render=args.render, **cfg.train)
+else:
+    model = eval('models.' + cfg.model_class + '(**cfg.model)')
+    agent = agents.Agent(model, load_file=args.load, **cfg.agent)
+    training.train(environment, agent, render=args.render, **cfg.train)
