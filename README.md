@@ -58,6 +58,15 @@ The below process works for MacOS, but should be easily adopted for Windows.  Fo
 Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.
 
 ```
+# use this for mujoco environments
+conda create -y -n mujoco python=3.6 anaconda
+source activate mujoco
+conda install -y pytorch torchvision -c pytorch
+conda install -y opencv scikit-image gcc # gcc needed for mujoco
+pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame
+pip install mujoco-py
+
+# use this for all other environments
 git clone https://github.com/danielnbarbosa/angela.git
 brew install swig
 conda create -y -n angela python=3.6 anaconda
@@ -66,7 +75,7 @@ conda install -y pytorch torchvision -c pytorch
 conda install -y opencv scikit-image
 conda uninstall -y ffmpeg # needed for gym monitor
 conda install -y -c conda-forge opencv ffmpeg  # needed for gym monitor
-pip install torchsummary tensorboardX dill gym Box2D box2d-py mujoco-py unityagents pygame
+pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame
 cd ..
 ```
 
