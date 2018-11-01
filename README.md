@@ -55,18 +55,9 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](docs/run_in_aws.md).
 
 #### Step 1: Install dependencies
-Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.
+Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.  If you want to work with mujoco environments see additional [requirements](docs/mujoco_setup.md).
 
 ```
-# use this for mujoco environments
-conda create -y -n mujoco python=3.6 anaconda
-source activate mujoco
-conda install -y pytorch torchvision -c pytorch
-conda install -y opencv scikit-image gcc # gcc needed for mujoco
-pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame
-pip install mujoco-py
-
-# use this for all other environments
 git clone https://github.com/danielnbarbosa/angela.git
 brew install swig
 conda create -y -n angela python=3.6 anaconda
