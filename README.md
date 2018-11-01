@@ -66,7 +66,7 @@ conda install -y pytorch torchvision -c pytorch
 conda install -y opencv scikit-image
 conda uninstall -y ffmpeg # needed for gym monitor
 conda install -y -c conda-forge opencv ffmpeg  # needed for gym monitor
-pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame
+pip install torchsummary tensorboardX dill gym Box2D box2d-py mujoco-py unityagents pygame
 cd ..
 ```
 
