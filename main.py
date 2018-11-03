@@ -7,15 +7,15 @@ import sys
 
 # parse command line arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("--cfg", help="hyperparameter config file", type=str)
+parser.add_argument("--cfg", help="path to hyperparameter config file", type=str)
 parser.add_argument("--render", help="render agent", action="store_true")
 parser.add_argument("--load", help="path to saved model", type=str, default=None)
 args = parser.parse_args()
 
 # load config from file
-# assume path is cfg/<env>/<env>_<algorithm>.  e.g. 'cfg/cartpole/cartpole_dqn'
-sys.path.append('cfg/' + args.cfg.split('_')[0])
-cfg = importlib.import_module(args.cfg)
+sys.path.append('/'.join(args.cfg.split('/')[0:3]))
+cfg = importlib.import_module(args.cfg.split('/')[-1].split('.')[0])
+
 
 # load proper environment module and create environment object
 if cfg.env_class.startswith('Gym'):

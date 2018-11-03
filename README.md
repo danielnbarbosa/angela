@@ -89,24 +89,24 @@ cd ..
 ```
 
 ## Usage
-To start training, use `main.py` and pass in the desired configuration file.  Training stops when the agent reaches the target solve score.  For example, to train on the CartPole environment using the PPO algorithm (which takes about 6 seconds on my laptop):
+To start training, use `main.py` and pass in the path to the desired configuration file.  Training stops when the agent reaches the target solve score.  For example, to train on the CartPole environment using the PPO algorithm (which takes about 6 seconds on my laptop):
 ```
-./main.py --cfg cartpole_ppo
+./main.py --cfg=cfg/gym/cartpole/cartpole_ppo.py
 ```
 
 To load a saved model:
 ```
-./main.py --cfg cartpole_ppo --load=checkpoints/last_run/solved.pth
+./main.py --cfg=cfg/gym/cartpole/cartpole_ppo.py --load=checkpoints/last_run/solved.pth
 ```
 
 To render an agent during training:
 ```
-./main.py --cfg cartpole_ppo --render
+./main.py --cfg=cfg/gym/cartpole/cartpole_ppo.py --render
 ```
 
 To render a saved model:
 ```
-./main.py --cfg cartpole_ppo --render --load=checkpoints/last_run/solved.pth
+./main.py --cfg=cfg/gym/cartpole/cartpole_ppo.py --render --load=checkpoints/last_run/solved.pth
 ```
 
 ## Project layout
