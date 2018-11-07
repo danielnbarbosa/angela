@@ -1,4 +1,5 @@
 #### Notes
+- Swimmer-v1 is considered "solved" when the agent obtains an average reward of at least 360.0 over 100 consecutive episodes.  Assuming the same for Swimmer-v2
 - back joint quickly learns swimming motion but front joint gets locked up and stays that way
 - not sure if it was increased sigma, larger max_t or larger buffer_size but front joint eventually started doing a little better around episode 2300
 
