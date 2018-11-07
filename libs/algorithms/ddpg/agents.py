@@ -68,8 +68,6 @@ class Agent():
         self.batch_size = batch_size
         self.gamma = gamma
         self.tau = tau
-        self.lr_actor = lr_actor
-        self.lr_critic = lr_critic
         self.update_every = update_every
         self.use_prioritized_experience_replay = use_prioritized_experience_replay
         self.clip_gradients = clip_gradients
@@ -166,8 +164,10 @@ class Agent():
         with torch.no_grad():
             action = self.actor_local(state).cpu().data.numpy()
         self.actor_local.train()
+        #print('pre: {}'.format(action))  # DEBUG
         if add_noise:
             action += self.noise.sample()
+        #print('pst: {}'.format(action))  # DEBUG
         return np.clip(action, -1, 1)
 
 

@@ -9,8 +9,8 @@ environment = {
 model = {
     'state_size': 8,
     'action_size': 2,
-    'fc1_units': 400,
-    'fc2_units': 300
+    'fc1_units': 128,
+    'fc2_units': 64
 }
 
 agent = {

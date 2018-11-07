@@ -9,21 +9,21 @@ environment = {
 model = {
     'state_size': 8,
     'action_size': 2,
-    'fc1_units': 400,
-    'fc2_units': 300
+    'fc1_units': 128,
+    'fc2_units': 64,
+    #'seed': 42
 }
 
 agent = {
     'action_size': 2,
     'update_every': 2,
-    #'buffer_size': int(3e5),
-    'batch_size': 128,
+    'buffer_size': int(2e5),
+    'batch_size': 64,
+    'sigma': 0.3,
     #'weight_decay': 0.0,
-    #'evaluation_only': True
 }
 
 train = {
     'n_episodes': 100000,
-    'max_t': 1000,
-    #'solve_score': 2000.0,
+    'max_t': 300,
 }

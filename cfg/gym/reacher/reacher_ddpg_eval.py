@@ -4,7 +4,6 @@ model_class='LowDim2x'
 
 environment = {
     'name': 'Reacher-v2',
-    'max_steps': 50,
 }
 
 model = {
