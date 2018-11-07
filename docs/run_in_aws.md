@@ -29,8 +29,7 @@ export DISPLAY=:0
 #!/bin/bash
 
 /usr/bin/X :0 &
-apt-get install -y swig
-su - -c "conda install -y -n pytorch_p36 pip opencv scikit-image" ubuntu
+su - -c "conda install -y -n pytorch_p36 pip swig opencv scikit-image" ubuntu
 su - -c "source activate pytorch_p36; pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame" ubuntu
 DIR="/home/ubuntu"
 

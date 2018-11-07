@@ -29,6 +29,8 @@ class Agent():
                  lr_critic=1e-3,
                  weight_decay=0.0001,
                  clip_gradients=False,
+                 theta=0.15,
+                 sigma=0.2,
                  update_every=1,
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
@@ -50,6 +52,8 @@ class Agent():
             lr_critic (float): learning rate for critic
             weight_decay (float): L2 weight decay
             clip_gradients (bool): whether to clip gradients on both actor and critic
+            theta (float): OU noise parameter
+            sigma (float): OU noise parameter
             update_every (int): how often to update the network
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
@@ -90,7 +94,7 @@ class Agent():
         #input('->')
 
         # Noise process
-        self.noise = OUNoise((n_agents, action_size), seed)
+        self.noise = OUNoise((n_agents, action_size), seed, theta=theta, sigma=sigma)
 
         # Replay memory
         if use_prioritized_experience_replay:
