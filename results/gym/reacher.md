@@ -1,5 +1,6 @@
 #### Notes
-- no stated solve score, but I saw somewhere that Reacher-v1 solve score was -3.75
+- Reacher-v1 is considered "solved" when the agent obtains an average reward of at least -3.75 over 100 consecutive episodes.  Assuming the same for Reacher-v2.
+- environment sets max_steps to 50 by default.
 - key was to to reduce noise (sigma)
 - agent actually does quite well after only 100 episodes of training
 

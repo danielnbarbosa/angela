@@ -22,24 +22,24 @@ Basically I use Angela as a modular way to test out different RL algorithms in a
 
 While it is fairly easy to throw a new environment at her using one of the supported algorithms, it often requires some hyperparameter tuning to succeed at a specific problem.  Configuration files with good hyperparameters, along with training results and some of my notes are included for all the environments below.
 
-Visualizations are provided for some of the environments just to whet your appetite. 
+Visualizations are provided for some of the environments just to whet your appetite.
 
 ## Features
 
 #### Environments
 ##### [**Open AI Gym**](https://gym.openai.com/envs)
- - Atari: [Pong](results/videos/pong.mp4)
- - Box2D: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
- - Classic control: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
- - MuJoCo: HalfCheetah | Hopper | InvertedDoublePendulum | InvertedPendulum | Reacher
- - Toy text: FrozenLake | FrozenLake8x8
+ - **Atari**: [Pong](results/videos/pong.mp4)
+ - **Box2D**: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
+ - **Classic control**: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
+ - **MuJoCo**: HalfCheetah | Hopper | InvertedDoublePendulum | [InvertedPendulum](results/videos/invertedpendulum.gif) | [Reacher](results/videos/reacher_gym.gif)
+ - **Toy text**: FrozenLake | FrozenLake8x8
 
 ##### [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md)
- - Udacity DRLND: [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | [Tennis](results/videos/tennis.gif) | VisualBanana
- - Example Environments: 3DBall | Basic | PushBlock
+ - **Udacity DRLND**: [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | [Tennis](results/videos/tennis.gif) | VisualBanana
+ - **Example Environments**: [3DBall](results/videos/3dball.gif) | Basic | PushBlock
 
 ##### [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/games.html)
- - Games: [FlappyBird](results/videos/flappybird.gif)
+ - **Games**: [FlappyBird](results/videos/flappybird.gif)
 
 #### Algorithms
  - **dqn**: Deep Q Networks with experience replay, fixed Q-targets, double DQN and prioritized experience replay
@@ -120,6 +120,7 @@ To render a saved model:
 ```
 ./main.py --cfg=cfg/gym/cartpole/cartpole_ppo.py --render --load=checkpoints/last_run/solved.pth
 ```
+
 
 ## Project layout
 The directory tree structure is as follows:
