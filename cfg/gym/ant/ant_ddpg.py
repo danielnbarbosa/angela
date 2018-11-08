@@ -15,14 +15,15 @@ model = {
 
 agent = {
     'action_size': 8,
+    #'update_every': 2,
     #'buffer_size': int(3e5),
     #'batch_size': 128,
     #'weight_decay': 0.0,
-    #'evaluation_only': True
+    'sigma': 0.1
 }
 
 train = {
     'n_episodes': 100000,
     'max_t': 200,
-    #'solve_score': 2000.0,
+    'solve_score': 6000.0,
 }

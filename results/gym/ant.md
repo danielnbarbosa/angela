@@ -1,5 +1,6 @@
 #### Notes
-
+- Ant-v1 is considered "solved" when the agent obtains an average reward of at least 6000.0 over 100 consecutive episodes.  Assuming the same for Ant-v2
+- you can get 1000 points without moving.  maybe looking in direction of goal?
 
 #### DDPG Training
 ```
