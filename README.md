@@ -26,15 +26,15 @@ While it is fairly easy to throw a new environment at her using one of the suppo
 
 #### Environments
  - [**Open AI Gym**](https://gym.openai.com/envs)
-  - Atari: [Pong](results/videos/pong.mp4)
-  - Box2D: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
-  - Classic control: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
-  - MuJoCo: HalfCheetah | Hopper | InvertedDoublePendulum | InvertedPendulum | Reacher
-  - Toy text: FrozenLake | FrozenLake8x8
+   - Atari: [Pong](results/videos/pong.mp4)
+   - Box2D: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
+   - Classic control: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
+   - MuJoCo: HalfCheetah | Hopper | InvertedDoublePendulum | InvertedPendulum | Reacher
+   - Toy text: FrozenLake | FrozenLake8x8
 
  - [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md)
-  - Udacity DRLND: [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | [Tennis](results/videos/tennis.gif) | VisualBanana
-  - Example Environments: 3DBall | Basic | PushBlock
+   - Udacity DRLND: [Banana](results/videos/banana.gif) | Crawler | [Reacher](results/videos/reacher.gif) | [Tennis](results/videos/tennis.gif) | VisualBanana
+   - Example Environments: 3DBall | Basic | PushBlock
 
  - [**PyGame Learning Environment**](https://pygame-learning-environment.readthedocs.io/en/latest/user/games.html): [FlappyBird](results/videos/flappybird.gif)
 
