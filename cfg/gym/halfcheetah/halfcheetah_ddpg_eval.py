@@ -9,8 +9,8 @@ environment = {
 model = {
     'state_size': 17,
     'action_size': 6,
-    'fc1_units': 400,
-    'fc2_units': 300
+    'fc1_units': 128,
+    'fc2_units': 64
 }
 
 agent = {
@@ -20,6 +20,5 @@ agent = {
 
 train = {
     'n_episodes': 100000,
-    'max_t': 1000,
     'solve_score': 4800.0,
 }
