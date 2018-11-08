@@ -1,0 +1,131 @@
+#### Notes
+
+
+
+#### DDPG Training
+```
+Episode:   100   Avg:   49.499   BestAvg:     -inf   σ:   17.231  |  Steps:      546   Secs:      1      |  ⍺: 0.5000  Buffer:    546
+Episode:   200   Avg:   34.854   BestAvg:   49.308   σ:    3.607  |  Steps:      937   Secs:      3      |  ⍺: 0.5000  Buffer:    937
+Episode:   300   Avg:   42.842   BestAvg:   49.308   σ:   13.643  |  Steps:     1412   Secs:      5      |  ⍺: 0.5000  Buffer:   1412
+Episode:   400   Avg:   58.077   BestAvg:   64.778   σ:   29.019  |  Steps:     2049   Secs:      7      |  ⍺: 0.5000  Buffer:   2049
+Episode:   500   Avg:   31.214   BestAvg:   64.778   σ:    4.645  |  Steps:     2400   Secs:      8      |  ⍺: 0.5000  Buffer:   2400
+Episode:   600   Avg:   30.229   BestAvg:   64.778   σ:    4.162  |  Steps:     2740   Secs:     10      |  ⍺: 0.5000  Buffer:   2740
+Episode:   700   Avg:   29.349   BestAvg:   64.778   σ:    4.051  |  Steps:     3070   Secs:     11      |  ⍺: 0.5000  Buffer:   3070
+Episode:   800   Avg:   29.395   BestAvg:   64.778   σ:    3.935  |  Steps:     3400   Secs:     13      |  ⍺: 0.5000  Buffer:   3400
+Episode:   900   Avg:   30.074   BestAvg:   64.778   σ:    4.141  |  Steps:     3738   Secs:     14      |  ⍺: 0.5000  Buffer:   3738
+Episode:  1000   Avg:   29.967   BestAvg:   64.778   σ:    4.096  |  Steps:     4075   Secs:     16      |  ⍺: 0.5000  Buffer:   4075
+Episode:  1100   Avg:   29.908   BestAvg:   64.778   σ:    4.105  |  Steps:     4411   Secs:     18      |  ⍺: 0.5000  Buffer:   4411
+Episode:  1200   Avg:   30.071   BestAvg:   64.778   σ:    4.129  |  Steps:     4749   Secs:     20      |  ⍺: 0.5000  Buffer:   4749
+Episode:  1300   Avg:   30.757   BestAvg:   64.778   σ:    4.258  |  Steps:     5095   Secs:     22      |  ⍺: 0.5000  Buffer:   5095
+Episode:  1400   Avg:   29.795   BestAvg:   64.778   σ:    4.046  |  Steps:     5430   Secs:     23      |  ⍺: 0.5000  Buffer:   5430
+Episode:  1500   Avg:   30.306   BestAvg:   64.778   σ:    4.167  |  Steps:     5771   Secs:     25      |  ⍺: 0.5000  Buffer:   5771
+Episode:  1600   Avg:   29.973   BestAvg:   64.778   σ:    4.096  |  Steps:     6108   Secs:     26      |  ⍺: 0.5000  Buffer:   6108
+Episode:  1700   Avg:   36.398   BestAvg:   64.778   σ:   18.571  |  Steps:     6514   Secs:     28      |  ⍺: 0.5000  Buffer:   6514
+Episode:  1800   Avg:   29.812   BestAvg:   64.778   σ:    4.079  |  Steps:     6849   Secs:     30      |  ⍺: 0.5000  Buffer:   6849
+Episode:  1900   Avg:   30.328   BestAvg:   64.778   σ:    4.199  |  Steps:     7190   Secs:     31      |  ⍺: 0.5000  Buffer:   7190
+Episode:  2000   Avg:   30.227   BestAvg:   64.778   σ:    4.351  |  Steps:     7530   Secs:     33      |  ⍺: 0.5000  Buffer:   7530
+Episode:  2100   Avg:   29.803   BestAvg:   64.778   σ:    4.056  |  Steps:     7865   Secs:     34      |  ⍺: 0.5000  Buffer:   7865
+Episode:  2200   Avg:   30.579   BestAvg:   64.778   σ:    4.300  |  Steps:     8208   Secs:     36      |  ⍺: 0.5000  Buffer:   8208
+Episode:  2300   Avg:   30.692   BestAvg:   64.778   σ:    4.659  |  Steps:     8553   Secs:     37      |  ⍺: 0.5000  Buffer:   8553
+Episode:  2400   Avg:   30.160   BestAvg:   64.778   σ:    4.179  |  Steps:     8892   Secs:     39      |  ⍺: 0.5000  Buffer:   8892
+Episode:  2500   Avg:   30.796   BestAvg:   64.778   σ:    4.306  |  Steps:     9238   Secs:     41      |  ⍺: 0.5000  Buffer:   9238
+Episode:  2600   Avg:   30.651   BestAvg:   64.778   σ:    4.419  |  Steps:     9583   Secs:     42      |  ⍺: 0.5000  Buffer:   9583
+Episode:  2700   Avg:   30.137   BestAvg:   64.778   σ:    4.125  |  Steps:     9922   Secs:     44      |  ⍺: 0.5000  Buffer:   9922
+Episode:  2800   Avg:   29.451   BestAvg:   64.778   σ:    3.920  |  Steps:    10253   Secs:     45      |  ⍺: 0.5000  Buffer:  10253
+Episode:  2900   Avg:   29.614   BestAvg:   64.778   σ:    3.963  |  Steps:    10586   Secs:     47      |  ⍺: 0.5000  Buffer:  10586
+Episode:  3000   Avg:   39.384   BestAvg:   64.778   σ:   24.601  |  Steps:    11023   Secs:     49      |  ⍺: 0.5000  Buffer:  11023
+Episode:  3100   Avg:   32.646   BestAvg:   64.778   σ:    5.583  |  Steps:    11389   Secs:     50      |  ⍺: 0.5000  Buffer:  11389
+Episode:  3200   Avg:   30.431   BestAvg:   64.778   σ:    4.236  |  Steps:    11731   Secs:     52      |  ⍺: 0.5000  Buffer:  11731
+Episode:  3300   Avg:   30.978   BestAvg:   64.778   σ:    4.517  |  Steps:    12079   Secs:     54      |  ⍺: 0.5000  Buffer:  12079
+Episode:  3400   Avg:   67.344   BestAvg:   67.344   σ:   16.918  |  Steps:    12817   Secs:     57      |  ⍺: 0.5000  Buffer:  12817
+Episode:  3500   Avg:   67.263   BestAvg:   68.648   σ:   10.090  |  Steps:    13554   Secs:     59      |  ⍺: 0.5000  Buffer:  13554
+Episode:  3600   Avg:   68.074   BestAvg:   68.783   σ:   10.380  |  Steps:    14299   Secs:     62      |  ⍺: 0.5000  Buffer:  14299
+Episode:  3700   Avg:   70.145   BestAvg:   70.148   σ:   11.999  |  Steps:    15066   Secs:     66      |  ⍺: 0.5000  Buffer:  15066
+Episode:  3800   Avg:   74.388   BestAvg:   74.938   σ:   19.702  |  Steps:    15878   Secs:     69      |  ⍺: 0.5000  Buffer:  15878
+Episode:  3900   Avg:   71.872   BestAvg:   76.669   σ:   11.008  |  Steps:    16662   Secs:     72      |  ⍺: 0.5000  Buffer:  16662
+Episode:  4000   Avg:   79.981   BestAvg:   79.988   σ:   17.935  |  Steps:    17533   Secs:     76      |  ⍺: 0.5000  Buffer:  17533
+Episode:  4100   Avg:   83.733   BestAvg:   83.733   σ:   20.370  |  Steps:    18444   Secs:     79      |  ⍺: 0.5000  Buffer:  18444
+Episode:  4200   Avg:   86.905   BestAvg:   88.212   σ:   18.013  |  Steps:    19389   Secs:     84      |  ⍺: 0.5000  Buffer:  19389
+Episode:  4300   Avg:   90.102   BestAvg:   90.746   σ:   17.091  |  Steps:    20367   Secs:     88      |  ⍺: 0.5000  Buffer:  20367
+Episode:  4400   Avg:   96.401   BestAvg:   96.401   σ:   22.216  |  Steps:    21412   Secs:     92      |  ⍺: 0.5000  Buffer:  21412
+Episode:  4500   Avg:  110.386   BestAvg:  110.854   σ:   42.450  |  Steps:    22607   Secs:     97      |  ⍺: 0.5000  Buffer:  22607
+Episode:  4600   Avg:  122.308   BestAvg:  122.590   σ:   42.339  |  Steps:    23929   Secs:    101      |  ⍺: 0.5000  Buffer:  23929
+Episode:  4700   Avg:  121.685   BestAvg:  127.108   σ:   36.045  |  Steps:    25244   Secs:    106      |  ⍺: 0.5000  Buffer:  25244
+Episode:  4800   Avg:  114.655   BestAvg:  127.108   σ:   31.937  |  Steps:    26483   Secs:    110      |  ⍺: 0.5000  Buffer:  26483
+Episode:  4900   Avg:  111.398   BestAvg:  127.108   σ:   31.276  |  Steps:    27688   Secs:    115      |  ⍺: 0.5000  Buffer:  27688
+Episode:  5000   Avg:  105.299   BestAvg:  127.108   σ:   25.071  |  Steps:    28828   Secs:    119      |  ⍺: 0.5000  Buffer:  28828
+Episode:  5100   Avg:  109.115   BestAvg:  127.108   σ:   29.825  |  Steps:    30009   Secs:    124      |  ⍺: 0.5000  Buffer:  30009
+Episode:  5200   Avg:  103.893   BestAvg:  127.108   σ:   24.717  |  Steps:    31135   Secs:    128      |  ⍺: 0.5000  Buffer:  31135
+Episode:  5300   Avg:   99.859   BestAvg:  127.108   σ:   20.549  |  Steps:    32218   Secs:    132      |  ⍺: 0.5000  Buffer:  32218
+Episode:  5400   Avg:  106.978   BestAvg:  127.108   σ:   30.889  |  Steps:    33378   Secs:    138      |  ⍺: 0.5000  Buffer:  33378
+Episode:  5500   Avg:  111.033   BestAvg:  127.108   σ:   34.612  |  Steps:    34581   Secs:    142      |  ⍺: 0.5000  Buffer:  34581
+Episode:  5600   Avg:  123.492   BestAvg:  127.108   σ:   40.926  |  Steps:    35918   Secs:    147      |  ⍺: 0.5000  Buffer:  35918
+Episode:  5700   Avg:  148.436   BestAvg:  148.806   σ:   59.048  |  Steps:    37523   Secs:    152      |  ⍺: 0.5000  Buffer:  37523
+Episode:  5800   Avg:  169.037   BestAvg:  170.442   σ:   77.379  |  Steps:    39349   Secs:    158      |  ⍺: 0.5000  Buffer:  39349
+Episode:  5900   Avg:  179.300   BestAvg:  185.520   σ:   79.618  |  Steps:    41285   Secs:    165      |  ⍺: 0.5000  Buffer:  41285
+Episode:  6000   Avg:  200.160   BestAvg:  201.484   σ:   74.869  |  Steps:    43447   Secs:    172      |  ⍺: 0.5000  Buffer:  43447
+Episode:  6100   Avg:  228.809   BestAvg:  228.809   σ:   90.350  |  Steps:    45917   Secs:    184      |  ⍺: 0.5000  Buffer:  45917
+Episode:  6200   Avg:  242.352   BestAvg:  251.935   σ:   93.564  |  Steps:    48534   Secs:    192      |  ⍺: 0.5000  Buffer:  48534
+Episode:  6300   Avg:  258.478   BestAvg:  261.676   σ:   86.909  |  Steps:    51328   Secs:    201      |  ⍺: 0.5000  Buffer:  51328
+Episode:  6400   Avg:  256.440   BestAvg:  263.118   σ:   97.674  |  Steps:    54101   Secs:    211      |  ⍺: 0.5000  Buffer:  54101
+Episode:  6500   Avg:  257.355   BestAvg:  263.978   σ:   82.054  |  Steps:    56883   Secs:    223      |  ⍺: 0.5000  Buffer:  56883
+Episode:  6600   Avg:  284.127   BestAvg:  286.359   σ:  101.486  |  Steps:    59952   Secs:    241      |  ⍺: 0.5000  Buffer:  59952
+Episode:  6700   Avg:  292.963   BestAvg:  294.047   σ:   98.149  |  Steps:    63116   Secs:    251      |  ⍺: 0.5000  Buffer:  63116
+Episode:  6800   Avg:  314.495   BestAvg:  318.501   σ:  124.674  |  Steps:    66509   Secs:    263      |  ⍺: 0.5000  Buffer:  66509
+Episode:  6900   Avg:  330.216   BestAvg:  331.214   σ:  119.325  |  Steps:    70070   Secs:    275      |  ⍺: 0.5000  Buffer:  70070
+Episode:  7000   Avg:  329.991   BestAvg:  346.254   σ:  132.975  |  Steps:    73630   Secs:    287      |  ⍺: 0.5000  Buffer:  73630
+Episode:  7100   Avg:  327.814   BestAvg:  346.254   σ:  125.812  |  Steps:    77167   Secs:    300      |  ⍺: 0.5000  Buffer:  77167
+Episode:  7200   Avg:  288.751   BestAvg:  346.254   σ:  122.227  |  Steps:    80285   Secs:    311      |  ⍺: 0.5000  Buffer:  80285
+Episode:  7300   Avg:  298.861   BestAvg:  346.254   σ:  125.693  |  Steps:    83511   Secs:    323      |  ⍺: 0.5000  Buffer:  83511
+Episode:  7400   Avg:  315.900   BestAvg:  346.254   σ:  110.058  |  Steps:    86921   Secs:    335      |  ⍺: 0.5000  Buffer:  86921
+Episode:  7500   Avg:  347.548   BestAvg:  347.548   σ:  129.620  |  Steps:    90666   Secs:    356      |  ⍺: 0.5000  Buffer:  90666
+Episode:  7600   Avg:  383.516   BestAvg:  389.596   σ:  150.086  |  Steps:    94795   Secs:    370      |  ⍺: 0.5000  Buffer:  94795
+Episode:  7700   Avg:  411.565   BestAvg:  413.664   σ:  173.118  |  Steps:    99221   Secs:    388      |  ⍺: 0.5000  Buffer:  99221
+Episode:  7800   Avg:  424.996   BestAvg:  436.612   σ:  185.015  |  Steps:   103793   Secs:    406      |  ⍺: 0.5000  Buffer: 100000
+Episode:  7900   Avg:  384.689   BestAvg:  436.612   σ:  133.866  |  Steps:   107934   Secs:    426      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8000   Avg:  434.075   BestAvg:  436.612   σ:  194.464  |  Steps:   112603   Secs:    441      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8100   Avg:  463.082   BestAvg:  474.593   σ:  255.382  |  Steps:   117582   Secs:    457      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8200   Avg:  415.356   BestAvg:  474.593   σ:  154.704  |  Steps:   122053   Secs:    472      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8300   Avg:  468.532   BestAvg:  479.450   σ:  260.359  |  Steps:   127096   Secs:    488      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8400   Avg:  496.440   BestAvg:  507.097   σ:  275.782  |  Steps:   132442   Secs:    506      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8500   Avg:  522.612   BestAvg:  526.036   σ:  356.027  |  Steps:   138069   Secs:    524      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8600   Avg:  571.667   BestAvg:  600.132   σ:  348.010  |  Steps:   144222   Secs:    548      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8700   Avg:  725.017   BestAvg:  725.017   σ:  488.645  |  Steps:   152020   Secs:    577      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8800   Avg:  834.664   BestAvg:  834.664   σ:  621.184  |  Steps:   160995   Secs:    607      |  ⍺: 0.5000  Buffer: 100000
+Episode:  8900   Avg:  951.588   BestAvg:  966.039   σ:  826.027  |  Steps:   171224   Secs:    640      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9000   Avg:  846.538   BestAvg:  966.039   σ:  597.322  |  Steps:   180327   Secs:    671      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9100   Avg: 1024.215   BestAvg: 1032.241   σ:  698.556  |  Steps:   191328   Secs:    710      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9200   Avg: 2895.087   BestAvg: 2895.087   σ: 2538.293  |  Steps:   222345   Secs:    826      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9300   Avg: 4781.571   BestAvg: 5060.205   σ: 3398.048  |  Steps:   273580   Secs:   1019      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9400   Avg: 1760.043   BestAvg: 5060.205   σ: 1959.424  |  Steps:   292485   Secs:   1079      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9500   Avg: 1750.989   BestAvg: 5060.205   σ: 1390.961  |  Steps:   311285   Secs:   1140      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9600   Avg: 1634.952   BestAvg: 5060.205   σ: 1312.461  |  Steps:   328852   Secs:   1196      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9700   Avg: 1242.303   BestAvg: 5060.205   σ: 1398.275  |  Steps:   342208   Secs:   1237      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9800   Avg: 1314.971   BestAvg: 5060.205   σ: 1169.140  |  Steps:   356347   Secs:   1282      |  ⍺: 0.5000  Buffer: 100000
+Episode:  9900   Avg: 1137.348   BestAvg: 5060.205   σ:  866.539  |  Steps:   368585   Secs:   1321      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10000   Avg: 1227.518   BestAvg: 5060.205   σ: 1208.777  |  Steps:   381785   Secs:   1363      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10100   Avg: 1193.301   BestAvg: 5060.205   σ: 1127.625  |  Steps:   394615   Secs:   1404      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10200   Avg: 1249.442   BestAvg: 5060.205   σ: 1305.289  |  Steps:   408049   Secs:   1448      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10300   Avg: 1226.940   BestAvg: 5060.205   σ: 1135.829  |  Steps:   421241   Secs:   1495      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10400   Avg: 1118.848   BestAvg: 5060.205   σ:  963.865  |  Steps:   433278   Secs:   1534      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10500   Avg: 1212.871   BestAvg: 5060.205   σ: 1052.953  |  Steps:   446322   Secs:   1576      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10600   Avg: 1064.180   BestAvg: 5060.205   σ:  873.797  |  Steps:   457771   Secs:   1613      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10700   Avg: 1063.886   BestAvg: 5060.205   σ: 1032.314  |  Steps:   469214   Secs:   1650      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10800   Avg: 1007.288   BestAvg: 5060.205   σ:  832.106  |  Steps:   480053   Secs:   1685      |  ⍺: 0.5000  Buffer: 100000
+Episode: 10900   Avg:  844.729   BestAvg: 5060.205   σ:  665.855  |  Steps:   489148   Secs:   1714      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11000   Avg:  948.193   BestAvg: 5060.205   σ:  706.438  |  Steps:   499353   Secs:   1746      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11100   Avg:  823.289   BestAvg: 5060.205   σ:  714.256  |  Steps:   508214   Secs:   1775      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11200   Avg:  842.061   BestAvg: 5060.205   σ:  685.639  |  Steps:   517278   Secs:   1806      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11300   Avg:  837.443   BestAvg: 5060.205   σ:  708.354  |  Steps:   526292   Secs:   1835      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11400   Avg:  793.300   BestAvg: 5060.205   σ:  628.243  |  Steps:   534834   Secs:   1863      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11500   Avg:  780.584   BestAvg: 5060.205   σ:  629.359  |  Steps:   543239   Secs:   1889      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11600   Avg:  664.127   BestAvg: 5060.205   σ:  598.779  |  Steps:   550391   Secs:   1921      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11700   Avg:  860.233   BestAvg: 5060.205   σ:  711.644  |  Steps:   559648   Secs:   1982      |  ⍺: 0.5000  Buffer: 100000
+Episode: 11800   Avg:  697.108   BestAvg: 5060.205   σ:  672.778  |  Steps:   567153   Secs:   2042      |  ⍺: 0.5000  Buffer: 100000
+```
+
+#### DDPG Evaluation
+```
+Loaded: checkpoints/last_run/episode.9300
+Episode:    20   Avg: 1647.532   BestAvg:     -inf   σ: 1503.924  |  Steps:      137   Reward: 1275.792  |  ⍺: 0.5000  Buffer:   3537
+```
