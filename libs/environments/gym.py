@@ -158,3 +158,42 @@ class GymAtariBreakout(GymAtari):
         frame[frame != 0] = 255 # set all pixels to 255
         frame = frame.astype(np.float32) / 255
         return frame
+
+
+class GymMario(Gym):
+    """
+    OpenAI Gym Environment for use with Super Mario Bros.
+    Stacks 4 frames into state.
+    """
+    import ppaquette_gym_super_mario
+
+    def __init__(self, name, seed=0):
+        super(GymMario, self).__init__(name, seed)
+        self.full_state = np.zeros((1, 4, 13, 16), dtype=np.uint8)
+        self.env.reset()
+
+    def _add_frame(self, frame):
+        """ Add single frame to state.  Used for processing multiple states over time."""
+        self.full_state[:, 3, :, : :] = self.full_state[:, 2, :, : :]
+        self.full_state[:, 2, :, : :] = self.full_state[:, 1, :, : :]
+        self.full_state[:, 1, :, : :] = self.full_state[:, 0, :, : :]
+        self.full_state[:, 0, :, : :] = frame
+
+    def reset(self):
+        """Reset the environment."""
+        frame = np.zeros((13, 16), dtype=np.uint8)  # calling reset() freezes the environment so just set initial frame to all zeros
+        #print('reset() frame from environment:  {}'.format(frame.shape))  # DEBUG
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        #print('reset():  {}'.format(self.full_state.shape))  # DEBUG
+        return self.full_state.copy()
+
+    def step(self, action):
+        """Take a step in the environment.  Given an action, return the next state."""
+        frame, reward, done, _ = self.env.step(action)
+        #print('step() frame from environment:  {}'.format(frame))  # DEBUG
+        self._add_frame(frame)
+        #print('step():  {}'.format(self.full_state))  # DEBUG
+        return self.full_state.copy(), reward, done

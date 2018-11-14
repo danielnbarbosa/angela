@@ -32,6 +32,7 @@ Visualizations are provided for some of the environments just to whet your appet
  - **Box2D**: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
  - **Classic control**: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
  - **MuJoCo**: HalfCheetah | Hopper | InvertedDoublePendulum | [InvertedPendulum](results/videos/invertedpendulum.gif) | [Reacher](results/videos/reacher_gym.gif)
+ - **NES**: SuperMarioBros
  - **Toy text**: FrozenLake | FrozenLake8x8
 
 ##### [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md)
@@ -68,7 +69,7 @@ Visualizations are provided for some of the environments just to whet your appet
 The below process works for MacOS, but should be easily adopted for Windows.  For AWS see separate [instructions](docs/run_in_aws.md).
 
 #### Step 1: Install dependencies
-Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.  If you want to work with mujoco environments see additional [requirements](docs/mujoco_setup.md).
+Create an [anaconda](https://www.anaconda.com/download/) environment that contains all the required dependencies to run the project.  If you want to work with mujoco environments see additional [requirements](docs/mujoco_setup.md).  Note that ppaquette_gym_super_mario downgrades gym to 0.10.5.
 
 ```
 git clone https://github.com/danielnbarbosa/angela.git
@@ -78,8 +79,10 @@ conda install -y pytorch torchvision -c pytorch
 conda install -y pip swig opencv scikit-image
 conda uninstall -y ffmpeg # needed for gym monitor
 conda install -y -c conda-forge opencv ffmpeg  # needed for gym monitor
-pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame
+pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame ppaquette_gym_super_mario
 cd ..
+
+brew install fceux  # this is the NES emulator
 ```
 
 #### Step 2: Install environment toolkits

@@ -12,7 +12,7 @@ model = {
     'filter_maps': (16, 32),
     'kernels': (6, 6),
     'strides': (2, 4),
-    'conv_out': 9,
+    'conv_out': (9, 9),
     'fc_units': 256,
     'seed': 1
 }

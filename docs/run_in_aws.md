@@ -30,7 +30,7 @@ export DISPLAY=:0
 
 /usr/bin/X :0 &
 su - -c "conda install -y -n pytorch_p36 pip swig opencv scikit-image" ubuntu
-su - -c "source activate pytorch_p36; pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame" ubuntu
+su - -c "source activate pytorch_p36; pip install torchsummary tensorboardX dill gym Box2D box2d-py unityagents pygame ppaquette_gym_super_mario" ubuntu
 DIR="/home/ubuntu"
 
 # install gym toolkit
@@ -66,4 +66,7 @@ chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux Crawler_Linux Tennis_Lin
 
 # update packages
 su - -c "conda update -y -n pytorch_p36 --all" ubuntu
+
+# install NES emulator
+apt-get install fceux
 ```

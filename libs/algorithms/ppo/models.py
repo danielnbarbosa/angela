@@ -30,9 +30,8 @@ class SingleHiddenLayer(nn.Module):
 
 class TwoLayerConv2D(nn.Module):
     """
-    CNN for learning from pixels.  Assumes 4 stacked 80x80 grayscale frames.
-    Defaults to float32 frames.  If using uint8 frames, set normalize=True
-    Total parameters: 243K
+    CNN for learning from pixels.  Assumes 4 stacked frames.
+    Set normalize=True to convert grayscale (0 - 255) to floating point (0.0 - 1.0)
     """
 
     def __init__(self, state_size, action_size, filter_maps, kernels, strides, conv_out, fc_units, seed=0, normalize=False):
@@ -58,7 +57,7 @@ class TwoLayerConv2D(nn.Module):
         self.bn1 = nn.BatchNorm2d(filter_maps[0])
         self.conv2 = nn.Conv2d(filter_maps[0], filter_maps[1], kernels[1], stride=strides[1])
         self.bn2 = nn.BatchNorm2d(filter_maps[1])
-        self.fc = nn.Linear(filter_maps[1]*conv_out**2, fc_units)
+        self.fc = nn.Linear(filter_maps[1]*conv_out[0]*conv_out[1], fc_units)
         self.output = nn.Linear(fc_units, action_size)
         print(self)  # print model
         summary(self.to(device), state_size)

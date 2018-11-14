@@ -60,7 +60,7 @@ class TwoLayerConv2D(nn.Module):
         self.bn1 = nn.BatchNorm2d(filter_maps[0])
         self.conv2 = nn.Conv2d(filter_maps[0], filter_maps[1], kernels[1], stride=strides[1])
         self.bn2 = nn.BatchNorm2d(filter_maps[1])
-        self.fc = nn.Linear(filter_maps[1]*conv_out**2, fc_units)
+        self.fc = nn.Linear(filter_maps[1]*conv_out[0]*conv_out[1], fc_units)
         self.output = nn.Linear(fc_units, action_size)
         print(self)  # print model
         summary(self.to(device), state_size)
