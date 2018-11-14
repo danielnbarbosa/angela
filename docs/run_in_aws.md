@@ -68,5 +68,5 @@ chown -R ubuntu:ubuntu VisualBanana_Linux Reacher_Linux Crawler_Linux Tennis_Lin
 su - -c "conda update -y -n pytorch_p36 --all" ubuntu
 
 # install NES emulator
-apt-get install fceux
+apt-get -y install fceux
 ```
