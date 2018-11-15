@@ -68,3 +68,17 @@ Episode:   200   Avg:   62.737   BestAvg:   69.395   σ:   31.651  |  Steps:   2
 Episode:   300   Avg:   65.655   BestAvg:   69.395   σ:   29.590  |  Steps:   273889   Secs:   4621      |  ε: 0.1481   β:      0.0
 Episode:   400   Avg:   63.703   BestAvg:   69.498   σ:   31.058  |  Steps:   311513   Secs:   5918      |  ε:  0.134   β:      0.0
 ```
+
+#### PG (AWS)
+```
+Episode:   100   Avg:   57.426   BestAvg:     -inf   σ:   49.092  |  Steps:   141056   Secs:   1116      |
+Episode:   200   Avg:   67.045   BestAvg:   67.587   σ:   45.811  |  Steps:   207250   Secs:   1949      |
+Episode:   300   Avg:   61.996   BestAvg:   69.459   σ:   35.855  |  Steps:   244773   Secs:   2668      |
+Episode:   400   Avg:   66.301   BestAvg:   69.459   σ:   45.672  |  Steps:   280524   Secs:   3376      |
+Episode:   500   Avg:   66.696   BestAvg:   69.459   σ:   39.782  |  Steps:   308935   Secs:   4057      |
+Episode:   600   Avg:   70.953   BestAvg:   72.852   σ:   41.188  |  Steps:   336773   Secs:   4731      |
+Episode:   700   Avg:   70.206   BestAvg:   75.710   σ:   43.228  |  Steps:   361465   Secs:   5394      |
+Episode:   800   Avg:   65.408   BestAvg:   75.710   σ:   36.269  |  Steps:   385260   Secs:   6055      |
+Episode:   900   Avg:   68.019   BestAvg:   75.710   σ:   46.118  |  Steps:   407597   Secs:   6711      |
+Episode:  1000   Avg:   65.368   BestAvg:   75.710   σ:   42.812  |  Steps:   429653   Secs:   7369      |
+```

@@ -31,7 +31,8 @@ class SingleHiddenLayer(nn.Module):
 class TwoLayerConv2D(nn.Module):
     """
     CNN for learning from pixels.  Assumes 4 stacked frames.
-    Set normalize=True to convert grayscale (0 - 255) to floating point (0.0 - 1.0)
+    Set normalize=N to convert integers in range [0 - N] to floating point [0.0 - 1.0]
+    For example to convert grayscale pixel values, normalize=255
     """
 
     def __init__(self, state_size, action_size, filter_maps, kernels, strides, conv_out, fc_units, seed=0, normalize=False):
@@ -65,7 +66,7 @@ class TwoLayerConv2D(nn.Module):
     def forward(self, x):
         #print('in:  {}'.format(x))
         if self.normalize:                   # normalization
-            x = x.float() / 255
+            x = x.float() / self.normalize
         #print('norm:  {}'.format(x))
         x = F.relu(self.bn1(self.conv1(x)))  # convolutions
         x = F.relu(self.bn2(self.conv2(x)))
