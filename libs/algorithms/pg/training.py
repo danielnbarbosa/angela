@@ -11,6 +11,7 @@ import libs.statistics
 
 def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           gamma=0.99,
+          action_repeat=1,
           max_noop=0,
           render=False,
           solve_score=100000.0,
@@ -24,6 +25,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         n_episodes (int): maximum number of training episodes
         max_t (int): maximum number of timesteps per episode
         gamma (float): discount rate
+        action_repeat (int): number of times to repeat same action
         max_noop (int): maximum number of initial noops at start of episode
         render (bool): whether to render the agent
         solve_score (float): criteria for considering the environment solved
@@ -51,7 +53,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         for t in range(1, max_t+1):
             if render:  # optionally render agent
                 environment.render()
-            action, log_prob = agent.act(state)
+            if t % action_repeat == 1 or action_repeat == 1:
+                action, log_prob = agent.act(state)
             saved_log_probs.append(log_prob)
             state, reward, done = environment.step(action)
             rewards.append(reward)
@@ -59,6 +62,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
                 break
 
         # every episode
+        if environment.name == 'ppaquette/meta-SuperMarioBros-Tiles-v0':
+            rewards[0] = 0  # for some reason SuperMarioBros env gives huge reward on first step, distorting the reward function
         agent.learn(rewards, saved_log_probs, gamma)
         stats.update(t, rewards, i_episode)
         stats.print_episode(i_episode, t, stats_format)

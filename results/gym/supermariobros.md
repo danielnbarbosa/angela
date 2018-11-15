@@ -3,12 +3,23 @@
 - Use the meta version (`ppaquette/meta-SuperMarioBros-Tiles-v0`) of the Super Mario environments to avoid environment restarting on death.  Instead just reset environment.
 - Set the max timesteps to beyond the level timeout (~4000 steps) to avoid episode terminating without death, otherwise it gets frozen.
 - The environment expects 6 different simultaneous inputs, but many combinations are not useful (e.g. left and right) so the action_map defines only the useful combinations.
-- Random agent averages score of 93 over 10 rollouts.
+- Random agent averages score of 40 over 10 rollouts.
 - Environment does not accept a seed but is deterministic.
 - Increasing frameskip makes the emulator skip rendering frames.  This only affects rendering, not training.
 - For some reason a huge reward is given on the first step, distorting the reward function.  This is now removed in the training code.
 
 - Training collapsed after 300 episodes.  When evaluating the model from the 200th episode, agent got to distance 1410 (44%).
+
+
+##### Rewards Progress
+```
+21   9%  : first goomba
+61   22% : after second pipe
+76   28% : after third (first tall) pipe
+112  35% : first pit
+140  45% : second pit
+166  51% : first turtle
+```
 
 
 ##### Action Indices
@@ -52,6 +63,8 @@ Wall time taken for identical rollouts
 
 #### PPO (AWS)
 ```
-Episode:   100   Avg:   62.613   BestAvg:     -inf   σ:   23.854  |  Steps:   118497   Secs:   2734      |  ε: 0.09048   β:      0.0
-Episode:   200   Avg:   39.965   BestAvg:   63.003   σ:   17.469  |  Steps:   143465   Secs:   4207      |  ε: 0.08186   β:      0.0
+Episode:   100   Avg:   63.101   BestAvg:     -inf   σ:   36.236  |  Steps:   178785   Secs:   1940      |  ε:  0.181   β:      0.0
+Episode:   200   Avg:   62.737   BestAvg:   69.395   σ:   31.651  |  Steps:   232540   Secs:   3308      |  ε: 0.1637   β:      0.0
+Episode:   300   Avg:   65.655   BestAvg:   69.395   σ:   29.590  |  Steps:   273889   Secs:   4621      |  ε: 0.1481   β:      0.0
+Episode:   400   Avg:   63.703   BestAvg:   69.498   σ:   31.058  |  Steps:   311513   Secs:   5918      |  ε:  0.134   β:      0.0
 ```

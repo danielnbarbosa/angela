@@ -46,6 +46,7 @@ class Stats():
         self.writer.add_scalar('data/reward', self.score, i_episode)
         self.writer.add_scalar('data/std_dev', self.std_dev, i_episode)
         self.writer.add_scalar('data/avg_reward', self.avg_score, i_episode)
+        print('')  # print every episode
 
     def print_epoch(self, i_episode, stats_format, *args):
         n_secs = int(time.time() - self.time_start)
@@ -92,7 +93,6 @@ class PPOStats(Stats):
         epsilon, beta = args
         self.writer.add_scalar('data/epsilon', epsilon, i_episode)
         self.writer.add_scalar('data/beta', beta, i_episode)
-        print('')  # print every episode
 
 
 class DDPGStats(Stats):
