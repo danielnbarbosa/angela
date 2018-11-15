@@ -10,6 +10,7 @@ from skimage.color import rgb2gray
 import cv2
 from libs.discretize import create_uniform_grid
 from libs.visualize import show_frames_2d, show_frames_3d, show_frame
+import ppaquette_gym_super_mario
 
 
 class Gym():
@@ -165,11 +166,11 @@ class GymMario(Gym):
     OpenAI Gym Environment for use with Super Mario Bros.
     Stacks 4 frames into state.
     """
-    import ppaquette_gym_super_mario
 
     def __init__(self, name, seed=0):
         super(GymMario, self).__init__(name, seed)
         self.full_state = np.zeros((1, 4, 13, 16), dtype=np.uint8)
+        self.env.unwrapped.cmd_args.append('--frameskip 4')  # increase frameskip to boost speed
         self.env.reset()
 
     def _add_frame(self, frame):
@@ -197,3 +198,10 @@ class GymMario(Gym):
         self._add_frame(frame)
         #print('step():  {}'.format(self.full_state))  # DEBUG
         return self.full_state.copy(), reward, done
+
+    def render(self):
+        """
+        Render the environment to visualize the agent interacting.
+        Does nothing because rendering is always on.
+        """
+        pass
