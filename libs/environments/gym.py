@@ -170,7 +170,7 @@ class GymMario(Gym):
     def __init__(self, name, seed=0):
         super(GymMario, self).__init__(name, seed)
         self.full_state = np.zeros((1, 4, 13, 16), dtype=np.uint8)
-        self.env.unwrapped.cmd_args.append('--frameskip 4')  # increase frameskip to boost speed
+        self.env.unwrapped.cmd_args.append('--frameskip 1')  # increase frameskip to boost speed
         self.env.reset()
 
     def _add_frame(self, frame):
