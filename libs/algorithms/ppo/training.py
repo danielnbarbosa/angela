@@ -86,12 +86,17 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
                 actions.append(action_index)
                 rewards.append(reward)
                 state = next_state
+                # DEBUG rewards and dones per step
+                #print(reward, done)
+                #input('->')
                 if agent.n_agents == 1 and done:
                     break
                 if agent.n_agents > 1 and not any(alive_agents):
                     break
             # append rewards from trajectory to rewards_lists
             # needs special treatment because rewards are normalized per trajectory
+            if environment.name == 'ppaquette/meta-SuperMarioBros-Tiles-v0':
+                rewards[0] = 0  # for some reason SuperMarioBros env gives huge reward on first step, distorting the reward function
             rewards_lists.append(rewards)
 
         # every episode

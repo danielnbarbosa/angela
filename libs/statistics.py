@@ -92,6 +92,7 @@ class PPOStats(Stats):
         epsilon, beta = args
         self.writer.add_scalar('data/epsilon', epsilon, i_episode)
         self.writer.add_scalar('data/beta', beta, i_episode)
+        print('')  # print every episode
 
 
 class DDPGStats(Stats):

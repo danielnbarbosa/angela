@@ -29,6 +29,7 @@ class Gym():
             one_hot (int): Size of 1-D one-hot vector
             action_bins (tuple): Number of splits to divide each dimension of continuous space
         """
+        self.name = name
         self.seed = seed
         print('SEED: {}'.format(self.seed))
         self.one_hot = one_hot
