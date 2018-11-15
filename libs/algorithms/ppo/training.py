@@ -10,6 +10,7 @@ import libs.statistics
 
 def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
           gamma=0.99,
+          action_repeat=1,
           max_noop=0,
           epsilon=0.1,
           epsilon_decay=0.999,
@@ -29,6 +30,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
         n_episodes (int): maximum number of training episodes
         max_t (int): maximum number of timesteps per episode
         gamma (float): discount rate
+        action_repeat (int): number of times to repeat same action
         max_noop (int): maximum number of initial noops at start of episode
         epsilon (float): PPO clipping parameter
         epsilon_decay (float): epsilon_decay rate
@@ -67,7 +69,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
             for t in range(1, max_t+1):
                 if render:  # optionally render agent
                     environment.render()
-                action, action_index, prob = agent.act(state)
+                if t % action_repeat == 1:
+                    action, action_index, prob = agent.act(state)
                 next_state, reward, done = environment.step(action)
 
                 # set rewards to 0 for agents that are done
@@ -87,7 +90,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
                 rewards.append(reward)
                 state = next_state
                 # DEBUG rewards and dones per step
-                #print(reward, done)
+                #print(action, reward, done)
                 #input('->')
                 if agent.n_agents == 1 and done:
                     break

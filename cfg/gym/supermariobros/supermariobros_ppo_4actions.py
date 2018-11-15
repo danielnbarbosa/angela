@@ -28,6 +28,7 @@ agent = {
 train = {
     'n_episodes':   50000,
     'max_t':        10000,
+    'action_repeat': 4,
     'epsilon':      0.2,
     'beta':         0.00,
     'sgd_epoch':    2,
