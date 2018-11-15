@@ -52,13 +52,6 @@ Wall time taken for identical rollouts
 
 #### PPO (AWS)
 ```
-Episode:   100   Avg:  167.091   BestAvg:     -inf   σ:   37.335  |  Steps:   242855   Secs:   3646      |  ε:  0.181   β:      0.0
-Episode:   200   Avg:  205.997   BestAvg:  206.377   σ:   50.789  |  Steps:   366310   Secs:   6077      |  ε: 0.1637   β:      0.0
-Episode:   300   Avg:  229.278   BestAvg:  235.858   σ:   70.386  |  Steps:   392904   Secs:   7472      |  ε: 0.1481   β:      0.0
-Episode:   400   Avg:  180.349   BestAvg:  235.858   σ:   50.222  |  Steps:   410492   Secs:   8775      |  ε:  0.134   β:      0.0
-Episode:   500   Avg:  175.703   BestAvg:  235.858   σ:   61.052  |  Steps:   425309   Secs:  10058      |  ε: 0.1213   β:      0.0
-Episode:   600   Avg:  149.532   BestAvg:  235.858   σ:   43.417  |  Steps:   440283   Secs:  11322      |  ε: 0.1097   β:      0.0
-Episode:   700   Avg:  139.562   BestAvg:  235.858   σ:   43.013  |  Steps:   454745   Secs:  12581      |  ε: 0.09928   β:      0.0
-Episode:   800   Avg:  142.688   BestAvg:  235.858   σ:   39.328  |  Steps:   468515   Secs:  13852      |  ε: 0.08983   β:      0.0
-Episode:   900   Avg:  134.422   BestAvg:  235.858   σ:   34.771  |  Steps:   481637   Secs:  15110      |  ε: 0.08128   β:      0.0
+Episode:   100   Avg:   62.613   BestAvg:     -inf   σ:   23.854  |  Steps:   118497   Secs:   2734      |  ε: 0.09048   β:      0.0
+Episode:   200   Avg:   39.965   BestAvg:   63.003   σ:   17.469  |  Steps:   143465   Secs:   4207      |  ε: 0.08186   β:      0.0
 ```
