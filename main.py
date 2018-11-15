@@ -3,7 +3,8 @@
 import importlib
 import argparse
 import sys
-
+import signal
+from subprocess import call
 
 # parse command line arguments
 parser = argparse.ArgumentParser()
@@ -30,6 +31,14 @@ elif cfg.env_class.startswith('PLE'):
 
 # load modules based on algorithm
 exec('from libs.algorithms.' + cfg.algorithm + ' import agents, models, training')
+
+# trap Ctrl-C
+def signal_handler(sig, frame):
+        call('killall fceux 2> /dev/null', shell=True)  # shutdown NES emulator
+        call('killall fceux 2> /dev/null', shell=True)
+        environment.env.close()
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 # create model and agent objects and start training
 if cfg.algorithm == 'maddpg_v2':  # model is loaded from inside the agent

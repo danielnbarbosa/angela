@@ -69,7 +69,7 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
             for t in range(1, max_t+1):
                 if render:  # optionally render agent
                     environment.render()
-                if t % action_repeat == 1:
+                if t % action_repeat == 1 or action_repeat == 1:
                     action, action_index, prob = agent.act(state)
                 next_state, reward, done = environment.step(action)
 

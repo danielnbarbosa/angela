@@ -4,8 +4,9 @@
 - Set the max timesteps to beyond the level timeout (~4000 steps) to avoid episode terminating without death, otherwise it gets frozen.
 - The environment expects 6 different simultaneous inputs, but many combinations are not useful (e.g. left and right) so the action_map defines only the useful combinations.
 - Random agent averages score of 93 over 10 rollouts.
-- Environment does not accept a seed but seems to be deterministic.
+- Environment does not accept a seed but is deterministic.
 - Increasing frameskip makes the emulator skip rendering frames.  This only affects rendering, not training.
+- For some reason a huge reward is given on the first step, distorting the reward function.  This is now removed in the training code.
 
 - Training collapsed after 300 episodes.  When evaluating the model from the 200th episode, agent got to distance 1410 (44%).
 
