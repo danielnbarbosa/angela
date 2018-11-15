@@ -114,8 +114,8 @@ def train(environment, agent, seed=0, n_episodes=10000, max_t=2000,
             # average rewards across all trajectories for stats
             rewards = flatten(rewards_lists)
             rewards = [r/agent.n_agents for r in rewards]
-        stats.update(t, rewards, i_episode)
-        stats.print_episode(i_episode, t, stats_format, epsilon, beta)
+        stats.update(len(rewards), rewards, i_episode)
+        stats.print_episode(i_episode, len(rewards), stats_format, epsilon, beta)
 
         epsilon *= epsilon_decay  # decay the clipping parameter
         beta *= beta_decay  # decay the entropy, this reduces exploration in later runs
