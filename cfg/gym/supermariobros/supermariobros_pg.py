@@ -9,16 +9,16 @@ environment = {
 model = {
     'state_size': (4, 13, 16),
     'action_size': 14,
-    'filter_maps': (16, 32),
-    'kernels': (4, 2),
-    'strides': (3, 1),
-    'conv_out': (3, 4),
-    'fc_units': 128,
+    'filter_maps': (32, 32),
+    'kernels': (3, 3),
+    'strides': (2, 2),
+    'conv_out': (2, 3),
+    'fc_units': 256,
     'normalize': 4,
 }
 
 agent = {
-    'lr': 0.0001,
+    'lr': 0.0003,
     'action_map': {0: [0, 0, 0, 0, 0, 0],
                    1: [1, 0, 0, 0, 0, 0],
                    2: [0, 1, 0, 0, 0, 0],
