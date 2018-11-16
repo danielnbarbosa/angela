@@ -7,8 +7,8 @@
 - Environment does not accept a seed but is deterministic.
 - Increasing frameskip makes the emulator skip rendering frames.  This only affects rendering, not training.
 - For some reason a huge reward is given on the first step, distorting the reward function.  This is now removed in the training code.
-
-- Training collapsed after 300 episodes.  When evaluating the model from the 200th episode, agent got to distance 1410 (44%).
+- All training is done on AWS.
+- I think this environment is more challenging for a pure CNN model given the long time sequence of correct actions needed to be successful.  Adding an RNN would probably help.
 
 
 ##### Rewards Progress
@@ -61,7 +61,7 @@ Wall time taken for identical rollouts
 6: 56  secs
 ```
 
-#### PPO (AWS)
+#### PPO
 ```
 Episode:   100   Avg:   63.101   BestAvg:     -inf   σ:   36.236  |  Steps:   178785   Secs:   1940      |  ε:  0.181   β:      0.0
 Episode:   200   Avg:   62.737   BestAvg:   69.395   σ:   31.651  |  Steps:   232540   Secs:   3308      |  ε: 0.1637   β:      0.0
@@ -69,17 +69,31 @@ Episode:   300   Avg:   65.655   BestAvg:   69.395   σ:   29.590  |  Steps:   2
 Episode:   400   Avg:   63.703   BestAvg:   69.498   σ:   31.058  |  Steps:   311513   Secs:   5918      |  ε:  0.134   β:      0.0
 ```
 
-#### PG (AWS)
+#### PG
 ```
-Episode:   100   Avg:   60.373   BestAvg:     -inf   σ:   38.593  |  Steps:    81288   Secs:    891      |
-Episode:   200   Avg:   64.362   BestAvg:   66.800   σ:   45.062  |  Steps:   109424   Secs:   1569      |
-Episode:   300   Avg:   67.957   BestAvg:   70.015   σ:   40.559  |  Steps:   132870   Secs:   2227      |
-Episode:   400   Avg:   60.115   BestAvg:   70.015   σ:   36.937  |  Steps:   150324   Secs:   2865      |
-Episode:   500   Avg:   69.814   BestAvg:   70.957   σ:   38.495  |  Steps:   170104   Secs:   3509      |
-Episode:   600   Avg:   66.171   BestAvg:   73.015   σ:   46.310  |  Steps:   195169   Secs:   4173      |
-Episode:   700   Avg:   73.212   BestAvg:   73.212   σ:   46.376  |  Steps:   218736   Secs:   4834      |
-Episode:   800   Avg:   81.553   BestAvg:   83.595   σ:   40.302  |  Steps:   245588   Secs:   5509      |
-Episode:   900   Avg:   75.225   BestAvg:   83.595   σ:   42.320  |  Steps:   265583   Secs:   6157      |
-Episode:  1000   Avg:   83.389   BestAvg:   83.595   σ:   42.853  |  Steps:   288035   Secs:   6813      |
-Episode:  1050   Avg:   79.612   BestAvg:   84.936   σ:   42.564  |  Steps:      171   Reward:   66.184  |
+Episode:   100   Avg:   76.631   BestAvg:     -inf   σ:   43.971  |  Steps:    22438   Secs:    690      |
+Episode:   200   Avg:   81.307   BestAvg:   87.884   σ:   45.704  |  Steps:    42617   Secs:   1371      |
+Episode:   300   Avg:   81.837   BestAvg:   87.884   σ:   45.200  |  Steps:    64049   Secs:   2062      |
+Episode:   400   Avg:   78.041   BestAvg:   87.884   σ:   45.575  |  Steps:    83733   Secs:   2746      |
+Episode:   500   Avg:   77.292   BestAvg:   87.884   σ:   40.995  |  Steps:   103037   Secs:   3426      |
+Episode:   600   Avg:   96.604   BestAvg:   97.911   σ:   47.829  |  Steps:   126027   Secs:   4125      |
+Episode:   700   Avg:   95.441   BestAvg:   98.294   σ:   50.705  |  Steps:   148457   Secs:   4824      |
+Episode:   800   Avg:   60.608   BestAvg:   98.384   σ:   39.045  |  Steps:   174980   Secs:   5541      |
+Episode:   900   Avg:   61.228   BestAvg:   98.384   σ:   25.987  |  Steps:   206496   Secs:   6282      |
+Episode:  1000   Avg:   64.467   BestAvg:   98.384   σ:   23.401  |  Steps:   234936   Secs:   7008      |
+```
+
+#### PG Evaluation
+```
+Loaded: checkpoints/supermariobros_pg/episode.700.pth
+Episode:     1   Avg:   28.028   BestAvg:     -inf   σ:    0.000  |  Steps:       57   Reward:   28.028  |
+Episode:     2   Avg:   47.720   BestAvg:     -inf   σ:   19.692  |  Steps:      154   Reward:   67.412  |
+Episode:     3   Avg:   54.420   BestAvg:     -inf   σ:   18.663  |  Steps:      151   Reward:   67.821  |
+Episode:     4   Avg:   57.464   BestAvg:     -inf   σ:   17.000  |  Steps:      141   Reward:   66.593  |
+Episode:     5   Avg:   59.105   BestAvg:     -inf   σ:   15.556  |  Steps:      146   Reward:   65.673  |
+Episode:     6   Avg:   90.701   BestAvg:     -inf   σ:   72.062  |  Steps:      582   Reward:  248.676  |
+Episode:     7   Avg:   81.572   BestAvg:     -inf   σ:   70.364  |  Steps:       70   Reward:   26.801  |
+Episode:     8   Avg:   79.623   BestAvg:     -inf   σ:   66.021  |  Steps:      174   Reward:   65.980  |
+Episode:     9   Avg:   73.708   BestAvg:     -inf   σ:   64.454  |  Steps:       65   Reward:   26.392  |
+Episode:    10   Avg:   77.477   BestAvg:     -inf   σ:   62.183  |  Steps:      283   Reward:  111.398  |
 ```

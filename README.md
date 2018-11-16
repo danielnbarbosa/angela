@@ -32,7 +32,7 @@ Visualizations are provided for some of the environments just to whet your appet
  - **Box2D**: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
  - **Classic control**: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
  - **MuJoCo**: HalfCheetah | Hopper | InvertedDoublePendulum | [InvertedPendulum](results/videos/invertedpendulum.gif) | [Reacher](results/videos/reacher_gym.gif)
- - **NES**: SuperMarioBros
+ - **NES**: [SuperMarioBros](https://www.youtube.com/watch?v=Zj0pCtK127o)
  - **Toy text**: FrozenLake | FrozenLake8x8
 
 ##### [**Unity ML**](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md)
