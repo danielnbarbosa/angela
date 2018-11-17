@@ -1,6 +1,6 @@
 #### Notes
 
-- Use the meta version (`ppaquette/meta-SuperMarioBros-Tiles-v0`) of the Super Mario environments to avoid environment restarting on death.  Instead just reset environment.
+- Use the meta version (`ppaquette/meta-SuperMarioBros-Tiles-v0`) of the Super Mario environments to avoid environment restarting on death.  Instead just reset environment.   However this has the unfortunate side effect of restarting Mario from the start of the last finished level vs the beginning of World 1-1.
 - Set the max timesteps to beyond the level timeout (~4000 steps) to avoid episode terminating without death, otherwise it gets frozen.
 - The environment expects 6 different simultaneous inputs, but many combinations are not useful (e.g. left and right) so the action_map defines only the useful combinations.
 - Random agent averages score of 40 over 10 rollouts.
@@ -71,29 +71,23 @@ Episode:   400   Avg:   63.703   BestAvg:   69.498   σ:   31.058  |  Steps:   3
 
 #### PG
 ```
-Episode:   100   Avg:   76.631   BestAvg:     -inf   σ:   43.971  |  Steps:    22438   Secs:    690      |
-Episode:   200   Avg:   81.307   BestAvg:   87.884   σ:   45.704  |  Steps:    42617   Secs:   1371      |
-Episode:   300   Avg:   81.837   BestAvg:   87.884   σ:   45.200  |  Steps:    64049   Secs:   2062      |
-Episode:   400   Avg:   78.041   BestAvg:   87.884   σ:   45.575  |  Steps:    83733   Secs:   2746      |
-Episode:   500   Avg:   77.292   BestAvg:   87.884   σ:   40.995  |  Steps:   103037   Secs:   3426      |
-Episode:   600   Avg:   96.604   BestAvg:   97.911   σ:   47.829  |  Steps:   126027   Secs:   4125      |
-Episode:   700   Avg:   95.441   BestAvg:   98.294   σ:   50.705  |  Steps:   148457   Secs:   4824      |
-Episode:   800   Avg:   60.608   BestAvg:   98.384   σ:   39.045  |  Steps:   174980   Secs:   5541      |
-Episode:   900   Avg:   61.228   BestAvg:   98.384   σ:   25.987  |  Steps:   206496   Secs:   6282      |
-Episode:  1000   Avg:   64.467   BestAvg:   98.384   σ:   23.401  |  Steps:   234936   Secs:   7008      |
-```
-
-#### PG Evaluation
-```
-Loaded: checkpoints/supermariobros_pg/episode.700.pth
-Episode:     1   Avg:   28.028   BestAvg:     -inf   σ:    0.000  |  Steps:       57   Reward:   28.028  |
-Episode:     2   Avg:   47.720   BestAvg:     -inf   σ:   19.692  |  Steps:      154   Reward:   67.412  |
-Episode:     3   Avg:   54.420   BestAvg:     -inf   σ:   18.663  |  Steps:      151   Reward:   67.821  |
-Episode:     4   Avg:   57.464   BestAvg:     -inf   σ:   17.000  |  Steps:      141   Reward:   66.593  |
-Episode:     5   Avg:   59.105   BestAvg:     -inf   σ:   15.556  |  Steps:      146   Reward:   65.673  |
-Episode:     6   Avg:   90.701   BestAvg:     -inf   σ:   72.062  |  Steps:      582   Reward:  248.676  |
-Episode:     7   Avg:   81.572   BestAvg:     -inf   σ:   70.364  |  Steps:       70   Reward:   26.801  |
-Episode:     8   Avg:   79.623   BestAvg:     -inf   σ:   66.021  |  Steps:      174   Reward:   65.980  |
-Episode:     9   Avg:   73.708   BestAvg:     -inf   σ:   64.454  |  Steps:       65   Reward:   26.392  |
-Episode:    10   Avg:   77.477   BestAvg:     -inf   σ:   62.183  |  Steps:      283   Reward:  111.398  |
+Episode:   100   Avg:   66.763   BestAvg:     -inf   σ:   33.226  |  Steps:    57310   Secs:    812      |
+Episode:   200   Avg:   72.508   BestAvg:   76.393   σ:   40.901  |  Steps:    84111   Secs:   1499      |
+Episode:   300   Avg:   74.811   BestAvg:   78.736   σ:   42.466  |  Steps:   105475   Secs:   2163      |
+Episode:   400   Avg:   73.750   BestAvg:   78.736   σ:   41.295  |  Steps:   125659   Secs:   2818      |
+Episode:   500   Avg:   76.567   BestAvg:   78.736   σ:   41.331  |  Steps:   145670   Secs:   3474      |
+Episode:   600   Avg:   78.894   BestAvg:   80.741   σ:   39.877  |  Steps:   165625   Secs:   4131      |
+Episode:   700   Avg:   87.799   BestAvg:   89.861   σ:   52.748  |  Steps:   188732   Secs:   4801      |
+Episode:   800   Avg:   92.413   BestAvg:   93.600   σ:   48.748  |  Steps:   212937   Secs:   5474      |
+Episode:   900   Avg:   84.696   BestAvg:   94.225   σ:   46.920  |  Steps:   233634   Secs:   6132      |
+Episode:  1000   Avg:   87.311   BestAvg:   94.225   σ:   45.327  |  Steps:   254892   Secs:   6793      |
+Episode:  1100   Avg:   89.698   BestAvg:   94.225   σ:   46.880  |  Steps:   277241   Secs:   7458      |
+Episode:  1200   Avg:   97.582   BestAvg:  100.511   σ:   48.866  |  Steps:   300449   Secs:   8130      |
+Episode:  1300   Avg:  104.066   BestAvg:  104.381   σ:   49.167  |  Steps:   325570   Secs:   8809      |
+Episode:  1400   Avg:   96.025   BestAvg:  106.327   σ:   44.991  |  Steps:   347414   Secs:   9471      |
+Episode:  1500   Avg:   98.833   BestAvg:  106.327   σ:   44.110  |  Steps:   370549   Secs:  10140      |
+Episode:  1600   Avg:  105.485   BestAvg:  106.327   σ:   53.419  |  Steps:   394432   Secs:  10815      |
+Episode:  1700   Avg:  114.549   BestAvg:  115.933   σ:   54.075  |  Steps:   420381   Secs:  11498      |
+Episode:  1800   Avg:  105.741   BestAvg:  123.471   σ:   60.671  |  Steps:   445510   Secs:  12178      |
+Episode:  1900   Avg:   55.687   BestAvg:  123.471   σ:   26.342  |  Steps:   474976   Secs:  12876      |
 ```
