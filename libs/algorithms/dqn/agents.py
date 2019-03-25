@@ -29,7 +29,8 @@ class Agent():
                  use_double_dqn=True,
                  use_prioritized_experience_replay=False,
                  alpha_start=0.5,
-                 alpha_decay=0.9992):
+                 alpha_decay=0.9992,
+                 action_map=None):
         """
         Params
         ======
@@ -47,6 +48,7 @@ class Agent():
             use_prioritized_experience_replay (bool): wheter to use PER algorithm
             alpha_start (float): initial value for alpha, used in PER
             alpha_decay (float): decay rate for alpha, used in PER
+            action_map (dict): how to map action indexes from model output to gym environment
         """
         random.seed(seed)
 
@@ -95,6 +97,8 @@ class Agent():
             self.qnetwork_target.load_state_dict(torch.load(load_file + '.pth'))
             #self.memory = dill.load(open(load_file + '.buffer.pck','rb'))
             print('Loaded: {}'.format(load_file))
+
+        self.action_map = action_map
 
     def step(self, state, action, reward, next_state, done):
         # Save experience in replay memory

@@ -52,7 +52,12 @@ def train(environment, agent, n_episodes=2000, max_t=1000,
             # select an action
             action = agent.act(state, eps)
             # take action in environment
-            next_state, reward, done = environment.step(action)
+            # use action_map if it exists
+            if agent.action_map:
+                env_action = agent.action_map[action]
+            else:
+                env_action = action
+            next_state, reward, done = environment.step(env_action)
             # update agent with returned information
             agent.step(state, action, reward, next_state, done)
             state = next_state

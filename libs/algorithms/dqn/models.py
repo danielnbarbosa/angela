@@ -15,6 +15,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torchsummary import summary
+import matplotlib.pyplot as plt
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -95,6 +96,42 @@ class Conv3D(nn.Module):
         return x
 
 
+class Conv2D(nn.Module):
+    """
+    CNN for learning from pixels.  Assumes 4 stacked 96x96 float32 grayscale frames.
+    Total parameters:
+    """
+
+    def __init__(self, action_size, seed=0):
+        super(Conv2D, self).__init__()
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed(seed)
+        # input shape:                                     (m, 4, 96, 96)
+        self.conv1 = nn.Conv2d(4, 32, 4, stride=4)       # (m, 32, 24, 24)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 64, 4, stride=4)      # (m, 32, 6, 6)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.conv3 = nn.Conv2d(64, 64, 3, stride=1)      # (m, 32, 4, 4)
+        self.bn3 = nn.BatchNorm2d(64)
+        self.fc = nn.Linear(64*4*4, 128)                 # (m, 1024, 128)
+        self.output = nn.Linear(128, action_size)        # (m, 128, n_a)
+
+    def forward(self, x):
+        #x = x.float() / 255                  # normalization
+        # DEBUG
+        #print('in:  {}'.format(x.shape))
+        #print('im:  {}'.format(x[0][0].shape))
+        #plt.imshow(x[0][0])
+        #plt.show()
+        x = F.relu(self.bn1(self.conv1(x)))  # convolutions
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = x.view(x.size(0), -1)            # flatten
+        x = F.relu(self.fc(x))               # fully connected layer
+        x = self.output(x)
+        #print('out: {}'.format(x.shape))
+        return x
+
 
 # Initialize local and target network with identical initial weights.
 
@@ -116,5 +153,12 @@ class Conv3D2x():
     def __init__(self, state_size, action_size, seed=0):
         self.local = Conv3D(action_size, seed).to(device)
         self.target = Conv3D(action_size, seed).to(device)
+        print(self.local)
+        summary(self.local, (state_size))
+
+class Conv2D2x():
+    def __init__(self, state_size, action_size, seed=0):
+        self.local = Conv2D(action_size, seed).to(device)
+        self.target = Conv2D(action_size, seed).to(device)
         print(self.local)
         summary(self.local, (state_size))

@@ -206,3 +206,56 @@ class GymMario(Gym):
         Does nothing because rendering is always on.
         """
         pass
+
+class GymCarRacing(Gym):
+    """
+    OpenAI Gym Environment for use with CarRacing environment.
+    Does pre-processing by converting to grayscale.
+    Stacks 4 frames into state.
+    """
+
+    def __init__(self, name, seed=0):
+        super(GymCarRacing, self).__init__(name, seed)
+        self.full_state = np.zeros((1, 4, 96, 96), dtype=np.float32)
+
+    def _prepro(self, frame):
+        """Pre-process 96x96x3 uint8 frame into 96x96 float32 frame."""
+        frame = rgb2gray(frame)  # convert to grayscale
+        #print('_prepro() frame after rgb2gray:  {}'.format(frame))  # DEBUG
+        return frame
+
+    def _add_frame(self, frame):
+        """ Add single frame to state.  Used for processing multiple states over time."""
+        self.full_state[:, 3, :, : :] = self.full_state[:, 2, :, : :]
+        self.full_state[:, 2, :, : :] = self.full_state[:, 1, :, : :]
+        self.full_state[:, 1, :, : :] = self.full_state[:, 0, :, : :]
+        self.full_state[:, 0, :, : :] = frame
+
+    def reset(self):
+        """Reset the environment."""
+        frame = self.env.reset()
+        # needed to make the environment generate proper pixels
+        self.env.render(mode='rgb_array')
+        #print('reset() frame from environment:  {}'.format(frame.shape))  # DEBUG
+        frame = self._prepro(frame)
+        #print('reset() frame after _prepro():  {}'.format(frame.shape))  # DEBUG
+        frame = frame.reshape(1, 96, 96)
+        #print('reset() frame after reshape:  {}'.format(frame.shape))  # DEBUG
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        self._add_frame(frame)
+        #print('reset():  {}'.format(self.full_state.shape))  # DEBUG
+        return self.full_state.copy()
+
+    def step(self, action):
+        """Take a step in the environment.  Given an action, return the next state."""
+        frame, reward, done, _ = self.env.step(action)
+        #print('step() frame from environment:  {}'.format(frame))  # DEBUG
+        frame = self._prepro(frame)
+        #print('step() frame after _prepro():  {}'.format(frame))  # DEBUG
+        frame = frame.reshape(1, 96, 96)
+        #print('step() frame after reshape:  {}'.format(frame))  # DEBUG
+        self._add_frame(frame)
+        #print('step():  {}'.format(self.full_state))  # DEBUG
+        return self.full_state.copy(), reward, done
