@@ -214,7 +214,7 @@ class GymCarRacing(Gym):
     Stacks 4 frames into state.
     """
 
-    def __init__(self, name, seed=0):
+    def __init__(self, name, max_steps=None, seed=0):
         super(GymCarRacing, self).__init__(name, seed)
         self.full_state = np.zeros((1, 4, 96, 96), dtype=np.float32)
 
