@@ -8,11 +8,11 @@ environment = {
 
 model = {
     'state_size': (4, 96, 96),
-    'action_size': 4
+    'action_size': 5
 }
 
 agent = {
-    'action_size': 4,
+    'action_size': 5,
     'batch_size': 32,
     'use_double_dqn': False,
     'gamma': 0.99,
@@ -23,7 +23,7 @@ agent = {
                    1: [0., 0., 1.],
                    2: [-1., 0., 0.],
                    3: [1., 0., 0.],
-                   4: [0., 0., 0.]}}
+                   4: [0., 0., 0.]}
 }
 
 train = {
