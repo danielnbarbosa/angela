@@ -12,7 +12,7 @@ ANGELA: Artificial Neural Generated Environment Learning Agent
 
 ## Introduction
 
-Angela is a deep reinforcement learning agent capable of solving a variety environments.  She implements several different RL algorithms and neural network models.
+Angela is a deep reinforcement learning agent, or rather a collection of agents, capable of solving a variety environments.  She implements several different RL algorithms and neural network models.
 
 She can work with both discrete and continuous action spaces allowing her to tackle anything from Atari games to robotic control problems.
 
@@ -29,7 +29,7 @@ Visualizations are provided for some of the environments just to whet your appet
 #### Environments
 ##### [**Open AI Gym**](https://gym.openai.com/envs)
  - **Atari**: [Pong](results/videos/pong.mp4)
- - **Box2D**: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous
+ - **Box2D**: [BipedalWalker](https://www.youtube.com/watch?v=TEFXp2Ro-10) | [LunarLander](results/videos/lunarlander.gif) | LunarLanderContinuous | CarRacing
  - **Classic control**: Acrobot | [Cartpole](results/videos/cartpole.gif) | [MountainCar](results/videos/mountaincar.gif) | MountainCarContinuous | Pendulum
  - **MuJoCo**: HalfCheetah | Hopper | InvertedDoublePendulum | [InvertedPendulum](results/videos/invertedpendulum.gif) | [Reacher](results/videos/reacher_gym.gif)
  - **NES**: [SuperMarioBros](https://www.youtube.com/watch?v=Zj0pCtK127o)
@@ -59,6 +59,7 @@ Visualizations are provided for some of the environments just to whet your appet
  - **maddpg**: low dimensional state spaces
 
 #### Misc
+- loads hyperparameters from configuration files
 - outputs training stats via console, tensorboard and matplotlib
 - summarizes model structure
 - saves and loads model weights
